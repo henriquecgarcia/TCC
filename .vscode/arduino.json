@@ -1,0 +1,6 @@
+{
+    "port": "/dev/ttyACM0",
+    "configuration": "FlashFreq=80,UploadSpeed=921600,DebugLevel=none,EraseFlash=none",
+    "board": "esp32-bluepad32:esp32:esp32doit-devkit-v1",
+    "sketch": "carrinho/carrinho.ino"
+}
