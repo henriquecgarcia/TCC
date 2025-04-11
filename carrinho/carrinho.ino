@@ -353,7 +353,7 @@ void MQTT_Callback(char* topic, byte* payload, unsigned int length) {
 	}
 }
 
-void tinybt_setup() {
+void bluepadbt_setup() {
 	// This function will be removed at the end of the project, it's for the beginning of the project.
 	Serial.printf("Firmware: %s\n", BP32.firmwareVersion());
 	const uint8_t *addr = BP32.localBdAddress();
@@ -380,7 +380,7 @@ void setup() {
 
 	ConnectToWiFi();
 
-	tinybt_setup();
+	bluepadbt_setup();
 
 	led_carro.setup();
 	led_estufa.setup();
@@ -507,43 +507,4 @@ void loop() {
 
 	// carro.loop();
 	// mqtt.loop();
-
-	if (millis() - lastRead > READ_INTERVAL) {
-		lastRead = millis();
-
-		if (cur_sensor == 1) {
-			int ldr = analogRead(ldr_pin);
-			ldr_read_count++;
-			Serial.print(ldr_read_count);
-			Serial.print(") LDR: ");
-			Serial.println(ldr);
-			cur_sensor = 2;
-			ldr_medium[ldr_medium_idx] = ldr;
-			ldr_medium_idx++;
-			ldr_medium_idx = ldr_medium_idx % 10;
-		} else {
-			float temp = readDHTTemp();
-			Serial.print("Temperatura: ");
-			Serial.println(temp);
-			float humi = readDHTHumidity();
-			Serial.print("Umidade: ");
-			Serial.println(humi);
-			cur_sensor = 1;
-
-			mqttClient.publish("/Henrique/IoT/TF/DHT/Temperature", String(temp).c_str());
-			mqttClient.publish("/Henrique/IoT/TF/DHT/Humidity", String(humi).c_str());
-			if (ldr_read_count >= 10) {
-				int ldr_read = 0;
-				for (int i = 0; i < 10; i++) {
-					ldr_read += ldr_medium[i];
-				}
-				ldr_read /= 10;
-				mqttClient.publish("/Henrique/IoT/TF/LDR", String(ldr_read).c_str());
-				if (ldr_read < 75) {
-					led_estufa.on();
-					mqttClient.publish("/Henrique/IoT/TF/LED_ESTUFA/Status", "1");
-				}
-			}
-		}
-	}
 }
