@@ -1,4 +1,39 @@
-# Remote Controled Car
+# Autonomous Car for Delivery
+Final Course Project fo Computer Science at UNIFESP (Federal University of São Paulo).
+
+## Project Details:
+**Author**: Henrique Campanha Garcia
+**Professor**: Dr. André Marcorin de Oliveira
+**Course**: Computer Science
+**University**: Federal University of São Paulo (UNIFESP)
+
+## Description
+This project is an autonomous car (drone) with the porpose of transporting packages from one place to another using a known map. The drone will be fully autonomous, using an ESP32, a motor driver, 4 motors, a battery and some other sensors for minor systems. To operate the drone, you will connect on it's IP connection, select wherever you want it to go, put the package on top of the drone and press for it to go.
+
+The drone also has some other sensors that will help on it's navigation and controling the location where it is and preventing it from colliding with things on it's way.
+
+### How to use:
+To use this projects, you need to have the following libraries installed:
+- `WiFi`
+- `PubSubClient`
+- `VL53L0x` (From Adafruit)
+
+## Components:
+- ESP32
+- Motor Driver
+- 4 DC Motors (3-6v DC Motor)
+- 2 Encoder (Q2-E2)
+- Battery
+- VL53L0x
+- 2 Reflective sensors (QRE1113)
+
+### ESP32
+The ESP32 used is the ESP32 DOIT DEVKIT V1, which has a ESP-WROOM-32 module, which has a dual core processor, 4MB of flash memory, 520KB of SRAM, and a lot of other features.
+
+### Motor Driver
+The motor driver used is the L298N, which is a dual H-Bridge motor driver, which can control 2 motors at the same time, and can control the speed of the motors.
+> Obs: In each side of the car, there are 2 motors, meaning the the Motor Driver is connected to 4 motors at once (2 in each side).
+
 This is a project to build a remote controlled car using an ESP32, a motor driver, 4 motors, a battery and a remote control. The remote control used is a normal gamepad controller, but we will only be using the triggers and the left joystick, where the right trigger will be used to move the car forward, the left trigger will be used to move the car backwards, and the left joystick will be used to steer the car, though the car will only be able to do one of these actions at a time.
 
 The car has also some other components, like a LDR to detect light, DHT11 to detect temperature and humidity, and a ultrasonic sensor to detect distance ahead of the car. It will send this data to a MQTT broker, so it can be accessed from anywhere.
