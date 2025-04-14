@@ -19,6 +19,22 @@
 
 - Total: 7,50x4 + 8,07x4 + 37,90x2 + 14,15 = R$ 119,98 [!PARCIAL]
 
+
+## Pre-prontos:
+### Carro Chassi:
+- Sem Ponte H
+- Sem Encoder
+  - Sem Bateria
+1. [Mercado Livre](https://produto.mercadolivre.com.br/MLB-1420987890-kit-chassi-duplo-4wd-robotica-carro-rob-rodas-motores-_JM#polycard_client=recommendations_vip&reco_backend=ranker_compl&reco_model=retrieval-ranker-complementarios&reco_client=vip&reco_item_pos=4&reco_backend_type=low_level&reco_id=f70a94bf-badf-4e15-a20f-d23ceb0021ab&wid=MLB1420987890&sid=recos) - R$ 126,91 - Final: 126,91 + 14,15 + 37,90x2 + 181,49 = R$ 400,35
+2. [Robocore](https://www.robocore.net/kit-plataforma-robotica/kit-chassi-4wd-com-motores-e-rodas) - R$ 89,90 - Valor final: 89,90 + 14,15 + 37,90x2 + 181,49 = R$ 381,34
+
 ## Itens adicionais:
 1. [Bateria (11.1v) + Carregador](https://produto.mercadolivre.com.br/MLB-4666561840-kit-bateria-de-lipo-111v-1100-mah-3s-carregador-leo-_JM#polycard_client=search-nordic&position=23&search_layout=grid&type=item&tracking_id=be570d45-68bc-4639-8398-bb0edaa5096e&wid=MLB4666561840&sid=search) - R$ 181,49
 
+
+## Dimensões:
+- Sensor de Refletância QRE - 0.6inch x 0.3inch (1.5cm x 0.8cm)
+- Motor DC 3-6v - 70 mm x 37 mm x 23 mm
+- Roda - 66 mm de diâmetro, 26 mm de largura só a roda e 31 mm de largura com o cubo do eixo
+- Ponte H - 43 mm x 43 mm x 27 mm
+- Encoder E2-Q2 - 36.5 mm x 22.5 mm -- Vai junto ao motor
