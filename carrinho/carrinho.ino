@@ -31,8 +31,6 @@
 		* Externo ao ESP32, ligado na ponte H.
 */
 
-
-
 #include <PubSubClient.h>
 #include <WiFi.h>
 #include <WebServer.h>
@@ -184,15 +182,15 @@ public:
 
 	float getGyroscopeX() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.x;
+		return g.gyro.x * 10.0f * 1229.0f / 4096.0f + 18.0f;
 	}
 	float getGyroscopeY() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.y;
+		return g.gyro.y * 10.0f * 1229.0f / 4096.0f + 70.0f;
 	}
 	float getGyroscopeZ() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.z;
+		return g.gyro.z * 10.0f * 1229.0f / 4096.0f + 270.0f;
 	}
 	float getTemperatureC() {
 		sensors_event_t temp = this->getTemperature();
@@ -507,7 +505,6 @@ void loop() {
 
 	// Encoders:
 	ponte->mostrarLeiturasEncoders();
-	// Serial.println("Encoders lidos!");
 
 	if (true) {
 		return;
