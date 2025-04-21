@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Carrinho</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .speed {
+      font-size: 4rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+      border-radius: 1rem;
+      flex: 1;
+      margin: 0 0.5rem;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .card p {
+      margin: 0.5rem 0 0;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Status do Carrinho</h1>
+    <div class="speed" id="speed">-- RPM</div>
+    <div class="info">
+      <div class="card">
+        <h2>Direção</h2>
+        <p id="direction">--</p>
+      </div>
+      <div class="card">
+        <h2>Contadores</h2>
+        <p id="counters">-- / --</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function fetchData() {
+      try {
+        const res = await fetch('/');
+        const data = await res.json();
+        document.getElementById('speed').innerText = data.rpmD + ' RPM (D)';
+        document.getElementById('direction').innerText = data.direcaoD;
+        document.getElementById('counters').innerText = data.contD1 + ' | ' + data.contD2;
+      } catch (err) {
+        console.error('Erro ao buscar dados:', err);
+      }
+    }
+
+    // Atualiza a cada 5 segundos
+    fetchData();
+    setInterval(fetchData, 5000);
+  </script>
+</body>
+</html>
+

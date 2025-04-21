@@ -6,10 +6,6 @@
 	Ideia do projeto: Utilizar de uma carcaça de um carrinho de controle remoto para controlar o carrinho para de modo remoto, fazer leituras de sensores para monitoramento de temperatura, umidade e luminosidade, para então processar os dados para saber se a central deveria ligar ou desligar luzes, ventuinhas e etc em uma lavoura. Os dados são enviados para um servidor MQTT para monitoramento a distância.
 	Itens utilizados:
 	- ESP32 --> Controlador do carrinho, que controla tudo.
-	- Conversor de nível lógico --> Utilizado para converter o sinal de 5V do HC-SR04 e do DHT11 para 3.3V do ESP32.
-	- Sensor Ultrassônico (HC-SR04) --> Sensor de distância. Utilizado para evitar colisões, bloqueando o movimento (para frente) do carrinho caso tenha algo muito perto.
-		* Pino 34 --> Conversor de nível lógico --> HC-SR04 [TRIGGER].
-		* Pino 39 --> Conversor de nível lógico --> HC-SR04 [ECHO].
 	- Ponte H --> Utilizado para controlar os motores do carrinho.
 	- 4 motores CC --> Utilizado para movimentar o carrinho.
 		* Motor 1: Motor direito.
@@ -18,6 +14,19 @@
 		* Motor 2: Motor esquerdo.
 			| Pino 33 --> Ponte H.
 			| Pino 25 --> Ponte H.
+	- 2 encoders --> Utilizado para medir a velocidade do carrinho.
+		* Encoder 1: Motor direito.
+			| Pino 26 --> Encoder.
+			| Pino 27 --> Encoder.
+		* Encoder 2: Motor esquerdo.
+			| Pino 18 --> Encoder.
+			| Pino 19 --> Encoder.
+	- 1 sensor de distância VL53L0X --> Utilizado para medir a distância do carrinho em relação a um obstáculo.
+		* Pino SDA --> 21
+		* Pino SCL --> 22
+	- 1 sensor MPU6050 --> Utilizado para medir a aceleração e Giroscopio do carrinho.
+		* Pino SDA --> 21
+		* Pino SCL --> 22
 	- 1 controle de videogame --> Utilizado para controlar o carrinho.
 		* Bluepad32, sem pino físico
 	- 1 bateria de 9V --> Utilizado para alimentar a ponte H que alimenta os motores e o ESP32 (via 5V).
@@ -28,14 +37,17 @@
 
 #include <PubSubClient.h>
 #include <WiFi.h>
-#include <Bluepad32.h>
+#include <Bluepad32.h> // Soon to be removed
+#include <WebServer.h>
+#include <SPIFFS.h>
 
+#include <Wire.h>
+#include "Adafruit_Sensor.h"
+#include "Adafruit_MPU6050.h"
+#include "Adafruit_VL53L0X.h"
 
 #define ULTRA_SONIC_READ_INTERVAL 100
 #define READ_INTERVAL 500
-#define DHTPIN 22
-#define DHTTYPE DHT11
-const int ldr_pin = A0;
 
 const char* ssid = "Canguru";
 const char* password = "VamoPula";
@@ -116,6 +128,7 @@ void dumpGamepad(ControllerPtr ctl) {
 WiFiClient wifiClient;
 
 PubSubClient mqttClient(wifiClient);
+WebServer server(80);
 
 void mqttConnect() {
 	char *clientId = "CLIENTID-UNIFESP-2024/2";
@@ -161,52 +174,111 @@ public:
 	}
 };
 
-class Sensor { // Classe para o sensor ultrassonico
+class VL53L0X {
 private:
-// Status: Checado e funcionando.
-	int echoPin, trigPin;
-	int lastValue;
+	Adafruit_VL53L0X *sensor;
 	unsigned long lastRead;
+	int last_reading;
 public:
-	Sensor(int trigPin, int echoPin) {
-		this->echoPin = echoPin;
-		this->trigPin = trigPin;
+	VL53L0X() {
+		this->sensor = new Adafruit_VL53L0X();
 		this->lastRead = 0;
-		this->lastValue = 0;
 	}
 
 	void setup() {
-		pinMode(this->echoPin, INPUT);
-		digitalWrite(this->echoPin, LOW);
-		pinMode(this->trigPin, OUTPUT);
-		digitalWrite(this->trigPin, LOW);
-	}
+		if (!this->sensor->begin()) {
+			Serial.println("Falha ao encontrar o sensor VL53L0X");
+			while (1);
+		}
 
-	bool isReading() {
-		return (millis() - this->lastRead) < ULTRA_SONIC_READ_INTERVAL;
+		Serial.println("Sensor VL53L0X encontrado!");
 	}
 
 	int loop() {
-		if (this->isReading()) {
-			return this->lastValue;
+		if (millis() - this->lastRead < 100) {
+			return this->last_reading;
 		}
-		int triggerStats = digitalRead(this->trigPin);
-		if (triggerStats == LOW) {
-			digitalWrite(this->trigPin, HIGH);
-			this->lastRead = millis();
-			return this->lastValue;
+		this->lastRead = millis();
+		VL53L0X_RangingMeasurementData_t measure;
+		this->sensor->rangingTest(&measure, false);
+		Serial.print("Distancia: ");
+		if (measure.RangeStatus != 4) { // if not out of range
+			this->last_reading = measure.RangeMilliMeter;
+			Serial.print(measure.RangeMilliMeter);
+			Serial.println(" mm");
+			return this->last_reading;
+		} else {
+			Serial.println("Fora do alcance");
+			return 99999;
 		}
-		digitalWrite(this->trigPin, LOW);
-		int duration = pulseIn(this->echoPin, HIGH);
-		int distance = duration / 58.0;
-		distance = abs(distance);
-		this->lastValue = distance;
-		Serial.print("Distancia no sensor ");
-		Serial.print(this->echoPin);
-		Serial.print(": ");
-		Serial.println(distance);
-		return distance;
 	}
+};
+
+class MPU6050 {
+private:
+	Adafruit_MPU6050 *sensor;
+public:
+	MPU6050() {
+		this->sensor = new Adafruit_MPU6050();
+	}
+
+	void setup() {
+		if (!this->sensor->begin()) {
+			Serial.println("Falha ao encontrar o sensor MPU6050");
+			while (1);
+		}
+		this->sensor->setAccelerometerRange(MPU6050_RANGE_2_G);
+		this->sensor->setGyroRange(MPU6050_RANGE_500_DEG);
+		this->sensor->setFilterBandwidth(MPU6050_BAND_21_HZ);
+	}
+
+	sensors_event_t getAccelerometer() {
+		sensors_event_t a, g, temp;
+		this->sensor->getEvent(&a, &g, &temp);
+		return a;
+	}
+	sensors_event_t getGyroscope() {
+		sensors_event_t a, g, temp;
+		this->sensor->getEvent(&a, &g, &temp);
+		return g;
+	}
+	sensors_event_t getTemperature() {
+		sensors_event_t a, g, temp;
+		this->sensor->getEvent(&a, &g, &temp);
+		return temp;
+	}
+
+	float getAccelerometerX() {
+		sensors_event_t a = this->getAccelerometer();
+		return a.acceleration.x;
+	}
+	float getAccelerometerY() {
+		sensors_event_t a = this->getAccelerometer();
+		return a.acceleration.y;
+	}
+	float getAccelerometerZ() {
+		sensors_event_t a = this->getAccelerometer();
+		return a.acceleration.z;
+	}
+
+	float getGyroscopeX() {
+		sensors_event_t g = this->getGyroscope();
+		return g.gyro.x;
+	}
+	float getGyroscopeY() {
+		sensors_event_t g = this->getGyroscope();
+		return g.gyro.y;
+	}
+	float getGyroscopeZ() {
+		sensors_event_t g = this->getGyroscope();
+		return g.gyro.z;
+	}
+	float getTemperatureC() {
+		sensors_event_t temp = this->getTemperature();
+		return temp.temperature;
+	}
+
+	void loop() {} // Não faz nada ainda, mas fará?
 };
 
 class Motor {
@@ -217,6 +289,13 @@ public:
 	Motor(int pin1, int pin2) {
 		this->pin1 = pin1;
 		this->pin2 = pin2;
+	}
+
+	int getPin1() {
+		return this->pin1;
+	}
+	int getPin2() {
+		return this->pin2;
 	}
 
 	void setup() {
@@ -242,19 +321,77 @@ public:
 	}
 };
 
+class Encoder {
+private:
+	int contadorCH1 = 0, contadorCH2 = 0;
+	int pinoCH1, pinoCH2;
+	int ultimoEstadoCH2 = LOW;
+	bool isSentidoHorario = true;
+
+	static Encoder* instance;
+	static void isrCH1() { instance->incrementarContadorCH1(); }
+	static void isrCH2() { instance->incrementarContadorCH2(); }
+
+	void incrementarContadorCH1() { contadorCH1++; }
+	void incrementarContadorCH2() {
+		contadorCH2++;
+		int estadoAtual = digitalRead(pinoCH2);
+		if (ultimoEstadoCH2 == LOW && estadoAtual == HIGH) {
+			isSentidoHorario = (digitalRead(pinoCH1) == LOW);
+		}
+		ultimoEstadoCH2 = estadoAtual;
+	}
+
+public:
+	Encoder(int ch1, int ch2) : pinoCH1(ch1), pinoCH2(ch2) {
+		instance = this;
+	}
+	void setup() {
+		pinMode(pinoCH1, INPUT_PULLUP);
+		pinMode(pinoCH2, INPUT_PULLUP);
+		attachInterrupt(digitalPinToInterrupt(pinoCH1), isrCH1, CHANGE);
+		attachInterrupt(digitalPinToInterrupt(pinoCH2), isrCH2, CHANGE);
+    }
+	bool getSentidoHorario() { return isSentidoHorario; }
+	int getContadorCH1() { return contadorCH1; }
+	int getContadorCH2() { return contadorCH2; }
+	int getVelocidadeRPM(int dentes = 6) {
+		int media = (contadorCH1 + contadorCH2) / 2;
+		return media / (dentes * 2);
+	}
+
+	void exibirDados() {
+		Serial.print("Sentido: ");
+		Serial.print(isSentidoHorario ? "horario" : "anti-horario");
+		Serial.print(" | Contador CH1: ");
+		Serial.print(contadorCH1);
+		Serial.print(" | Contador CH2: ");
+		Serial.print(contadorCH2);
+		Serial.print(" | Velocidade: ");
+		Serial.print(getVelocidadeRPM());
+		Serial.println(" RPM");
+	}
+};
+
 class ponteH {
 private:
-// Status: Funcionando
+// Status: A testar.
 	Motor *motorD, *motorE;
+	Encoder *encoderD, *encoderE;
+
 public:
-	ponteH(Motor *motor_d, Motor *motor_e) {
+	ponteH(Motor *motor_d, Motor *motor_e, Encoder *encoder_d, Encoder *encoder_e) {
 		this->motorD = motor_d;
 		this->motorE = motor_e;
+		this->encoderD = encoder_d;
+		this->encoderE = encoder_e;
 	}
 
 	void setup() {
 		this->motorD->setup();
 		this->motorE->setup();
+		this->encoderD->setup();
+		this->encoderE->setup();
 	}
 
 	void forward() {
@@ -281,6 +418,14 @@ public:
 		this->motorD->stop();
 		this->motorE->stop();
 	}
+
+	void mostrarLeiturasEncoders() {
+		Serial.print("Motor D: ");
+		this->encoderD->exibirDados();
+		Serial.print("Motor E: ");
+		this->encoderE->exibirDados();
+		Serial.println();
+	}
 };
 
 void ConnectToWiFi(){
@@ -301,15 +446,19 @@ void ConnectToWiFi(){
 	// delay(500);
 	// mqttClient.publish("/srs/usrs/LUISAO-MandaPix-10pila/IoT", "1");
 
+Encoder* Encoder::instance = nullptr;
+
+VL53L0X *sensor = new VL53L0X();
+MPU6050 *sensorMPU = new MPU6050();
+
 Motor *motorD = new Motor(12, 13);
 Motor *motorE = new Motor(33, 25);
-ponteH *ponte = new ponteH(motorD, motorE);
-// TRIGGER > ECHO
-Sensor *SensorFrontal = new Sensor(26, 27);
+Encoder *encoderD = new Encoder(35, 34);
+Encoder *encoderE = new Encoder(32, 39);
+ponteH *ponte = new ponteH(motorD, motorE, encoderD, encoderE);
 
 // MQTT mqtt = MQTT("mqtt.flespi.io");
 LED led_carro = LED(2); // Led da Lavoura, controlado pelo MQTT
-LED led_estufa = LED(4); // Led da Estufa, controlado pelo MQTT e pelo LDR
 
 void MQTT_Callback(char* topic, byte* payload, unsigned int length) {
 	// if (1 == 1) {
@@ -339,18 +488,26 @@ void MQTT_Callback(char* topic, byte* payload, unsigned int length) {
 		} else {
 			led_carro.off();
 		}
-	} else if (strcmp(topic, "/Henrique/IoT/TF/LED_ESTUFA") == 0) {
-		if (strcmp(message, "1") == 0) {
-			// led_estufa.on();
-		} else if (message[0] == '2') { 
-			led_estufa.toggle();
-			mqttClient.publish("/Henrique/IoT/TF/LED_ESTUFA/Status", led_estufa.isOn() ? "1" : "0");
-		} else {
-			led_estufa.off();
-		}
 	} else {
 		Serial.println("Topic not found!");
 	}
+}
+
+void handleData() {
+	String json = "{";
+	// Motor Direito
+	json += "\"direcaoD\":\"" + String( encoderD->getSentidoHorario() ? "frente" : "tras") + "\",";
+	json += "\"rpmD\":"    + String( encoderD->getVelocidadeRPM()) + ",";
+	json += "\"contD1\":"  + String( encoderD->getContadorCH1()) + ",";
+	json += "\"contD2\":"  + String( encoderD->getContadorCH2()) + ",";
+	// Motor Esquerdo
+	json += "\"direcaoE\":\"" + String( encoderE->getSentidoHorario() ? "frente" : "tras") + "\",";
+	json += "\"rpmE\":"    + String( encoderE->getVelocidadeRPM()) + ",";
+	json += "\"contE1\":"  + String( encoderE->getContadorCH1()) + ",";
+	json += "\"contE2\":"  + String( encoderE->getContadorCH2());
+	json += "}";
+
+	server.send(200, "application/json", json);
 }
 
 void bluepadbt_setup() {
@@ -363,8 +520,7 @@ void bluepadbt_setup() {
 	// Setup the Bluepad32 callbacks
 	BP32.setup(&onConnectedGamepad, &onDisconnectedGamepad);
 
-	// "forgetBluetoothKeys()" should be called when the user performs
-	// a "device factory reset", or similar.
+	// "forgetBluetoothKeys()" should be called when the user performs  a "device factory reset", or similar.
 	// Calling "forgetBluetoothKeys" in setup() just as an example.
 	// Forgetting Bluetooth keys prevents "paired" gamepads to reconnect.
 	// But might also fix some connection / re-connection issues.
@@ -378,38 +534,84 @@ bool isMovingBackward = false;
 void setup() {
 	Serial.begin(115200);
 
+	if (!SPIFFS.begin(true)) {
+		Serial.println("SPIFFS Mount Failed");
+		return;
+	}
+
 	ConnectToWiFi();
 
 	bluepadbt_setup();
 
 	led_carro.setup();
-	led_estufa.setup();
 	Serial.println("Iniciando conexão com o MQTT...");
 
-	mqttClient.setServer("mqtt.flespi.io", 1883);
-	mqttClient.setCallback(MQTT_Callback);
-	mqttConnect();
-	mqttClient.subscribe("/Henrique/IoT/TF/LED_CARRO");
-	mqttClient.subscribe("/Henrique/IoT/TF/LED_ESTUFA");
+	// mqttClient.setServer("mqtt.flespi.io", 1883);
+	// mqttClient.setCallback(MQTT_Callback);
+	// mqttConnect();
+	// mqttClient.subscribe("/Henrique/IoT/TF/LED_CARRO");
 
 	Serial.println("Connected to MQTT broker!");
 
 	// carro.setup();
 
 	ponte->setup();
-	SensorFrontal->setup();
+	sensor->setup();
+	sensorMPU->setup();
 
 	Serial.println("Setup completo!");
+
+	// Define rota raiz
+	server.serveStatic("/", SPIFFS, "/dashboard.html");
+	server.on("/data", HTTP_GET, handleData);
+
+	// Inicia servidor
+	server.begin();
+	Serial.println("Servidor HTTP iniciado");
 }
 
 unsigned long lastRead = 0;
 
-int cur_sensor = 1;
-int ldr_read_count = 0;
-int ldr_medium[10];
-int ldr_medium_idx = 0;
-
 void loop() {
+	server.handleClient();
+
+	if (millis() - lastRead < 1000) {
+		return;
+	}
+	lastRead = millis();
+
+	int front_distance = sensor->loop();
+	Serial.print("Distancia: ");
+	if (front_distance < 100) { // 10 cm
+		Serial.print("Obstáculo a ");
+		Serial.print(front_distance);
+		Serial.println(" mm");
+	} else {
+		Serial.println("Sem obstáculo");
+	}
+	Serial.print("Acelerômetro: ");
+	Serial.print(sensorMPU->getAccelerometerX());
+	Serial.print(" ");
+	Serial.print(sensorMPU->getAccelerometerY());
+	Serial.print(" ");
+	Serial.print(sensorMPU->getAccelerometerZ());
+	Serial.println();
+	Serial.print("Giroscópio: ");
+	Serial.print(sensorMPU->getGyroscopeX());
+	Serial.print(" ");
+	Serial.print(sensorMPU->getGyroscopeY());
+	Serial.print(" ");
+	Serial.print(sensorMPU->getGyroscopeZ());
+	Serial.println();
+
+	// Encoders:
+	ponte->mostrarLeiturasEncoders();
+	// Serial.println("Encoders lidos!");
+
+	if (true) {
+		return;
+	}
+
 	if (!mqttClient.connected()){
 		mqttConnect();
 	}
@@ -417,11 +619,8 @@ void loop() {
 
 	// This call fetches all the gamepad info from the NINA (ESP32) module.
 	// Just call this function in your main loop.
-	// The gamepads pointer (the ones received in the callbacks) gets updated
-	// automatically.
+	// The gamepads pointer (the ones received in the callbacks) gets updated automatically.
 	BP32.update();
-
-	int front_distance = SensorFrontal->loop();
 
 	// It is safe to always do this before using the gamepad API.
 	// This guarantees that the gamepad is valid and connected.
@@ -430,8 +629,7 @@ void loop() {
 
 		if (myGamepad && myGamepad->isConnected()) {
 			// There are different ways to query whether a button is pressed.
-			// By query each button individually:
-			//	a(), b(), x(), y(), l1(), etc...
+			// By query each button individually: a(), b(), x(), y(), l1(), etc...
 			if (myGamepad->a()) {
 				static int colorIdx = 0;
 				// Some gamepads like DS4 and DualSense support changing the color LED.
@@ -457,18 +655,14 @@ void loop() {
 				// Turn on the 4 LED. Each bit represents one LED.
 				static int led = 0;
 				led++;
-				// Some gamepads like the DS3, DualSense, Nintendo Wii, Nintendo Switch
-				// support changing the "Player LEDs": those 4 LEDs that usually
-				// indicate the "gamepad seat". It is possible to change them by
-				// calling:
+				// Some gamepads like the DS3, DualSense, Nintendo Wii, Nintendo Switch support changing the "Player LEDs": those 4 LEDs that usually indicate the "gamepad seat". It is possible to change them by calling:
 				myGamepad->setPlayerLEDs(led & 0x0f);
 			}
 
 			if (myGamepad->x()) {
 				// Duration: 255 is ~2 seconds
 				// force: intensity
-				// Some gamepads like DS3, DS4, DualSense, Switch, Xbox One S support
-				// rumble.
+				// Some gamepads like DS3, DS4, DualSense, Switch, Xbox One S support rumble.
 				// It is possible to set it by calling:
 				myGamepad->setRumble(0xc0 /* force */, 0xc0 /* duration */);
 			}
@@ -478,7 +672,7 @@ void loop() {
 			int brake = myGamepad->brake();
 
 			if (throttle > 0) {
-				if (front_distance < 30) {
+				if (front_distance < 100) { // 10 cm
 					ponte->stop();
 					led_carro.on();
 					mqttClient.publish("/Henrique/IoT/TF/LED_CARRO/Status", "1");
