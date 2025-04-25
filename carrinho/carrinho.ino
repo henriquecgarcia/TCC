@@ -3,7 +3,6 @@
 	Alunos: Henrique Campanha Garcia
 	Professor Orientador: André Marcorin
 	Universidade: UNIFESP - Campus São José dos Campos
-	Ideia do projeto: Utilizar de uma carcaça de um carrinho de controle remoto para controlar o carrinho para de modo remoto, fazer leituras de sensores para monitoramento de temperatura, umidade e luminosidade, para então processar os dados para saber se a central deveria ligar ou desligar luzes, ventuinhas e etc em uma lavoura. Os dados são enviados para um servidor MQTT para monitoramento a distância.
 	Itens utilizados:
 	- ESP32 --> Controlador do carrinho, que controla tudo.
 	- Ponte H --> Utilizado para controlar os motores do carrinho.
@@ -24,16 +23,15 @@
 	- 1 sensor de distância VL53L0X --> Utilizado para medir a distância do carrinho em relação a um obstáculo.
 		* Pino SDA --> 21
 		* Pino SCL --> 22
-	- 1 sensor MPU6050 --> Utilizado para medir a aceleração e Giroscopio do carrinho.
+	- 1 sensor MPU6050 --> Utilizado para medir a aceleração e Giroscópio do carrinho.
 		* Pino SDA --> 21
 		* Pino SCL --> 22
 	- 1 bateria de 9V --> Utilizado para alimentar a ponte H que alimenta os motores e o ESP32 (via 5V).
 		* Externo ao ESP32, ligado na ponte H.
 */
 
-#include <PubSubClient.h>
 #include <WiFi.h>
-#include <WebServer.h>
+#include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
 
 #include <Wire.h>
@@ -44,22 +42,83 @@
 const char* ssid = "Canguru";
 const char* password = "VamoPula";
 
-WiFiClient wifiClient;
+AsyncWebServer server(80);
 
-PubSubClient mqttClient(wifiClient);
-WebServer server(80);
+typedef enum { POWER_NORMAL = 0, POWER_SAVING = 1 } power_mode_t;
 
-void mqttConnect() {
-	char *clientId = "CLIENTID-UNIFESP-2024/2";
-	char *username = "FLESPI-API_KEY REMOVED FROM HERE (ALSO DELETED)";
-	char *password = "";
+#include "esp_pm.h"
+class PowerManager {
+private:
+	power_mode_t power_mode;
+public:
+	PowerManager() : power_mode(POWER_NORMAL) {}
 
-	while (!mqttClient.connected()) {
-		if (mqttClient.connect(clientId, username, password)) {
-			Serial.println("Connected to MQTT broker.");
+	void setPowerMode(power_mode_t mode) {
+		if (mode == POWER_SAVING) {
+			esp_pm_config_esp32_t pm_config = {
+				.min_freq_mhz = 80,
+				.max_freq_mhz = 160,
+				.light_sleep_enable = true
+			};
+			esp_pm_configure(pm_config);
+			setPowerSaving();
+		} else {
+			esp_pm_config_esp32_t pm_config = {
+				.min_freq_mhz = 80,
+				.max_freq_mhz = 240,
+				.light_sleep_enable = false
+			};
+			esp_pm_configure(pm_config);
+			setPowerNormal();
 		}
 	}
-}
+
+	power_mode_t getPowerMode() { return this->power_mode; }
+
+	void printPowerMode() {
+		if (this->power_mode == POWER_NORMAL) {
+			Serial.println("Modo de energia: NORMAL");
+		} else {
+			Serial.println("Modo de energia: ECONOMIA");
+		}
+	}
+
+	bool isPowerSaving() {
+		return this->power_mode == POWER_SAVING;
+	}
+
+	bool setPowerSaving() {
+		if (this->power_mode == POWER_SAVING) {
+			Serial.println("Modo de energia já está em ECONOMIA");
+			return false;
+		}
+		this->setPowerMode(POWER_SAVING);
+		Serial.println("Colocando WiFi em modo de economia...");
+		WiFi.setPowerSave(WIFI_PS_MAX_MODEM);
+		Serial.println("WiFi em modo de economia!");
+		Serial.println("Colocando I2C em modo de economia...");
+		Wire.setClock(10); // 10kHz
+		Serial.println("I2C em modo de economia!");
+		Serial.println("Modo de energia alterado para ECONOMIA");
+		return true;
+	}
+	bool setPowerNormal() {
+		if (this->power_mode == POWER_NORMAL) {
+			Serial.println("Modo de energia já está em NORMAL");
+			return false;
+		}
+		this->setPowerMode(POWER_NORMAL);
+		Serial.println("Reiniciando WiFi...");
+		WiFi.setPowerSave(WIFI_PS_NONE);
+		Serial.println("WiFi reiniciado!");
+		Serial.println("Reiniciando I2C...");
+		Wire.begin();
+		Wire.setClock(100000); // 100kHz --> Clock padrão do I2C
+		Serial.println("I2C reiniciado!");
+		Serial.println("Modo de energia alterado para NORMAL");
+		return true;
+	}
+};
 
 class LED {
 private:
@@ -109,7 +168,6 @@ public:
 			Serial.println("Falha ao encontrar o sensor VL53L0X");
 			while (1);
 		}
-
 		Serial.println("Sensor VL53L0X encontrado!");
 	}
 
@@ -202,7 +260,6 @@ public:
 
 class Motor {
 private:
-// Status: Funcionando
 	int pin1, pin2;
 public:
 	Motor(int pin1, int pin2) {
@@ -210,12 +267,8 @@ public:
 		this->pin2 = pin2;
 	}
 
-	int getPin1() {
-		return this->pin1;
-	}
-	int getPin2() {
-		return this->pin2;
-	}
+	int getPin1() { return this->pin1; }
+	int getPin2() { return this->pin2; }
 
 	void setup() {
 		pinMode(this->pin1, OUTPUT);
@@ -291,10 +344,10 @@ public:
 		Serial.println(" RPM");
 	}
 };
+Encoder* Encoder::instance = nullptr;
 
 class ponteH {
 private:
-// Status: A testar.
 	Motor *motorD, *motorE;
 	Encoder *encoderD, *encoderE;
 
@@ -356,64 +409,90 @@ void ConnectToWiFi(){
 		delay(500);
 	}
 	Serial.println(" WiFi conectado!");
-
 	Serial.print("Endereco IP: ");
 	Serial.println(WiFi.localIP());
 }
 
-// No loop:
-	// delay(500);
-	// mqttClient.publish("/srs/usrs/LUISAO-MandaPix-10pila/IoT", "1");
-
-Encoder* Encoder::instance = nullptr;
-
 VL53L0X *sensor = new VL53L0X();
 MPU6050 *sensorMPU = new MPU6050();
-
 Motor *motorD = new Motor(12, 13);
 Motor *motorE = new Motor(33, 25);
 Encoder *encoderD = new Encoder(35, 34);
 Encoder *encoderE = new Encoder(32, 39);
 ponteH *ponte = new ponteH(motorD, motorE, encoderD, encoderE);
-
-// MQTT mqtt = MQTT("mqtt.flespi.io");
 LED led_carro = LED(2); // Led da Lavoura, controlado pelo MQTT
+PowerManager powerManager;
 
-void MQTT_Callback(char* topic, byte* payload, unsigned int length) {
-	// if (1 == 1) {
-	// 	Serial.println("ReceivedMessage! But I was not implemented to do anything with it ;-;, sorry...");
-	// 	return;
-	// }
-	char message[100];
-	Serial.println("ReceivedMessage!");	
-	Serial.print("Message arrived [");
-	for (int i = 0; i < length; i++) {
-		message[i] = (char)payload[i];
-		Serial.print((char)payload[i]);
-	}
-	Serial.println("]");
-
-	Serial.println(topic);
-
-	if (strcmp(topic, "/Henrique/IoT/TF/LED_CARRO") == 0) {
-		Serial.println("Topic found!");
-		Serial.print("Message: ");
-		Serial.println(message);
-		if (strcmp(message, "1") == 0) {
-			led_carro.on();
-		} else if (message[0] == '2') { 
-			led_carro.toggle();
-			mqttClient.publish("/Henrique/IoT/TF/LED_CARRO/Status", led_carro.isOn() ? "1" : "0");
-		} else {
-			led_carro.off();
-		}
-	} else {
-		Serial.println("Topic not found!");
-	}
+void http_stop_carro(AsyncWebServerRequest *request) {
+	ponte->stop();
+	request->send(200, "application/json", "{\"status\":\"stopped\"}");
 }
 
-void handleData() {
+void http_handle_forward(AsyncWebServerRequest *request) {
+	ponte->forward();
+	request->send(200, "application/json", "{\"status\":\"moving forward\"}");
+}
+
+void http_handle_backward(AsyncWebServerRequest *request) {
+	ponte->backward();
+	request->send(200, "application/json", "{\"status\":\"moving backward\"}");
+}
+
+void http_handle_turn_left(AsyncWebServerRequest *request) {
+	ponte->turnLeft();
+	request->send(200, "application/json", "{\"status\":\"turning left\"}");
+}
+
+void http_handle_turn_right(AsyncWebServerRequest *request) {
+	ponte->turnRight();
+	request->send(200, "application/json", "{\"status\":\"turning right\"}");
+}
+
+void http_handle_test(AsyncWebServerRequest *request) {
+	String html = "<html><head>";
+	html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
+	html += "<style>";
+	html += "body { font-family: Arial, sans-serif; }";
+	html += "h1 { color: #333; }";
+	html += "button { padding: 10px 20px; font-size: 16px; margin: 5px; }";
+	html += "button:hover { background-color: #ddd; }";
+	html += "div { margin-top: 20px; }";
+	html += "</style>";
+	html += "<title>Manual Control</title>";
+	html += "</head><body>";
+	html += "<h1>Manual Control</h1>";
+	html += "<button onclick=\"fetchURL('/forward')\">Forward</button>";
+	html += "<button onclick=\"fetchURL('/backward')\">Backward</button>";
+	html += "<button onclick=\"fetchURL('/turn_left')\">Turn Left</button>";
+	html += "<button onclick=\"fetchURL('/turn_right')\">Turn Right</button>";
+	html += "<button onclick=\"fetchURL('/stop')\">Stop</button>";
+	html += "<button onclick=\"fetchURL('/test')\">Test</button>";
+	html += "<button onclick=\"fetchURL('/data')\">Data</button>";
+	html += "<div id=\"data\"></div>";
+	html += "<script>";
+	html += "function fetchURL(url) {";
+	html += " fetch(url).then(response => response.json()).then(data => {";
+	html += "  console.log(data);";
+	html += "  document.getElementById('data').innerText = JSON.stringify(data);";
+	html += " });";
+	html += "}";
+	html += "</script>";
+	html += "</body></html>";
+	request->send(200, "text/html", html);
+}
+
+void handleData(AsyncWebServerRequest *request) {
 	String json = "{";
+	json += "\"sensorMPU\":{\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
+	json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
+	json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
+	json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
+	json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
+	json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
+	json += "\"temp\":" + String(sensorMPU->getTemperatureC()) + "},";
+	json += "\"sensorVL53L0X\":{\"distance\":" + String(sensor->loop()) + "},";
+	json += "\"led_carro\":{\"status\":\"" + String(led_carro.isOn() ? "on" : "off") + "\"},";
+	json += "\"power_manager\":{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"},";
 	// Motor Direito
 	json += "\"direcaoD\":\"" + String( encoderD->getSentidoHorario() ? "frente" : "tras") + "\",";
 	json += "\"rpmD\":"    + String( encoderD->getVelocidadeRPM()) + ",";
@@ -425,93 +504,95 @@ void handleData() {
 	json += "\"contE1\":"  + String( encoderE->getContadorCH1()) + ",";
 	json += "\"contE2\":"  + String( encoderE->getContadorCH2());
 	json += "}";
-
-	server.send(200, "application/json", json);
+	request->send(200, "application/json", json);
 }
 
-bool isTurning = false;
-bool isMovingBackward = false;
+void handlePower(AsyncWebServerRequest *request) {
+	if (request->hasParam("mode")) {
+		String mode = request->getParam("mode")->value();
+		if (mode == "normal") {
+			powerManager.setPowerNormal();
+		} else if (mode == "saving") {
+			powerManager.setPowerSaving();
+		}
+	}
+	String json = "{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"}";
+	request->send(200, "application/json", json);
+}
+
+void handle_base(AsyncWebServerRequest *request) {
+	request->send(SPIFFS, "/dashboard.html", "text/html");
+}
+
+unsigned long lastRead = 0;
 
 void setup() {
 	Serial.begin(115200);
 
-	if (!SPIFFS.begin(true)) {
-		Serial.println("SPIFFS Mount Failed");
-		return;
-	}
-
-	ConnectToWiFi();
+	powerManager.setPowerNormal();
 
 	led_carro.setup();
-	Serial.println("Iniciando conexão com o MQTT...");
-
-	// mqttClient.setServer("mqtt.flespi.io", 1883);
-	// mqttClient.setCallback(MQTT_Callback);
-	// mqttConnect();
-	// mqttClient.subscribe("/Henrique/IoT/TF/LED_CARRO");
-
-	Serial.println("Connected to MQTT broker!");
-
-	// carro.setup();
 
 	ponte->setup();
 	sensor->setup();
 	sensorMPU->setup();
 
 	Serial.println("Setup completo!");
+	WiFi.mode(WIFI_STA);
+	ConnectToWiFi();
 
-	// Define rota raiz
-	server.serveStatic("/", SPIFFS, "/dashboard.html");
+	if (!SPIFFS.begin(true)) {
+		Serial.println("SPIFFS Mount Failed");
+		return;
+	}
+	Serial.println("SPIFFS Mounted!");
+
+	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+		if (!SPIFFS.exists("/dashboard.html")) {
+			request->send(404, "text/plain", "dashboard.html não encontrado");
+			Serial.println("dashboard.html não encontrado");
+			return;
+		}
+		request->send(SPIFFS, "/dashboard.html", String(), false);
+		Serial.println("dashboard.html enviado");
+	});
 	server.on("/data", HTTP_GET, handleData);
+	server.on("/forward", HTTP_GET, http_handle_forward);
+	server.on("/backward", HTTP_GET, http_handle_backward);
+	server.on("/turn_left", HTTP_GET, http_handle_turn_left);
+	server.on("/turn_right", HTTP_GET, http_handle_turn_right);
+	server.on("/stop", HTTP_GET, http_stop_carro);
+	server.on("/test", HTTP_GET, http_handle_test);
 
 	// Inicia servidor
 	server.begin();
 	Serial.println("Servidor HTTP iniciado");
+	lastRead = millis();
 }
 
-unsigned long lastRead = 0;
-
 void loop() {
-	server.handleClient();
-
 	if (millis() - lastRead < 1000) {
 		return;
 	}
 	lastRead = millis();
 
 	int front_distance = sensor->loop();
-	Serial.print("Distancia: ");
-	if (front_distance < 100) { // 10 cm
-		Serial.print("Obstáculo a ");
-		Serial.print(front_distance);
-		Serial.println(" mm");
+	Serial.printf("Distância: ");
+	if (front_distance < 100) {
+		Serial.printf("Obstáculo a %d mm\n", front_distance);
 	} else {
 		Serial.println("Sem obstáculo");
 	}
-	Serial.print("Acelerômetro: ");
-	Serial.print(sensorMPU->getAccelerometerX());
-	Serial.print(" ");
-	Serial.print(sensorMPU->getAccelerometerY());
-	Serial.print(" ");
-	Serial.print(sensorMPU->getAccelerometerZ());
-	Serial.println();
-	Serial.print("Giroscópio: ");
-	Serial.print(sensorMPU->getGyroscopeX());
-	Serial.print(" ");
-	Serial.print(sensorMPU->getGyroscopeY());
-	Serial.print(" ");
-	Serial.print(sensorMPU->getGyroscopeZ());
-	Serial.println();
 
-	// Encoders:
+	Serial.printf("Acelerômetro: %.2f %.2f %.2f\n",
+		sensorMPU->getAccelerometerX(),
+		sensorMPU->getAccelerometerY(),
+		sensorMPU->getAccelerometerZ());
+
+	Serial.printf("Giroscópio: %.2f %.2f %.2f\n",
+		sensorMPU->getGyroscopeX(),
+		sensorMPU->getGyroscopeY(),
+		sensorMPU->getGyroscopeZ());
+
 	ponte->mostrarLeiturasEncoders();
-
-	if (true) {
-		return;
-	}
-
-	if (!mqttClient.connected()){
-		mqttConnect();
-	}
-	mqttClient.loop();
 }
