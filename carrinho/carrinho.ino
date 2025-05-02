@@ -8,18 +8,20 @@
 	- Ponte H --> Utilizado para controlar os motores do carrinho.
 	- 4 motores CC --> Utilizado para movimentar o carrinho.
 		* Motor 1: Motor direito.
-			| Pino 35 --> Ponte H.
-			| Pino 32 --> Ponte H.
+			| Pino 12 --> Ponte H.
+			| Pino 13 --> Ponte H.
+			| Pino 14 --> PWM.
 		* Motor 2: Motor esquerdo.
 			| Pino 33 --> Ponte H.
 			| Pino 25 --> Ponte H.
+			| Pino 32 --> PWM.
 	- 2 encoders --> Utilizado para medir a velocidade do carrinho.
 		* Encoder 1: Motor direito.
 			| Pino 26 --> Encoder.
 			| Pino 27 --> Encoder.
 		* Encoder 2: Motor esquerdo.
-			| Pino 18 --> Encoder.
-			| Pino 19 --> Encoder.
+			| Pino 35 --> Encoder.
+			| Pino 34 --> Encoder.
 	- 1 sensor de distância VL53L0X --> Utilizado para medir a distância do carrinho em relação a um obstáculo.
 		* Pino SDA --> 21
 		* Pino SCL --> 22
@@ -39,38 +41,80 @@
 #include "Adafruit_MPU6050.h"
 #include "Adafruit_VL53L0X.h"
 
+#include <Arduino.h>
+#include <math.h>
+
 const char* ssid = "Canguru";
 const char* password = "VamoPula";
 
 AsyncWebServer server(80);
 
-typedef enum { POWER_NORMAL = 0, POWER_SAVING = 1 } power_mode_t;
+enum power_mode_t {
+	POWER_NORMAL,
+	POWER_SAVING
+};
 
 #include "esp_pm.h"
+#include "esp_wifi.h"
 class PowerManager {
 private:
 	power_mode_t power_mode;
+
+	void configurePowerSettings(power_mode_t mode) {
+		if (mode == POWER_SAVING) {
+			esp_pm_config_esp32_t pmConfig = {
+				160, // max_freq_mhz
+				80,  // min_freq_mhz
+				true // light_sleep_enable
+			};
+			esp_err_t err = esp_pm_configure(&pmConfig);
+			Serial.printf("esp_pm_configure (ECONOMIA): %d\n", err);
+		} else {
+			esp_pm_config_esp32_t pmConfig = {
+				240, // max_freq_mhz
+				80,  // min_freq_mhz
+				false // light_sleep_enable
+			};
+			esp_err_t err = esp_pm_configure(&pmConfig);
+			Serial.printf("esp_pm_configure (NORMAL): %d\n", err);
+		}
+	}
+
 public:
 	PowerManager() : power_mode(POWER_NORMAL) {}
 
-	void setPowerMode(power_mode_t mode) {
-		if (mode == POWER_SAVING) {
-			esp_pm_config_esp32_t pm_config = {
-				.min_freq_mhz = 80,
-				.max_freq_mhz = 160,
-				.light_sleep_enable = true
-			};
-			esp_pm_configure(pm_config);
-			setPowerSaving();
-		} else {
-			esp_pm_config_esp32_t pm_config = {
-				.min_freq_mhz = 80,
-				.max_freq_mhz = 240,
-				.light_sleep_enable = false
-			};
-			esp_pm_configure(pm_config);
-			setPowerNormal();
+	bool setPowerMode(power_mode_t mode) {
+		if (mode == this->power_mode) {
+			Serial.println("Já está no modo solicitado.");
+			return false;
 		}
+
+		configurePowerSettings(mode);
+		this->power_mode = mode;
+
+		if (mode == POWER_SAVING) {
+			Serial.println("Colocando WiFi em modo de economia...");
+			esp_wifi_set_ps(WIFI_PS_MAX_MODEM);
+			Serial.println("WiFi em modo de economia!");
+
+			// Serial.println("Colocando I2C em modo de economia...");
+			// Wire.setClock(10); // 10kHz
+			// Serial.println("I2C em modo de economia!");
+
+			Serial.println("Modo de energia alterado para ECONOMIA");
+		} else {
+			Serial.println("Reiniciando WiFi...");
+			esp_wifi_set_ps(WIFI_PS_NONE);
+			Serial.println("WiFi reiniciado!");
+
+			// Serial.println("Reiniciando I2C...");
+			// Wire.begin();
+			// Wire.setClock(100000); // 100kHz padrão
+			// Serial.println("I2C reiniciado!");
+
+			Serial.println("Modo de energia alterado para NORMAL");
+		}
+		return true;
 	}
 
 	power_mode_t getPowerMode() { return this->power_mode; }
@@ -85,38 +129,6 @@ public:
 
 	bool isPowerSaving() {
 		return this->power_mode == POWER_SAVING;
-	}
-
-	bool setPowerSaving() {
-		if (this->power_mode == POWER_SAVING) {
-			Serial.println("Modo de energia já está em ECONOMIA");
-			return false;
-		}
-		this->setPowerMode(POWER_SAVING);
-		Serial.println("Colocando WiFi em modo de economia...");
-		WiFi.setPowerSave(WIFI_PS_MAX_MODEM);
-		Serial.println("WiFi em modo de economia!");
-		Serial.println("Colocando I2C em modo de economia...");
-		Wire.setClock(10); // 10kHz
-		Serial.println("I2C em modo de economia!");
-		Serial.println("Modo de energia alterado para ECONOMIA");
-		return true;
-	}
-	bool setPowerNormal() {
-		if (this->power_mode == POWER_NORMAL) {
-			Serial.println("Modo de energia já está em NORMAL");
-			return false;
-		}
-		this->setPowerMode(POWER_NORMAL);
-		Serial.println("Reiniciando WiFi...");
-		WiFi.setPowerSave(WIFI_PS_NONE);
-		Serial.println("WiFi reiniciado!");
-		Serial.println("Reiniciando I2C...");
-		Wire.begin();
-		Wire.setClock(100000); // 100kHz --> Clock padrão do I2C
-		Serial.println("I2C reiniciado!");
-		Serial.println("Modo de energia alterado para NORMAL");
-		return true;
 	}
 };
 
@@ -258,145 +270,221 @@ public:
 	void loop() {} // Não faz nada ainda, mas fará?
 };
 
-class Motor {
-private:
-	int pin1, pin2;
-public:
-	Motor(int pin1, int pin2) {
-		this->pin1 = pin1;
-		this->pin2 = pin2;
-	}
-
-	int getPin1() { return this->pin1; }
-	int getPin2() { return this->pin2; }
-
-	void setup() {
-		pinMode(this->pin1, OUTPUT);
-		pinMode(this->pin2, OUTPUT);
-		digitalWrite(this->pin1, LOW);
-		digitalWrite(this->pin2, LOW);
-	}
-
-	void forward() {
-		digitalWrite(this->pin1, HIGH);
-		digitalWrite(this->pin2, LOW);
-	}
-
-	void backward() {
-		digitalWrite(this->pin1, LOW);
-		digitalWrite(this->pin2, HIGH);
-	}
-
-	void stop() {
-		digitalWrite(this->pin1, LOW);
-		digitalWrite(this->pin2, LOW);
-	}
-};
-
 class Encoder {
 private:
-	int contadorCH1 = 0, contadorCH2 = 0;
-	int pinoCH1, pinoCH2;
-	int ultimoEstadoCH2 = LOW;
-	bool isSentidoHorario = true;
+	volatile int countA = 0, countB = 0;
+	uint8_t pinA, pinB;
+	int lastStateB = LOW;
+	bool clockwise = true;
 
-	static Encoder* instance;
-	static void isrCH1() { instance->incrementarContadorCH1(); }
-	static void isrCH2() { instance->incrementarContadorCH2(); }
+	// ISRs sem IRAM_ATTR
+	static void isrA_arg(void* arg) {
+		static_cast<Encoder*>(arg)->onPulseA();
+	}
+	static void isrB_arg(void* arg) {
+		static_cast<Encoder*>(arg)->onPulseB();
+	}
 
-	void incrementarContadorCH1() { contadorCH1++; }
-	void incrementarContadorCH2() {
-		contadorCH2++;
-		int estadoAtual = digitalRead(pinoCH2);
-		if (ultimoEstadoCH2 == LOW && estadoAtual == HIGH) {
-			isSentidoHorario = (digitalRead(pinoCH1) == LOW);
+	// callbacks de pulso sem IRAM_ATTR
+	void onPulseA() {
+		countA++;
+	}
+	void onPulseB() {
+		countB++;
+		int current = digitalRead(pinB);
+		if (lastStateB == LOW && current == HIGH) {
+			clockwise = (digitalRead(pinA) == LOW);
 		}
-		ultimoEstadoCH2 = estadoAtual;
+		lastStateB = current;
 	}
 
 public:
-	Encoder(int ch1, int ch2) : pinoCH1(ch1), pinoCH2(ch2) {
-		instance = this;
-	}
-	void setup() {
-		pinMode(pinoCH1, INPUT_PULLUP);
-		pinMode(pinoCH2, INPUT_PULLUP);
-		attachInterrupt(digitalPinToInterrupt(pinoCH1), isrCH1, CHANGE);
-		attachInterrupt(digitalPinToInterrupt(pinoCH2), isrCH2, CHANGE);
-    }
-	bool getSentidoHorario() { return isSentidoHorario; }
-	int getContadorCH1() { return contadorCH1; }
-	int getContadorCH2() { return contadorCH2; }
-	int getVelocidadeRPM(int dentes = 6) {
-		int media = (contadorCH1 + contadorCH2) / 2;
-		return media / (dentes * 2);
+	Encoder(uint8_t pinA, uint8_t pinB) : pinA(pinA), pinB(pinB) {
+		countA = countB = 0;
+		lastStateB = LOW;
+		clockwise = true;
 	}
 
-	void exibirDados() {
-		Serial.print("Sentido: ");
-		Serial.print(isSentidoHorario ? "horario" : "anti-horario");
-		Serial.print(" | Contador CH1: ");
-		Serial.print(contadorCH1);
-		Serial.print(" | Contador CH2: ");
-		Serial.print(contadorCH2);
-		Serial.print(" | Velocidade: ");
-		Serial.print(getVelocidadeRPM());
-		Serial.println(" RPM");
+	void begin() {
+		pinMode(pinA, INPUT_PULLUP);
+		pinMode(pinB, INPUT_PULLUP);
+		// passa 'this' para o ISR correto
+		attachInterruptArg(pinA, isrA_arg, this, CHANGE);
+		attachInterruptArg(pinB, isrB_arg, this, CHANGE);
+	}
+
+	void reset() {
+		countA = countB = 0;
+	}
+
+	double getRPM(int teeth = 10, double intervalSec = 0.1) {
+		int pulses = (countA + countB) / 2;
+		double revs = pulses / double(teeth * 2);
+		return (revs / intervalSec) * 60.0;
+		// return revs;
+	}
+
+	double getSpeed(int wheelDiameter = 65, int teeth = 10, double intervalSec = 0.1) {
+		double rpm = getRPM(teeth, intervalSec);
+		return (rpm * wheelDiameter * M_PI) / 1000.0; // mm/s
+	}
+
+	bool isClockwise() const {
+		return clockwise;
 	}
 };
-Encoder* Encoder::instance = nullptr;
 
-class ponteH {
+#include <PID_v1_bc.h>
+class Motor {
 private:
-	Motor *motorD, *motorE;
-	Encoder *encoderD, *encoderE;
+	unsigned long lastDebug = 0;
+	int in1Pin, in2Pin;
+	int pwmPin;
+	Encoder* encoder;
+
+	double targetRPM = 100.0;
+	double currentRPM = 0.0;
+	double pidOutput = 0.0;
+	PID* pid;
+
+	unsigned long last_think = 0;
 
 public:
-	ponteH(Motor *motor_d, Motor *motor_e, Encoder *encoder_d, Encoder *encoder_e) {
-		this->motorD = motor_d;
-		this->motorE = motor_e;
-		this->encoderD = encoder_d;
-		this->encoderE = encoder_e;
+	Motor(int in1, int in2, int pwm, Encoder* enc, double kp = 1.0, double ki = 5.0, double kd = 0.0) {
+		in1Pin = in1;
+		in2Pin = in2;
+		pwmPin = pwm;
+		encoder = enc;
+		pid = new PID(&currentRPM, &pidOutput, &targetRPM, kp, ki, kd, DIRECT);
 	}
 
-	void setup() {
-		this->motorD->setup();
-		this->motorE->setup();
-		this->encoderD->setup();
-		this->encoderE->setup();
+	void begin() {
+		pinMode(in1Pin, OUTPUT);
+		pinMode(in2Pin, OUTPUT);
+		pinMode(pwmPin, OUTPUT);
+		encoder->begin();
+		encoder->reset();
+		stop();
+		pid->SetMode(AUTOMATIC);
+		// pid->SetOutputLimits(0, 255);
+	}
+
+	void setTunings(double kp, double ki, double kd) {
+		pid->SetTunings(kp, ki, kd);
+	}
+	void setTargetRPM(double rpm) {
+		targetRPM = rpm;
 	}
 
 	void forward() {
-		this->motorD->forward();
-		this->motorE->forward();
+		encoder->reset();
+		digitalWrite(in1Pin, HIGH);
+		digitalWrite(in2Pin, LOW);
+
+		analogWrite(pwmPin, int(255/2));
+		last_think = millis();
+	}
+	void backward() {
+		encoder->reset();
+		digitalWrite(in1Pin, LOW);
+		digitalWrite(in2Pin, HIGH);
+
+		analogWrite(pwmPin, int(255/2));
+		last_think = millis();
+	}
+	void stop() {
+		digitalWrite(in1Pin, LOW);
+		digitalWrite(in2Pin, LOW);
+		// analogWrite(pwmPin, 0);
+		encoder->reset();
+	}
+
+	void update(double intervalSec) {
+		if (millis() - 500 < last_think)
+			return;
+		last_think = millis();
+		double lastPidOutput = pidOutput;
+		currentRPM = encoder->getRPM(10, intervalSec);
+		pid->Compute();
+		if (millis() - lastDebug >= 500) {
+			Serial.print(pwmPin);
+			Serial.print(") - ");
+			Serial.print("Current RPM: ");
+			Serial.print(currentRPM);
+			Serial.print(" | Privous output: ");
+			Serial.print(lastPidOutput);
+			Serial.print(" - New Output: ");
+			Serial.println(pidOutput);
+			lastDebug = millis();
+		}
+		analogWrite(pwmPin, int(pidOutput));
+		encoder->reset();
+	}
+};
+
+
+enum Movement { FORWARD, BACKWARD, TURN_LEFT, TURN_RIGHT };
+class PonteH {
+private:
+	Motor* motorRight;
+	Motor* motorLeft;
+	Movement currentMove = FORWARD;
+	bool isMoving = false;
+
+public:
+	PonteH(Motor* right, Motor* left) {
+		this->motorRight = right;
+		this->motorLeft = left;
+	}
+
+	void setup() {
+		motorRight->begin();
+		motorLeft->begin();
+	}
+
+	void forward() {
+		if (currentMove != FORWARD) stop();
+		currentMove = FORWARD;
+		motorRight->forward();
+		motorLeft->forward();
+		isMoving = true;
 	}
 
 	void backward() {
-		this->motorD->backward();
-		this->motorE->backward();
+		if (currentMove != BACKWARD) stop();
+		currentMove = BACKWARD;
+		motorRight->backward();
+		motorLeft->backward();
+		isMoving = true;
 	}
 
 	void turnLeft() {
-		this->motorD->forward();
-		this->motorE->backward();
+		if (currentMove != TURN_LEFT) stop();
+		currentMove = TURN_LEFT;
+		motorRight->forward();
+		motorLeft->backward();
+		isMoving = true;
 	}
 
 	void turnRight() {
-		this->motorD->backward();
-		this->motorE->forward();
+		if (currentMove != TURN_RIGHT) stop();
+		currentMove = TURN_RIGHT;
+		motorRight->backward();
+		motorLeft->forward();
+		isMoving = true;
 	}
 
 	void stop() {
-		this->motorD->stop();
-		this->motorE->stop();
+		currentMove = FORWARD;
+		motorRight->stop();
+		motorLeft->stop();
+		isMoving = false;
 	}
 
-	void mostrarLeiturasEncoders() {
-		Serial.print("Motor D: ");
-		this->encoderD->exibirDados();
-		Serial.print("Motor E: ");
-		this->encoderE->exibirDados();
-		Serial.println();
+	void updateAll(double intervalSec) {
+		if (!isMoving) return;
+		motorRight->update(intervalSec);
+		motorLeft->update(intervalSec);
 	}
 };
 
@@ -412,15 +500,29 @@ void ConnectToWiFi(){
 	Serial.print("Endereco IP: ");
 	Serial.println(WiFi.localIP());
 }
+// ——————— Sensores ———————
+VL53L0X *sensor = new VL53L0X();	// VL53L0X no I²C (SDA=21, SCL=22)
+MPU6050 *sensorMPU = new MPU6050();	// MPU6050 no mesmo barramento I²C
 
-VL53L0X *sensor = new VL53L0X();
-MPU6050 *sensorMPU = new MPU6050();
-Motor *motorD = new Motor(12, 13);
-Motor *motorE = new Motor(33, 25);
-Encoder *encoderD = new Encoder(35, 34);
-Encoder *encoderE = new Encoder(32, 39);
-ponteH *ponte = new ponteH(motorD, motorE, encoderD, encoderE);
-LED led_carro = LED(2); // Led da Lavoura, controlado pelo MQTT
+// ——————— Encoders ———————
+// Motor Direito
+Encoder *encoderD = new Encoder(27, 26);  // CH A=26, CH B=27
+// Motor Esquerdo
+Encoder *encoderE = new Encoder(35, 34);  // CH A=35, CH B=34
+
+// ——————— Motores com PID ———————
+// Motor Direito  → IN1=12, IN2=13, PWM=14, canal LEDC=0
+Motor *motorDireito  = new Motor( 12, 13, 14, encoderD, 1, 0.5, 0.0 );
+// Motor Esquerdo → IN1=33, IN2=25, PWM=32, canal LEDC=1
+Motor *motorEsquerdo = new Motor( 33, 25, 32, encoderE, 1, 0.5, 0.0 );
+
+// ——————— Ponte H (drive de 2 motores) ———————
+PonteH *ponte = new PonteH(motorDireito, motorEsquerdo);
+
+// ——————— Outros ———————
+// LED da carroceria (MQTT)
+LED led_carro(2);
+// Gerenciador de energia
 PowerManager powerManager;
 
 void http_stop_carro(AsyncWebServerRequest *request) {
@@ -483,26 +585,41 @@ void http_handle_test(AsyncWebServerRequest *request) {
 
 void handleData(AsyncWebServerRequest *request) {
 	String json = "{";
-	json += "\"sensorMPU\":{\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
-	json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
-	json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
-	json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
-	json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
-	json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
-	json += "\"temp\":" + String(sensorMPU->getTemperatureC()) + "},";
-	json += "\"sensorVL53L0X\":{\"distance\":" + String(sensor->loop()) + "},";
-	json += "\"led_carro\":{\"status\":\"" + String(led_carro.isOn() ? "on" : "off") + "\"},";
-	json += "\"power_manager\":{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"},";
+
+	// Dados do MPU6050
+	json += "\"sensorMPU\":{";
+		json += "\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
+		json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
+		json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
+		json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
+		json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
+		json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
+		json += "\"temp\":"  + String(sensorMPU->getTemperatureC());
+	json += "},";
+
+	// Distância VL53L0X
+	json += "\"sensorVL53L0X\":{";
+		json += "\"distance\":" + String(sensor->loop());
+	json += "},";
+
+	// Status do LED do carrinho
+	json += "\"led_carro\":{";
+		json += "\"status\":\"" + String(led_carro.isOn() ? "on" : "off") + "\"";
+	json += "},";
+
+	// Modo de energia
+	json += "\"power_manager\":{";
+		json += "\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"";
+	json += "},";
+
 	// Motor Direito
-	json += "\"direcaoD\":\"" + String( encoderD->getSentidoHorario() ? "frente" : "tras") + "\",";
-	json += "\"rpmD\":"    + String( encoderD->getVelocidadeRPM()) + ",";
-	json += "\"contD1\":"  + String( encoderD->getContadorCH1()) + ",";
-	json += "\"contD2\":"  + String( encoderD->getContadorCH2()) + ",";
+	json += "\"direcaoD\":\"" + String(encoderD->isClockwise() ? "frente" : "tras") + "\",";
+	json += "\"rpmD\":" + String(encoderD->getRPM()) + ",";
+
 	// Motor Esquerdo
-	json += "\"direcaoE\":\"" + String( encoderE->getSentidoHorario() ? "frente" : "tras") + "\",";
-	json += "\"rpmE\":"    + String( encoderE->getVelocidadeRPM()) + ",";
-	json += "\"contE1\":"  + String( encoderE->getContadorCH1()) + ",";
-	json += "\"contE2\":"  + String( encoderE->getContadorCH2());
+	json += "\"direcaoE\":\"" + String(encoderE->isClockwise() ? "frente" : "tras") + "\",";
+	json += "\"rpmE\":" + String(encoderE->getRPM());
+
 	json += "}";
 	request->send(200, "application/json", json);
 }
@@ -511,9 +628,9 @@ void handlePower(AsyncWebServerRequest *request) {
 	if (request->hasParam("mode")) {
 		String mode = request->getParam("mode")->value();
 		if (mode == "normal") {
-			powerManager.setPowerNormal();
+			powerManager.setPowerMode(POWER_NORMAL);
 		} else if (mode == "saving") {
-			powerManager.setPowerSaving();
+			powerManager.setPowerMode(POWER_SAVING);
 		}
 	}
 	String json = "{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"}";
@@ -529,9 +646,11 @@ unsigned long lastRead = 0;
 void setup() {
 	Serial.begin(115200);
 
-	powerManager.setPowerNormal();
+	powerManager.setPowerMode(POWER_NORMAL);
 
 	led_carro.setup();
+
+	Wire.begin();
 
 	ponte->setup();
 	sensor->setup();
@@ -570,11 +689,19 @@ void setup() {
 	lastRead = millis();
 }
 
+unsigned long prevMicros = 0;
 void loop() {
+	unsigned long now = micros();
+	double dt = (now - prevMicros) / 1e6;
+	prevMicros = now;
+
+	ponte->updateAll(0.5);
 	if (millis() - lastRead < 1000) {
 		return;
 	}
 	lastRead = millis();
+
+	Serial.println("====================================");
 
 	int front_distance = sensor->loop();
 	Serial.printf("Distância: ");
@@ -594,5 +721,17 @@ void loop() {
 		sensorMPU->getGyroscopeY(),
 		sensorMPU->getGyroscopeZ());
 
-	ponte->mostrarLeiturasEncoders();
+	Serial.print("Motor Direito: ");
+	Serial.print(encoderD->getRPM());
+	Serial.print(" RPM, ");
+	Serial.print(encoderD->isClockwise() ? "Frente" : "Tras");
+	Serial.print(" | Motor Esquerdo: ");
+	Serial.print(encoderE->getRPM());
+	Serial.print(" RPM, ");
+	Serial.print(encoderE->isClockwise() ? "Frente" : "Tras");
+	Serial.println();
+	Serial.println("===================================");
+	Serial.println();
+	Serial.println();
+
 }

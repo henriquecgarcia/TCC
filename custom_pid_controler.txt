@@ -1,0 +1,54 @@
+
+class PID_Controller {
+private:
+	double kp, ki, kd;
+	double setpoint;
+	double *input, *output;
+	unsigned long lastTime;
+	double integral, previousError;
+public:
+	PID_Controller(double kp, double ki, double kd, double *input, double *output) {
+		this->kp = kp;
+		this->ki = ki;
+		this->kd = kd;
+		this->setpoint = 0;
+		this->input = input;
+		this->output = output;
+		this->lastTime = millis();
+		this->integral = 0;
+		this->previousError = 0;
+	}
+
+	void setSetpoint(double setpoint) {
+		this->setpoint = setpoint;
+	}
+
+	void compute() {
+		unsigned long now = millis();
+		double timeChange = (double)(now - lastTime) / 1000.0; // em segundos
+		if (timeChange <= 0) return;
+
+		double error = setpoint - *input;
+		integral += error * timeChange;
+		double derivative = (error - previousError) / timeChange;
+
+		*output = kp * error + ki * integral + kd * derivative;
+
+		lastTime = now;
+		previousError = error;
+	}
+	void setTunings(double kp, double ki, double kd) {
+		this->kp = kp;
+		this->ki = ki;
+		this->kd = kd;
+	}
+	void setOutputLimits(double min, double max) {
+		if (*output > max) *output = max;
+		else if (*output < min) *output = min;
+	}
+	void reset() {
+		integral = 0;
+		previousError = 0;
+		lastTime = millis();
+	}
+};

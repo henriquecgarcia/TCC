@@ -1,0 +1,12 @@
+Estudar algoritimos de controle de velocidade com o Encoder
+
+- economia de energia - esp32
+- controle de velocidade do motor/encoder
+pid esp32 speed control encoder
+
+Testar upload com o ESP pelo Arduino IDE
+- modelo cinemático --> Giro do carrinho
+  - https://en.wikipedia.org/wiki/Differential_wheeled_robot
+  - https://www.cs.columbia.edu/~allen/F17/NOTES/icckinematics.pdf
+
+- Malha fechada de velocidade
