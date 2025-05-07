@@ -47,6 +47,10 @@
 const char* ssid = "Canguru";
 const char* password = "VamoPula";
 
+const double intentKp = 1.0;
+const double intentKi = 0.5;
+const double intentKd = 0.0;
+
 AsyncWebServer server(80);
 
 enum power_mode_t {
@@ -334,7 +338,52 @@ public:
 	}
 };
 
-#include <PID_v1_bc.h>
+class PID {
+public:
+	// Construtor: define ganhos e Δt (segundos)
+	PID(float Kp, float Ki, float Kd, float dt = 0.0) {
+		_Kp = Kp;
+		_Ki = Ki;
+		_Kd = Kd;
+		_dt = dt;
+		_integral = 0.0f;
+		_prevError = 0.0f;
+	}
+
+	// Ajuste de ganhos em tempo real
+	void setKp(float Kp) { _Kp = Kp; }
+	void setKi(float Ki) { _Ki = Ki; }
+	void setKd(float Kd) { _Kd = Kd; }
+
+	void setTunning(float Kp, float Ki, float Kd) {
+		_Kp = Kp;
+		_Ki = Ki;
+		_Kd = Kd;
+	}
+
+	// Cálculo passo a passo
+	float compute(float setpoint, float measurement) {
+		float error = setpoint - measurement;
+		_integral += error * _dt;
+		float derivative = (error - _prevError) / _dt;
+
+		float output = _Kp * error + _Ki * _integral + _Kd * derivative;
+		_prevError = error;
+		if (output > 255.0f) output = 255.0f;
+		if (output < 0.0f) output = 0.0f;
+		return output;
+	}
+
+	void reset() {
+		_integral = 0.0f;
+		_prevError = 0.0f;
+	}
+
+private:
+	float _Kp, _Ki, _Kd, _dt;
+	float _integral, _prevError;
+};
+
 class Motor {
 private:
 	unsigned long lastDebug = 0;
@@ -345,7 +394,8 @@ private:
 	double targetRPM = 100.0;
 	double currentRPM = 0.0;
 	double pidOutput = 0.0;
-	PID* pid;
+	// PID* pid;
+	PID pid = PID(1.0, 5.0, 0.0, 0.1);
 
 	unsigned long last_think = 0;
 
@@ -355,7 +405,8 @@ public:
 		in2Pin = in2;
 		pwmPin = pwm;
 		encoder = enc;
-		pid = new PID(&currentRPM, &pidOutput, &targetRPM, kp, ki, kd, DIRECT);
+		pid.setTunning(kp, ki, kd);
+		// pid = new PID(&currentRPM, &pidOutput, &targetRPM, kp, ki, kd, DIRECT);
 	}
 
 	void begin() {
@@ -365,12 +416,10 @@ public:
 		encoder->begin();
 		encoder->reset();
 		stop();
-		pid->SetMode(AUTOMATIC);
-		// pid->SetOutputLimits(0, 255);
 	}
 
 	void setTunings(double kp, double ki, double kd) {
-		pid->SetTunings(kp, ki, kd);
+		pid.setTunning(kp, ki, kd);
 	}
 	void setTargetRPM(double rpm) {
 		targetRPM = rpm;
@@ -378,25 +427,33 @@ public:
 
 	void forward() {
 		encoder->reset();
+		stop();
+
 		digitalWrite(in1Pin, HIGH);
 		digitalWrite(in2Pin, LOW);
 
-		analogWrite(pwmPin, int(255/2));
-		last_think = millis();
+		targetRPM = 100.0;
+		// last_think = millis();
 	}
 	void backward() {
 		encoder->reset();
+		stop();
+
 		digitalWrite(in1Pin, LOW);
 		digitalWrite(in2Pin, HIGH);
 
-		analogWrite(pwmPin, int(255/2));
-		last_think = millis();
+		targetRPM = 100.0;
+		// last_think = millis();
 	}
 	void stop() {
 		digitalWrite(in1Pin, LOW);
 		digitalWrite(in2Pin, LOW);
 		// analogWrite(pwmPin, 0);
 		encoder->reset();
+
+		targetRPM = 0.0;
+		pidOutput = 0.0;
+		pid.reset();
 	}
 
 	void update(double intervalSec) {
@@ -405,8 +462,9 @@ public:
 		last_think = millis();
 		double lastPidOutput = pidOutput;
 		currentRPM = encoder->getRPM(10, intervalSec);
-		pid->Compute();
-		if (millis() - lastDebug >= 500) {
+		// pid->Compute();
+		pidOutput = pid.compute(targetRPM, currentRPM);
+		if (millis() - lastDebug >= 500 && pidOutput != lastPidOutput) {
 			Serial.print(pwmPin);
 			Serial.print(") - ");
 			Serial.print("Current RPM: ");
@@ -421,7 +479,6 @@ public:
 		encoder->reset();
 	}
 };
-
 
 enum Movement { FORWARD, BACKWARD, TURN_LEFT, TURN_RIGHT };
 class PonteH {
@@ -482,7 +539,7 @@ public:
 	}
 
 	void updateAll(double intervalSec) {
-		if (!isMoving) return;
+		// if (!isMoving) return;
 		motorRight->update(intervalSec);
 		motorLeft->update(intervalSec);
 	}
@@ -512,9 +569,9 @@ Encoder *encoderE = new Encoder(35, 34);  // CH A=35, CH B=34
 
 // ——————— Motores com PID ———————
 // Motor Direito  → IN1=12, IN2=13, PWM=14, canal LEDC=0
-Motor *motorDireito  = new Motor( 12, 13, 14, encoderD, 1, 0.5, 0.0 );
+Motor *motorDireito  = new Motor( 12, 13, 14, encoderD, intentKp, intentKi, intentKd );
 // Motor Esquerdo → IN1=33, IN2=25, PWM=32, canal LEDC=1
-Motor *motorEsquerdo = new Motor( 33, 25, 32, encoderE, 1, 0.5, 0.0 );
+Motor *motorEsquerdo = new Motor( 33, 25, 32, encoderE, intentKp, intentKi, intentKd );
 
 // ——————— Ponte H (drive de 2 motores) ———————
 PonteH *ponte = new PonteH(motorDireito, motorEsquerdo);
@@ -701,37 +758,35 @@ void loop() {
 	}
 	lastRead = millis();
 
-	Serial.println("====================================");
 
-	int front_distance = sensor->loop();
-	Serial.printf("Distância: ");
-	if (front_distance < 100) {
-		Serial.printf("Obstáculo a %d mm\n", front_distance);
-	} else {
-		Serial.println("Sem obstáculo");
+	if (false) {
+		int front_distance = sensor->loop();
+		Serial.printf("Distância: ");
+		if (front_distance < 100) {
+			Serial.printf("Obstáculo a %d mm\n", front_distance);
+		} else {
+			Serial.println("Sem obstáculo");
+		}
+
+		Serial.printf("Acelerômetro: %.2f %.2f %.2f\n",
+			sensorMPU->getAccelerometerX(),
+			sensorMPU->getAccelerometerY(),
+			sensorMPU->getAccelerometerZ());
+
+		Serial.printf("Giroscópio: %.2f %.2f %.2f\n",
+			sensorMPU->getGyroscopeX(),
+			sensorMPU->getGyroscopeY(),
+			sensorMPU->getGyroscopeZ());
+
+		Serial.print("Motor Direito: ");
+		Serial.print(encoderD->getRPM());
+		Serial.print(" RPM, ");
+		Serial.print(encoderD->isClockwise() ? "Frente" : "Tras");
+		Serial.print(" | Motor Esquerdo: ");
+		Serial.print(encoderE->getRPM());
+		Serial.print(" RPM, ");
+		Serial.print(encoderE->isClockwise() ? "Frente" : "Tras");
+		Serial.println();
 	}
-
-	Serial.printf("Acelerômetro: %.2f %.2f %.2f\n",
-		sensorMPU->getAccelerometerX(),
-		sensorMPU->getAccelerometerY(),
-		sensorMPU->getAccelerometerZ());
-
-	Serial.printf("Giroscópio: %.2f %.2f %.2f\n",
-		sensorMPU->getGyroscopeX(),
-		sensorMPU->getGyroscopeY(),
-		sensorMPU->getGyroscopeZ());
-
-	Serial.print("Motor Direito: ");
-	Serial.print(encoderD->getRPM());
-	Serial.print(" RPM, ");
-	Serial.print(encoderD->isClockwise() ? "Frente" : "Tras");
-	Serial.print(" | Motor Esquerdo: ");
-	Serial.print(encoderE->getRPM());
-	Serial.print(" RPM, ");
-	Serial.print(encoderE->isClockwise() ? "Frente" : "Tras");
-	Serial.println();
-	Serial.println("===================================");
-	Serial.println();
-	Serial.println();
 
 }
