@@ -136,6 +136,48 @@ public:
 	}
 };
 
+class MediaMovel {
+private:
+	double* values;
+	int size;
+	int index;
+public:
+	MediaMovel(int size) {
+		this->size = size;
+		this->values = new double[size];
+		this->index = 0;
+		for (int i = 0; i < size; i++) {
+			this->values[i] = 0.0;
+		}
+	}
+
+	void addValue(double value) {
+		this->values[this->index] = value;
+		this->index = (this->index + 1) % this->size;
+	}
+	void add(double value) {
+		this->addValue(value);
+	}
+
+	double getAverage() {
+		double sum = 0.0;
+		for (int i = 0; i < this->size; i++) {
+			sum += this->values[i];
+		}
+		return sum / this->size;
+	}
+	double get() {
+		return this->getAverage();
+	}
+}
+
+template <typename T>
+T clamp(T value, T min, T max) {
+	if (value < min) return min;
+	if (value > max) return max;
+	return value;
+}
+
 class LED {
 private:
 	int pin;
@@ -210,6 +252,11 @@ public:
 class MPU6050 {
 private:
 	Adafruit_MPU6050 *sensor;
+
+	unsigned long lastRead = 0;
+	MediaMovel gyroX = MediaMovel(10);
+	MediaMovel gyroY = MediaMovel(10);
+	MediaMovel gyroZ = MediaMovel(10);
 public:
 	MPU6050() {
 		this->sensor = new Adafruit_MPU6050();
@@ -256,22 +303,32 @@ public:
 
 	float getGyroscopeX() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.x * 10.0f * 1229.0f / 4096.0f + 18.0f;
+		return this->gyroX.get();
 	}
 	float getGyroscopeY() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.y * 10.0f * 1229.0f / 4096.0f + 70.0f;
+		return this->gyroY.get();
 	}
 	float getGyroscopeZ() {
 		sensors_event_t g = this->getGyroscope();
-		return g.gyro.z * 10.0f * 1229.0f / 4096.0f + 270.0f;
+		return this->gyroZ.get();
 	}
 	float getTemperatureC() {
 		sensors_event_t temp = this->getTemperature();
 		return temp.temperature;
 	}
 
-	void loop() {} // Não faz nada ainda, mas fará?
+	void loop() {
+		if (millis() - this->lastRead < 100) {
+			return; // evita leituras muito frequentes
+		}
+		this->lastRead = millis();
+		sensors_event_t g = this->getGyroscope();
+		// Atualiza as médias móveis
+		this->gyroX.add(g.gyro.x * 10.0f * 1229.0f / 4096.0f + 18.0f);
+		this->gyroY.add(g.gyro.y * 10.0f * 1229.0f / 4096.0f + 70.0f);
+		this->gyroZ.add(g.gyro.z * 10.0f * 1229.0f / 4096.0f + 270.0f);
+	}
 };
 
 class Encoder {
@@ -348,6 +405,8 @@ public:
 		_dt = dt;
 		_integral = 0.0f;
 		_prevError = 0.0f;
+		top_celing = 255.0f;
+		bottom_floor = 0.0f;
 	}
 
 	// Ajuste de ganhos em tempo real
@@ -361,6 +420,11 @@ public:
 		_Kd = Kd;
 	}
 
+	void setMaxMin(float max_v, float min_v) {
+		top_celing = max_v;
+		bottom_floor = min_v;
+	}
+
 	// Cálculo passo a passo
 	float compute(float setpoint, float measurement) {
 		float error = setpoint - measurement;
@@ -369,9 +433,9 @@ public:
 
 		float output = _Kp * error + _Ki * _integral + _Kd * derivative;
 		_prevError = error;
-		if (output > 255.0f) output = 255.0f;
-		if (output < 0.0f) output = 0.0f;
-		return output;
+		output = clamp(output, bottom_floor, top_celing);
+		output = output * 255.0f / (top_celing - bottom_floor); // Normaliza para 0-255
+		return clamp(output, 0.0f, 255.0f);
 	}
 
 	void reset() {
@@ -382,6 +446,8 @@ public:
 private:
 	float _Kp, _Ki, _Kd, _dt;
 	float _integral, _prevError;
+
+	float top_celing, bottom_floor;
 };
 
 class Motor {
@@ -452,7 +518,7 @@ public:
 		encoder->reset();
 
 		targetRPM = 0.0;
-		pidOutput = 0.0;
+		// pidOutput = 0.0;
 		pid.reset();
 	}
 
@@ -477,16 +543,32 @@ public:
 		}
 		analogWrite(pwmPin, int(pidOutput));
 		encoder->reset();
+		if (pidOutput < 10.0) {
+			this->stop();
+			Serial.println("Motor desligado por PID baixo");
+		}
+	}
+
+	bool isMoving() {
+		return (pidOutput > 10.0) && (targetRPM > 0.0);
+	}
+
+	void manualAddPID(int value) {
+		pidOutput += value;
 	}
 };
 
-enum Movement { FORWARD, BACKWARD, TURN_LEFT, TURN_RIGHT };
+enum Movement { MOVEMENT_FORWARD, MOVEMENT_BACKWARDS, MOVEMENT_TURN_LEFT, MOVEMENT_TURN_RIGHT, MOVEMENT_STOPPED };
 class PonteH {
 private:
 	Motor* motorRight;
 	Motor* motorLeft;
-	Movement currentMove = FORWARD;
-	bool isMoving = false;
+	Movement currentMove = MOVEMENT_FORWARD, last_known_move = MOVEMENT_STOPPED;
+	bool isMoving = false, wasMoving = false;
+	bool right_weel = true;
+
+	double gyro_move_start[3] = {0.0, 0.0, 0.0};
+	PID pid = PID(intentKp, intentKi, intentKd, 0.1);
 
 public:
 	PonteH(Motor* right, Motor* left) {
@@ -500,39 +582,39 @@ public:
 	}
 
 	void forward() {
-		if (currentMove != FORWARD) stop();
-		currentMove = FORWARD;
+		if (currentMove != MOVEMENT_FORWARD) stop();
+		currentMove = MOVEMENT_FORWARD;
 		motorRight->forward();
 		motorLeft->forward();
 		isMoving = true;
 	}
 
 	void backward() {
-		if (currentMove != BACKWARD) stop();
-		currentMove = BACKWARD;
+		if (currentMove != MOVEMENT_BACKWARDS) stop();
+		currentMove = MOVEMENT_BACKWARDS;
 		motorRight->backward();
 		motorLeft->backward();
 		isMoving = true;
 	}
 
 	void turnLeft() {
-		if (currentMove != TURN_LEFT) stop();
-		currentMove = TURN_LEFT;
+		if (currentMove != MOVEMENT_TURN_LEFT) stop();
+		currentMove = MOVEMENT_TURN_LEFT;
 		motorRight->forward();
 		motorLeft->backward();
 		isMoving = true;
 	}
 
 	void turnRight() {
-		if (currentMove != TURN_RIGHT) stop();
-		currentMove = TURN_RIGHT;
+		if (currentMove != MOVEMENT_TURN_RIGHT) stop();
+		currentMove = MOVEMENT_TURN_RIGHT;
 		motorRight->backward();
 		motorLeft->forward();
 		isMoving = true;
 	}
 
 	void stop() {
-		currentMove = FORWARD;
+		currentMove = MOVEMENT_STOPPED;
 		motorRight->stop();
 		motorLeft->stop();
 		isMoving = false;
@@ -540,8 +622,80 @@ public:
 
 	void updateAll(double intervalSec) {
 		// if (!isMoving) return;
-		motorRight->update(intervalSec);
-		motorLeft->update(intervalSec);
+		if (right_weel) {
+			motorRight->update(intervalSec);
+		} else {
+			motorLeft->update(intervalSec);
+		}
+		right_weel = !right_weel;
+	}
+
+	void loop(VL53L0X* front_dist_sensor, MPU6050* mpu_sensor) {
+		if (wasMoving != isMoving || last_known_move != currentMove) {
+			wasMoving = isMoving
+			last_known_move = currentMove;
+			gyro_move_start[0] = mpu_sensor->getGyroscopeX();
+			gyro_move_start[1] = mpu_sensor->getGyroscopeY();
+			gyro_move_start[2] = mpu_sensor->getGyroscopeZ();
+			Serial.print("Movimento: ");
+			switch (currentMove) {
+				case MOVEMENT_FORWARD:
+					Serial.println("Frente");
+					break;
+				case MOVEMENT_BACKWARDS:
+					Serial.println("Trás");
+					break;
+				case MOVEMENT_TURN_LEFT:
+					Serial.println("Virando à esquerda");
+					break;
+				case MOVEMENT_TURN_RIGHT:
+					Serial.println("Virando à direita");
+					break;
+				default:
+					Serial.println("Parado");
+			}
+			Serial.print("Giroscópio inicial: ");
+			Serial.print(gyro_move_start[0]);
+			Serial.print(", ");
+			Serial.print(gyro_move_start[1]);
+			Serial.print(", ");
+			Serial.println(gyro_move_start[2]);
+		}
+		if (!isMoving) {
+			return;
+		}
+
+		updateAll(0.5);
+		switch (currentMove) {
+			case MOVEMENT_FORWARD:
+				int front_distance = front_dist_sensor->loop();
+				if (front_distance < 100) {
+					stop();
+					Serial.println("Parando por obstáculo!");
+					return;
+				}
+				break;
+			case MOVEMENT_BACKWARDS:
+				break;
+			case MOVEMENT_TURN_LEFT:
+				break;
+			case MOVEMENT_TURN_RIGHT:
+				break;
+			case MOVEMENT_STOPPED:
+				// Se o carro está parado, não faz nada
+				// Mas podemos verificar se o giroscópio está estabilizado
+				double gyroX = mpu_sensor->getGyroscopeX();
+				double gyroY = mpu_sensor->getGyroscopeY();
+				double gyroZ = mpu_sensor->getGyroscopeZ();
+				if (fabs(gyroX - gyro_move_start[0]) < 0.1 &&
+					fabs(gyroY - gyro_move_start[1]) < 0.1 &&
+					fabs(gyroZ - gyro_move_start[2]) < 0.1) {
+					Serial.println("Carro estabilizado!");
+				}
+				break;
+			default:
+				return; // Something is really fucked up, we broke something
+		}
 	}
 };
 
@@ -563,15 +717,17 @@ MPU6050 *sensorMPU = new MPU6050();	// MPU6050 no mesmo barramento I²C
 
 // ——————— Encoders ———————
 // Motor Direito
-Encoder *encoderD = new Encoder(27, 26);  // CH A=26, CH B=27
+// Encoder *encoderD = new Encoder(27, 26);  // CH A=26, CH B=27
+Encoder *encoderD = new Encoder(15, 4);  // CH A=17, CH B=16
 // Motor Esquerdo
-Encoder *encoderE = new Encoder(35, 34);  // CH A=35, CH B=34
+// Encoder *encoderE = new Encoder(35, 34);  // CH A=35, CH B=34
+Encoder *encoderE = new Encoder(16, 17);  // CH A=19, CH B=18
 
 // ——————— Motores com PID ———————
-// Motor Direito  → IN1=12, IN2=13, PWM=14, canal LEDC=0
-Motor *motorDireito  = new Motor( 12, 13, 14, encoderD, intentKp, intentKi, intentKd );
-// Motor Esquerdo → IN1=33, IN2=25, PWM=32, canal LEDC=1
-Motor *motorEsquerdo = new Motor( 33, 25, 32, encoderE, intentKp, intentKi, intentKd );
+// Motor Direito  → IN1=12, IN2=13, PWM=14
+Motor *motorDireito  = new Motor( 12, 13, 32, encoderD, intentKp, intentKi, intentKd );
+// Motor Esquerdo → IN1=33, IN2=25, PWM=32
+Motor *motorEsquerdo = new Motor( 26, 25, 33, encoderE, intentKp, intentKi, intentKd );
 
 // ——————— Ponte H (drive de 2 motores) ———————
 PonteH *ponte = new PonteH(motorDireito, motorEsquerdo);
@@ -703,6 +859,7 @@ unsigned long lastRead = 0;
 void setup() {
 	Serial.begin(115200);
 
+	Serial.println("Iniciando...");
 	powerManager.setPowerMode(POWER_NORMAL);
 
 	led_carro.setup();
@@ -746,47 +903,19 @@ void setup() {
 	lastRead = millis();
 }
 
-unsigned long prevMicros = 0;
 void loop() {
-	unsigned long now = micros();
-	double dt = (now - prevMicros) / 1e6;
-	prevMicros = now;
-
-	ponte->updateAll(0.5);
-	if (millis() - lastRead < 1000) {
+	if (WiFi.status() != WL_CONNECTED) {
+		Serial.println("WiFi desconectado, tentando reconectar...");
+		ConnectToWiFi();
+		ponte->stop();
 		return;
 	}
-	lastRead = millis();
+	// Atualiza sensores
+	sensorMPU->loop();
+	encoderD->loop();
+	encoderE->loop();
 
-
-	if (false) {
-		int front_distance = sensor->loop();
-		Serial.printf("Distância: ");
-		if (front_distance < 100) {
-			Serial.printf("Obstáculo a %d mm\n", front_distance);
-		} else {
-			Serial.println("Sem obstáculo");
-		}
-
-		Serial.printf("Acelerômetro: %.2f %.2f %.2f\n",
-			sensorMPU->getAccelerometerX(),
-			sensorMPU->getAccelerometerY(),
-			sensorMPU->getAccelerometerZ());
-
-		Serial.printf("Giroscópio: %.2f %.2f %.2f\n",
-			sensorMPU->getGyroscopeX(),
-			sensorMPU->getGyroscopeY(),
-			sensorMPU->getGyroscopeZ());
-
-		Serial.print("Motor Direito: ");
-		Serial.print(encoderD->getRPM());
-		Serial.print(" RPM, ");
-		Serial.print(encoderD->isClockwise() ? "Frente" : "Tras");
-		Serial.print(" | Motor Esquerdo: ");
-		Serial.print(encoderE->getRPM());
-		Serial.print(" RPM, ");
-		Serial.print(encoderE->isClockwise() ? "Frente" : "Tras");
-		Serial.println();
-	}
+	// Atualiza ponte H e motores
+	ponte->loop(sensor, sensorMPU);
 
 }
