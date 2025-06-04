@@ -1,0 +1,281 @@
+rst:0xc (SW_CPU_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4660
+load:0x40078000,len:15576
+load:0x40080400,len:4
+load:0x40080404,len:3152
+entry 0x400805a0
+Iniciando...
+Já está no modo solicitado.
+Sensor VL53L0X encontrado!
+Setup completo!
+Conectando ao WiFi -> Canguru..ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4660
+load:0x40078000,len:15576
+load:0x40080400,len:4
+load:0x40080404,len:3152
+entry 0x400805a0
+Iniciando...
+Já está no modo solicitado.
+Sensor VL53L0X encontrado!
+Setup completo!
+Conectando ao WiFi -> Canguru... WiFi conectado!
+Endereco IP: 192.168.126.149
+Distancia: 8191 mm
+[Motor 32] RPM out: 159.37 | Gyro out: 0.06 -> PWM: 159.43
+Distancia: 8191 mm
+[Motor 33] RPM out: 149.81 | Gyro out: 1.11 -> PWM: 150.93
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 28.69 | Gyro out: 1.58 -> PWM: 30.27
+Distancia: Fora do alcance
+[Motor 33] RPM out: 17.21 | Gyro out: -3.70 -> PWM: 13.51
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 114.11 | Gyro out: 0.12 -> PWM: 114.23
+Distancia: 8191 mm
+[Motor 33] RPM out: 186.79 | Gyro out: 0.47 -> PWM: 187.25
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 44.63 | Gyro out: 2.42 -> PWM: 47.05
+Distancia: 8191 mm
+[Motor 33] RPM out: 161.29 | Gyro out: -3.45 -> PWM: 157.83
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 5.74 | Gyro out: 7.46 -> PWM: 13.20
+Distancia: Fora do alcance
+[Motor 33] RPM out: 239.06 | Gyro out: -7.09 -> PWM: 231.97
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 40.87 -> PWM: 40.87
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -41.09 -> PWM: 213.91
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 22.42 -> PWM: 22.42
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -23.01 -> PWM: 231.99
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 35.99 -> PWM: 35.99
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -35.10 -> PWM: 219.90
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 25.73 -> PWM: 25.73
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -25.70 -> PWM: 229.30
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 35.36 -> PWM: 35.36
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -34.92 -> PWM: 220.08
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 28.29 -> PWM: 28.29
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -28.37 -> PWM: 226.63
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 34.27 -> PWM: 34.27
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -34.57 -> PWM: 220.43
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 779 mm
+Distancia: 8191 mm
+Distancia: 804 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 29.46 -> PWM: 29.46
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -29.66 -> PWM: 225.34
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 159.37 | Gyro out: -0.15 -> PWM: 159.22
+[Motor 33] RPM out: 159.37 | Gyro out: 3.73 -> PWM: 163.10
+[Motor 32] RPM out: 28.69 | Gyro out: 1.57 -> PWM: 30.25
+[Motor 33] RPM out: 66.94 | Gyro out: -4.28 -> PWM: 62.66
+[Motor 32] RPM out: 75.86 | Gyro out: -0.02 -> PWM: 75.85
+[Motor 33] RPM out: 131.32 | Gyro out: 0.12 -> PWM: 131.45
+[Motor 32] RPM out: 170.85 | Gyro out: 1.61 -> PWM: 172.46
+[Motor 33] RPM out: 168.94 | Gyro out: 0.72 -> PWM: 169.66
+[Motor 32] RPM out: 5.74 | Gyro out: 1.23 -> PWM: 6.97
+[Motor 33] RPM out: 95.62 | Gyro out: -4.20 -> PWM: 91.42
+[Motor 32] RPM out: 108.37 | Gyro out: 0.18 -> PWM: 108.55
+[Motor 33] RPM out: 175.31 | Gyro out: 1.89 -> PWM: 177.21
+[Motor 32] RPM out: 90.52 | Gyro out: 1.68 -> PWM: 92.21
+[Motor 33] RPM out: 107.74 | Gyro out: -2.43 -> PWM: 105.31
+Distancia: 527 mm
+[Motor 32] RPM out: 159.37 | Gyro out: 0.05 -> PWM: 159.42
+Distancia: 536 mm
+[Motor 33] RPM out: 149.81 | Gyro out: 1.02 -> PWM: 150.83
+Distancia: 554 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 38.25 | Gyro out: 1.58 -> PWM: 39.83
+Distancia: 8191 mm
+[Motor 33] RPM out: 17.21 | Gyro out: -2.18 -> PWM: 15.03
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 116.02 | Gyro out: -0.02 -> PWM: 116.00
+Distancia: 8191 mm
+[Motor 33] RPM out: 148.54 | Gyro out: 0.20 -> PWM: 148.74
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 84.79 | Gyro out: 1.36 -> PWM: 86.15
+Distancia: 8191 mm
+[Motor 33] RPM out: 153.64 | Gyro out: -1.79 -> PWM: 151.85
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 24.86 | Gyro out: 1.72 -> PWM: 26.58
+Distancia: 8191 mm
+[Motor 33] RPM out: 174.04 | Gyro out: -2.46 -> PWM: 171.57
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 47.17 | Gyro out: 13.51 -> PWM: 60.69
+Distancia: 8191 mm
+[Motor 33] RPM out: 251.81 | Gyro out: -13.47 -> PWM: 238.34
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 17.17 -> PWM: 17.17
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -18.46 -> PWM: 236.54
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 37.72 -> PWM: 37.72
+Distancia: Fora do alcance
+[Motor 33] RPM out: 247.35 | Gyro out: -36.16 -> PWM: 211.19
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 20.08 -> PWM: 20.08
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -19.90 -> PWM: 235.10
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 34.28 -> PWM: 34.28
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -33.28 -> PWM: 221.72
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 21.72 -> PWM: 21.72
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -21.32 -> PWM: 233.68
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 32.78 -> PWM: 32.78
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -33.26 -> PWM: 221.74
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 27.01 -> PWM: 27.01
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -26.12 -> PWM: 228.88
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 30.72 -> PWM: 30.72
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 | Gyro out: -29.58 -> PWM: 225.42
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 | Gyro out: 28.49 -> PWM: 28.49
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -29.65 -> PWM: 225.35
+Distancia: 8191 mm
+Distancia: 752 mm
+Distancia: 822 mm
+Distancia: 851 mm
+Distancia: 830 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 32.71 -> PWM: 32.71
+Distancia: 846 mm
+[Motor 33] RPM out: 255.00 | Gyro out: -33.36 -> PWM: 221.64
+Distancia: 832 mm
+Distancia: 791 mm
+Distancia: 805 mm
+Distancia: 745 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 | Gyro out: 28.36 -> PWM: 28.36
+Distancia: 8191 mm
+[Motor 33] RPM out: 247.35 | Gyro out: -27.17 -> PWM: 220.18
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
