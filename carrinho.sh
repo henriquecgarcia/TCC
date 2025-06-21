@@ -1,111 +1,101 @@
 #!/bin/bash
 
+# carrinho.sh - script de automação de build/upload para ESP32
+# Autor: Henrique Campanha Garcia
+# TCC - Ciência da Computação - UNIFESP São José dos Campos
+# Versão: 1.1
+# Uso: ./carrinho.sh [opções]
+# Licença: MIT
+# Descrição: Este script automatiza o processo de compilação, upload e monitoramento de um projeto Arduino para um ESP32.
+# Requisitos: arduino-cli instalado e configurado, ESP32 conectado via USB.
+
+
+# ======== Configurações iniciais ========
 ESP_TYPE="esp32:esp32:esp32doit-devkit-v1"
 PORT="/dev/ttyACM0"
 PROJECT="carrinho"
+CONFIG="115200"
+SHOULD_LOG=false
 COMPILE=false
 UPLOAD=false
 MONITOR=false
-CONFIG="115200"
-# Commands: -c --compile, -u --upload, -h --help, -v --version, -p --port, -e --esp-type
 
-if [ -z "$1" ]; then
-	echo "No arguments provided. Considering default options, compiling and uploading the project."
-	COMPILE=true
-	UPLOAD=true
-else
-	echo "Arguments provided. Processing options..."
-fi
+LOG_DIR="${PROJECT}/logs"
+mkdir -p "$LOG_DIR"
 
-# Checking arguments
-for arg in "$@"; do
-# Making it a switch case for better readability
-	case "$arg" in
-		--help|-h)
-			echo "Usage: carrinho.sh [options]"
-			echo "Options:"
-			echo "  -c, --compile       Compile the project"
-			echo "  -u, --upload        Upload the project to the ESP32"
-			echo "  -h, --help          Show this help message"
-			echo "  -v, --version       Show the version of the script"
-			echo "  -p, --port <port>   Specify the port for the ESP32 (default: $PORT)"
-			echo "  -e, --esp-type <type> Specify the ESP type (default: $ESP_TYPE)"
-			exit 0
-			;;
-		--version|-v)
-			echo "carrinho.sh version 1.0"
-			exit 0
-			;;
-		--port|-p)
-			if [ -n "$2" ]; then
-				PORT="$2"
-				shift 2
-			else
-				echo "Error: No port specified after --port or -p."
-				exit 1
-			fi
-			;;
-		--esp-type|-e)
-			if [ -n "$2" ]; then
-				ESP_TYPE="$2"
-				shift 2
-			else
-				echo "Error: No ESP type specified after --esp-type or -e."
-				exit 1
-			fi
-			;;
-		-c|--compile)
-			COMPILE=true
-			;;
-		-c|--compile)
-			COMPILE=true
-			;;
-		-u|--upload)
-			UPLOAD=true
-			;;
-		-m|--monitor)
-			MONITOR=true
-			;;
-		--config|-cfg)
-			if [ -n "$2" ]; then
-				CONFIG="$2"
-				shift 2
-			else
-				echo "Error: No config file specified after --config or -cfg."
-				exit 1
-			fi
-			;;
-		*)
-			echo "Error: Unknown argument '$arg'. Use --help or -h for usage information."
-			exit 1
-			;;
+# ======== Funções utilitárias ========
+log_msg() {
+	echo "$1"
+	[ "$SHOULD_LOG" = true ] && echo "$1" >> "$LOG_FILE"
+}
+
+run_and_log() {
+	if [ "$SHOULD_LOG" = true ]; then
+		"$@" &>> "$LOG_FILE"
+	else
+		"$@"
+	fi
+}
+
+print_help() {
+	cat <<EOF
+Usage: carrinho.sh [options]
+Options:
+	-c, --compile         Compile the project
+	-u, --upload          Upload the project to the ESP32
+	-m, --monitor         Monitor serial output
+	-l, --log             Enable logging to a timestamped file
+	-p, --port <port>     Set the serial port (default: $PORT)
+	-e, --esp-type <type> Set the ESP32 board type (default: $ESP_TYPE)
+	-cfg, --config <baud> Set baud rate for monitor (default: $CONFIG)
+	-v, --version         Show script version
+	-h, --help            Show this help message
+EOF
+}
+
+# ======== Processamento de argumentos ========
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-c|--compile) COMPILE=true ;;
+		-u|--upload) UPLOAD=true ;;
+		-m|--monitor) MONITOR=true ;;
+		-l|--log) SHOULD_LOG=true ;;
+		-p|--port) PORT="$2"; shift ;;
+		-e|--esp-type) ESP_TYPE="$2"; shift ;;
+		-cfg|--config) CONFIG="$2"; shift ;;
+		-v|--version) echo "carrinho.sh version 1.1"; exit 0 ;;
+		-h|--help) print_help; exit 0 ;;
+		*) echo "Unknown argument: $1"; print_help; exit 1 ;;
 	esac
+	shift
 done
 
+# ======== Inicialização do log se necessário ========
+if [ "$SHOULD_LOG" = true ]; then
+	LOG_FILE="${LOG_DIR}/log_$(date +%Y.%m.%d_%H_%M).txt"
+	log_msg "Log iniciado em $LOG_FILE"
+fi
+
+# ======== Execuções ========
 if [ "$COMPILE" = true ]; then
-	arduino-cli compile --fqbn $ESP_TYPE --port $PORT $PROJECT
-	if [ $? -ne 0 ]; then
-		echo "Compilation failed. Please check the code and try again."
-		exit 1
-	else
-		echo "Compilation successful."
-	fi
+	log_msg "Compilando projeto..."
+	run_and_log arduino-cli compile --fqbn "$ESP_TYPE" "$PROJECT"
+	[ $? -ne 0 ] && log_msg "Erro na compilação." && exit 1
+	log_msg "Compilação bem-sucedida."
 fi
+
 if [ "$UPLOAD" = true ]; then
-	arduino-cli upload --fqbn $ESP_TYPE --port $PORT $PROJECT
-	if [ $? -ne 0 ]; then
-		echo "Upload failed. Please check the connection and try again."
-		exit 1
-	else
-		echo "Upload successful."
-	fi
+	log_msg "Enviando código para $PORT..."
+	run_and_log arduino-cli upload --fqbn "$ESP_TYPE" --port "$PORT" --input-dir "$PROJECT"/data
+	[ $? -ne 0 ] && log_msg "Erro no upload." && exit 1
+	log_msg "Upload bem-sucedido."
 fi
+
 if [ "$MONITOR" = true ]; then
-	arduino-cli monitor -p $PORT --config $CONFIG
-	if [ $? -ne 0 ]; then
-		echo "Monitor failed. Please check the connection and try again."
-		exit 1
+	log_msg "Iniciando monitor serial em $PORT (baud: $CONFIG)..."
+	if [ "$SHOULD_LOG" = true ]; then
+		arduino-cli monitor -p "$PORT" --config "$CONFIG" | tee -a "$LOG_FILE"
 	else
-		echo "Monitor started successfully."
+		arduino-cli monitor -p "$PORT" --config "$CONFIG"
 	fi
 fi
