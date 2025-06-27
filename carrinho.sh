@@ -20,6 +20,16 @@ COMPILE=false
 UPLOAD=false
 MONITOR=false
 
+if [ -z "$(command -v arduino-cli)" ]; then
+	echo "Erro: arduino-cli não encontrado. Instale-o e configure-o corretamente."
+	exit 1
+fi
+
+if [ ! -d "$PROJECT" ]; then
+	echo "Erro: Projeto '$PROJECT' não encontrado. Certifique-se de que o diretório existe."
+	exit 1
+fi
+
 LOG_DIR="${PROJECT}/logs"
 mkdir -p "$LOG_DIR"
 

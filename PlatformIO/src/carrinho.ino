@@ -61,11 +61,14 @@ const double intentKd = 0.0;
 AsyncWebServer server(80);
 // WebServer server(80);
 
-template <typename T>
-T clamp(T value, T min, T max) {
-	if (value < min) return min;
-	if (value > max) return max;
-	return value;
+IPAddress local_IP(192, 168, 1, 100);
+IPAddress gateway(192, 168, 1, 1);
+IPAddress subnet(255, 255, 255, 0);
+
+static double clamp(double value, double min, double max) {
+    if (value < min) return min;
+    else if (value > max) return max;
+    else return value;
 }
 
 class VL53L0X {
@@ -87,11 +90,11 @@ public:
 			#ifdef DEBUG_PRINTS
 				Serial.println("Falha ao encontrar o sensor VL53L0X");
 			#endif
-			LED inLed = LED(2);
+			LED inLed(2);
 			inLed.setup();
 			while (true) {
 				inLed.toggle();
-				delay(10);  // mantém o watchdog feliz
+				delay(1000);  // mantém o watchdog feliz
 			}
 		}
 		#ifdef DEBUG_PRINTS
@@ -142,6 +145,12 @@ private:
 	MPU6050(const MPU6050&) = delete;
 	MPU6050& operator=(const MPU6050&) = delete;
 
+	bool firstRead = true; // para evitar leituras iniciais erradas
+	// offsets calibrados para evitar drift
+	float offsetX = 0.06; // ajuste fino do giroscópio X
+	float offsetY = -0.03; // ajuste fino do giroscópio Y
+	float offsetZ = -0.03; // ajuste fino do giroscópio Z
+
 public:
 	MPU6050() = default;  // construtor padrão
 
@@ -150,11 +159,11 @@ public:
 			#ifdef DEBUG_PRINTS
 				Serial.println("Falha ao encontrar o sensor MPU6050");
 			#endif
-			LED inLed = LED(2);
+			LED inLed(2);
 			inLed.setup();
 			while (true) {
 				inLed.toggle();
-				delay(20);  // mantém o watchdog feliz
+				delay(2000);  // mantém o watchdog feliz
 			}
 		}
 		sensor.setAccelerometerRange(MPU6050_RANGE_2_G);
@@ -212,10 +221,18 @@ public:
 		sensors_event_t a, g, temp;
 		sensor.getEvent(&a, &g, &temp);
 
+		if (firstRead) {
+			// calibra offsets na primeira leitura
+			offsetX = g.gyro.x;
+			offsetY = g.gyro.y;
+			offsetZ = g.gyro.z;
+			firstRead = false;
+		}
+
 		// Atualiza as médias móveis com offsets calibrados
-		gyroX.add(g.gyro.x + 0.06);
-		gyroY.add(g.gyro.y - 0.03);
-		gyroZ.add(g.gyro.z - 0.03);
+		gyroX.add(g.gyro.x - offsetX);
+		gyroY.add(g.gyro.y - offsetY);
+		gyroZ.add(g.gyro.z - offsetZ);
 	}
 };
 
@@ -409,17 +426,29 @@ public:
 		if (now - lastDebug >= thinkInterval) {
 			#ifdef DEBUG_PRINTS
 				Serial.print("[Motor "); Serial.print(pwmPin);
+				if (pwmPin == 32)
+					Serial.print(" (Right)] ");
+				else
+					Serial.print(" (Left)] ");
 				Serial.print("] RPM out: "); Serial.print(rpmControl);
-				Serial.print(" | Gyro out: "); Serial.print(gyroControl);
-				Serial.print(" -> PWM: "); Serial.println(pidOutput);
+				// Serial.print(" | Gyro out: "); Serial.print(gyroControl);
+				Serial.print(" -> PWM: "); Serial.print(pidOutput);
 
-				Serial.println("\n"); Serial.print("Encoder RPM Read: ");
+				Serial.print(" || "); Serial.print("Encoder RPM Read: ");
 				Serial.print(currentRPM); Serial.print("RPM | ");
-				Serial.print(currentRadS); Serial.println("rad/s");
+				Serial.print(currentRadS); Serial.print("rad/s");
 
-				Serial.print("Gyro Read: "); Serial.println(gyro_error);
+				Serial.print(" || Gyro Read: "); Serial.println(gyro_error);
 			#endif
 			lastDebug = now;
+		}
+
+		if (targetRadS < 0.01) {
+			#ifdef DEBUG_PRINTS
+				Serial.print("[Motor "); Serial.print(pwmPin);
+				Serial.println("] Target RPM is too low, resetting to 100 RPM");
+			#endif
+			targetRadS = rpmToRadS(100.0);
 		}
 
 		// if (pidOutput < 10.0) {
@@ -445,6 +474,19 @@ public:
 		#endif
 		lastReading = millis();
 	}
+
+	double getRPM() const {
+		return currentRPM;
+	}
+	double getTargetRPM() const {
+		return targetRPM;
+	}
+	double getPIDOutput() const {
+		return pidOutput;
+	}
+	bool isClockwise() const {
+		return encoder->isClockwise();
+	}
 };
 
 enum Movement {
@@ -467,6 +509,7 @@ private:
 
 	// flag para alternar quais motores atualizar
 	bool		nextRight	  = true;
+	double lastGyroZ = 0.0; // último valor do giroscópio Z
 
 public:
 	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {}
@@ -575,15 +618,25 @@ public:
 					return;
 				}
 				double gz = mpu_sensor->getGyroscopeZ();
+				if (nextRight) {
+					lastGyroZ = gz;  // salva o último valor do giroscópio Z
+				} else {
+					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
+				}
 				// alterna update entre Right e Left
-				doUpdate(motorRight, -gz);
-				doUpdate(motorLeft,   gz);
+				doUpdate(motorRight,  gz);
+				doUpdate(motorLeft,  -gz);
 				break;
 			}
 			case MOVEMENT_BACKWARDS: {
 				double gz = mpu_sensor->getGyroscopeZ();
-				doUpdate(motorRight,  gz);
-				doUpdate(motorLeft,  -gz);
+				if (nextRight) {
+					lastGyroZ = gz;  // salva o último valor do giroscópio Z
+				} else {
+					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
+				}
+				doUpdate(motorRight, -gz);
+				doUpdate(motorLeft,   gz);
 				break;
 			}
 			case MOVEMENT_TURN_LEFT:
@@ -613,6 +666,10 @@ public:
 
 		// alterna para a próxima chamada
 		nextRight = !nextRight;
+	}
+
+	Movement getCurrentMove() const {
+		return currentMove;
 	}
 };
 
@@ -687,8 +744,8 @@ void http_handle_turn_left(AsyncWebServerRequest *request) {
 // void http_handle_turn_left() {
 	ponte->turnLeft();
 	lastReading = millis();
-	// request->send(200, "application/json", "{\"status\":\"turning left\"}");
-	server.send(200, "application/json", "{\"status\":\"turning left\"}");
+	request->send(200, "application/json", "{\"status\":\"turning left\"}");
+	// server.send(200, "application/json", "{\"status\":\"turning left\"}");
 }
 
 void http_handle_turn_right(AsyncWebServerRequest *request) {
@@ -718,7 +775,6 @@ void http_handle_test(AsyncWebServerRequest *request) {
 	html += "<button onclick=\"fetchURL('/turn_left')\">Turn Left</button>";
 	html += "<button onclick=\"fetchURL('/turn_right')\">Turn Right</button>";
 	html += "<button onclick=\"fetchURL('/stop')\">Stop</button>";
-	html += "<button onclick=\"fetchURL('/test')\">Test</button>";
 	html += "<button onclick=\"fetchURL('/data')\">Data</button>";
 	html += "<div id=\"data\"></div>";
 	html += "<script>";
@@ -737,7 +793,7 @@ void http_handle_test(AsyncWebServerRequest *request) {
 
 void handleData(AsyncWebServerRequest *request) {
 // void handleData() {
-	String json = "{";
+String json = "{";
 
 	// Dados do MPU6050
 	json += "\"sensorMPU\":{";
@@ -766,14 +822,43 @@ void handleData(AsyncWebServerRequest *request) {
 	json += "},";
 
 	// Motor Direito
-	json += "\"direcaoD\":\"" + String(encoderD->isClockwise() ? "frente" : "tras") + "\",";
-	json += "\"rpmD\":" + String(encoderD->getRPM()) + ",";
-
+	json += "\"motorD\":{";
+		json += "\"direction\":\"" + String(motorDireito->isMoving() ? (motorDireito->isClockwise() ? "frente" : "tras") : "parado") + "\",";
+		json += "\"rpm\":" + String(motorDireito->getRPM()) + ",";
+		json += "\"pidOutput\":" + String(motorDireito->getPIDOutput()) + ",";
+		json += "\"targetRPM\":" + String(motorDireito->getTargetRPM());
+	json += "},";
+	
 	// Motor Esquerdo
-	json += "\"direcaoE\":\"" + String(encoderE->isClockwise() ? "frente" : "tras") + "\",";
-	json += "\"rpmE\":" + String(encoderE->getRPM());
+	json += "\"motorE\":{";
+		json += "\"direction\":\"" + String(motorEsquerdo->isMoving() ? (motorEsquerdo->isClockwise() ? "frente" : "tras") : "parado") + "\",";
+		json += "\"rpm\":" + String(motorEsquerdo->getRPM()) + ",";
+		json += "\"pidOutput\":" + String(motorEsquerdo->getPIDOutput()) + ",";
+		json += "\"targetRPM\":" + String(motorEsquerdo->getTargetRPM());
+	json += "},";
 
-	json += "}";
+	json += "\"MPU6050\":{";
+		json += "\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
+		json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
+		json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
+		json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
+		json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
+		json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
+		json += "\"temp\":"  + String(sensorMPU->getTemperatureC());
+	json += "},";
+
+	json += "\"movement\":\"";
+	switch (ponte->getCurrentMove()) {
+		case MOVEMENT_FORWARD: json += "forward"; break;
+		case MOVEMENT_BACKWARDS: json += "backward"; break;
+		case MOVEMENT_TURN_LEFT: json += "turn_left"; break;
+		case MOVEMENT_TURN_RIGHT: json += "turn_right"; break;
+		default: json += "stopped"; break;
+	}
+	json += "\",";
+	json += "\"isMoving\":" + String(ponte->isStopped() ? "false" : "true");
+
+json += "}";
 
 	lastReading = millis();
 
@@ -831,9 +916,9 @@ void prepare_http_server() {
 	#endif
 
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-		if (true) {
-			return handle_base(request);
-		}
+		// if (true) {
+		// 	return handle_base(request);
+		// }
 		if (!SPIFFS.exists("/dashboard.html")) {
 			request->send(404, "text/plain", "dashboard.html não encontrado");
 			#ifdef DEBUG_PRINTS
@@ -888,27 +973,15 @@ void setup() {
 	// WiFi.mode(WIFI_STA);
 	ConnectToWiFi();
 
-	#ifndef SPIFFS_H
-		#ifdef DEBUG_PRINTS
-			Serial.println("SPIFFS não está habilitado, montando SPIFFS...");
-		#endif
-		LED inLed = LED(2);
-		inLed.setup();
-		while (true) {
-			inLed.toggle();
-			delay(30);  // mantém o watchdog feliz e ocupado, assim, não roda o loop()
-			// Se o SPIFFS falhar, pisca o LED para indicar erro
-		}
-	#endif
 	if (!SPIFFS.begin(true)) {
 		#ifdef DEBUG_PRINTS
 			Serial.println("Falha ao montar SPIFFS");
 		#endif
-		LED inLed = LED(2);
+		LED inLed(2);
 		inLed.setup();
 		while (true) {
 			inLed.toggle();
-			delay(30);  // mantém o watchdog feliz e ocupado, assim, não roda o loop()
+			delay(3000);  // mantém o watchdog feliz e ocupado, assim, não roda o loop()
 			// Se o SPIFFS falhar, pisca o LED para indicar erro
 		}
 	}

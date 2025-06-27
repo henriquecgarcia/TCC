@@ -1,0 +1,265 @@
+Log iniciado em carrinho/logs/log_2025.06.24_23_20.txt
+Iniciando monitor serial em /dev/ttyACM0 (baud: 115200)...
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x17 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1184
+load:0x40078000,len:13232
+load:0x40080400,len:3028
+entry 0x400805e4
+Iniciando...
+[Motor 32] Stopped
+[Motor 33] Stopped
+Sensor VL53L0X encontrado!
+Setup completo!
+Conectando ao WiFi -> Canguru...E (3994) wifi:Set status to INIT
+ WiFi conectado!
+Endereco IP: 192.168.17.149
+SPIFFS Mounted!
+SPIFFS Mounted!
+Servidor HTTP iniciado
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 32] Direction is now forwards
+[Motor 33] Stopped
+[Motor 33] Direction is now forwards
+Distancia: Fora do alcance
+[Motor 32] RPM out: 159.37 -> PWM: 159.37
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: 0.00
+Distancia: Fora do alcance
+[Motor 33] RPM out: 159.37 -> PWM: 159.37
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: -0.10
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 2280.00RPM | 238.76rad/s
+Gyro Read: -0.06
+Distancia: Fora do alcance
+[Motor 33] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 150.00RPM | 15.71rad/s
+Gyro Read: 0.13
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 606.00RPM | 63.46rad/s
+Gyro Read: -0.00
+Distancia: Fora do alcance
+[Motor 33] RPM out: 146.74 -> PWM: 146.74
+
+
+Encoder RPM Read: 18.00RPM | 1.88rad/s
+Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 108.00RPM | 11.31rad/s
+Gyro Read: -0.95
+Distancia: 8191 mm
+[Motor 33] RPM out: 201.64 -> PWM: 201.64
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: 0.96
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 1452.00RPM | 152.05rad/s
+Gyro Read: -1.61
+Distancia: Fora do alcance
+[Motor 33] RPM out: 143.08 -> PWM: 143.08
+
+
+Encoder RPM Read: 66.00RPM | 6.91rad/s
+Gyro Read: 1.61
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 1008.00RPM | 105.56rad/s
+Gyro Read: -0.99
+Distancia: 8191 mm
+[Motor 33] RPM out: 248.32 -> PWM: 248.32
+
+
+Encoder RPM Read: 24.00RPM | 2.51rad/s
+Gyro Read: 0.98
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 264.00RPM | 27.65rad/s
+Gyro Read: -2.09
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: 2.11
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 720.00RPM | 75.40rad/s
+Gyro Read: -2.62
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 12.00RPM | 1.26rad/s
+Gyro Read: 2.57
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 1524.00RPM | 159.59rad/s
+Gyro Read: -0.83
+Distancia: Fora do alcance
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 30.00RPM | 3.14rad/s
+Gyro Read: 0.60
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+Distancia: Fora do alcance
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 486.00RPM | 50.89rad/s
+Gyro Read: -1.67
+Distancia: 8191 mm
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 30.00RPM | 3.14rad/s
+Gyro Read: 1.80
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 32] Direction is now backwards
+[Motor 33] Stopped
+[Motor 33] Direction is now backwards
+[Motor 32] RPM out: 159.37 -> PWM: 159.37
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: -0.00
+[Motor 33] RPM out: 159.37 -> PWM: 159.37
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: -0.12
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 330.00RPM | 34.56rad/s
+Gyro Read: -0.08
+[Motor 33] RPM out: 160.77 -> PWM: 160.77
+
+
+Encoder RPM Read: 18.00RPM | 1.88rad/s
+Gyro Read: 0.21
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 330.00RPM | 34.56rad/s
+Gyro Read: -1.14
+[Motor 33] RPM out: 151.55 -> PWM: 151.55
+
+
+Encoder RPM Read: 42.00RPM | 4.40rad/s
+Gyro Read: 1.16
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 132.00RPM | 13.82rad/s
+Gyro Read: -1.03
+[Motor 33] RPM out: 235.86 -> PWM: 235.86
+
+
+Encoder RPM Read: 12.00RPM | 1.26rad/s
+Gyro Read: 1.04
+[Motor 32] RPM out: 0.00 -> PWM: 0.00
+
+
+Encoder RPM Read: 84.00RPM | 8.80rad/s
+Gyro Read: -0.14
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 18.00RPM | 1.88rad/s
+Gyro Read: -0.00
+[Motor 32] RPM out: 122.90 -> PWM: 122.90
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: -0.00
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: -0.08
+[Motor 32] RPM out: 147.46 -> PWM: 147.46
+
+
+Encoder RPM Read: 0.00RPM | 0.00rad/s
+Gyro Read: 0.62
+[Motor 33] RPM out: 255.00 -> PWM: 255.00
+
+
+Encoder RPM Read: 12.00RPM | 1.26rad/s
+Gyro Read: -0.53
+[Motor 32] Stopped
+[Motor 33] Stopped

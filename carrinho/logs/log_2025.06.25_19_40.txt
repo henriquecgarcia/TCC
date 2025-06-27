@@ -1,0 +1,230 @@
+Log iniciado em carrinho/logs/log_2025.06.25_19_40.txt
+Iniciando monitor serial em /dev/ttyACM0 (baud: 115200)...
+ts Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:1184
+load:0x40078000,len:13232
+load:0x40080400,len:3028
+entry 0x400805e4
+Iniciando...
+[Motor 32] Stopped
+[Motor 33] Stopped
+Sensor VL53L0X encontrado!
+Setup completo!
+Conectando ao WiFi -> Canguru...E (4265) wifi:Set status to INIT
+ WiFi conectado!
+Endereco IP: 192.168.17.149
+SPIFFS Mounted!
+SPIFFS Mounted!
+Servidor HTTP iniciado
+Distancia: 8191 mm
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 32] Direction is now backwards
+[Motor 33] Stopped
+[Motor 33 Direction is now backwards
+[Motor 32 (Right)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+[Motor 33 (Left)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+[  7937][E][Wire.cpp:499] requestFrom(): i2cWriteReadNonStop returned Error 263
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 192.00RPM | 20.11rad/s || Gyro Read: 0.07
+Motor 33 (Left)] ] RPM out: 28.69 -> PWM: 28.69 || Encoder RPM Read: 102.00RPM | 10.68rad/s || Gyro Read: -0.07
+[Motor 32 (Right)] ] RPM out: 76.91 -> PWM: 76.91 || Encoder RPM Read: 54.00RPM | 5.65rad/s || Gyro Read: -0.00
+[Motor 33 (Left)] ] RPM out: 189.56 -> PWM: 189.56 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 144.00RPM | 15.08rad/s || Gyro Read: 0.30
+[Motor 33 (Left)] ] RPM out: 58.70 -> PWM: 58.70 || Encoder RPM Read: 102.00RPM | 10.68rad/s || Gyro Read: -0.30
+[Motor 33 (Left)] ] RPM out: 206.37 -> PWM: 206.37 || Encoder RPM Read: 6.00RPM | 0.63rad/s || Gyro Read: 0.00
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 192.00RPM | 20.11rad/s || Gyro Read: 0.44
+Motor 33 (Left)] ] RPM out: 53.58 -> PWM: 53.58 || Encoder RPM Read: 120.00RPM | 12.57rad/s || Gyro Read: -0.44
+Distancia: 8191 mm
+Motor 32 (Right)] ] RPM out: 75.91 -> PWM: 75.91 || Encoder RPM Read: 60.00RPM | 6.28rad/s || Gyro Read: -0.00
+[Motor 33 (Left)] ] RPM out: 221.10 -> PWM: 221.10 || Encoder RPM Read: 6.00RPM | 0.63rad/s || Gyro Read: 0.00
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 156.00RPM | 16.34rad/s || Gyro Read: 1.16
+[Motor 33 (Left)] ] RPM out: 153.01 -> PWM: 153.01 || Encoder RPM Read: 66.00RPM | 6.91rad/s || Gyro Read: -1.16
+[Motor 33 (Left)] ] RPM out: 185.30 -> PWM: 185.30 || Encoder RPM Read: 36.00RPM | 3.77rad/s || Gyro Read: -1.04
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 168.00RPM | 17.59rad/s || Gyro Read: 1.34
+Motor 33 (Left)] ] RPM out: 149.68 -> PWM: 149.68 || Encoder RPM Read: 54.00RPM | 5.65rad/s || Gyro Read: -1.34
+Motor 32 (Right)] ] RPM out: 5.48 -> PWM: 5.48 || Encoder RPM Read: 138.00RPM | 14.45rad/s || Gyro Read: 0.95
+Motor 33 (Left)] ] RPM out: 148.62 -> PWM: 148.62 || Encoder RPM Read: 42.00RPM | 4.40rad/s || Gyro Read: -0.95
+[Motor 32 (Right)] ] RPM out: 11.45 -> PWM: 11.45 || Encoder RPM Read: 144.00RPM | 15.08rad/s || Gyro Read: 0.93
+[Motor 33 (Left)] ] RPM out: 160.02 -> PWM: 160.02 || Encoder RPM Read: 24.00RPM | 2.51rad/s || Gyro Read: -0.93
+[Motor 32 (Right)] ] RPM out: 37.22 -> PWM: 37.22 || Encoder RPM Read: 138.00RPM | 14.45rad/s || Gyro Read: 1.07
+[Motor 33 (Left)] ] RPM out: 125.32 -> PWM: 125.32 || Encoder RPM Read: 42.00RPM | 4.40rad/s || Gyro Read: -1.07
+[Motor 32 (Right)] ] RPM out: 165.45 -> PWM: 165.45 || Encoder RPM Read: 72.00RPM | 7.54rad/s || Gyro Read: 0.56
+[Motor 33 (Left)] ] RPM out: 108.65 -> PWM: 108.65 || Encoder RPM Read: 42.00RPM | 4.40rad/s || Gyro Read: -0.56
+[Motor 32 (Right)] ] RPM out: 42.48 -> PWM: 42.48 || Encoder RPM Read: 174.00RPM | 18.22rad/s || Gyro Read: 0.04
+[ 18047][E][Wire.cpp:499] requestFrom(): i2cWriteReadNonStop returned Error 263
+[Motor 33 (Left)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 366.00RPM | 38.33rad/s || Gyro Read: 0.79
+[Motor 32 (Right)] ] RPM out: 0.00 -> PWM: 0.00 || Encoder RPM Read: 576.00RPM | 60.32rad/s || Gyro Read: -0.24
+[Motor 33 (Left)] ] RPM out: 13.29 -> PWM: 13.29 || Encoder RPM Read: 24.00RPM | 2.51rad/s || Gyro Read: 0.00
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 42.00RPM | 4.40rad/s || Gyro Read: -1.89
+[Motor 32] Stopped
+[Motor 33] Stopped
+ 20859][E][Wire.cpp:499] requestFrom(): i2cWriteReadNonStop returned Error 263
+ is now forwards
+[Motor 33] Stopped
+[Motor 33]Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0 mm
+[Motor 33 (Left)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+istancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 9.57 -> PWM: 9.57 || Encoder RPM Read: 114.00RPM | 11.94rad/s || Gyro Read: 0.Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 124.31 -> PWM: 124.31 || Encoder RPM Read: 42.00RPM | 4.40rad/s || Gyro Read: -.06
+istancia: 8191 mm
+istancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 149.41 -> PWM: 149.41 || Encoder RPM Read: 24.00RPM | 2.51rad/s || Gyro Read: 0.42
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[ 23672][E][Wire.cpp:499] requestFrom(): i2cWriteReadNonStop returned Error -1
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 27.19 -> PWM: 27.19 || Encoder RPM Read: 120.00RPM | 12.57rad/s || Gyro Read: .10
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 205.50 -> PWM: 205.50 || Encoder RPM Read: 18.00RPM | 1.88rad/s || Gyro Read: -0.10
+istancia: Fora do alcance
+Distancia: 8191 mm
+istancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 240.37 -> PWM: 240.37 || Encoder RPM Read: 6.00RPM | 0.63rad/s || Gyro Read: -0Distancia: Fora do alcance
+Distancia: Fora do alcance
+ Read: 0.21
+Distancia: 689 mm
+Distancia: 734 mm
+istancia: 702 mm
+Distancia: 706 mm
+Distancia: 706 mm
+istancia: 728 mm
+istancia: 694 mm
+[Motor 32] Stopped
+[Motor 33] Stopped
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+Distancia: 8191 mm
+00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 191.24 -> PWM: 191.24 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+istancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 223.15 -> PWM: 223.15 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+istancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 223.10 -> PWM: 223.10 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.96 -> PWM: 254.96 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.96 -> PWM: 254.96 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+ro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.95 -> PWM: 254.95 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -000
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+istancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.94 -> PWM: 254.94 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.93 -> PWM: 254.93 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.92 -> PWM: 254.92 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+istancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.91 -> PWM: 254.91 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 33] Stopped
+[Motor 32] Stopped
+[Motor 32] Direction is now forwards
+[Motor 33] Stopped
+[Motor 33] Direction is now forwards
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 159.37 -> PWM: 159.37 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -000
+istancia: 8191 mm
+
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 191.26 -> PWM: 191.26 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 191.24 -> PWM: 191.24 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+istancia: 8191 mm
+istancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 223.15 -> PWM: 223.15 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+istancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 223.10 -> PWM: 223.10 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+Distancia: 8191 mm
+istancia: 8191 mm
+
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.96 -> PWM: 254.96 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -000
+Distancia: Fora do alcance
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0.00
+Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.97 -> PWM: 254.97 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0.00
+Distancia: 8191 mm
+Distancia: 8191 mm
+istancia: 8191 mm
+Distancia: 8191 mm
+Distancia: 8191 mm
+[Motor 32 (Right)] ] RPM out: 255.00 -> PWM: 255.00 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: 0Distancia: 8191 mm
+[Motor 33 (Left)] ] RPM out: 254.96 -> PWM: 254.96 || Encoder RPM Read: 0.00RPM | 0.00rad/s || Gyro Read: -0Distancia: 8191 mm
+: 8191 mm
+Motor 32] Stopped
+[Motor 33] Stopped

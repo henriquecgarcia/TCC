@@ -13,10 +13,12 @@ This project is an autonomous car (drone) with the porpose of transporting packa
 The drone also has some other sensors that will help on it's navigation and controling the location where it is and preventing it from colliding with things on it's way.
 
 ### How to use:
-To use this projects, you need to have the following libraries installed:
+To use this project, you need to have the following libraries installed:
 - `WiFi`
-- `PubSubClient`
+- `ESPAsyncWebServer` (From me-do-dev)
+- `SPIFFS`
 - `VL53L0x` (From Adafruit)
+- `MPU6050` (From Adafruit)
 
 ## Components:
 - ESP32
@@ -24,16 +26,74 @@ To use this projects, you need to have the following libraries installed:
 - 4 DC Motors (3-6v DC Motor)
 - 2 Encoder (Q2-E2)
 - Battery
-- VL53L0x
-- 2 Reflective sensors (QRE1113)
+- 1 VL53L0x
+- 1 MPU6050 Acelerometer & Gyroscope
 
 ### ESP32
 The ESP32 used is the ESP32 DOIT DEVKIT V1, which has a ESP-WROOM-32 module, which has a dual core processor, 4MB of flash memory, 520KB of SRAM, and a lot of other features.
 
-### Motor Driver
+### Motor Driver & DC Motors
 The motor driver used is the L298N, which is a dual H-Bridge motor driver, which can control 2 motors at the same time, and can control the speed of the motors.
 > Obs: In each side of the car, there are 2 motors, meaning the the Motor Driver is connected to 4 motors at once (2 in each side).
 
+The motors used are 3-6v DC Motors, which are small and lightweight, and can be controlled by the motor driver to move the car forward, backwards and turn. In the bought motors, they already had a reductor, which allows the car to move at a constant speed and to have more torque, allowing it to carry a package on top of it.
+
+### Battery
+The battery used is a 7.4v LiPo battery, which is lightweight and has a high capacity, allowing the car to move for a long time without needing to be recharged.
+> Obs: The battery is connected to the motor driver, which allows the car to move. And the Motor Driver sends 5v to the ESP32, but since it only has 3.3v logic, the ESP32 converts the 5v to 3.3v using the vin pin.
+
+### Encoders E2-Q2
+The encoders are mounted on the forward wheels and counting each change on the reflective sensors, allowing the ESP32 to count the number of "changes" on the sensors, therefore, knowing that the used reference wheel there is 10 teeth, and the actual wheel has 65 mm of diameter, we can calculate the distance traveled by the car in a second by using the formula:
+```
+Distance = ((Number of changes) / 2 * 65mm) / (10 * 2)
+RPM = (Number of changes / interval) * 60
+```
+> The division by 2 is because the encoder has 2 channels, and we are only using one of them, so we need to divide the number of changes by 2 to get the actual number of changes on the wheel. The division by 10 * 2 (20) is because the encoder has 10 teeth, and we are using the number of changes to calculate the distance traveled by the car in a second, so we need to divide the number of changes by 20 to get the actual distance traveled by the car in a second.
+> Obs: The interval used is of 100ms, meaning that the car will calculate the distance traveled by the car every 100ms, and the speed of the car will be calculated every second.
+
+### VL53L0x
+Using the time-of-flight sensor, the VL53L0x can measure distances up to 3 meters with high accuracy. It uses a laser to measure the time it takes for the light to bounce back from an object, allowing it to calculate the distance.
+> In the project, the sensor is mounted infront, facing forward to the front, to avoid any collision while on the path to the destination.
+
+### MPU6050 Acelerometer & Gyroscope
+The MPU6050 is a 6-axis motion tracking device that combines a 3-axis gyroscope and a 3-axis accelerometer on a single chip. It can be used to measure the orientation and motion of the car, allowing for more advanced control and navigation.
+The MPU6050 is connected to the ESP32 via I2C, and it is used to measure the orientation and motion of the car, allowing for more advanced control and navigation. The MPU6050 can be used to detect the direction of the car, and to control the speed of the motors, so the car can go straight and not turn while going forward/backwards.
+> Obs: The MPU6050 also has a temperature sensor, but it is not used in this project.
+
+---
+
+## How it works:
+**Some awsome remarks of the project will be here, but I don't want to write them now, so I will write them later.**
+
+## Pinout
+The pinout used in this project is the following:
+- Motor Driver:
+	- ENA: 32
+	- INA1: 12
+	- INA2: 13
+	- INB1: 26
+	- INB2: 25
+	- ENB: 33
+- Encoders:
+	- Front-Right:
+		- Channel A: 4
+		- Channel B: 15
+	- Front-Left:
+		- Channel A: 17
+		- Channel B: 16
+- MPU6050 & VL53L0x:
+	- Via I2C.
+	- SDA: 21
+	- SCL: 22
+
+## Final remarks:
+This project was started in the class of Internet of Things (IoT) at the Federal University of São Paulo (UNIFESP), by Henrique Campanha Garcia, under the supervision of Professor Dr. André Marcorin de Oliveira. The project was updated and made to be fully autonomous and to be able to move in a path that it would not deviate from the pathm and to change the object avoidance system to use a time-of-flight sensor instead of an ultrasonic sensor. The project had to have a few bunch of changes to work with the new components, have a PID controler to control the speed of the motors. Some of the motor control was maintained from the previous project, but the new components and the new control system made it necessary to change a lot of the code.
+The project has a plan to scan the environment and to create a map of the environment, so the car can navigate through the environment and avoid obstacles. Ideally, when fully autonomous, the vehicle would save the map using the SPIFFS filesystem, and then use the map to navigate through the environment, avoiding "static" obstacles, like walls and furniture, but also avoiding "dynamic" obstacles, like people and animals.
+The way that it was setup, the car uses the encoders and the MPU6050 to control the direction of the car, avoiding that the car turns while going forward or backwards, and using the VL53L0x to avoid collisions with objects in front of the car, stopping the car when it detects an object closer than 10cm.
+
+---
+---
+# Old stuff
 This is a project to build a remote controlled car using an ESP32, a motor driver, 4 motors, a battery and a remote control. The remote control used is a normal gamepad controller, but we will only be using the triggers and the left joystick, where the right trigger will be used to move the car forward, the left trigger will be used to move the car backwards, and the left joystick will be used to steer the car, though the car will only be able to do one of these actions at a time.
 
 The car has also some other components, like a LDR to detect light, DHT11 to detect temperature and humidity, and a ultrasonic sensor to detect distance ahead of the car. It will send this data to a MQTT broker, so it can be accessed from anywhere.
