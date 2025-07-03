@@ -33,19 +33,16 @@
 */
 
 #define DEBUG_PRINTS
+#include <Wire.h>
+#include <Arduino.h>
+#include <math.h>
+#include <ArduinoJson.h>
 
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-// #include <WebServer.h>
-
-#include <Wire.h>
-#include "Adafruit_Sensor.h"
-#include "Adafruit_MPU6050.h"
-#include "Adafruit_VL53L0X.h"
-
-#include <Arduino.h>
-#include <math.h>
+#include <ArduinoOTA.h>
+#include <ESPmDNS.h>
 
 #include "LED.h"
 #include "MediaMovel.h"
@@ -53,83 +50,31 @@
 
 const char* ssid = "Canguru";
 const char* password = "VamoPula";
+const char* otaHostname = "espcarrinho";
+const char* otaPassword = "VamoPula";
 
 const double intentKp = 1.0;
 const double intentKi = 0.5;
 const double intentKd = 0.0;
 
 AsyncWebServer server(80);
-// WebServer server(80);
-
-IPAddress local_IP(192, 168, 1, 100);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
+AsyncWebSocket carSocket("/car");
+AsyncWebSocket ws("/ws");
 
 static double clamp(double value, double min, double max) {
-    if (value < min) return min;
-    else if (value > max) return max;
-    else return value;
+	return (value < min) ? min : (value > max) ? max : value;
 }
 
-class VL53L0X {
-private:
-	Adafruit_VL53L0X sensor; // sem alocação dinâmica
-	unsigned long lastRead = 0; // inicialização inline
-	int last_reading = 0;
-	static const unsigned long readInterval = 100; // ms entre leituras
+static void webLog(String msg) {
+	#ifdef DEBUG_PRINTS
+		Serial.print(msg);
+	#endif
+	ws.textAll(msg);
+}
 
-	// previne cópia acidental (dois objetos no mesmo hardware)
-	VL53L0X(const VL53L0X&) = delete;
-	VL53L0X& operator=(const VL53L0X&) = delete;
-
-public:
-	VL53L0X() = default;  // construtor padrão
-
-	void setup() {
-		if (!sensor.begin()) {
-			#ifdef DEBUG_PRINTS
-				Serial.println("Falha ao encontrar o sensor VL53L0X");
-			#endif
-			LED inLed(2);
-			inLed.setup();
-			while (true) {
-				inLed.toggle();
-				delay(1000);  // mantém o watchdog feliz
-			}
-		}
-		#ifdef DEBUG_PRINTS
-			Serial.println("Sensor VL53L0X encontrado!");
-		#endif
-	}
-
-	int loop() {
-		unsigned long now = millis();
-		if (now - lastRead < readInterval) {
-			return last_reading;
-		}
-		lastRead = now;
-
-		VL53L0X_RangingMeasurementData_t measure;
-		sensor.rangingTest(&measure, false);
-
-		#ifdef DEBUG_PRINTS
-			Serial.print("Distancia: ");
-		#endif
-		if (measure.RangeStatus != 4) { // se não estiver fora de alcance
-			last_reading = measure.RangeMilliMeter;
-			#ifdef DEBUG_PRINTS
-				Serial.print(last_reading);
-				Serial.println(" mm");
-			#endif
-		} else {
-			#ifdef DEBUG_PRINTS
-				Serial.println("Fora do alcance");
-			#endif
-			last_reading = 99999;
-		}
-		return last_reading;
-	}
-};
+#include "VL53L0X.h"
+#include "Adafruit_Sensor.h"
+#include "Adafruit_MPU6050.h"
 
 class MPU6050 {
 private:
@@ -156,15 +101,12 @@ public:
 
 	void setup() {
 		if (!sensor.begin()) {
-			#ifdef DEBUG_PRINTS
-				Serial.println("Falha ao encontrar o sensor MPU6050");
-			#endif
-			LED inLed(2);
-			inLed.setup();
-			while (true) {
-				inLed.toggle();
-				delay(2000);  // mantém o watchdog feliz
-			}
+			webLog("Erro ao iniciar o MPU6050! Verifique as conexões.\n Reiniciando ESP32 em 1 segundo...\n");
+			unsigned long restartDelay = 1000; // 1 segundo
+			unsigned long startTime = millis();
+			while (millis() - startTime < restartDelay) {} // espera 1 segundo, ocupado
+			ESP.restart();
+			return;
 		}
 		sensor.setAccelerometerRange(MPU6050_RANGE_2_G);
 		sensor.setGyroRange(MPU6050_RANGE_500_DEG);
@@ -233,72 +175,11 @@ public:
 		gyroX.add(g.gyro.x - offsetX);
 		gyroY.add(g.gyro.y - offsetY);
 		gyroZ.add(g.gyro.z - offsetZ);
+		carSocket.textAll("{\"gyroX\": " + String(g.gyro.x - offsetX) + ", \"gyroY\": " + String(g.gyro.y - offsetY) + ", \"gyroZ\": " + String(g.gyro.z - offsetZ) + "}");
 	}
 };
 
-class Encoder {
-private:
-	volatile int countA = 0, countB = 0;
-	uint8_t pinA, pinB;
-	int lastStateB = LOW;
-	bool clockwise = true;
-
-	static void isrA_arg(void* arg) {
-		static_cast<Encoder*>(arg)->onPulseA();
-	}
-	static void isrB_arg(void* arg) {
-		static_cast<Encoder*>(arg)->onPulseB();
-	}
-
-	// callbacks de pulso sem IRAM_ATTR
-	void onPulseA() {
-		countA++;
-	}
-	void onPulseB() {
-		countB++;
-		int current = digitalRead(pinB);
-		if (lastStateB == LOW && current == HIGH) {
-			clockwise = (digitalRead(pinA) == LOW);
-		}
-		lastStateB = current;
-	}
-
-public:
-	Encoder(uint8_t pinA, uint8_t pinB) : pinA(pinA), pinB(pinB) {
-		countA = countB = 0;
-		lastStateB = LOW;
-		clockwise = true;
-	}
-
-	void begin() {
-		pinMode(pinA, INPUT_PULLUP);
-		pinMode(pinB, INPUT_PULLUP);
-		// passa 'this' para o ISR correto
-		attachInterruptArg(pinA, isrA_arg, this, CHANGE);
-		attachInterruptArg(pinB, isrB_arg, this, CHANGE);
-	}
-
-	void reset() {
-		countA = countB = 0;
-	}
-
-	double getRPM(int teeth = 10, double intervalSec = 0.1) {
-		int pulses = (countA + countB) / 2;
-		double revs = pulses / double(teeth * 2);
-		return (revs / intervalSec) * 60.0;
-		// return revs;
-	}
-
-	double getSpeed(int wheelDiameter = 65, int teeth = 10, double intervalSec = 0.1) {
-		double rpm = getRPM(teeth, intervalSec);
-		return (rpm * wheelDiameter * M_PI) / 1000.0; // mm/s
-	}
-
-	bool isClockwise() const {
-		return clockwise;
-	}
-};
-
+#include "Encoder.h"
 #include "PID.h"
 
 unsigned long lastReading = 0; // para evitar leituras excessivas
@@ -315,7 +196,6 @@ private:
 	double pidOutput = 0.0;
 
 	PID pidRPM; // PID original para controle de RPM
-	PID pidGyro; // Novo PID dedicado ao erro de giroscópio
 
 	static constexpr unsigned long thinkInterval = 500; // ms entre updates
 
@@ -325,8 +205,8 @@ private:
 
 public:
 	// Construtor: inicializa ambos PIDs
-	Motor(int in1, int in2, int pwm, Encoder* enc, float kp_rpm = 1.0, float ki_rpm = 5.0, float kd_rpm = 0.0, float kp_gyro = 0.1, float ki_gyro = 0.0, float kd_gyro = 0.0) : in1Pin(in1), in2Pin(in2), pwmPin(pwm), encoder(enc),
-		pidRPM(kp_rpm, ki_rpm, kd_rpm, thinkInterval/1000.0f), pidGyro(kp_gyro, ki_gyro, kd_gyro, thinkInterval/1000.0f) {}
+	Motor(int in1, int in2, int pwm, Encoder* enc, float kp_rpm = 1.0, float ki_rpm = 5.0, float kd_rpm = 0.0) : in1Pin(in1), in2Pin(in2), pwmPin(pwm), encoder(enc),
+		pidRPM(kp_rpm, ki_rpm, kd_rpm, thinkInterval/1000.0f) {}
 
 	void begin() {
 		pinMode(in1Pin, OUTPUT);
@@ -339,13 +219,10 @@ public:
 		stop();
 		// limites RPM em rad/s
 		pidRPM.setMaxMin(rpmToRadS(200.0), 0.0);
-		// limites para correção de giroscópio (em rad/s)
-		pidGyro.setMaxMin(0.5, -0.5);
 	}
 
 	void setTunings(float kp, float ki, float kd) {
 		pidRPM.setTunning(kp, ki, kd);
-		pidGyro.setTunning(kp/10, ki/10, kd/10);
 	}
 	void setTargetRPM(double rpm) {
 		targetRadS = rpmToRadS(rpm);
@@ -360,10 +237,7 @@ public:
 
 		targetRadS = rpmToRadS(100.0);
 
-		#ifdef DEBUG_PRINTS
-			Serial.print("[Motor "); Serial.print(pwmPin);
-			Serial.println("] Direction is now forwards");
-		#endif
+		webLog("[Motor " + String(pwmPin) + "] Direction is now forwards.\n");
 	}
 	void backward() {
 		encoder->reset();
@@ -373,10 +247,8 @@ public:
 		digitalWrite(in2Pin, HIGH);
 
 		targetRadS = rpmToRadS(100.0);
-		#ifdef DEBUG_PRINTS
-			Serial.print("[Motor "); Serial.print(pwmPin);
-			Serial.println("] Direction is now backwards");
-		#endif
+
+		webLog("[Motor " + String(pwmPin) + "] Direction is now backwards.\n");
 	}
 	void stop() {
 		digitalWrite(in1Pin, LOW);
@@ -385,16 +257,12 @@ public:
 
 		targetRadS = 0.0;
 		pidRPM.reset();
-		pidGyro.reset();
 		currentRPM = 0.0;
 		pidOutput = 0.0;
 		analogWrite(pwmPin, 0);
 		lastReading = millis();
 
-		#ifdef DEBUG_PRINTS
-			Serial.print("[Motor "); Serial.print(pwmPin);
-			Serial.println("] Stopped");
-		#endif
+		webLog("[Motor " + String(pwmPin) + "] Stopped.\n");
 	}
 
 	void update(double gyro_error = 0.0) {
@@ -411,12 +279,6 @@ public:
 		this->targetRadS += gyro_error;
 		float rpmControl  = pidRPM.compute(targetRadS, currentRadS);
 
-		// // controle de alinhamento usando erro do giroscópio
-		// float gyroControl = pidGyro.compute(0.0f, static_cast<float>(gyro_error));
-		// gyroControl -= 255.0f / 2.0f; // centraliza em torno de 0
-
-		// soma dos dois controles para sinal PWM
-		// pidOutput = rpmControl + gyroControl;
 		pidOutput = rpmControl;
 		pidOutput = clamp(pidOutput, 0.0, 255.0);
 
@@ -424,39 +286,19 @@ public:
 		encoder->reset();
 
 		if (now - lastDebug >= thinkInterval) {
-			#ifdef DEBUG_PRINTS
-				Serial.print("[Motor "); Serial.print(pwmPin);
-				if (pwmPin == 32)
-					Serial.print(" (Right)] ");
-				else
-					Serial.print(" (Left)] ");
-				Serial.print("] RPM out: "); Serial.print(rpmControl);
-				// Serial.print(" | Gyro out: "); Serial.print(gyroControl);
-				Serial.print(" -> PWM: "); Serial.print(pidOutput);
-
-				Serial.print(" || "); Serial.print("Encoder RPM Read: ");
-				Serial.print(currentRPM); Serial.print("RPM | ");
-				Serial.print(currentRadS); Serial.print("rad/s");
-
-				Serial.print(" || Gyro Read: "); Serial.println(gyro_error);
-			#endif
+			webLog("[Motor " + String(pwmPin) + 
+					" (" + (pwmPin == 32 ? "Right" : "Left") + ") " +
+					"] RPM out: " + String(rpmControl) +
+					" -> PWM: " + String(pidOutput) +
+					" || Encoder RPM Read: " + String(currentRPM) +
+					" || Gyro Read: " + String(gyro_error) + "\n");
 			lastDebug = now;
 		}
 
 		if (targetRadS < 0.01) {
-			#ifdef DEBUG_PRINTS
-				Serial.print("[Motor "); Serial.print(pwmPin);
-				Serial.println("] Target RPM is too low, resetting to 100 RPM");
-			#endif
+			webLog("[Motor " + String(pwmPin) + "] Target RPM is too low, resetting to 100 RPM\n");
 			targetRadS = rpmToRadS(100.0);
 		}
-
-		// if (pidOutput < 10.0) {
-		// 	stop();
-		// 	#ifdef DEBUG_PRINTS
-		// 	Serial.println("Motor desligado por PID baixo");
-		// #endif
-		// }
 	}
 
 
@@ -496,7 +338,6 @@ enum Movement {
 	MOVEMENT_TURN_RIGHT,
 	MOVEMENT_STOPPED
 };
-
 class PonteH {
 private:
 	Motor*	  motorRight;
@@ -511,12 +352,28 @@ private:
 	bool		nextRight	  = true;
 	double lastGyroZ = 0.0; // último valor do giroscópio Z
 
+	PID pid_gyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
+
 public:
-	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {}
+	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {
+		pid_gyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
+		pid_gyro.setMaxMin(0.5, -0.5); // limites de correção
+	}
 
 	void setup() {
-		if (motorRight) motorRight->begin();
-		if (motorLeft)  motorLeft->begin();
+		if (!motorRight || !motorLeft) {
+			webLog("[PonteH] Erro: Motores não configurados corretamente!\n");
+			return;
+		}
+		motorRight->begin();
+		motorLeft->begin();
+		isMoving = false;
+		currentMove = MOVEMENT_STOPPED;
+		turning_angleZ = 0.0;
+		lastUpdate = millis();
+		nextRight = true;  // reinicia alternância
+		pid_gyro.reset();
+		webLog("[PonteH] Configuração completa!\n");
 	}
 
 	void forward() {
@@ -530,6 +387,7 @@ public:
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;  // reinicia alternância
+			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"forward\"}");
 		}
 	}
 
@@ -544,6 +402,7 @@ public:
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
+			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"backward\"}");
 		}
 	}
 
@@ -558,6 +417,7 @@ public:
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
+			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"left\"}");
 		}
 	}
 
@@ -572,6 +432,7 @@ public:
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
+			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"right\"}");
 		}
 	}
 
@@ -580,6 +441,12 @@ public:
 		motorRight->stop();
 		motorLeft->stop();
 		isMoving = false;
+		nextRight = true;
+
+		pid_gyro.reset();
+		turning_angleZ = 0.0; // reseta o ângulo de giro
+		lastGyroZ = 0.0; // reseta o último valor do giroscópio Z
+
 		currentMove = MOVEMENT_STOPPED;
 	}
 
@@ -615,23 +482,16 @@ public:
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por obstáculo!");
 					#endif
-					return;
+					webLog("[PonteH] Parando por obstáculo!\n");
+					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"obstacle\"}");
+					break;
 				}
-				double gz = mpu_sensor->getGyroscopeZ();
-				if (nextRight) {
-					lastGyroZ = gz;  // salva o último valor do giroscópio Z
-				} else {
-					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
-				}
-				// alterna update entre Right e Left
-				doUpdate(motorRight,  gz);
-				doUpdate(motorLeft,  -gz);
-				break;
 			}
 			case MOVEMENT_BACKWARDS: {
 				double gz = mpu_sensor->getGyroscopeZ();
 				if (nextRight) {
-					lastGyroZ = gz;  // salva o último valor do giroscópio Z
+					lastGyroZ = pid_gyro.compute(gz, 0.0); // calcula correção do giroscópio
+					lastGyroZ = map(lastGyroZ, 0, 255, -0.5, 0.5); // mapeia para -0.5 a 0.5, considerando a faixa do PID
 				} else {
 					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
 				}
@@ -647,12 +507,14 @@ public:
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
 					Serial.print(turning_angleZ); Serial.printf(" on deltaTime: %f\n", deltaTime);
+					carSocket.textAll("{\"turning_angleZ\": " + String(turning_angleZ) + ", \"deltaTime\": " + String(deltaTime) + "}");
 				#endif
 				if (fabs(turning_angleZ) > 90.0) {
 					stop();
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por ângulo de giro excessivo!");
 					#endif
+					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"Excessive turning angle\"}");
 					return;
 				}
 				// mantém direção definida e alterna update
@@ -662,6 +524,15 @@ public:
 			}
 			default:
 				break;
+		}
+
+		if (carSocket.count() > 0) {
+			if (isMoving)
+				handleCommand("data");
+		} else {
+			#ifdef DEBUG_PRINTS
+				Serial.println("[PonteH] Nenhum cliente conectado, não enviando dados.");
+			#endif
 		}
 
 		// alterna para a próxima chamada
@@ -693,7 +564,7 @@ void ConnectToWiFi(){
 }
 // ——————— Sensores ———————
 VL53L0X *sensor = new VL53L0X();	// VL53L0X no I²C (SDA=21, SCL=22)
-MPU6050 *sensorMPU = new MPU6050();	// MPU6050 no mesmo barramento I²C
+MPU6050 *sensorMPU = new MPU6050();	// MPU6050 no I²C (SDA=21, SCL=22)
 
 // ——————— Encoders ———————
 // Motor Direito
@@ -716,48 +587,210 @@ LED led_carro(2);
 // Gerenciador de energia
 PowerManager powerManager;
 
+// ——————— WebSocket ———————
+// ——————— Car Command Handler ———————
+String getCarStatus() {
+	JsonDocument doc;
+	doc["status"] = ponte->isStopped() ? "stopped" : "moving";
+	if (!ponte->isStopped()) {
+		switch (ponte->getCurrentMove()) {
+			case MOVEMENT_FORWARD: doc["direction"] = "forward"; break;
+			case MOVEMENT_BACKWARDS: doc["direction"] = "backward"; break;
+			case MOVEMENT_TURN_LEFT: doc["direction"] = "left"; break;
+			case MOVEMENT_TURN_RIGHT: doc["direction"] = "right"; break;
+			default: doc["direction"] = "unknown"; break;
+		}
+	}
+
+	String output;
+	serializeJson(doc, output);
+	return output;
+}
+void handleCar(String cmd) {
+	cmd.toLowerCase();
+	if (cmd == "stop") {
+		ponte->stop();
+		webLog("Carro parado.\n");
+	} else if (cmd == "right") {
+		ponte->turnRight();
+		webLog("Carro virando para a direita.\n");
+	} else if (cmd == "left") {
+		ponte->turnLeft();
+		webLog("Carro virando para a esquerda.\n");
+	} else if (cmd == "forward") {
+		ponte->forward();
+		webLog("Carro indo para frente.\n");
+	} else if (cmd == "backward") {
+		ponte->backward();
+		webLog("Carro indo para trás.\n");
+	} else if (cmd == "status") {
+		String status = getCarStatus();
+		webLog("Status do carro: " + status + "\n");
+		carSocket.textAll(status);
+	} else {
+		String errorMsg = "{\"error\": \"Comando desconhecido: " + cmd + "\"}";
+		carSocket.textAll(errorMsg);
+	}
+}
+void handleCommand(String cmd) {
+	cmd.toLowerCase();
+	if (cmd == "led") {
+		led_carro.toggle();
+		webLog("LED Alterado, agora está: " + String(led_carro.isOn() ? "ON" : "OFF") + "\n");
+	} else if (cmd == "reboot" || cmd == "restart") {
+		webLog("Reiniciando o ESP...\n");
+		unsigned long startTime = millis();
+		while (millis() - startTime < 100) {} // n faz porra, é busy wait
+		Serial.println("Reiniciando o ESP...\n");
+		ESP.restart();
+	} else if (cmd == "ip") {
+		String ip = WiFi.localIP().toString();
+		webLog("IP atual: " + ip + "\n");
+	} else if (cmd == "status") {
+		String status = getCarStatus();
+		webLog("Status do carro: " + status + "\n");
+	} else if (cmd == "data") {
+		JsonDocument doc;
+		doc["led"] = led_carro.isOn();
+		doc["ip"] = WiFi.localIP().toString();
+		if (ponte->isStopped()) {
+			doc["status"] = "stopped";
+		} else {
+			doc["status"] = "moving";
+			switch (ponte->getCurrentMove()) {
+				case MOVEMENT_FORWARD:
+					doc["direction"] = "forward";
+					break;
+				case MOVEMENT_BACKWARDS:
+					doc["direction"] = "backward";
+					break;
+				case MOVEMENT_TURN_LEFT:
+					doc["direction"] = "left";
+					break;
+				case MOVEMENT_TURN_RIGHT:
+					doc["direction"] = "right";
+					break;
+				default:
+					doc["direction"] = "unknown";
+			}
+		}
+
+		// Gyro
+		JsonObject gyro = doc["gyro"].to<JsonObject>();
+		gyro["x"] = sensorMPU->getGyroscopeX();
+		gyro["y"] = sensorMPU->getGyroscopeY();
+		gyro["z"] = sensorMPU->getGyroscopeZ();
+
+		// Temperatura
+		doc["temperature"] = sensorMPU->getTemperatureC();
+
+		// Distância
+		doc["distance"] = sensor->loop();
+
+		// Motor Direito
+		JsonObject motorD = doc["motorD"].to<JsonObject>();
+		motorD["rpm"] = motorDireito->getRPM();
+		motorD["pidOutput"] = motorDireito->getPIDOutput();
+		motorD["targetRPM"] = motorDireito->getTargetRPM();
+		motorD["isClockwise"] = motorDireito->isClockwise();
+
+		// Motor Esquerdo
+		JsonObject motorE = doc["motorE"].to<JsonObject>();
+		motorE["rpm"] = motorEsquerdo->getRPM();
+		motorE["pidOutput"] = motorEsquerdo->getPIDOutput();
+		motorE["targetRPM"] = motorEsquerdo->getTargetRPM();
+		motorE["isClockwise"] = motorEsquerdo->isClockwise();
+
+		String output;
+		serializeJson(doc, output);
+		webLog("Dados do carro: " + output + "\n");
+		carSocket.textAll(output);
+	} else {
+		webLog("Comando desconhecido: " + cmd + "\n");
+	}
+}
+void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
+	String sockName = "Unknown Socket";
+	if (server == &carSocket) {
+		sockName = "Car Socket";
+	} else if (server == &ws) {
+		sockName = "WebSocket";
+	}
+	switch (type) {
+		case WS_EVT_CONNECT:
+			Serial.printf("[%s] WebSocket client #%u connected from %s\n", sockName.c_str(), client->id(), client->remoteIP().toString().c_str());
+			webLog("["+ sockName + "] Cliente ["+ String(client->id()) +"]: Conectado de " + client->remoteIP().toString() + "\n");
+			delay(100); // Aguarda 100ms para garantir que o cliente esteja pronto
+			if (server == &carSocket)
+				client->text("{\"ready\":\"true\"}");
+			break;
+		case WS_EVT_DISCONNECT:
+			if (server == &carSocket) {
+				if (server->count() == 0) {
+					ponte->stop();
+					lastReading = millis();
+					delay(100); // Aguarda 100ms para garantir que o cliente esteja pronto
+				}
+			}
+			webLog("["+ sockName + "] Cliente ["+ String(client->id()) +"]: Desconectado\n");
+			Serial.printf("WebSocket [server #%s] client #%u disconnected\n", sockName.c_str(), client->id());
+			break;
+		case WS_EVT_DATA:
+			AwsFrameInfo *info;
+			info = (AwsFrameInfo*)arg;
+			if (info->final && info->index == 0 && info->len == len && info->opcode == WS_TEXT) {
+				data[len] = 0;
+				String command = (char*)data;
+				Serial.printf("Comando recebido do cliente #%u: %s\n", client->id(), command.c_str());
+				if (server == &carSocket) {
+					handleCar(command);
+					delay(100); // Aguarda 100ms para garantir que o cliente esteja pronto
+					webLog("["+ sockName + "] Cliente ["+ String(client->id()) +"]: Comando recebido: " + command + "\n");
+				} else if (server == &ws) {
+					webLog("["+ sockName + "] Cliente ["+ String(client->id()) +"]: Comando recebido: " + command + "\n");
+					handleCommand(command);
+				} else {
+					webLog("["+ sockName + "] Comando desconhecido: " + command + "\n");
+				}
+			}
+			break;
+		case WS_EVT_PONG:
+		case WS_EVT_ERROR:
+			break;
+	}
+}
+
 void http_stop_carro(AsyncWebServerRequest *request) {
-// void http_stop_carro() {
 	ponte->stop();
 	lastReading = millis();
 	request->send(200, "application/json", "{\"status\":\"stopped\"}");
-	// server.send(200, "application/json", "{\"status\":\"stopped\"}");
 }
 
 void http_handle_forward(AsyncWebServerRequest *request) {
-// void http_handle_forward() {
 	ponte->forward();
 	lastReading = millis();
 	request->send(200, "application/json", "{\"status\":\"moving forward\"}");
-	// server.send(200, "application/json", "{\"status\":\"moving forward\"}");
 }
 
 void http_handle_backward(AsyncWebServerRequest *request) {
-// void http_handle_backward() {
 	ponte->backward();
 	lastReading = millis();
 	request->send(200, "application/json", "{\"status\":\"moving backward\"}");
-	// server.send(200, "application/json", "{\"status\":\"moving backward\"}");
 }
 
 void http_handle_turn_left(AsyncWebServerRequest *request) {
-// void http_handle_turn_left() {
 	ponte->turnLeft();
 	lastReading = millis();
 	request->send(200, "application/json", "{\"status\":\"turning left\"}");
-	// server.send(200, "application/json", "{\"status\":\"turning left\"}");
 }
 
 void http_handle_turn_right(AsyncWebServerRequest *request) {
-// void http_handle_turn_right() {
 	ponte->turnRight();
 	lastReading = millis();
 	request->send(200, "application/json", "{\"status\":\"turning right\"}");
-	// server.send(200, "application/json", "{\"status\":\"turning right\"}");
 }
 
 void http_handle_test(AsyncWebServerRequest *request) {
-// void http_handle_test() {
 	String html = "<html><head>";
 	html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
 	html += "<style>";
@@ -788,86 +821,9 @@ void http_handle_test(AsyncWebServerRequest *request) {
 	html += "</body></html>";
 	lastReading = millis();
 	request->send(200, "text/html", html);
-	// server.send(200, "text/html", html);
-}
-
-void handleData(AsyncWebServerRequest *request) {
-// void handleData() {
-String json = "{";
-
-	// Dados do MPU6050
-	json += "\"sensorMPU\":{";
-		json += "\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
-		json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
-		json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
-		json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
-		json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
-		json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
-		json += "\"temp\":"  + String(sensorMPU->getTemperatureC());
-	json += "},";
-
-	// Distância VL53L0X
-	json += "\"sensorVL53L0X\":{";
-		json += "\"distance\":" + String(sensor->loop());
-	json += "},";
-
-	// Status do LED do carrinho
-	json += "\"led_carro\":{";
-		json += "\"status\":\"" + String(led_carro.isOn() ? "on" : "off") + "\"";
-	json += "},";
-
-	// Modo de energia
-	json += "\"power_manager\":{";
-		json += "\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"";
-	json += "},";
-
-	// Motor Direito
-	json += "\"motorD\":{";
-		json += "\"direction\":\"" + String(motorDireito->isMoving() ? (motorDireito->isClockwise() ? "frente" : "tras") : "parado") + "\",";
-		json += "\"rpm\":" + String(motorDireito->getRPM()) + ",";
-		json += "\"pidOutput\":" + String(motorDireito->getPIDOutput()) + ",";
-		json += "\"targetRPM\":" + String(motorDireito->getTargetRPM());
-	json += "},";
-	
-	// Motor Esquerdo
-	json += "\"motorE\":{";
-		json += "\"direction\":\"" + String(motorEsquerdo->isMoving() ? (motorEsquerdo->isClockwise() ? "frente" : "tras") : "parado") + "\",";
-		json += "\"rpm\":" + String(motorEsquerdo->getRPM()) + ",";
-		json += "\"pidOutput\":" + String(motorEsquerdo->getPIDOutput()) + ",";
-		json += "\"targetRPM\":" + String(motorEsquerdo->getTargetRPM());
-	json += "},";
-
-	json += "\"MPU6050\":{";
-		json += "\"accX\":" + String(sensorMPU->getAccelerometerX()) + ",";
-		json += "\"accY\":" + String(sensorMPU->getAccelerometerY()) + ",";
-		json += "\"accZ\":" + String(sensorMPU->getAccelerometerZ()) + ",";
-		json += "\"gyroX\":" + String(sensorMPU->getGyroscopeX()) + ",";
-		json += "\"gyroY\":" + String(sensorMPU->getGyroscopeY()) + ",";
-		json += "\"gyroZ\":" + String(sensorMPU->getGyroscopeZ()) + ",";
-		json += "\"temp\":"  + String(sensorMPU->getTemperatureC());
-	json += "},";
-
-	json += "\"movement\":\"";
-	switch (ponte->getCurrentMove()) {
-		case MOVEMENT_FORWARD: json += "forward"; break;
-		case MOVEMENT_BACKWARDS: json += "backward"; break;
-		case MOVEMENT_TURN_LEFT: json += "turn_left"; break;
-		case MOVEMENT_TURN_RIGHT: json += "turn_right"; break;
-		default: json += "stopped"; break;
-	}
-	json += "\",";
-	json += "\"isMoving\":" + String(ponte->isStopped() ? "false" : "true");
-
-json += "}";
-
-	lastReading = millis();
-
-	request->send(200, "application/json", json);
-	// server.send(200, "application/json", json);
 }
 
 void handlePower(AsyncWebServerRequest *request) {
-// void handlePower() {
 	if (request->hasParam("mode")) {
 		String mode = request->getParam("mode")->value();
 		if (mode == "normal") {
@@ -878,73 +834,109 @@ void handlePower(AsyncWebServerRequest *request) {
 	}
 	String json = "{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"}";
 	request->send(200, "application/json", json);
-	// server.send(200, "application/json", json);
 	lastReading = millis();
 }
 
-void handle_base(AsyncWebServerRequest *request) {
-// void handle_base() {
-	if (true) {
-		// return http_handle_test();
-		return http_handle_test(request);
-	}
-	// lastReading = millis();
-	// request->send(SPIFFS, "/dashboard.html", "text/html");
-}
-
 bool isIdle() {
-	// Verifica se ambos os motores estão parados e sem movimento
 	return ponte->isStopped();
 }
 
 void prepare_http_server() {
-	// if (true) {
-	// 	server.on("/", handle_base);
-	// 	server.on("/data", handleData);
-	// 	server.on("/forward", http_handle_forward);
-	// 	server.on("/backward", http_handle_backward);
-	// 	server.on("/turn_left", http_handle_turn_left);
-	// 	server.on("/turn_right", http_handle_turn_right);
-	// 	server.on("/stop", http_stop_carro);
-	// 	server.on("/test", http_handle_test);
-
-	// 	server.begin();
-	// 	return;
-	// }
-	#ifdef DEBUG_PRINTS
-		Serial.println("SPIFFS Mounted!");
-	#endif
-
 	server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-		// if (true) {
-		// 	return handle_base(request);
-		// }
 		if (!SPIFFS.exists("/dashboard.html")) {
 			request->send(404, "text/plain", "dashboard.html não encontrado");
-			#ifdef DEBUG_PRINTS
-				Serial.println("dashboard.html não encontrado");
-			#endif
+			webLog("dashboard.html não encontrado\n");
 			return;
 		}
 		request->send(SPIFFS, "/dashboard.html", String(), false);
-		#ifdef DEBUG_PRINTS
-			Serial.println("dashboard.html enviado");
-		#endif
 	});
-	server.on("/data", HTTP_GET, handleData);
 	server.on("/forward", HTTP_GET, http_handle_forward);
 	server.on("/backward", HTTP_GET, http_handle_backward);
 	server.on("/turn_left", HTTP_GET, http_handle_turn_left);
 	server.on("/turn_right", HTTP_GET, http_handle_turn_right);
 	server.on("/stop", HTTP_GET, http_stop_carro);
 	server.on("/test", HTTP_GET, http_handle_test);
+	server.on("/monitor", HTTP_GET, [](AsyncWebServerRequest *request) {
+		if (!SPIFFS.exists("/monitor.html")) {
+			request->send(404, "text/plain", "monitor.html não encontrado");
+			webLog("monitor.html não encontrado\n");
+			return;
+		}
+		request->send(SPIFFS, "/monitor.html", String(), false);
+	});
+	server.onNotFound([](AsyncWebServerRequest *request) {
+		webLog("Requisição não encontrada: " + request->url());
+		request->send(404, "text/plain", "Not Found");
+	});
+
+	ws.onEvent(onWebSocketEvent);
+	carSocket.onEvent(onWebSocketEvent);
+	server.addHandler(&ws);
+	server.addHandler(&carSocket);
 
 	// Inicia servidor
 	server.begin();
 	#ifdef DEBUG_PRINTS
 		Serial.println("Servidor HTTP iniciado");
 	#endif
+}
 
+int last_sent_percent = 0;
+void init_ota() {
+	// Inicia o OTA
+	ArduinoOTA.setHostname(otaHostname);
+	ArduinoOTA.setPassword(otaPassword);
+
+	ArduinoOTA.onStart([]() {
+		String type;
+		if (ArduinoOTA.getCommand() == U_FLASH) {
+			type = "sketch";
+		} else { // U_SPIFFS
+			type = "filesystem";
+		}
+
+		SPIFFS.end();
+		webLog("Iniciando OTA para " + type + "\n");
+	});
+	ArduinoOTA.onEnd([]() {
+		webLog("OTA concluída!\n");
+	});
+	ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+		int current_percent = (progress / (total / 100));
+		String logMessage = "Recebendo atualização [";
+		for (int i = 0 ; i < current_percent; i++) {
+			logMessage += "=";
+		}
+		for (int i = current_percent; i < 100; i++) {
+			logMessage += " ";
+		}
+		logMessage += "] " + String(current_percent) + "%\n";
+		if (current_percent == last_sent_percent)
+			Serial.print(logMessage);
+		else
+			webLog(logMessage);
+	});
+	ArduinoOTA.onError([](ota_error_t error) {
+		Serial.printf("Error[%u]: ", error);
+		if (error == OTA_AUTH_ERROR) {
+			webLog("Erro de autenticação!\n");
+			Serial.println("Auth Failed");
+		} else if (error == OTA_BEGIN_ERROR) {
+			webLog("Erro ao iniciar atualização!\n");
+			Serial.println("Begin Failed");
+		} else if (error == OTA_CONNECT_ERROR) {
+			webLog("Erro de conexão!\n");
+			Serial.println("Connect Failed");
+		} else if (error == OTA_RECEIVE_ERROR) {
+			webLog("Erro ao receber dados!\n");
+			Serial.println("Receive Failed");
+		} else if (error == OTA_END_ERROR) {
+			webLog("Erro ao finalizar atualização!\n");
+			Serial.println("End Failed");
+		}
+	});
+
+	ArduinoOTA.begin();
 }
 
 void setup() {
@@ -961,17 +953,15 @@ void setup() {
 
 	led_carro.setup();
 
-	Wire.begin();
-
-	ponte->setup();
-	sensor->setup();
-	sensorMPU->setup();
-
-	#ifdef DEBUG_PRINTS
-		Serial.println("Setup completo!");
-	#endif
-	// WiFi.mode(WIFI_STA);
 	ConnectToWiFi();
+
+	if (!MDNS.begin(otaHostname)) {
+		Serial.println("Erro ao iniciar mDNS");
+	} else {
+		Serial.println("mDNS iniciado!");
+	}
+	prepare_http_server();
+	init_ota();
 
 	if (!SPIFFS.begin(true)) {
 		#ifdef DEBUG_PRINTS
@@ -981,15 +971,21 @@ void setup() {
 		inLed.setup();
 		while (true) {
 			inLed.toggle();
-			delay(3000);  // mantém o watchdog feliz e ocupado, assim, não roda o loop()
-			// Se o SPIFFS falhar, pisca o LED para indicar erro
+			delay(3000); 
 		}
 	}
 	#ifdef DEBUG_PRINTS
 		Serial.println("SPIFFS Mounted!");
 	#endif
+	ponte->setup();
 
-	prepare_http_server();
+	Wire.begin();
+	sensor->setup();
+	sensorMPU->setup();
+
+	#ifdef DEBUG_PRINTS
+		Serial.println("Setup completo!");
+	#endif
 
 	lastReading = millis();
 }
@@ -998,6 +994,10 @@ unsigned long lastLoopTime = 0;
 const unsigned long loopInterval = 20;  // ms
 
 void loop() {
+	ArduinoOTA.handle();
+	ws.cleanupClients();
+	carSocket.cleanupClients();
+
 	if (WiFi.status() != WL_CONNECTED) {
 		#ifdef DEBUG_PRINTS
 			Serial.println("WiFi desconectado, tentando reconectar...");
@@ -1007,18 +1007,14 @@ void loop() {
 		return;
 	}
 
-	// server.handleClient();
-
 	powerManager.loop();
 
 	unsigned long now = millis();
 	if (now - lastLoopTime >= loopInterval) {
 		lastLoopTime = now;
 
-		// Atualiza sensores
 		sensorMPU->loop();
 
-		// Atualiza ponte H e motores
 		ponte->loop(sensor, sensorMPU);
 
 		lastReading = millis();
