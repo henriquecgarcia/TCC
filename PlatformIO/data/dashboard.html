@@ -22,8 +22,12 @@
 			border-radius: 1.5rem;
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 			text-align: center;
-			max-width: 400px;
+			max-width: 800px;
 			width: 90%;
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			transition: transform 0.3s ease;
 		}
 		h1 {
 			font-size: 2.5rem;
@@ -58,12 +62,39 @@
 			margin: 0.5rem 0 0;
 			font-size: 1.5rem;
 		}
+		div.button, button {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 0.5rem;
+			padding: 0.5rem 1rem;
+			cursor: pointer;
+			font-size: 1rem;
+			margin-top: 1rem;
+			transition: background-color 0.3s, transform 0.2s;
+		}
+		button:hover {
+			background-color: #45a049;
+			transform: scale(1.05);
+		}
+		div.button .disabled {
+			background-color: rgba(0, 0, 0, 0);
+			cursor: not-allowed;
+		}
+		div.buttons {
+			display: grid;
+			/* Use grid layout for buttons 3x3 */
+			grid-template-rows: repeat(3, minmax(50px, 1fr));
+			grid-template-columns: repeat(3, minmax(150px, 1fr));
+			gap: 1rem;
+			margin-top: 1.5rem;
+		}
 	</style>
 </head>
 <body>
 	<div class="container">
 		<h1>Status do Carrinho</h1>
-		<div class="speed" id="speed">-- RPM</div>
+		<div class="speed" id="speed"><span id="motorD">--</span> | <span id="motorE">--</span> RPM</div>
 		<div class="info">
 			<div class="card">
 				<h2>Direção</h2>
@@ -71,53 +102,148 @@
 			</div>
 			<div class="card">
 				<h2>PID Atual</h2>
-				<p id="counters">-- / --</p>
+				<p id="counters"><span id="counterD"></span> | <span id="counterE"></span></p>
 			</div>
 			<div class="card">
 				<h2>Gyroscópio</h2>
-				<p id="gyroscope">-- °/s</p>
+				<p id="gyroscope">-- | -- | -- °/s</p>
 			</div>
 			<div class="card">
 				<h2>Aceleração</h2>
-				<p id="acceleration">-- m/s²</p>
+				<p id="acceleration">-- | -- | -- m/s²</p>
 			</div>
 		</div>
 	</div>
+	<div class="buttons">
+		<div class="button disabled"></div>
+		<button onclick="sendMessage('move-forward')">Avançar</button>
+		<div class="button disabled"></div>
+		<button onclick="sendMessage('move-left')">Esquerda</button>
+		<button onclick="sendMessage('move-stop')">Parar</button>
+		<button onclick="sendMessage('move-right')">Direita</button>
+		<div class="button disabled"></div>
+		<button onclick="sendMessage('move-backward')">Recuar</button>
+		<div class="button disabled"></div>
+	</div>
 
 	<script>
-		async function fetchData() {
-			try {
-				const res = await fetch('/data');
-				if (!res.ok) {
-					throw new Error('Erro ao buscar dados: ' + data.message);
-				}
-				console.log('Dados recebidos:', res.status, res);
-				const data = await res.json();
-				if (!data || !data.motorD) {
-					throw new Error('Dados inválidos recebidos');
-				}
+		if (!window.WebSocket) {
+			alert('Seu navegador não suporta WebSockets. Por favor, use um navegador moderno como Chrome, Firefox ou Edge.');
+			async function fetchData() {
+				try {
+					const res = await fetch('/data');
+					if (!res.ok) {
+						throw new Error('Erro ao buscar dados: ' + data.message);
+					}
+					console.log('Dados recebidos:', res.status, res);
+					const data = await res.json();
+					if (!data || !data.motorD) {
+						throw new Error('Dados inválidos recebidos');
+					}
 
-				document.getElementById('speed').innerText = data.motorD.rpm + '| ' + data.motorE.rpm + ' RPM';
+					document.getElementById('motorD').innerText = data.motorD.rpm;
+					document.getElementById('motorE').innerText = data.motorE.rpm;
 
-				if (data.isMoving) {
-					document.getElementById('direction').innerText = data.movement;
-				} else {
-					document.getElementById('direction').innerText = 'Parado';
+					if (data.isMoving) {
+						document.getElementById('direction').innerText = data.movement;
+					} else {
+						document.getElementById('direction').innerText = 'Parado';
+					}
+					document.getElementById('counters').innerText = data.motorD.pidOutput + ' | ' + data.motorE.pidOutput;
+
+					let mpu = data.MPU6050;
+					document.getElementById('gyroscope').innerText = mpu.gyroX + ' | ' + mpu.gyroY + ' | ' + mpu.gyroZ + ' °/s';
+					document.getElementById('acceleration').innerText = mpu.accX + ' | ' + mpu.accY + ' | ' + mpu.accZ + ' m/s²';
+				} catch (err) {
+					console.error('Erro ao buscar dados:', err);
 				}
-				document.getElementById('counters').innerText = data.motorD.pidOutput + ' | ' + data.motorE.pidOutput;
-
-				let mpu = data.MPU6050;
-				document.getElementById('gyroscope').innerText = mpu.gyroX + ' | ' + mpu.gyroY + ' | ' + mpu.gyroZ + ' °/s';
-				document.getElementById('acceleration').innerText = mpu.accX + ' | ' + mpu.accY + ' | ' + mpu.accZ + ' m/s²';
-			} catch (err) {
-				console.error('Erro ao buscar dados:', err);
 			}
-		}
 
-		// Atualiza a cada 5 segundos
-		fetchData();
-		setInterval(fetchData, 5000);
+			document.getElementsByClassName('buttons')[0].style.display = 'none'; // Esconde os botões se WebSocket não estiver disponível
+			document.getElementById('speed').innerText = 'WebSocket não suportado. Atualizando via HTTP...';
+			// Atualiza a cada 5 segundos
+			fetchData();
+			setInterval(fetchData, 5000);
+		} else {
+			const gateway = `ws://${window.location.hostname}/car`;
+			let websocket;
+			let attempts = 0;
+
+			function initWebSocket() {
+				console.log('Tentando abrir uma conexão WebSocket...');
+				websocket = new WebSocket(gateway);
+				websocket.onopen = onOpen;
+				websocket.onclose = onClose;
+				websocket.onmessage = onMessage;
+				websocket.onerror = function(event) {
+					console.error('Erro na conexão WebSocket:', event);
+					document.getElementById('speed').innerText = 'Erro na conexão. Tentando reconectar...';
+				};
+				attempts++;
+				if (attempts > 5) {
+					document.getElementById('speed').innerText = 'Muitas tentativas de conexão. Verifique o ESP32.';
+					return;
+				}
+			}
+
+			function onOpen(event) {
+				console.log('Conexão aberta.');
+				document.getElementById('speed').innerText = 'Conectado ao ESP32!';
+				// setTimeout(function () {
+				// 	websocket.send("status");
+				// }, 1000);
+			}
+
+			function onClose(event) {
+				console.log('Conexão fechada.');
+				document.getElementById('speed').innerText = 'Desconectado. Tentando reconectar em 2 segundos...';
+				websocket = null;
+				if (attempts <= 5) {
+					console.log('Tentando reconectar...');
+				} else {
+					console.error('Muitas tentativas de conexão. Verifique o ESP32.');
+					document.getElementById('speed').innerText = 'Muitas tentativas de conexão. Verifique o ESP32.';
+					return;
+				}
+				setTimeout(initWebSocket, 2000);
+			}
+
+			function onMessage(event) {
+				console.log('Mensagem recebida:', event.data);
+				const data = JSON.parse(event.data);
+
+				if (data.ready) {
+					document.getElementById('speed').innerText = 'Conectado ao ESP32!';
+					setTimeout(() => {
+						sendMessage("status");
+					}, 1000);
+				}
+				if (data.status) {
+					document.getElementById('direction').innerText = data.status === 'stopped' ? 'Parado' : (data.direction || 'Desconhecido');
+				}
+				if (data.motorD) {
+					document.getElementById('motorD').innerText = data.motorD.rpm || '--';
+					document.getElementById('counterD').innerText = data.motorD.pidOutput || '--';
+				}
+				if (data.motorE) {
+					document.getElementById('motorE').innerText = data.motorE.rpm || '--';
+					document.getElementById('counterE').innerText = data.motorE.pidOutput || '--';
+				}
+				if (data.gyro) {
+					document.getElementById('gyroscope').innerText = `${data.gyro.x || '--'} | ${data.gyro.y || '--'} | ${data.gyro.z || '--'} °/s`;
+				}
+			}
+
+			function sendMessage(command) {
+				if (websocket && websocket.readyState === WebSocket.OPEN) {
+					websocket.send(command);
+				} else {
+					console.error('WebSocket não está aberto. Comando não enviado:', command);
+				}
+			}
+
+			window.addEventListener('load', initWebSocket);
+		}
 	</script>
 </body>
 </html>
-
