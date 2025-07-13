@@ -96,6 +96,16 @@ private:
 	float offsetY = -0.03; // ajuste fino do giroscópio Y
 	float offsetZ = -0.03; // ajuste fino do giroscópio Z
 
+	MediaMovel accelX{10};
+	MediaMovel accelY{10};
+	MediaMovel accelZ{10};
+
+	float offsetAccelX = 0.0; // ajuste fino do acelerômetro X
+	float offsetAccelY = 0.0; // ajuste fino do acelerômetro Y
+	float offsetAccelZ = 0.0; // ajuste fino do acelerômetro Z
+
+	// unsigned long lastWSUpdate = 0;
+
 public:
 	MPU6050() = default;  // construtor padrão
 
@@ -130,13 +140,13 @@ public:
 	}
 
 	float getAccelerometerX() {
-		return getAccelerometer().acceleration.x;
+		return accelX.get();
 	}
 	float getAccelerometerY() {
-		return getAccelerometer().acceleration.y;
+		return accelY.get();
 	}
 	float getAccelerometerZ() {
-		return getAccelerometer().acceleration.z;
+		return accelZ.get();
 	}
 
 	float getGyroscopeX() {
@@ -169,13 +179,25 @@ public:
 			offsetY = g.gyro.y;
 			offsetZ = g.gyro.z;
 			firstRead = false;
+
+			offsetAccelX = a.acceleration.x;
+			offsetAccelY = a.acceleration.y;
+			offsetAccelZ = a.acceleration.z;
+			webLog("MPU6050 calibrado com offsets iniciais.\n");
 		}
 
 		// Atualiza as médias móveis com offsets calibrados
 		gyroX.add(g.gyro.x - offsetX);
 		gyroY.add(g.gyro.y - offsetY);
 		gyroZ.add(g.gyro.z - offsetZ);
-		carSocket.textAll("{\"gyroX\": " + String(g.gyro.x - offsetX) + ", \"gyroY\": " + String(g.gyro.y - offsetY) + ", \"gyroZ\": " + String(g.gyro.z - offsetZ) + "}");
+		accelX.add(a.acceleration.x - offsetAccelX);
+		accelY.add(a.acceleration.y - offsetAccelY);
+		accelZ.add(a.acceleration.z - offsetAccelZ);
+
+		// if (now - lastWSUpdate >= 1000) { // atualiza a cada segundo
+		// 	lastWSUpdate = now;
+		// 	carSocket.textAll("{\"gyroX\": " + String(g.gyro.x - offsetX) + ", \"gyroY\": " + String(g.gyro.y - offsetY) + ", \"gyroZ\": " + String(g.gyro.z - offsetZ) + ", \"accelX\": " + String(a.acceleration.x - offsetAccelX) + ", \"accelY\": " + String(a.acceleration.y - offsetAccelY) + ", \"accelZ\": " + String(a.acceleration.z - offsetAccelZ) + ", \"tempC\": " + String(temp.temperature) + "}");
+		// }
 	}
 };
 
@@ -276,7 +298,6 @@ public:
 		// controle de RPM
 		float targetRadS  = this->targetRadS;
 		float currentRadS = rpmToRadS(currentRPM);
-		this->targetRadS += gyro_error;
 		float rpmControl  = pidRPM.compute(targetRadS, currentRadS);
 
 		pidOutput = rpmControl;
@@ -346,6 +367,7 @@ private:
 	bool		isMoving	   = false;
 	double	  turning_angleZ = 0.0;
 	unsigned long lastUpdate   = 0;
+	unsigned long lastSocketUpdate = 0;
 	static const unsigned long controlInterval = 100; // ms entre controles
 
 	// flag para alternar quais motores atualizar
@@ -507,8 +529,8 @@ public:
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
 					Serial.print(turning_angleZ); Serial.printf(" on deltaTime: %f\n", deltaTime);
-					carSocket.textAll("{\"turning_angleZ\": " + String(turning_angleZ) + ", \"deltaTime\": " + String(deltaTime) + "}");
 				#endif
+				carSocket.textAll("{\"turning_angleZ\": " + String(turning_angleZ) + ", \"deltaTime\": " + String(deltaTime) + "}");
 				if (fabs(turning_angleZ) > 90.0) {
 					stop();
 					#ifdef DEBUG_PRINTS
@@ -527,8 +549,10 @@ public:
 		}
 
 		if (carSocket.count() > 0) {
-			if (isMoving)
+			if (isMoving && now - lastSocketUpdate >= 100) {
+				lastSocketUpdate = now;
 				handleCommand("data");
+			}
 		} else {
 			#ifdef DEBUG_PRINTS
 				Serial.println("[PonteH] Nenhum cliente conectado, não enviando dados.");
@@ -625,11 +649,12 @@ void handleCar(String cmd) {
 		webLog("Carro indo para trás.\n");
 	} else if (cmd == "status") {
 		String status = getCarStatus();
-		webLog("Status do carro: " + status + "\n");
-		carSocket.textAll(status);
+		if (carSocket.count() > 0) {
+			// carSocket.binaryAll(status.c_str(), status.length());
+			carSocket.textAll(status);
+		}
 	} else {
-		String errorMsg = "{\"error\": \"Comando desconhecido: " + cmd + "\"}";
-		carSocket.textAll(errorMsg);
+		webLog("Comando desconhecido: " + cmd + "\n");
 	}
 }
 void handleCommand(String cmd) {
@@ -704,7 +729,10 @@ void handleCommand(String cmd) {
 		String output;
 		serializeJson(doc, output);
 		webLog("Dados do carro: " + output + "\n");
-		carSocket.textAll(output);
+		if (carSocket.count() > 0) {
+			// carSocket.binaryAll(output.c_str(), output.length());
+			carSocket.textAll(output);
+		}
 	} else {
 		webLog("Comando desconhecido: " + cmd + "\n");
 	}
@@ -720,9 +748,10 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 		case WS_EVT_CONNECT:
 			Serial.printf("[%s] WebSocket client #%u connected from %s\n", sockName.c_str(), client->id(), client->remoteIP().toString().c_str());
 			webLog("["+ sockName + "] Cliente ["+ String(client->id()) +"]: Conectado de " + client->remoteIP().toString() + "\n");
-			delay(100); // Aguarda 100ms para garantir que o cliente esteja pronto
-			if (server == &carSocket)
+			if (server == &carSocket) {
+				Serial.printf("WebSocket [server #%s] client #%u is ready\n", sockName.c_str(), client->id());
 				client->text("{\"ready\":\"true\"}");
+			}
 			break;
 		case WS_EVT_DISCONNECT:
 			if (server == &carSocket) {

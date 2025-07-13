@@ -90,6 +90,9 @@
 			margin-top: 1.5rem;
 		}
 	</style>
+
+	<!-- Includindo bibliotecas necessárias -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -116,13 +119,13 @@
 	</div>
 	<div class="buttons">
 		<div class="button disabled"></div>
-		<button onclick="sendMessage('move-forward')">Avançar</button>
+		<button onclick="sendMessage('forward')">Avançar</button>
 		<div class="button disabled"></div>
-		<button onclick="sendMessage('move-left')">Esquerda</button>
-		<button onclick="sendMessage('move-stop')">Parar</button>
-		<button onclick="sendMessage('move-right')">Direita</button>
+		<button onclick="sendMessage('left')">Esquerda</button>
+		<button onclick="sendMessage('stop')">Parar</button>
+		<button onclick="sendMessage('right')">Direita</button>
 		<div class="button disabled"></div>
-		<button onclick="sendMessage('move-backward')">Recuar</button>
+		<button onclick="sendMessage('backward')">Recuar</button>
 		<div class="button disabled"></div>
 	</div>
 
@@ -141,26 +144,26 @@
 						throw new Error('Dados inválidos recebidos');
 					}
 
-					document.getElementById('motorD').innerText = data.motorD.rpm;
-					document.getElementById('motorE').innerText = data.motorE.rpm;
+					document.getElementById('motorD').innerHTML = data.motorD.rpm;
+					document.getElementById('motorE').innerHTML = data.motorE.rpm;
 
 					if (data.isMoving) {
-						document.getElementById('direction').innerText = data.movement;
+						document.getElementById('direction').innerHTML = data.movement;
 					} else {
-						document.getElementById('direction').innerText = 'Parado';
+						document.getElementById('direction').innerHTML = 'Parado';
 					}
-					document.getElementById('counters').innerText = data.motorD.pidOutput + ' | ' + data.motorE.pidOutput;
+					document.getElementById('counters').innerHTML = data.motorD.pidOutput + ' | ' + data.motorE.pidOutput;
 
 					let mpu = data.MPU6050;
-					document.getElementById('gyroscope').innerText = mpu.gyroX + ' | ' + mpu.gyroY + ' | ' + mpu.gyroZ + ' °/s';
-					document.getElementById('acceleration').innerText = mpu.accX + ' | ' + mpu.accY + ' | ' + mpu.accZ + ' m/s²';
+					document.getElementById('gyroscope').innerHTML = mpu.gyroX + ' | ' + mpu.gyroY + ' | ' + mpu.gyroZ + ' °/s';
+					document.getElementById('acceleration').innerHTML = mpu.accX + ' | ' + mpu.accY + ' | ' + mpu.accZ + ' m/s²';
 				} catch (err) {
 					console.error('Erro ao buscar dados:', err);
 				}
 			}
 
 			document.getElementsByClassName('buttons')[0].style.display = 'none'; // Esconde os botões se WebSocket não estiver disponível
-			document.getElementById('speed').innerText = 'WebSocket não suportado. Atualizando via HTTP...';
+			document.getElementById('speed').innerHTML = 'WebSocket não suportado. Atualizando via HTTP...';
 			// Atualiza a cada 5 segundos
 			fetchData();
 			setInterval(fetchData, 5000);
@@ -177,18 +180,18 @@
 				websocket.onmessage = onMessage;
 				websocket.onerror = function(event) {
 					console.error('Erro na conexão WebSocket:', event);
-					document.getElementById('speed').innerText = 'Erro na conexão. Tentando reconectar...';
+					document.getElementById('speed').innerHTML = 'Erro na conexão. Tentando reconectar...';
 				};
 				attempts++;
 				if (attempts > 5) {
-					document.getElementById('speed').innerText = 'Muitas tentativas de conexão. Verifique o ESP32.';
+					document.getElementById('speed').innerHTML = 'Muitas tentativas de conexão. Verifique o ESP32.';
 					return;
 				}
 			}
 
 			function onOpen(event) {
 				console.log('Conexão aberta.');
-				document.getElementById('speed').innerText = 'Conectado ao ESP32!';
+				document.getElementById('speed').innerHTML = 'Conectado ao ESP32!';
 				// setTimeout(function () {
 				// 	websocket.send("status");
 				// }, 1000);
@@ -196,13 +199,13 @@
 
 			function onClose(event) {
 				console.log('Conexão fechada.');
-				document.getElementById('speed').innerText = 'Desconectado. Tentando reconectar em 2 segundos...';
+				document.getElementById('speed').innerHTML = 'Desconectado. Tentando reconectar em 2 segundos...';
 				websocket = null;
 				if (attempts <= 5) {
 					console.log('Tentando reconectar...');
 				} else {
 					console.error('Muitas tentativas de conexão. Verifique o ESP32.');
-					document.getElementById('speed').innerText = 'Muitas tentativas de conexão. Verifique o ESP32.';
+					document.getElementById('speed').innerHTML = 'Muitas tentativas de conexão. Verifique o ESP32.';
 					return;
 				}
 				setTimeout(initWebSocket, 2000);
@@ -213,24 +216,37 @@
 				const data = JSON.parse(event.data);
 
 				if (data.ready) {
-					document.getElementById('speed').innerText = 'Conectado ao ESP32!';
+					document.getElementById('speed').innerHTML = 'Conectado ao ESP32!';
 					setTimeout(() => {
 						sendMessage("status");
 					}, 1000);
 				}
 				if (data.status) {
-					document.getElementById('direction').innerText = data.status === 'stopped' ? 'Parado' : (data.direction || 'Desconhecido');
+					$("#direction").html(data.status === 'stopped' ? 'Parado' : (data.direction || 'Desconhecido'));
 				}
 				if (data.motorD) {
-					document.getElementById('motorD').innerText = data.motorD.rpm || '--';
-					document.getElementById('counterD').innerText = data.motorD.pidOutput || '--';
+					$("#motorD").html(data.motorD.rpm || '--');
+					$("#counterD").html(data.motorD.pidOutput || '--');
+				} else {
+					$("#motorD").html('--');
+					$("#counterD").html('--');
 				}
 				if (data.motorE) {
-					document.getElementById('motorE').innerText = data.motorE.rpm || '--';
-					document.getElementById('counterE').innerText = data.motorE.pidOutput || '--';
+					$("#motorE").html(data.motorE.rpm || '--');
+					$("#counterE").html(data.motorE.pidOutput || '--');
+				} else {
+					$("#motorE").html('--');
+					$("#counterE").html('--');
 				}
 				if (data.gyro) {
-					document.getElementById('gyroscope').innerText = `${data.gyro.x || '--'} | ${data.gyro.y || '--'} | ${data.gyro.z || '--'} °/s`;
+					$("#gyroscope").html(`${data.gyro.x || '--'} | ${data.gyro.y || '--'} | ${data.gyro.z || '--'} °/s`);
+				} else {
+					$("#gyroscope").html('-- | -- | -- °/s');
+				}
+				if (data.accel) {
+					$("#acceleration").html(`${data.accel.x || '--'} | ${data.accel.y || '--'} | ${data.accel.z || '--'} m/s²`);
+				} else {
+					$("#acceleration").html('-- | -- | -- m/s²');
 				}
 			}
 

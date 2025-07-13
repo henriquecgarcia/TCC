@@ -13,8 +13,8 @@ void VL53L0X::setup() {
 	Serial.println("Sensor VL53L0X encontrado!");
 }
 
-VL53L0X::VL53L0X() : sensor(), lastRead(0), last_reading(0) {
-	sensor.startMeasurement();
+VL53L0X::VL53L0X() : lastRead(0), last_reading(0) {
+	// sensor.startMeasurement();
 }
 
 int VL53L0X::loop() {
@@ -43,8 +43,6 @@ int VL53L0X::loop() {
 void VL53L0X::reset() {
 	lastRead = 0;
 	last_reading = 0;
-	sensor.stopMeasurement();
-	sensor.startMeasurement();
 	Serial.println("Sensor VL53L0X reiniciado.");
 }
 
