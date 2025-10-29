@@ -517,8 +517,8 @@ public:
 				} else {
 					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
 				}
-				doUpdate(motorRight, -gz);
-				doUpdate(motorLeft,   gz);
+				doUpdate(motorRight,  gz);
+				doUpdate(motorLeft,  -gz);
 				break;
 			}
 			case MOVEMENT_TURN_LEFT:

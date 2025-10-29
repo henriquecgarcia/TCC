@@ -1,11 +1,11 @@
-Modelo Cinemático: https://www.youtube.com/watch?v=P1PIQilYliQ
+04- Descrição espacial e Transformações rígidas: https://www.youtube.com/watch?v=RDUKZt00-oI
 
-Controle – Introdução: https://www.youtube.com/watch?v=Y-opiS_gjhk
+07- Modelo Cinemático: https://www.youtube.com/watch?v=P1PIQilYliQ
 
-Controle – Cinemático: https://www.youtube.com/watch?v=uAwjyo6P08I
+08- Controle – Introdução: https://www.youtube.com/watch?v=Y-opiS_gjhk
 
-Mapeamento – Occupancy Grid: https://www.youtube.com/watch?v=aROLZ8zB-2Y
+09- Controle – Cinemático: https://www.youtube.com/watch?v=uAwjyo6P08I
 
-Localização – Filtro de Kalman: https://www.youtube.com/watch?v=mXLwe9OEoeI
+18- Mapeamento – Occupancy Grid: https://www.youtube.com/watch?v=aROLZ8zB-2Y
 
-Descrição espacial e Transformações rígidas: https://www.youtube.com/watch?v=RDUKZt00-oI
+19- Localização – Filtro de Kalman: https://www.youtube.com/watch?v=mXLwe9OEoeI

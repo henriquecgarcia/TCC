@@ -6,7 +6,10 @@ void VL53L0X::setup() {
 	if (!sensor.begin()) {
 		Serial.println("Falha ao encontrar o sensor VL53L0X");
 		Serial.println("Reiniciando ESP32...");
+		pinMode(BUILTIN_LED, OUTPUT);
+		digitalWrite(BUILTIN_LED, HIGH); // acende o LED para indicar erro
 		delay(1000); // espera 1 segundo antes de reiniciar
+		digitalWrite(BUILTIN_LED, LOW); // apaga o LED
 		ESP.restart(); // reinicia o ESP32 se o sensor não for encontrado
 		return;
 	}
