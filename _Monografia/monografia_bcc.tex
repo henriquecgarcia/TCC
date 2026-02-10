@@ -1,0 +1,876 @@
+\documentclass[	12pt, Times, openright, twoside, a4paper, english, brazil]{abntex2}
+
+% ---
+% Pacotes fundamentais 
+% ---
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+%\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage{times}
+\usepackage[T1]{fontenc}			% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+% \usepackage{natbib}
+%\usepackage{hyperref}
+%\usepackage{indentfirst}			% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+
+\usepackage{xspace}
+\usepackage{setspace}
+\usepackage[verbose,a4paper,left=23mm,right=23mm,top=30mm,bottom=23mm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath,amsthm}
+\usepackage{url}
+\usepackage{fancyvrb}
+\usepackage{acronym}
+\usepackage{fancyhdr}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{colortbl}
+\usepackage{subcaption}
+\usepackage{float}
+
+% ---
+
+% ---
+% \usepack
+% Pacotes de citações
+% ---age[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+\usepackage{hyperref}
+
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% % ---
+% % Configurações do pacote backref
+% % Usado sem a opção hyperpageref de backref
+% \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% % Texto padrão antes do número das páginas
+% \renewcommand{\backref}{}
+% % Define os textos da citação
+% \renewcommand*{\backrefalt}[4]{
+% 	\ifcase #1 %
+% 		Nenhuma citação no texto.%
+% 	\or
+% 		Citado na página #2.%
+% 	\else
+% 		Citado #1 vezes nas páginas #2.%
+% 	\fi}%
+% % ---
+
+% numeração de figuras e tabelas 
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+
+%\renewcommand\tablename{Tabela{\arabic{chapter}.}}
+
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Desenvolvimento de um Veículo Robótico Autônomo de Pequeno Porte Baseado em ESP32}
+\autor{Henrique Campanha Garcia}
+\local{São José dos Campos, SP}
+\data{Julho de 2025}
+\orientador{Prof. Dr. André Marcorin de Oliveira}
+% \coorientador{Prof. Dr. Beltrano da Silva}
+\instituicao{%
+  Universidade Federal de São Paulo -- UNIFESP
+  \par
+  Instituto de Ciência de Tecnologia
+  \par
+  Bacharelado em Ciência da Computação}
+\tipotrabalho{Trabalho de Graduação}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Trabalho de conclusão de curso apresentado ao Instituto de Ciência e Tecnologia – UNIFESP, como parte das atividades para obtenção do título de Bacharel em Ciência da Computação.}
+% ---
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+
+\makeatother
+% --- 
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+% ---
+
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\begin{capa}
+  \begin{center}
+   \includegraphics[width=.25\textwidth]{logo-unifesp.pdf}
+    \vspace*{\fill}
+    
+    {\ABNTEXchapterfont\large\imprimirautor}
+    \vspace*{\fill}
+    
+     {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+    \vspace*{\fill}\vspace*{\fill}
+    
+   \imprimirlocal
+   \end{center}
+\end{capa}
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \includepdf{folhadeaprovacao_final.pdf}
+%
+\begin{folhadeaprovacao}
+  \begin{center}
+    {\ABNTEXchapterfont\large\imprimirautor}
+
+    \vspace*{\fill}\vspace*{\fill}
+    {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+    \vspace*{\fill}
+    
+    \hspace{.45\textwidth}
+    \begin{minipage}{.5\textwidth}
+        \imprimirpreambulo
+    \end{minipage}%
+    \vspace*{\fill}
+   \end{center}
+    
+   % Trabalho aprovado em 01 de Julho de 2013:
+
+   \assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+   \assinatura{\textbf{Prof. Dr. Sérgio Ronaldo Barros dos Santos} \\ Convidado 1}
+   % \assinatura{\textbf{Professor} \\ Convidado 2}
+   % \assinatura{\textbf{Professor} \\ Convidado 3}
+   %\assinatura{\textbf{Professor} \\ Convidado 4}
+      
+   \begin{center}
+    \vspace*{0.5cm}
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+    \vspace*{1cm}
+  \end{center}
+  
+\end{folhadeaprovacao}
+% ---
+
+% ---
+% Dedicatória
+% ---
+\begin{dedicatoria}
+   \vspace*{\fill}
+   \centering
+   \noindent
+   Dedico este trabalho ao meu orientador, cuja orientação foi essencial para o desenvolvimento deste projeto. 
+
+    Seus esclarecimentos, especialmente na compreensão e aplicação dos algoritmos envolvidos, foram fundamentais para que eu pudesse superar desafios técnicos e aprofundar meus conhecimentos em áreas que antes me pareciam complexas.
+
+    Agradeço pela paciência, disponibilidade e incentivo contínuo ao longo deste processo.
+
+    Dedico este trabalho também a todos que, de alguma forma contribuíram para a realização deste projeto.
+    
+    \textit{Muito obrigado.}
+    
+   \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+
+A realização deste trabalho foi possível graças ao apoio e à colaboração de diversas pessoas e instituições, às quais expresso minha sincera gratidão.
+
+Em primeiro lugar, agradeço ao meu orientador, \imprimirorientador, pelo constante apoio, paciência e pelas valiosas orientações técnicas, especialmente no que diz respeito à compreensão e à implementação dos algoritmos utilizados neste projeto. Sua experiência, dedicação e disponibilidade foram fundamentais para o desenvolvimento desta pesquisa.
+
+Estendo meus agradecimentos à Universidade Federal de São Paulo (UNIFESP), instituição de ensino reconhecida pela excelência acadêmica, pelo compromisso com a formação de profissionais éticos, críticos e preparados para os desafios da sociedade contemporânea.
+
+Aos colegas e amigos que me acompanharam ao longo da graduação, em especial Thiago Capuano e Vinicius Matumoto, sou grato pelos diálogos construtivos, pela colaboração espontânea e, sobretudo, pela amizade que tornou essa caminhada mais leve e motivadora.
+
+À minha família, em especial aos meus pais, Margarete e Renato Garcia, agradeço pelo amor incondicional, incentivo constante e por acreditarem em mim mesmo diante das dificuldades. Sem o apoio de vocês, este trabalho certamente não teria se concretizado.
+
+Por fim, agradeço a todos aqueles que, direta ou indiretamente, contribuíram para a realização deste projeto.
+
+\end{agradecimentos}
+% ---
+
+% ---
+% Epígrafe
+% ---
+\begin{epigrafe}
+    \vspace*{\fill}
+	\begin{flushright}
+		\textit{``Não vos amoldeis às estruturas deste mundo, \\
+		mas transformai-vos pela renovação da mente, \\
+		a fim de distinguir qual é a vontade de Deus: \\
+		o que é bom, o que Lhe é agradável, o que é perfeito.\\
+		(Bíblia Sagrada, Romanos 12, 2)}
+	\end{flushright}
+\end{epigrafe}
+% ---
+
+% ---
+% RESUMO EM PORTUGUÊS
+% ---
+\begin{resumo}
+    Este trabalho apresenta o projeto e desenvolvimento de um veículo robótico autônomo de pequeno porte, concebido para realizar tarefas de transporte de objetos em ambientes internos. O sistema é fundamentado no microcontrolador ESP32, que centraliza o processamento e a conectividade. A percepção do ambiente e a locomoção precisa são viabilizadas pela integração de múltiplos sensores e atuadores, incluindo uma unidade de medição inercial (IMU) MPU6050 para orientação angular, um sensor de distância \textit{Time-of-Flight} (ToF) VL53L0X para detecção de obstáculos e encoders ópticos para odometria. O controle de movimento dos motores DC é realizado por meio de uma ponte H com modulação por largura de pulso (PWM), e a estabilidade da trajetória é garantida por um algoritmo de controle Proporcional, Integral e Derivativo (PID). A autonomia de navegação é alcançada por uma estratégia híbrida que combina planejamento de rota global, utilizando o algoritmo A* sobre um mapa de grid, com um controle reativo local para desvio de obstáculos em tempo real. A interação com o usuário é realizada através de uma interface web (WebServer) embarcada, que permite a designação de destinos e o monitoramento do robô via Wi-Fi. O projeto visa entregar um protótipo funcional, de baixo custo e com arquitetura modular, servindo como uma plataforma educacional e de pesquisa em robótica móvel, sistemas embarcados e Internet das Coisas (IoT).
+    \vspace{\onelineskip}
+
+    \noindent
+    \textbf{Palavras-chave}: Robô Autônomo. ESP32. Controle PID. Navegação Robótica. Mapeamento em Grid. Sistemas Embarcados.
+\end{resumo}
+
+% ---
+% RESUMO EM INGLÊS (ABSTRACT)
+% ---
+\begin{resumo}[Abstract]
+    \begin{otherlanguage*}{english}
+        This work presents the design and development of a small-scale autonomous robotic vehicle, designed to perform object transportation tasks in indoor environments. The system is based on the ESP32 microcontroller, which centralizes processing and connectivity. Environmental perception and precise locomotion are enabled by the integration of multiple sensors and actuators, including an MPU6050 Inertial Measurement Unit (IMU) for angular orientation, a VL53L0X Time-of-Flight (ToF) distance sensor for obstacle detection, and optical encoders for odometry. The motion control of the DC motors is performed using an H-bridge with Pulse Width Modulation (PWM), and trajectory stability is ensured by a Proportional, Integral, and Derivative (PID) control algorithm. Navigation autonomy is achieved through a hybrid strategy that combines global path planning, using the A* algorithm on a grid map, with local reactive control for real-time obstacle avoidance. User interaction is carried out through an embedded web interface (WebServer), which allows for destination designation and robot monitoring via Wi-Fi. The project aims to deliver a functional, low-cost prototype with a modular architecture, serving as an educational and research platform in mobile robotics, embedded systems, and the Internet of Things (IoT).
+        \vspace{\onelineskip}
+
+        \noindent
+        \textbf{Keywords}: Autonomous Robot. ESP32. PID Control. Robotic Navigation. Grid Mapping. Embedded Systems.
+    \end{otherlanguage*}
+\end{resumo}
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+% \pdfbookmark[0]{\listtablename}{lot}
+% \listoftables*
+% \cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\begin{siglas}
+  \item[ADC] Conversor Analógico-Digital (Analog-to-Digital Converter)
+  \item[AUV] Veículo Submerso Autônomo (Autonomous Underwater Vehicle)
+  \item[DC] Corrente Contínua (Direct Current)
+  \item[GPIO] Pinos de Entrada/Saída de Propósito Geral (General-Purpose Input/Output)
+  \item[HTTP] Protocolo de Transferência de Hipertexto (Hypertext Transfer Protocol)
+  \item[IMU] Unidade de Medição Inercial (Inertial Measurement Unit)
+  \item[IoT] Internet das Coisas (Internet of Things)
+  \item[IHM] Interface Homem-Máquina
+  \item[I2C] Inter-Integrated Circuit (padrão de comunicação)
+  \item[PID] Controlador Proporcional–Integral–Derivativo
+  \item[PRM] Mapa de Rotas Probabilístico (Probabilistic Roadmap)
+  \item[PWM] Modulação por Largura de Pulso (Pulse Width Modulation)
+  \item[RAS] Sistemas Robóticos e Autônomos (Robotic and Autonomous Systems)
+  \item[RMA] Robôs Móveis Autônomos
+  \item[RTOS] Sistema Operacional de Tempo Real (Real-Time Operating System)
+  \item[SLAM] Localização e Mapeamento Simultâneos (Simultaneous Localization and Mapping)
+  \item[SPI] Interface Periférica Serial (Serial Peripheral Interface)
+  \item[ToF] Tempo de Voo (Time-of-Flight)
+  \item[UART] Transmissor/Receptor Assíncrono Universal (Universal Asynchronous Receiver-Transmitter)
+  \item[VL53L0X] Sensor ToF da STMicroelectronics
+  \item[Wi-Fi] Wireless Fidelity (Tecnologia de rede sem fio)
+  \item[WebServer] Servidor Web embarcado
+  \item[ESP32] Microcontrolador com Wi-Fi e Bluetooth integrados da Espressif Systems
+  \item[MPU6050] Sensor IMU com acelerômetro e giroscópio da InvenSense
+  \item[A*] Algoritmo A-star para planejamento de caminhos
+\end{siglas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\chapter{Introdução}
+
+A crescente evolução dos sistemas embarcados e da Internet das Coisas (IoT) tem impulsionado o desenvolvimento de soluções autônomas para aplicações cotidianas. Nesse cenário, veículos autônomos têm despertado interesse pela sua aplicabilidade em tarefas de transporte interno, contribuindo para a automação e otimização de processos, \citeonline{SCHILLINGK_FLEXIBLE_AUTONOMOUS_TRANSPORT}.
+
+O campo da robótica móvel tem-se desenvolvido significativamente nas últimas décadas, especialmente com a popularização de plataformas modulares e reconfiguráveis \citeonline{MOUBARAK20121648} e robôs com capacidade de adaptação a ambientes complexos e dinâmicos \citeonline{SCHILLINGK_FLEXIBLE_AUTONOMOUS_TRANSPORT}. Nesse contexto, dentro da robótica, os agentes podem ser classificados de acordo com seu grau de autonomia, como por exemplo, robôs teleoperados, semi-autônomos e autônomos. Em todos esses tipos de robôs, e em especial para robôs com graus elevados de autonomia, o uso de sensores embarcados, como unidades de medição inerciais (IMUs) e sensores de distância, em conjunto com algoritmos de controle robustos, como o PID (Proporcional, Integral, Derivativa), têm sido essenciais para garantir precisão e estabilidade \citeonline{selfreconfigurable_cleaning_robot2020}.
+
+Dentre as aplicações de sistemas robóticos autônomos, podem ser destacadas os robôs de resgate e salvamento \citeonline{calisi2007autonomous,antonios2024review}, manutenção de submarina \citeonline{lemos2021auv,frontiers2023underwater}, interface com seres humanos em museus \citeonline{cantucci2024museum,extrica2024museum}, aplicações militares \citeonline{hcss2021military,automate2023defense}, entre outros. Em especial, os trabalhos de \citeonline{nehmzow2012mobile} e \citeonline{SCHILLINGK_FLEXIBLE_AUTONOMOUS_TRANSPORT} destacam a importância de projetos didáticos e aplicáveis de veículos autônomos tanto em ambientes industriais quanto acadêmicos, reforçando a relevância de soluções acessíveis e flexíveis.
+
+Dessa forma, este projeto visa desenvolver um veículo autônomo de pequeno porte com quatro rodas, baseado em um microcontrolador de baixo custo, equipado com sensores inerciais, sensores de distância e encoders ópticos. O sistema será capaz de realizar deslocamentos autônomos utilizando mapeamento em grid e planejamento de rotas, com controle remoto por interface web.
+
+A principal motivação do projeto é criar uma solução acessível e didática para transporte interno automatizado em ambientes acadêmicos, facilitando processos de gestão dentro da universidade. Além disso, o desenvolvimento do projeto vai proporcionar o aprendizado multidisciplinar. A contribuição esperada é o desenvolvimento de uma plataforma de baixo custo com potencial de aplicação em ambientes reais, além de servir como base para futuras pesquisas em robótica móvel e IoT.
+
+\section{Objetivos}
+
+Este trabalho tem como finalidade o desenvolvimento de um assistente robótico autônomo voltado à automação de tarefas de transporte de objetos em ambientes internos, como escritórios e residências. A proposta consiste em permitir que o usuário delegue, por meio de uma interface de controle, a entrega de itens a um destino previamente definido, sem a necessidade de deslocamento físico até o local de destino.
+
+Além de propor uma solução prática para aplicações logísticas em pequena escala, o projeto busca consolidar e aplicar os conhecimentos teóricos adquiridos ao longo da graduação, com ênfase nas disciplinas de Sistemas Embarcados, Inteligência Artificial e Internet das Coisas (IoT). A iniciativa visa integrar esses conceitos por meio da construção de um sistema funcional, de baixo custo e alto valor educacional e tecnológico.
+
+\subsection{Objetivo Geral}
+
+Desenvolver um protótipo funcional de um veículo robótico autônomo de pequeno porte, dotado de quatro rodas, controlado por um microcontrolador ESP32, e equipado com sensores inerciais (MPU6050), sensores de distância por tempo de voo (VL53L0X) e encoders ópticos para monitoramento da rotação das rodas. O sistema deverá ser capaz de se locomover autonomamente em ambientes internos, utilizando mapeamento baseado em grid e algoritmos de planejamento de rotas, com definição do destino via interface web.
+
+\subsection{Objetivos Específicos}
+
+\begin{itemize}
+    \item Projetar e montar a estrutura física do robô, incluindo os motores, a carcaça e a eletrônica embarcada;
+    \item Implementar controle de velocidade e trajetória utilizando algoritmos PID com feedback dos encoders;
+    \item Integrar os sensores inerciais e de distância ao sistema de controle e navegação;
+    \item Desenvolver o módulo de mapeamento em grid e aplicar algoritmos de busca para planejamento de trajetórias (como o algoritmo A*);
+    \item Implementar uma interface web acessível via rede Wi-Fi, permitindo a seleção de destinos pelo usuário;
+    \item Realizar testes experimentais e validar o desempenho do sistema em ambiente controlado, analisando a precisão, a robustez e a viabilidade da proposta.
+\end{itemize}
+
+\section{Organização do Texto}
+
+Este trabalho está estruturado da seguinte forma:
+
+\begin{itemize}
+    \item \textbf{Capítulo 2 — Revisão Bibliográfica:} apresenta uma análise de trabalhos relacionados à robótica móvel autônoma, abordando diferentes aplicações e tecnologias que fundamentam o projeto.
+    \item \textbf{Capítulo 3 — Fundamentação Teórica:} detalha os conceitos teóricos essenciais, incluindo sistemas embarcados, controle de motores, sensores inerciais e de distância, algoritmos PID, odometria e técnicas de mapeamento e planejamento de rotas.
+    \item \textbf{Capítulo 4 — Materiais e Métodos:} descreve os componentes de hardware e as ferramentas de software utilizadas, a arquitetura do sistema, as estratégias de controle e navegação, e a metodologia de desenvolvimento do protótipo.
+    \item \textbf{Capítulo 5 — Resultados Parciais:} discute os avanços obtidos, a implementação do software de controle, os desafios encontrados e os resultados dos testes individuais com os sensores.
+    \item \textbf{Capítulo 6 — Conclusão:} apresenta as conclusões parciais do trabalho com base nos resultados alcançados e descreve as etapas futuras para a finalização e validação do projeto.
+\end{itemize}
+
+
+% --- Início do Capítulo de Revisão Bibliográfica ---
+
+\chapter{Revisão Bibliográfica}
+\label{chap:revisao}
+
+Este capítulo apresenta uma análise de trabalhos relacionados ao desenvolvimento de robôs móveis autônomos, com foco na aplicação em ambientes internos e no transporte de pequenos objetos. São considerados aspectos como autonomia de navegação, controle embarcado, sensoriamento, planejamento de rotas e usabilidade em contextos educacionais ou institucionais. Embora a área de robótica móvel autônoma seja ampla, buscou-se destacar estudos que, direta ou indiretamente, dialogam com os objetivos e desafios deste projeto.
+
+Robôs aplicados a missões de busca e salvamento, como os descritos por \citeonline{calisi2007autonomous}, utilizam estratégias avançadas de exploração e navegação em ambientes não estruturados. Esses robôs são capazes de se orientar em locais desconhecidos e dinâmicos, utilizando sensores embarcados e algoritmos de mapeamento para garantir a segurança da operação. De forma complementar, \citeonline{antonios2024review} apresentam uma revisão sistemática sobre robôs de resgate equipados com inteligência artificial, destacando a integração entre sensoriamento preciso, aprendizado de máquina e planejamento adaptativo em cenários de alto risco. Apesar de operarem em contextos significativamente mais complexos, esses estudos fornecem subsídios importantes sobre navegação segura e sensoriamento embarcado.
+
+Ainda que este projeto se concentre em ambientes internos e controlados, como salas de aula e laboratórios, há paralelos metodológicos com outras aplicações robóticas. Trabalhos como os de \citeonline{lemos2021auv} e \citeonline{frontiers2023underwater} discutem o uso de veículos submersos autônomos (AUVs) para inspeção de estruturas submarinas, enfrentando desafios técnicos severos, como navegação em seis graus de liberdade e comunicação limitada. Apesar das diferenças no ambiente operacional, ambos os casos compartilham a necessidade de controle embarcado confiável, fusão sensorial e autonomia de locomoção — elementos também centrais para o presente projeto.
+
+Em ambientes públicos e educacionais, \citeonline{cantucci2024museum} investigaram o impacto da autonomia adaptativa de robôs na experiência dos visitantes em museus. Já \citeonline{extrica2024museum} analisam o uso de robôs inteligentes como mediadores culturais em espaços expositivos. Esses estudos destacam a importância da interação com o usuário, da acessibilidade e da robustez na arquitetura de controle. O robô desenvolvido neste projeto, embora mais simples em termos de funcionalidade e escopo, compartilha o objetivo de ser uma ferramenta acessível, intuitiva e funcional em contextos institucionais e educacionais, promovendo uma experiência de uso descomplicada por meio de uma interface web.
+
+Robôs autônomos também são amplamente empregados em aplicações militares e de defesa, conforme discutido em \citeonline{hcss2021military} e \citeonline{automate2023defense}. Nesses cenários, robustez estrutural, inteligência situacional e operação remota segura são características críticas. Embora o projeto aqui apresentado não possua finalidade bélica, ele adota conceitos estruturais semelhantes, como a navegação baseada em sensores, o controle de trajetória via PID e a operação remota via rede sem fio, adaptados para fins acadêmicos e com foco em baixo custo e reprodutibilidade.
+
+No campo da robótica modular, \citeonline{MOUBARAK20121648} destacam a importância de plataformas reconfiguráveis, que possibilitam adaptações estruturais para diferentes tipos de missão. Embora o robô desenvolvido neste projeto não possua capacidade de reconfiguração física, adota uma arquitetura modular do ponto de vista do software e da organização dos componentes embarcados. O uso de bibliotecas customizadas, divididas por responsabilidade funcional, favorece a manutenção do sistema e sua expansão futura.
+
+Em síntese, os trabalhos analisados contribuem para o embasamento técnico do projeto, oferecendo diferentes perspectivas sobre sensoriamento, controle e navegação em robôs móveis. O diferencial da proposta apresentada neste TCC reside na sua aplicação prática: a criação de um robô autônomo de pequeno porte, controlado por um ESP32, capaz de realizar o transporte de objetos em ambientes internos por meio de navegação baseada em mapeamento em grid, sensores de distância (VL53L0X), controle inercial (MPU6050), algoritmo A* e interface web embarcada. Trata-se de uma solução voltada à didática, ao baixo custo e à possibilidade de replicação em contextos educacionais e institucionais.
+
+
+\chapter{Fundamentação Teórica}
+\label{cap:fundamentacao_teorica}
+
+Este capítulo apresenta os fundamentos teóricos que sustentam o desenvolvimento do projeto, abrangendo os conceitos, tecnologias e métodos necessários para a construção de um veículo robótico autônomo com capacidade de navegação em ambiente interno. A estrutura modular do sistema envolve desde a integração de sensores e atuadores até o controle de movimento e planejamento de rotas.
+
+Inicialmente, são abordados os conceitos de sistemas embarcados e Internet das Coisas (IoT), destacando-se suas arquiteturas e aplicações práticas, bem como a justificativa da escolha do microcontrolador ESP32, amplamente utilizado em projetos que exigem conectividade e capacidade computacional embarcada (Seção~\ref{sec:sistemas_emb}).
+
+Na sequência, são discutidos os princípios de controle de motores de corrente contínua (DC) utilizando circuitos do tipo ponte H, responsáveis por permitir o acionamento bidirecional e o ajuste de velocidade dos motores (Seção~\ref{sec:controle_motores}). A Seção~\ref{sec:pid_odometria} trata da aplicação do controle PID para estabilização e controle de movimento, bem como do uso de odometria com encoders para estimativa de deslocamento do robô.
+
+Também são explorados os recursos de sensoriamento inercial (Seção~\ref{sec:mpu6050}), com destaque para o sensor MPU6050, que fornece medições de aceleração e velocidade angular, fundamentais para estimativas de orientação. Em seguida, na Seção~\ref{sec:vl53l0x}, discorre-se sobre sensores de distância baseados no princípio de \textit{Time-of-Flight} (ToF), como o VL53L0X, cuja precisão e velocidade tornam-no adequado para detecção de obstáculos em tempo real.
+
+Por fim, a Seção~\ref{sec:mapeamento_grid} apresenta as técnicas de representação do ambiente por meio de mapas em grid e os algoritmos de planejamento de rotas, como A* e Dijkstra, que permitem ao robô traçar trajetórias seguras e eficientes até o destino escolhido.
+
+Esses tópicos compõem o corpo teórico necessário para a implementação do sistema proposto, oferecendo suporte conceitual e justificativa técnica para as decisões de projeto. A fundamentação apresentada a seguir baseia-se em referências consolidadas na literatura acadêmica e técnica, como \citeonline{kurose2009computer}, entre outras.
+
+\section{Sistemas Embarcados e IoT} \label{sec:sistemas_emb}
+
+Sistemas embarcados consistem em plataformas computacionais especializadas, compostas por microcontroladores, firmware e, em alguns casos, sistemas operacionais de tempo real (RTOS), cujo propósito é executar tarefas específicas sob restrições rígidas de desempenho, consumo energético e confiabilidade. Essas plataformas integram, de forma sinérgica, componentes de hardware e software, promovendo soluções otimizadas para diferentes finalidades. Por serem projetados para operar de maneira contínua, eficiente e, frequentemente, em tempo real, os sistemas embarcados desempenham papel central em diversos setores da tecnologia, como automação industrial, controle de processos, equipamentos médicos, monitoramento ambiental e dispositivos de Internet das Coisas (IoT), \citeonline{matiz2024sistemas}.
+
+No contexto da IoT, a integração de sistemas embarcados com redes de comunicação sem fio, como Wi-Fi, Bluetooth e LoRa, potencializa a conectividade e a interoperabilidade entre dispositivos distribuídos. Essa conectividade torna possível a criação de ambientes inteligentes, capazes de reagir dinamicamente a estímulos do ambiente, compartilhar dados em tempo real e executar comandos remotos. Entretanto, tais sistemas exigem soluções que conciliem eficiência energética, segurança de dados e escalabilidade, aspectos críticos para aplicações em larga escala, como cidades inteligentes, agricultura de precisão e automação residencial.
+
+Para o desenvolvimento deste projeto, foi selecionado o microcontrolador ESP32, do kit de desenvolvimento DOIT ESP32 Devkit V1, devido à sua ampla versatilidade, baixo custo e rica gama de funcionalidades embarcadas. O ESP32 possui conectividade Wi-Fi e Bluetooth integradas, múltiplos núcleos de processamento, suporte a múltiplos pinos GPIO, conversores analógico-digitais (ADCs), interfaces I2C, SPI e UART, além de timers e recursos de controle PWM, características que o tornam ideal para aplicações embarcadas modernas. A \textit{Figura~\ref{fig:esp32_pinout}} apresenta o diagrama de pinagem da placa, destacando a disposição dos pinos e suas respectivas funcionalidades, informação essencial para a correta conexão dos periféricos utilizados no protótipo.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imagens/esp32_pinout.png}
+    \caption{Diagrama de pinagem do ESP32.}
+    \label{fig:esp32_pinout}
+    \vspace{0.2em}
+    \small\textit{Fonte: \href{https://lastminuteengineers.com/esp32-pinout-reference/}{lastminuteengineers.com}}
+\end{figure}
+
+A escolha do ESP32 justifica-se, portanto, por sua capacidade de processamento superior, ampla conectividade, suporte a múltiplos protocolos de comunicação e integração de periféricos essenciais, reduzindo a necessidade de componentes externos. Além disso, sua popularidade na comunidade de desenvolvimento embarcado proporciona vasta documentação e bibliotecas de código, facilitando o processo de implementação e depuração do sistema. 
+
+\section{Controle de Motores DC e Ponte H} \label{sec:controle_motores}
+
+Motores de corrente contínua (DC) são componentes amplamente utilizados em plataformas robóticas móveis, especialmente em projetos com sistemas embarcados. Isso se deve à sua construção relativamente simples, ao custo acessível e à capacidade de resposta rápida a comandos de controle. No entanto, para que seja possível controlar de forma eficaz tanto a direção quanto a velocidade desses motores, é necessário empregar circuitos de acionamento apropriados, sendo a ponte H uma das soluções mais utilizadas para esse fim.
+
+A ponte H consiste em um arranjo eletrônico formado geralmente por quatro dispositivos semicondutores de chaveamento (transistores bipolares) dispostos de modo a formar uma topologia semelhante à letra “H”. Esse circuito permite o controle da polaridade da tensão aplicada aos terminais do motor, viabilizando, assim, o acionamento em ambos os sentidos de rotação. Tal característica é fundamental para o deslocamento de robôs autônomos, que requerem comandos precisos de avanço, recuo e curvas, os quais são obtidos por meio do controle individual de cada motor responsável pela movimentação.
+
+Para controlar a velocidade de rotação, é frequentemente empregada a técnica de modulação por largura de pulso (PWM), que ajusta a potência média entregue ao motor pela variação do ciclo de trabalho de um sinal digital. Essa estratégia possibilita uma regulação contínua da velocidade, mantendo a eficiência energética do sistema e reduzindo o desgaste dos componentes eletromecânicos.
+
+A ponte H, portanto, representa uma alternativa consolidada tanto em ambientes educacionais quanto em sistemas de aplicação prática, devido à sua confiabilidade e simplicidade de implementação. Sua interface com microcontroladores, como o ESP32, ocorre por meio de sinais digitais que controlam o estado de cada chave do circuito, permitindo a integração direta com algoritmos de controle embarcados.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.7\linewidth]{imagens/ponteH_rotacao_horaria.png}
+        \caption{Rotação horária do motor.}
+        \label{fig:ponte_h_horario}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=0.7\linewidth]{imagens/ponteH_rotacao_anti_horaria.png}
+        \caption{Rotação anti-horária do motor.}
+        \label{fig:ponte_h_anti_horario}
+    \end{subfigure}
+    \caption{Funcionamento da ponte H para diferentes sentidos de rotação.}
+    \label{fig:ponte_h_rotacoes}
+    \vspace{0.2em}
+    \small\textit{Fonte: \href{https://lastminuteengineers.com/l298n-dc-stepper-driver-arduino-tutorial/}{LASTMINUTEENGINEERS, 2024}.}
+\end{figure}
+
+A \textit{Figura~\ref{fig:ponte_h_rotacoes}} ilustra os dois modos de operação da ponte H, demonstrando como a combinação das chaves eletrônicas determina a direção da corrente elétrica no motor, resultando em rotação no sentido horário ou anti-horário.
+
+\section{Sensoriamento Inercial (MPU6050)} \label{sec:mpu6050}
+
+Sensores inerciais são dispositivos fundamentais para aplicações que envolvem navegação, estabilização e controle de movimento em sistemas embarcados e robótica móvel. O módulo MPU6050 é um sensor inercial amplamente utilizado por integrar, em uma única unidade, um acelerômetro e um giroscópio baseados em tecnologia MEMS (\textit{Micro-Electro-Mechanical Systems}). Com isso, é possível medir, simultaneamente, a aceleração linear (em três eixos: X, Y e Z) e a velocidade angular (\textit{roll}, \textit{pitch} e \textit{yaw}), fornecendo uma base sólida para estimativas de orientação e movimento \citeonline{nucleodoconhecimento2022mpu6050}.
+
+A principal vantagem do MPU6050 reside na sua capacidade de fornecer informações tridimensionais sobre o estado dinâmico do robô, sendo extremamente útil para algoritmos de controle de atitude e navegação. No entanto, as leituras brutas desses sensores podem conter ruídos e desvios, o que exige o emprego de técnicas de filtragem e fusão sensorial. Métodos como filtros de média móvel, filtro complementar ou filtros de Kalman são comumente utilizados para suavizar os dados e obter estimativas mais confiáveis.
+
+No contexto deste projeto, optou-se por utilizar exclusivamente os dados provenientes do eixo Z do giroscópio, associado ao movimento de guinada (\textit{yaw}), conforme a orientação física do sensor na estrutura do robô. Essa escolha deve-se ao fato de que a guinada representa a rotação do veículo no plano horizontal, sendo o parâmetro mais relevante para determinar o ângulo de curva enquanto o robô se desloca para frente ou para trás.
+
+A Figura~\ref{fig:MPU6050-Gyro-Asis} apresenta a disposição dos eixos de medição do sensor MPU6050, facilitando o entendimento da correspondência entre os movimentos físicos do robô e os dados inerciais captados.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{imagens/MPU6050-Module-Gyroscope-Axis.jpg}
+    \caption{Eixos de orientação do giroscópio MPU6050.}
+    \label{fig:MPU6050-Gyro-Asis}
+    \vspace{0.2em}
+    \small\textit{Fonte: \href{https://lastminuteengineers.com/mpu6050-accel-gyro-arduino-tutorial/}{LASTMINUTEENGINEERS, 2024}.}
+\end{figure}
+
+\section{Sensores Time-of-Flight: VL53L0X} \label{sec:vl53l0x}
+Sensores do tipo \textit{Time-of-Flight} (ToF), como o modelo VL53L0X, realizam medições de distância com base no tempo que um feixe de luz, geralmente laser infravermelho, leva para atingir um objeto e retornar ao sensor após a reflexão. Esse princípio de funcionamento permite a obtenção de leituras rápidas e com elevada precisão, alcançando uma resolução na ordem de milímetros e alcance típico de até 1,2 metros em ambientes controlados \citeonline{adafruit2024vl53l0x}. Tais características tornam os sensores ToF especialmente adequados para aplicações que requerem resposta em tempo real, como navegação autônoma, detecção e evasão de obstáculos e mapeamento de ambientes tridimensionais.
+
+A escolha do sensor VL53L0X neste projeto se deu, principalmente, por sua superioridade em relação a outros sensores amplamente utilizados no ensino e em projetos de prototipagem, como o HC-SR04. Enquanto o HC-SR04 utiliza ondas ultrassônicas, que estão sujeitas a variações ambientais (como temperatura e tipo de superfície do objeto), o VL53L0X opera com luz, o que lhe confere maior estabilidade, tempo de resposta mais curto e maior precisão nas medições. Dessa forma, o VL53L0X apresenta-se como uma solução mais robusta e confiável para os requisitos do sistema robótico proposto, especialmente no que se refere à detecção eficiente de obstáculos em tempo real e à construção de um mapeamento preciso do ambiente. A representação de um sensor equivalente ao utilizado no projeto está representado na Figura~\ref{fig:vl53l0x-sensor}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{imagens/VL53L0X.png}
+    \caption{Sensor VL53L0X}
+    \small\textit{Fonte: \href{https://arduinoecia.com.br/product/sensor-de-distancia-vl53l0x-laser-time-of-flight-tof/?srsltid=AfmBOopsNMCpEqpZlJho78S3P5lfBbjyWc4lJGDBZAgVOFW-wkH_ZL3z}{ARDUINOECIA, 2025}.}
+    \label{fig:vl53l0x-sensor}
+\end{figure}
+
+\section{Algoritmos PID e Odometria} \label{sec:pid_odometria}
+
+O controle PID é uma das técnicas mais amplamente utilizadas em sistemas de controle automático, especialmente em aplicações embarcadas e robóticas. Sua popularidade advém da simplicidade de implementação e da eficácia no controle de processos dinâmicos. Em robótica móvel, o PID é comumente aplicado ao controle de velocidade e posição dos motores, ajustando continuamente os sinais de atuação de acordo com o erro entre o valor desejado (referência) e o valor atual medido.
+
+Matematicamente, a saída de controle \( u(t) \) do controlador PID é definida como:
+
+\begin{equation}
+u(t) = K_p e(t) + K_i \int_{0}^{t} e(\tau)\, d\tau + K_d \frac{de(t)}{dt}
+\end{equation}
+
+onde:
+\begin{itemize}
+    \item \( e(t) \) representa o erro entre a referência e a saída do sistema no instante \( t \);
+    \item \( K_p \) é o ganho proporcional, que reage à magnitude do erro atual;
+    \item \( K_i \) é o ganho integral, que corrige desvios acumulados ao longo do tempo;
+    \item \( K_d \) é o ganho derivativo, que antecipa tendências com base na taxa de variação do erro.
+\end{itemize}
+
+A sintonização adequada desses parâmetros (\( K_p \), \( K_i \) e \( K_d \)) é essencial para garantir estabilidade, tempo de resposta adequado e evitar oscilações ou sobrecargas no sistema, como mostrado em \citeonline{astrom2006advancedpid}.
+
+Complementarmente ao controle, a navegação precisa em ambientes internos exige a estimativa contínua da posição e da orientação do robô, processo conhecido como odometria. A odometria clássica baseia-se na leitura incremental dos encoders ópticos acoplados às rodas motrizes, que fornecem a quantidade de pulsos gerados conforme as rodas giram. Com base nesses dados, é possível calcular o deslocamento linear e angular do robô por integração das variações de posição ao longo do tempo.
+
+Considerando um robô diferencial com duas rodas, os deslocamentos linear \( \Delta s \) e angular \( \Delta \theta \) são dados por: \cite{siegwart2011introduction}
+
+\begin{align}
+    \Delta s &= \frac{r}{2} (\Delta \phi_R + \Delta \phi_L) \\
+    \Delta \theta &= \frac{r}{d} (\Delta \phi_R - \Delta \phi_L)
+\end{align}
+
+onde:
+\begin{itemize}
+    \item \( r \) é o raio das rodas;
+    \item \( d \) é a distância entre as rodas;
+    \item \( \Delta \phi_R \) e \( \Delta \phi_L \) são os incrementos angulares das rodas direita e esquerda, respectivamente.
+\end{itemize}
+
+Essas equações permitem atualizar a posição do robô em coordenadas cartesianas \( (x, y) \) com base no deslocamento linear e na mudança de orientação, utilizando relações trigonométricas.
+
+Apesar da sua simplicidade, a odometria baseada exclusivamente em encoders está sujeita a erros cumulativos, como deslizamentos de roda e imprecisões de leitura. Para mitigar esses erros, é comum a fusão de sensores, combinando odometria com informações inerciais (como as do MPU6050) ou até mesmo com técnicas de odometria visual, que utilizam dados de câmeras para estimar o deslocamento do robô por meio do rastreamento de características visuais no ambiente \citeonline{unicamp2017odometria}.
+
+Portanto, a utilização combinada do controle PID e da odometria fornece uma base robusta para a movimentação precisa e a navegação confiável do robô em ambientes internos, atendendo aos requisitos de autonomia e estabilidade do sistema proposto.
+
+\section{Mapeamento em Grid e Planejamento de Rotas} \label{sec:mapeamento_grid}
+
+O mapeamento em grid é uma técnica amplamente adotada na área de robótica móvel para representação espacial de ambientes. Essa abordagem consiste na discretização do espaço contínuo em uma matriz bidimensional composta por células uniformes, também conhecidas como grades de ocupação. Cada célula da matriz representa uma região específica do ambiente e pode assumir diferentes estados, como livre, ocupada ou desconhecida, conforme as informações captadas por sensores embarcados durante o deslocamento do robô \citeonline{ufla2020mapa}.
+
+Essa representação estruturada facilita a modelagem do ambiente de forma computacionalmente tratável, permitindo a realização de tarefas como planejamento de rotas, evasão de obstáculos e atualização dinâmica do mapa conforme novas medições são realizadas. Além disso, seu formato matricial é compatível com algoritmos de busca que operam sobre grafos e redes, favorecendo a aplicação de soluções bem estabelecidas em teoria da computação.
+
+Para a geração de trajetórias viáveis dentro desse ambiente discretizado, são utilizados algoritmos clássicos de busca e otimização de caminhos, como Dijkstra, A* (\textit{A-star}) e métodos baseados em amostragem, como o RRT (\textit{Rapidly-Exploring Random Tree}). Tais algoritmos visam determinar trajetórias que minimizem um determinado custo (como distância, tempo ou consumo energético), respeitando a topologia do ambiente e a presença de obstáculos. A utilização dessas técnicas é essencial para garantir a autonomia, eficiência e segurança da navegação em ambientes parcialmente ou totalmente desconhecidos.
+
+Neste projeto, o processo de mapeamento foi desenvolvido em conjunto com o módulo de sensoriamento baseado em sensores \textit{Time-of-Flight}, conforme descrito na Seção~\ref{sec:vl53l0x}. A técnica utilizada foi inspirada na proposta do projeto \textit{Ultrasonic SLAM} \cite{patel2021ultrasonic}, com as devidas adaptações para utilizar o sensor VL53L0X em substituição ao sensor ultrassônico HC-SR04, com o objetivo de obter maior precisão e menor latência nas medições de distância.
+
+Para a implementação prática, o ambiente foi modelado de forma simplificada, assumindo-se as seguintes definições geométricas:
+
+\begin{itemize}
+    \item \textbf{Dimensões do robô}: representado por um retângulo de largura $W$ e comprimento $L$;
+    \item \textbf{Dimensões do ambiente}: representadas por uma área retangular de largura $R_W$ e comprimento $R_L$;
+    \item \textbf{Tamanho da matriz de mapeamento}: definido como $m \times n$, onde $m = \frac{R_L}{L}$ e $n = \frac{R_W}{W}$, correspondendo ao número de células percorríveis no eixo vertical e horizontal, respectivamente.
+\end{itemize}
+
+Essa modelagem permite a construção de uma matriz binária que identifica as áreas acessíveis e intransponíveis, conforme os dados sensoriais obtidos ao longo da movimentação do robô. A Figura~\ref{fig:grid-mapping-basics}, extraída da proposta original de \citeonline{patel2021ultrasonic}, ilustra esse conceito de discretização do espaço.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{imagens/grid_mapping_basics.png}
+    \caption{Exemplo simplificado de mapeamento em grid.}
+    \label{fig:grid-mapping-basics}
+\end{figure}
+
+Com a grade definida, a estratégia de mapeamento baseia-se na movimentação sistemática do robô sobre as células da matriz, percorrendo coordenadas discretas $(x, y)$ e atualizando o estado de cada célula com base nos dados coletados em tempo real. Essa abordagem permite gerar um mapa final representando as regiões navegáveis e os obstáculos presentes no ambiente.
+
+A Figura~\ref{fig:caminho-de-mapping} exemplifica um padrão de percurso planejado para cobrir integralmente todas as células da matriz. Tal trajetória garante a coleta de dados em todas as áreas do espaço representado, permitindo a construção completa do mapa de ocupação. Contudo, o mapeamento definido por \citeonline{patel2021ultrasonic} não permite um grande detalhamento do local caso haja um objeto no meio do caminho, mas dado objeto seja apenas local, como cadeiras, bancos e outras mobílias que não necessariamente ficam em um canto da sala. No entanto, para o escopo deste trabalho, cujo objetivo é validar a navegação autônoma em ambientes estruturados (como corredores e salas com obstáculos predominantemente periféricos), este modelo de mapa de ocupação é considerado suficiente e adequado.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{imagens/Mapping.png}
+    \caption{Exemplo de trajetória do robô durante o processo de mapeamento.}
+    \label{fig:caminho-de-mapping}
+\end{figure}
+
+Para a realização da locomoção autônoma do robô dentro do ambiente mapeado, é necessário fornecer uma coordenada de destino, expressa em termos da matriz gerada durante o processo de discretização do espaço. Essa coordenada representa a posição final desejada no grid de ocupação, e deve corresponder a uma célula classificada como livre e acessível, conforme os dados obtidos na etapa de mapeamento.
+
+A execução do deslocamento até essa posição depende do conhecimento da posição atual do robô na matriz. Três hipóteses são consideradas válidas para determinar essa posição com segurança:
+
+\begin{itemize}
+    \item \textbf{Hipótese 1 — Localização por trajetória anterior:} o robô já percorreu previamente parte do ambiente e, portanto, sua posição atual pode ser estimada com base na trajetória registrada, utilizando dados de odometria e sensoriamento contínuo. Essa abordagem assume que não houve perdas significativas de precisão acumulada, como deslizamentos ou ruídos nos sensores (estes sendo reduzidos pelo PID e métodos mencionados na Seção~\ref{sec:pid_odometria}).
+    \item \textbf{Hipótese 2 — Ponto de partida fixo:} o robô inicia sua operação a partir de uma posição conhecida e previamente definida, geralmente no canto superior esquerdo da matriz, correspondente à coordenada $(0,\ 0)$. Essa configuração é típica de ambientes controlados, como laboratórios, nos quais a posição inicial pode ser garantida fisicamente.
+    \item \textbf{Hipótese 3 — Localização informada manualmente:} a posição atual do robô é fornecida manualmente por meio de uma interface externa, seja via sistema de monitoramento, interface gráfica ou inserção direta na interface web embarcada no robô. Essa abordagem é útil em cenários nos quais a posição inicial é identificável visualmente ou quando o sistema é reiniciado em um ponto intermediário do ambiente, contudo, esta hipótese depende do usuário saber identificar com certeza a localização que o robô está.
+\end{itemize}
+
+Com a posição de origem e o destino definidos dentro da matriz, um algoritmo de planejamento de rotas pode ser aplicado, como o A* ou Dijkstra, para determinar o melhor caminho possível entre os dois pontos, levando em consideração os obstáculos registrados e a topologia do ambiente. O caminho gerado é, então, convertido em uma sequência de comandos de movimento (direções e distâncias) que são enviados ao sistema de controle do robô para execução em tempo real.
+
+Essa abordagem garante que o robô seja capaz de se deslocar de forma autônoma e eficiente dentro do ambiente previamente mapeado, utilizando a representação discreta do espaço como base para a navegação segura e orientada por rotas. Para lidar com a natureza dinâmica dos ambientes reais, que podem conter obstáculos não mapeados ou móveis (como pessoas), a estratégia de navegação adotada é de natureza híbrida. Ela combina um \textbf{planejador de caminho global} com um \textbf{controlador reativo local}.
+
+\begin{itemize}
+    \item \textbf{Planejador Global:} Utilizando o mapa de grid estático gerado previamente, um algoritmo de busca como o A* ou Dijkstra calcula a rota ótima do ponto de partida ao destino. Essa rota serve como um guia macro para a trajetória do robô.
+    \item \textbf{Controlador Reativo Local:} Durante a execução da trajetória, o sensor VL53L0X monitora continuamente o caminho imediato à frente do robô. Caso um obstáculo inesperado seja detectado, o controlador reativo assume prioridade, pausando ou alterando a trajetória localmente para evitar a colisão, para então tentar retornar ao caminho global planejado.
+\end{itemize}
+Essa arquitetura de duas camadas confere ao robô a capacidade de seguir um plano de longo prazo enquanto reage de forma inteligente e segura a eventos imprevistos, aumentando significativamente sua autonomia e robustez.
+
+\chapter{Materiais e Métodos}
+\label{cap:materiais_metodos}
+
+Este capítulo descreve, de maneira detalhada, os materiais empregados e os procedimentos metodológicos adotados para o desenvolvimento do protótipo de robô autônomo proposto. A escolha criteriosa dos componentes eletrônicos, sensores e atuadores foi orientada pelas necessidades do sistema, levando em consideração fatores como precisão, custo, disponibilidade e compatibilidade com a plataforma de desenvolvimento utilizada.
+
+São apresentados o ambiente de desenvolvimento de software, as bibliotecas utilizadas, os recursos computacionais embarcados, bem como a lógica de controle implementada no microcontrolador. A metodologia abrange também a integração dos sensores, o controle dos motores, o modelo de mapeamento em grid e a abordagem utilizada para planejamento de rotas.
+
+Do ponto de vista físico, o robô é constituído por uma base acrílica sobre a qual foram fixados os módulos eletrônicos e os motores. O sistema de locomoção é composto por quatro motores DC, controlados por meio de uma ponte H personalizada. A leitura da orientação do robô é feita por um sensor inercial MPU6050, enquanto a detecção de obstáculos frontais é realizada com um sensor de distância do tipo \textit{Time-of-Flight}, modelo VL53L0X. O controle do sistema e a comunicação com o usuário são realizados via microcontrolador ESP32 com interface web embarcada, acessível por meio de rede Wi-Fi local.
+
+A Figura~\ref{fig:protoboard_model} ilustra a disposição física dos componentes do robô, conforme modelagem realizada em ambiente de prototipação virtual. Essa representação facilita a compreensão do layout físico e da interligação entre os módulos utilizados.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.75\linewidth]{imagens/Protoboard_ESPCar.png}
+    \caption{Modelo do robô representado em placa de prototipação.}
+    \small Modelo desenvolvido com auxílio da ferramenta \href{https://fritzing.org/}{Fritzing.org}.
+    \label{fig:protoboard_model}
+\end{figure}
+
+
+\section{Ambiente de Desenvolvimento}
+\label{sec:dev_ide}
+
+O desenvolvimento do \textit{firmware} embarcado do robô autônomo foi realizado com base em ferramentas modernas e de código aberto, que oferecem flexibilidade, integração com bibliotecas especializadas e suporte à programação modular. A escolha do ambiente de desenvolvimento foi guiada por critérios como facilidade de uso, compatibilidade com o microcontrolador ESP32, suporte a recursos de rede e integração com sistemas de arquivos embarcados.
+
+Inicialmente, o projeto foi estruturado no \textbf{Ambiente de Desenvolvimento Integrado (IDE)} \textit{Visual Studio Code}, em conjunto com a ferramenta de linha de comando \texttt{arduino-cli}. Essa configuração demonstrou-se eficiente nas etapas preliminares, permitindo a compilação e gravação rápida do código no ESP32, além de facilitar testes de conectividade e acionamento de periféricos.
+
+Contudo, com a evolução do sistema e a necessidade de incluir um servidor web embarcado que depende da manipulação de arquivos HTML, CSS e JavaScript, armazenados no sistema de arquivos \textit{SPIFFS (Serial Peripheral Interface Flash File System)}, surgiram limitações quanto à praticidade do fluxo de trabalho com a \texttt{arduino-cli}, especialmente na gestão e envio desses arquivos.
+
+Dessa forma, optou-se pela migração para a extensão \textit{PlatformIO}, também integrada ao Visual Studio Code, a qual oferece uma gama mais ampla de funcionalidades. Com o PlatformIO, foi possível automatizar o processo de envio de arquivos para a partição SPIFFS, além de integrar de maneira mais robusta o gerenciamento de bibliotecas, o controle de dependências, a configuração dos ambientes de build e a execução de atualizações remotas (\textit{Over-The-Air}, OTA). Esse ambiente unificado também proporcionou maior agilidade na depuração e manutenção do projeto, contribuindo diretamente para a modularização e estabilidade do desenvolvimento.
+
+\subsection{Bibliotecas Utilizadas}
+
+Para a implementação das funcionalidades do sistema embarcado, foram utilizadas bibliotecas tanto nativas quanto de terceiros. Essas bibliotecas atuaram na abstração de protocolos de comunicação, controle de hardware, gerenciamento de rede e suporte à interface web. A Tabela~\ref{tab:libs_oficiais} apresenta as principais bibliotecas utilizadas e suas respectivas finalidades.
+
+\begin{table}[ht]
+    \centering
+    \caption{Bibliotecas externas e oficiais utilizadas no projeto}
+    \label{tab:libs_oficiais}
+    \begin{tabular}{|p{5cm}|p{10cm}|}
+        \hline
+        \textbf{Biblioteca} & \textbf{Finalidade} \\
+        \hline
+        \texttt{Wire.h} & Comunicação I2C com sensores como MPU6050 e VL53L0X. \\
+        \texttt{Arduino.h} & Funções básicas de controle de pinos, temporização e compatibilidade com o ecossistema Arduino. \\
+        \texttt{math.h} & Cálculos matemáticos, incluindo trigonometria e manipulação de ponto flutuante. \\
+        \texttt{ArduinoJson.h} & Criação e interpretação de objetos JSON para comunicação com a interface web. \\
+        \texttt{WiFi.h} & Conexão do ESP32 à rede Wi-Fi local. \\
+        \texttt{ESPAsyncWebServer.h} & Criação de servidor web assíncrono, com suporte a múltiplas conexões simultâneas. \\
+        \texttt{SPIFFS.h} & Leitura e escrita de arquivos no sistema de arquivos embarcado SPIFFS. \\
+        \texttt{ArduinoOTA.h} & Atualização de firmware via rede (OTA), sem necessidade de conexão física. \\
+        \texttt{ESPmDNS.h} & Resolução de nome de host local usando mDNS, permitindo acesso por nome amigável. \\
+        \texttt{Adafruit\_VL53L0X.h} & Controle do sensor de distância VL53L0X. \\
+        \texttt{Adafruit\_Sensor.h} & Interface comum para sensores Adafruit. \\
+        \texttt{Adafruit\_MPU6050.h} & Leitura e configuração do sensor inercial MPU6050. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Bibliotecas Customizadas}
+
+A fim de modularizar o sistema, reduzir a complexidade do código-fonte principal e facilitar a manutenção e reuso de funcionalidades, diversas bibliotecas personalizadas foram desenvolvidas especificamente para o projeto. Essas bibliotecas encapsulam funcionalidades críticas como controle de motores, leitura de sensores, filtragem de sinais e gerenciamento de energia. A seguir, são listadas as bibliotecas customizadas implementadas:
+
+\begin{itemize}
+    \item \textbf{PID}: Implementa o algoritmo de controle Proporcional–Integral–Derivativo, permitindo múltiplas instâncias com parâmetros distintos. Essencial para o controle de velocidade dos motores com base em dados de odometria.
+
+    \item \textbf{MediaMovel}: Realiza a filtragem de sinais com base em média móvel, suavizando dados ruidosos provenientes dos sensores inerciais.
+
+    \item \textbf{Encoder}: Abstrai a leitura dos encoders das rodas, permitindo o cálculo da velocidade e deslocamento linear.
+
+    \item \textbf{PowerManager}: Monitora a alimentação do sistema e executa ações de segurança, como desligamento de periféricos em casos de queda de tensão.
+
+    \item \textbf{VL53L0X (custom)}: Estende a biblioteca oficial com lógica adicional para detecção de obstáculos com limiares configuráveis.
+
+    \item \textbf{MPU6050 (custom)}: Integra diretamente a coleta de dados do giroscópio com filtros de suavização e comunicação com o controle PID.
+
+    \item \textbf{Motor}: Controla individualmente cada motor, centralizando a lógica de PWM, leitura de encoder e resposta ao PID.
+
+    \item \textbf{PonteH}: Biblioteca de alto nível responsável pelo controle simultâneo dos motores do robô. Gerencia comandos de movimento, como deslocamento linear, curvas e manobras de rotação no próprio eixo. Também integra informações de sensores para ajuste de trajetória e comunicação em tempo real com a interface web.
+\end{itemize}
+
+A combinação dessas bibliotecas permitiu uma separação clara entre as responsabilidades de cada módulo do sistema, promovendo um desenvolvimento mais organizado, escalável e de fácil manutenção.
+
+\section{Arquitetura do Sistema}
+
+A arquitetura do sistema foi projetada com o objetivo de integrar, de maneira modular e eficiente, os diversos componentes eletrônicos e lógicos necessários para o funcionamento autônomo do robô. Essa arquitetura compreende tanto os aspectos físicos (hardware) quanto os elementos de software embarcado, promovendo uma organização funcional que favorece a manutenção, expansão e reutilização de código.
+
+A estrutura física do robô é baseada em uma plataforma de quatro rodas, acionadas por motores de corrente contínua (DC). Cada lado do robô possui dois motores conectados em paralelo, totalizando dois pares (um par esquerdo e outro direito). Os motores frontais de cada par estão equipados com encoders ópticos, responsáveis por fornecer informações sobre a velocidade e o deslocamento linear do robô, fundamentais para a implementação da odometria.
+
+O controle de acionamento dos motores é realizado por meio de um módulo de ponte H baseado no circuito integrado L298N, que permite controlar a direção e a velocidade de cada conjunto de motores de forma independente. Os sinais de controle são enviados pelo microcontrolador ESP32, que atua como unidade central de processamento.
+
+Para sensoriamento, o robô conta com um sensor inercial MPU6050, que fornece leituras de aceleração e velocidade angular em três eixos, e um sensor de distância VL53L0X, posicionado na parte frontal do chassi. O MPU6050 é utilizado principalmente para estimar a orientação do robô (especialmente o ângulo de guinada e manter o robô andando em linha reta), enquanto o VL53L0X é responsável pela detecção de obstáculos à frente, contribuindo para o mapeamento do ambiente e para a evasão de colisões.
+
+O sistema é alimentado por um módulo de baterias recarregáveis, com monitoramento ativo realizado por meio da biblioteca \texttt{PowerManager}, que protege os componentes contra quedas de tensão e instabilidades elétricas. Toda a lógica de controle, leitura de sensores e comunicação com o usuário é executada no microcontrolador ESP32, utilizando como base a arquitetura modular descrita na Seção~\ref{sec:dev_ide}.
+
+A comunicação com o usuário é viabilizada por meio de uma interface web embarcada, acessível via rede Wi-Fi local. Os arquivos HTML, CSS e JavaScript que compõem essa interface estão armazenados na memória flash do microcontrolador, por meio do sistema de arquivos SPIFFS. Essa interface permite selecionar destinos, visualizar status de sensores e controlar o robô de forma remota. A troca de dados entre o navegador e o microcontrolador ocorre via WebSockets e objetos JSON, garantindo comunicação bidirecional em tempo real com baixa latência.
+
+% A Figura~\ref{fig:arquitetura_sistema} ilustra, de forma esquemática, a arquitetura geral do sistema, destacando a interconexão entre os principais módulos de hardware e os fluxos de dados entre os componentes embarcados e a interface do usuário.
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.9\linewidth]{imagens/arquitetura_sistema.png}
+%     \caption{Esquema da arquitetura geral do sistema robótico embarcado.}
+%     \label{fig:arquitetura_sistema}
+% \end{figure}
+
+\section{Estratégias de Controle e Navegação}
+\label{sec:controle_navegacao}
+
+A navegação autônoma do robô é composta por um conjunto de estratégias interligadas que envolvem sensoriamento, controle de movimento, estimativa de posição e planejamento de trajetória. O sistema foi projetado para operar de forma reativa e deliberativa, ou seja, combinando a coleta contínua de dados do ambiente com decisões de alto nível baseadas em um mapa interno.
+
+\subsection{Odometria e Estimativa de Posição}
+
+A estimativa de deslocamento do robô é realizada por meio da odometria diferencial, utilizando a contagem de pulsos dos encoders ópticos instalados nas rodas frontais. Esses dados são processados para determinar a distância percorrida e a variação angular do robô ao longo do tempo. A equação de atualização da posição baseia-se na integração incremental da velocidade de cada roda, conforme apresentado na Seção~\ref{sec:pid_odometria}.
+
+A odometria, apesar de eficiente em curtos intervalos de tempo, sofre com acúmulo de erro (deriva) ao longo de percursos maiores. Para mitigar esse efeito, os dados são complementados pelas leituras do sensor inercial MPU6050, que fornece a orientação angular (\textit{yaw}) do robô em tempo real. Com isso, é possível corrigir desvios e obter uma estimativa mais estável da posição e da trajetória.
+
+\subsection{Controle de Movimento via PID}
+
+O controle de velocidade e direção é implementado por meio de controladores PID, que atuam de forma independente sobre cada lado do robô. Com base nos dados dos encoders, os controladores ajustam dinamicamente a largura de pulso (PWM) aplicada a cada motor, mantendo a velocidade desejada com precisão e compensando variações causadas por carga, atrito ou pequenas diferenças entre os motores.
+
+Durante curvas ou manobras de rotação, a diferença de velocidade entre os lados esquerdo e direito é calculada com base no ângulo alvo definido pelo algoritmo de navegação, sendo o controle refinado pelas leituras do giroscópio integrado ao MPU6050.
+
+\subsection{Sensoriamento e Mapeamento do Ambiente}
+
+O sensor de distância VL53L0X, posicionado na parte frontal do robô, é utilizado para escanear obstáculos à medida que o robô se desloca. Esses dados são incorporados a uma matriz de ocupação (\textit{grid map}), que representa o ambiente de forma discretizada. Cada célula da matriz pode assumir o valor de livre, ocupada ou desconhecida, sendo atualizada com base nas medições obtidas em tempo real.
+
+Esse mapeamento em grid fornece ao sistema uma base de conhecimento sobre o ambiente, essencial para o planejamento seguro de trajetórias e para a evasão de colisões com obstáculos fixos ou móveis.
+
+\subsection{Planejamento de Rota com Algoritmo A*}
+
+Com base na matriz de ocupação gerada, o planejamento de caminho entre a posição atual e o destino desejado é realizado por meio do algoritmo A* (\textit{A-star}). Esse algoritmo é amplamente utilizado em sistemas robóticos por combinar eficiência e precisão, realizando uma busca heurística que minimiza o custo total do caminho considerando a distância percorrida e a distância estimada até o objetivo.
+
+O resultado do algoritmo é uma sequência de coordenadas representando a trajetória ideal, a qual é traduzida em comandos de movimento (frente, curva à direita, curva à esquerda, etc.) e enviada ao sistema de controle de baixo nível.
+
+A Figura~\ref{fig:a_star_path} ilustra um exemplo visual da aplicação do algoritmo A* sobre uma matriz de ocupação, com o caminho calculado destacando o trajeto seguro entre o ponto de origem e o destino.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{imagens/a_star_example.png}
+    \caption{Exemplo de caminho traçado pelo algoritmo A* sobre um mapa de ocupação.}
+    \label{fig:a_star_path}
+    \vspace{0.2em}
+    \small\textit{Fonte: \href{https://medium.com/@nicholas.w.swift/easy-a-star-pathfinding-7e6689c7f7b2}{@nicholas.w.swift at Medium.com}}
+\end{figure}
+
+\subsection{Execução da Navegação}
+
+Após a definição da rota, o robô executa a navegação seguindo as coordenadas obtidas, monitorando continuamente a presença de obstáculos imprevistos por meio do sensor VL53L0X. Caso um novo obstáculo seja detectado durante o trajeto, o sistema interrompe a locomoção, atualiza a matriz de ocupação e recalcula a rota utilizando novamente o algoritmo A*. Esse comportamento dinâmico garante maior robustez e segurança na operação em ambientes parcialmente desconhecidos ou com obstáculos móveis.
+
+Essa arquitetura de controle e navegação permite que o robô execute tarefas logísticas simples de forma autônoma, reagindo a estímulos do ambiente e tomando decisões localmente, sem a necessidade de intervenção humana direta.
+
+
+\section{Interface Web e Sistema de Arquivos SPIFFS}
+
+A interface web desenvolvida para o sistema permite o monitoramento e controle remoto do robô por meio de um navegador padrão, sem a necessidade de softwares adicionais. Esta interface é hospedada diretamente no microcontrolador ESP32, garantindo autonomia e independência de conexões externas. Os arquivos estáticos, compostos por páginas HTML, folhas de estilo CSS e scripts JavaScript, são armazenados e carregados utilizando o sistema de arquivos SPIFFS (SPI Flash File System), otimizado para dispositivos embarcados com memória limitada.
+
+Para viabilizar a comunicação bidirecional em tempo real entre a interface e o robô, emprega-se o protocolo WebSocket. Esse protocolo possibilita a atualização contínua do status dos sensores, bem como o envio imediato de comandos de movimentação e controle, garantindo uma resposta rápida e eficiente. O uso de WebSocket também minimiza a sobrecarga de comunicação e otimiza o consumo de recursos do ESP32, assegurando estabilidade e desempenho adequados para a aplicação.
+
+\section{Integração e Montagem Mecânica do Robô}
+
+O chassi do robô foi projetado e montado utilizando materiais leves e resistentes, priorizando a eficiência energética e a mobilidade. As rodas foram acopladas a motores de corrente contínua equipados com encoders rotativos, permitindo o controle preciso da velocidade e do deslocamento, fundamentais para a implementação de algoritmos de navegação autônoma.
+
+Os sensores, incluindo módulos de proximidade e orientação, foram estrategicamente posicionados em pontos que otimizam a captação dos dados ambientais, garantindo leituras confiáveis e uma melhor percepção do entorno. A fiação e os cabos foram organizados de forma cuidadosa, utilizando canaletas e fixadores, para facilitar a manutenção, reduzir interferências eletromagnéticas e evitar danos mecânicos durante o funcionamento.
+
+A alimentação do sistema é fornecida por uma bateria de íon-lítio (Li-ion), escolhida por sua alta densidade energética e capacidade de recarga. O gerenciamento energético é realizado através da biblioteca \texttt{PowerManager}, que controla a distribuição de energia, monitora o estado da bateria e implementa estratégias para maximizar a autonomia operacional do robô, assegurando seu funcionamento contínuo durante as tarefas planejadas.
+
+\chapter{Resultados Parciais}
+
+Durante os primeiros meses de desenvolvimento do projeto, foram obtidos avanços significativos na montagem da estrutura física do robô e na integração inicial dos principais componentes eletrônicos e sensores embarcados. A estrutura mecânica foi finalizada de modo a permitir os primeiros testes de campo, os quais revelaram diversas limitações práticas típicas de ambientes reais, como atrito, peso, folgas estruturais, vibrações e desgaste de componentes. Paralelamente, o microcontrolador ESP32 foi programado com um software base, em constante aprimoramento, que possibilita os testes de movimentação e os ajustes dos parâmetros de controle do sistema PID.
+
+\section{Software Utilizado}
+
+O desenvolvimento do software embarcado foi realizado utilizando a linguagem de programação da plataforma Arduino, com foco na modularidade e na reusabilidade do código. Foram implementadas diversas classes personalizadas com o intuito de simplificar a interação com os atuadores, sensores e demais rotinas internas do sistema.
+
+Dentre as principais funcionalidades desenvolvidas, destaca-se a criação da classe \texttt{PID}, responsável pela encapsulação do controlador Proporcional–Integral–Derivativo. Esta classe permite a criação de múltiplas instâncias com parâmetros distintos, facilitando o controle individualizado de diferentes motores e situações. Para o tratamento dos dados provenientes do sensor inercial MPU6050, foi desenvolvida a classe \texttt{MediaMovel}, que implementa um algoritmo de suavização baseado em médias móveis, contribuindo para a redução de ruídos e flutuações nas leituras.
+
+Além disso, foram elaboradas classes específicas para a manipulação dos sensores VL53L0X, dos encoders ópticos e do próprio MPU6050, promovendo maior clareza e organização no código principal. A classe dos encoders, por exemplo, está diretamente associada à classe do motor correspondente, permitindo o cálculo da velocidade e do deslocamento por meio da leitura dos pulsos e da estimativa do RPM. Essas informações são utilizadas, em conjunto com os dados do giroscópio, para o ajuste dinâmico do sinal PWM, promovendo a correção da trajetória e o alinhamento do movimento.
+
+As duas classes de motores estão integradas à classe \texttt{PonteH}, que atua como um adaptador de controle dos canais da ponte H. Essa classe centraliza as ações de movimentação, como avanço, ré e rotações, além de gerenciar o acionamento coordenado dos motores de acordo com as decisões do sistema de navegação.
+
+No que tange à interface de comunicação com o usuário, foi desenvolvido um servidor web embarcado que hospeda uma página de visualização em tempo real do estado do robô. Para evitar o excesso de requisições HTTP convencionais, foi implementado um canal de comunicação assíncrona utilizando WebSockets. Essa abordagem permite que o servidor envie atualizações para os clientes sempre que houver alterações relevantes no estado do robô, como mudanças de direção, leituras sensoriais ou atualizações do PID, garantindo maior eficiência e responsividade da interface.
+
+A página web, por ora, apresenta uma interface simplificada com informações em tempo real sobre o sentido do movimento (frente, ré ou rotações), os valores atuais dos sensores embarcados e os parâmetros de controle do sistema.
+
+\section{Problemas Encontrados}
+
+Durante os testes iniciais da movimentação autônoma do robô, foi identificada uma falha intermitente no contato elétrico entre a bateria principal e a ponte H, causada pela vibração e deslocamento físico dos conectores durante os deslocamentos. Essa falha ocasionava quedas momentâneas na alimentação dos motores, comprometendo o controle da trajetória e interrompendo as execuções de teste. Após diagnóstico, o problema foi solucionado com a substituição do conector por um modelo mais robusto e seguro, eliminando as interrupções de energia.
+
+Entretanto, novos desafios surgiram com a tentativa de conectar o robô à rede Wi-Fi definida no software. Foram identificadas dificuldades intermitentes na conexão à rede local, o que comprometeu o funcionamento da interface web. Este problema encontra-se em fase de investigação, e possíveis causas incluem instabilidades no sinal, falhas de autenticação ou interferência eletromagnética oriunda de outros componentes do robô.
+
+Em razão dessas instabilidades, especialmente relacionadas ao controle de movimento e conectividade, ainda não foi possível realizar testes completos com os algoritmos de mapeamento e planejamento de rotas. A construção do mapa do ambiente, por depender de uma movimentação precisa e contínua, permanece como uma etapa futura a ser implementada após a estabilização da locomoção e da comunicação do sistema.
+
+\section{Testes com os Sensores}
+
+Apesar das dificuldades enfrentadas na integração geral do sistema, os testes individuais dos sensores embarcados mostraram resultados satisfatórios. O sensor de distância VL53L0X apresentou leituras estáveis e responsivas, com tempo de resposta adequado para aplicações de navegação em tempo real. Já o sensor MPU6050, quando combinado com o algoritmo de média móvel implementado, forneceu dados de velocidade angular com baixo ruído, viabilizando o cálculo da orientação (yaw) com precisão aceitável.
+
+O controlador PID, ainda em fase de ajuste fino, demonstrou capacidade de estabilizar o movimento dos motores com base no feedback dos encoders e do giroscópio. Os resultados parciais indicam que a arquitetura proposta é tecnicamente viável e que, com os devidos ajustes e correções, poderá avançar para a fase de integração completa, incluindo mapeamento do ambiente, planejamento de rotas e navegação autônoma.
+
+
+\chapter{Resultados Parciais}
+
+Durante os primeiros meses de desenvolvimento do projeto, foram obtidos avanços significativos na montagem da estrutura física do robô e na integração inicial dos principais componentes eletrônicos e sensores embarcados. A estrutura mecânica foi finalizada, permitindo a realização dos primeiros testes de campo, os quais revelaram diversas limitações práticas, como atrito, peso e vibrações. Paralelamente, o microcontrolador ESP32 foi programado com um software base que possibilita os testes de movimentação e os ajustes dos parâmetros de controle do sistema.
+
+\section{Testes e Validação de Componentes}
+
+O desenvolvimento do software embarcado foi realizado com foco na modularidade, utilizando a plataforma Arduino. Diversas classes personalizadas foram implementadas para simplificar a interação com os componentes do sistema, das quais se destacam:
+\begin{itemize}
+    \item \textbf{Classes de Controle e Sensores:} Foi criada uma classe \texttt{PID} para o controle Proporcional–Integral–Derivativo, uma classe \texttt{MediaMovel} para suavizar os dados do sensor MPU6050, e abstrações para os encoders ópticos, que calculam a velocidade e o deslocamento.
+    \item \textbf{Classe de Acionamento:} As classes de controle dos motores foram integradas a uma classe \texttt{PonteH}, que centraliza as ações de movimentação, como avanço, ré e rotações.
+    \item \textbf{Interface Web:} Foi desenvolvido um servidor web embarcado com comunicação via WebSockets para visualização do estado do robô em tempo real, exibindo informações sobre movimento, sensores e parâmetros do sistema.
+\end{itemize}
+
+Os testes individuais dos sensores embarcados apresentaram resultados satisfatórios. O sensor de distância VL53L0X demonstrou leituras estáveis e responsivas, adequadas para navegação em tempo real. O sensor inercial MPU6050, combinado com o filtro de média móvel, forneceu dados de velocidade angular com baixo ruído, permitindo o cálculo da orientação do robô com precisão aceitável. O controlador PID, embora ainda em fase de ajuste, já demonstrou capacidade de estabilizar o movimento dos motores com base no feedback dos sensores.
+
+\section{Desafios e Dificuldades Encontradas}
+
+Durante os testes iniciais, foi identificada uma falha intermitente no contato elétrico entre a bateria e a ponte H, causada pela vibração durante os deslocamentos. O problema, que causava quedas de alimentação nos motores e comprometia a trajetória, foi solucionado com a substituição do conector por um modelo mais robusto.
+
+Posteriormente, surgiram novos desafios relacionados à conexão do robô à rede Wi-Fi, com dificuldades intermitentes que comprometeram o funcionamento da interface web. As possíveis causas, como instabilidades no sinal ou interferência eletromagnética, ainda estão em fase de investigação.
+
+\section{Próximas Etapas e Trabalhos Futuros}
+
+Em razão das instabilidades de conectividade e da necessidade de refinar o controle de movimento, ainda não foi possível realizar testes completos com os algoritmos de mapeamento e planejamento de rotas. A construção do mapa do ambiente, por depender de uma movimentação precisa, permanece como uma etapa futura a ser implementada após a estabilização completa do sistema.
+
+Os avanços esperados para a finalização do projeto são:
+\begin{enumerate}
+    \item Fixação dos cabos e revisão do layout da estrutura física;
+    \item Estabilização da malha de controle PID para garantir trajetórias previsíveis;
+    \item Implementação e testes do algoritmo de mapeamento em grid com atualização dinâmica de obstáculos;
+    \item Integração do planejamento de rotas com base em A* ou Dijkstra, usando os dados do mapa gerado;
+    \item Desenvolvimento de interface web responsiva para monitoramento da posição do robô em tempo real;
+    \item Avaliação do sistema completo em ambiente acadêmico com obstáculos reais e coleta de métricas de desempenho.
+\end{enumerate}
+
+Os resultados parciais indicam que a arquitetura proposta é tecnicamente viável e, com os devidos ajustes, poderá avançar para a fase de integração completa e navegação autônoma.
+
+
+% ----------------------------------------------------------
+% Capitulo com exemplos de comandos inseridos de arquivo externo 
+% ----------------------------------------------------------
+\include{abntex2-modelo-include-comandos}
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+% \bibliographystyle{plain}
+\bibliography{references}
+
+% ----------------------------------------------------------
+% Glossário
+% ----------------------------------------------------------
+%
+% Consulte o manual da classe abntex2 para orientações sobre o glossário.
+%
+%\glossary
+
+% ----------------------------------------------------------
+% Apêndices
+% ----------------------------------------------------------
+
+
+\end{document}
