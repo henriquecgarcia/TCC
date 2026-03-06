@@ -22,7 +22,8 @@
 			border-radius: 1.5rem;
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 			text-align: center;
-			max-width: 800px;
+			min-width: 700px;
+			/* max-width: 850px; */
 			width: 90%;
 			backdrop-filter: blur(10px);
 			-webkit-backdrop-filter: blur(10px);
@@ -34,22 +35,23 @@
 			margin-bottom: 0.5rem;
 		}
 		.speed {
-			font-size: 4rem;
+			font-size: 3.5rem;
 			font-weight: bold;
 			margin: 0.5rem 0;
 		}
 		.info {
 			display: flex;
-			justify-content: space-between;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 1rem;
 			margin-top: 1.5rem;
 		}
 		.card {
 			background: rgba(255, 255, 255, 0.2);
-			display: inline-block;
 			padding: 1rem;
 			border-radius: 1rem;
 			flex: 1;
-			margin: 0 0.5rem;
+			min-width: 150px;
 			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 			text-align: center;
 			transition: transform 0.2s;
@@ -57,76 +59,124 @@
 		.card h2 {
 			margin: 0;
 			font-size: 1.25rem;
+			margin-bottom: 0.5rem;
 		}
-		.card p {
-			margin: 0.5rem 0 0;
-			font-size: 1.5rem;
+		
+		/* --- ESTILO DOS SENSORES FIXOS --- */
+		.sensor-data {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			font-size: 1.1rem;
 		}
-		div.button, button {
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			border-radius: 0.5rem;
-			padding: 0.5rem 1rem;
-			cursor: pointer;
-			font-size: 1rem;
-			margin-top: 1rem;
-			transition: background-color 0.3s, transform 0.2s;
+		.axis {
+			display: flex;
+			justify-content: space-between;
+			width: 110px; /* Largura fixa para manter no lugar */
+			margin: 2px 0;
 		}
-		button:hover {
-			background-color: #45a049;
-			transform: scale(1.05);
+		.val {
+			font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada */
+			text-align: right;
+			width: 70px; /* Largura fixa para os números */
+			display: inline-block;
+			font-weight: bold;
 		}
-		div.button .disabled {
-			background-color: rgba(0, 0, 0, 0);
-			cursor: not-allowed;
+
+		/* --- ESTILO DO JOYSTICK (D-PAD) --- */
+		.controls-wrapper {
+			margin-top: 2rem;
 		}
 		div.buttons {
 			display: grid;
-			/* Use grid layout for buttons 3x3 */
-			grid-template-rows: repeat(3, minmax(50px, 1fr));
-			grid-template-columns: repeat(3, minmax(150px, 1fr));
-			gap: 1rem;
-			margin-top: 1.5rem;
+			grid-template-areas:
+				". up ."
+				"left stop right"
+				". down .";
+			gap: 15px;
+			justify-content: center;
+		}
+		div.buttons button {
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 15px;
+			width: 80px;
+			height: 80px;
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: bold;
+			box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+			transition: background-color 0.3s, transform 0.1s;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		div.buttons button:active {
+			transform: scale(0.95); /* Efeito de apertar o botão */
+		}
+		.btn-up { grid-area: up; }
+		.btn-down { grid-area: down; }
+		.btn-left { grid-area: left; }
+		.btn-right { grid-area: right; }
+		.btn-stop { 
+			grid-area: stop; 
+			background-color: #E53935 !important; /* Vermelho para o Stop */
+			border-radius: 50% !important; /* Botão de stop redondo */
+		}
+		.btn-stop:hover { background-color: #D32F2F !important; }
+		.btn-up:hover, .btn-down:hover, .btn-left:hover, .btn-right:hover {
+			background-color: #45a049;
 		}
 	</style>
 
-	<!-- Includindo bibliotecas necessárias -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<div class="container">
 		<h1>Status do Carrinho</h1>
 		<div class="speed" id="speed"><span id="motorD">--</span> | <span id="motorE">--</span> RPM</div>
+		
 		<div class="info">
 			<div class="card">
 				<h2>Direção</h2>
-				<p id="direction">--</p>
+				<p id="direction" style="font-size: 1.5rem; font-weight:bold; margin-top:1rem;">--</p>
 			</div>
 			<div class="card">
 				<h2>PID Atual</h2>
-				<p id="counters"><span id="counterD"></span> | <span id="counterE"></span></p>
+				<p id="counters" style="font-size: 1.5rem; font-weight:bold; margin-top:1rem;">
+					<span id="counterD">--</span> | <span id="counterE">--</span>
+				</p>
 			</div>
+			
 			<div class="card">
-				<h2>Gyroscópio</h2>
-				<p id="gyroscope">-- | -- | -- °/s</p>
+				<h2>Giroscópio (°/s)</h2>
+				<div class="sensor-data">
+					<div class="axis"><span>X:</span> <span id="gyro-x" class="val">--</span></div>
+					<div class="axis"><span>Y:</span> <span id="gyro-y" class="val">--</span></div>
+					<div class="axis"><span>Z:</span> <span id="gyro-z" class="val">--</span></div>
+				</div>
 			</div>
+			
 			<div class="card">
-				<h2>Aceleração</h2>
-				<p id="acceleration">-- | -- | -- m/s²</p>
+				<h2>Aceleração (m/s²)</h2>
+				<div class="sensor-data">
+					<div class="axis"><span>X:</span> <span id="accel-x" class="val">--</span></div>
+					<div class="axis"><span>Y:</span> <span id="accel-y" class="val">--</span></div>
+					<div class="axis"><span>Z:</span> <span id="accel-z" class="val">--</span></div>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="buttons">
-		<div class="button disabled"></div>
-		<button onclick="sendMessage('forward')">Avançar</button>
-		<div class="button disabled"></div>
-		<button onclick="sendMessage('left')">Esquerda</button>
-		<button onclick="sendMessage('stop')">Parar</button>
-		<button onclick="sendMessage('right')">Direita</button>
-		<div class="button disabled"></div>
-		<button onclick="sendMessage('backward')">Recuar</button>
-		<div class="button disabled"></div>
+
+	<div class="controls-wrapper">
+		<div class="buttons">
+			<button class="btn-up" onclick="sendMessage('forward')">Frente</button>
+			<button class="btn-left" onclick="sendMessage('left')">Esq</button>
+			<button class="btn-stop" onclick="sendMessage('stop')">Parar</button>
+			<button class="btn-right" onclick="sendMessage('right')">Dir</button>
+			<button class="btn-down" onclick="sendMessage('backward')">Trás</button>
+		</div>
 	</div>
 
 	<script>
@@ -138,7 +188,6 @@
 					if (!res.ok) {
 						throw new Error('Erro ao buscar dados: ' + data.message);
 					}
-					console.log('Dados recebidos:', res.status, res);
 					const data = await res.json();
 					if (!data || !data.motorD) {
 						throw new Error('Dados inválidos recebidos');
@@ -152,19 +201,26 @@
 					} else {
 						document.getElementById('direction').innerHTML = 'Parado';
 					}
-					document.getElementById('counters').innerHTML = data.motorD.pidOutput + ' | ' + data.motorE.pidOutput;
+					document.getElementById('counterD').innerHTML = data.motorD.pidOutput;
+					document.getElementById('counterE').innerHTML = data.motorE.pidOutput;
 
 					let mpu = data.MPU6050;
-					document.getElementById('gyroscope').innerHTML = mpu.gyroX + ' | ' + mpu.gyroY + ' | ' + mpu.gyroZ + ' °/s';
-					document.getElementById('acceleration').innerHTML = mpu.accX + ' | ' + mpu.accY + ' | ' + mpu.accZ + ' m/s²';
+					if(mpu) {
+						document.getElementById('gyro-x').innerHTML = parseFloat(mpu.gyroX).toFixed(1);
+						document.getElementById('gyro-y').innerHTML = parseFloat(mpu.gyroY).toFixed(1);
+						document.getElementById('gyro-z').innerHTML = parseFloat(mpu.gyroZ).toFixed(1);
+
+						document.getElementById('accel-x').innerHTML = parseFloat(mpu.accX).toFixed(2);
+						document.getElementById('accel-y').innerHTML = parseFloat(mpu.accY).toFixed(2);
+						document.getElementById('accel-z').innerHTML = parseFloat(mpu.accZ).toFixed(2);
+					}
 				} catch (err) {
 					console.error('Erro ao buscar dados:', err);
 				}
 			}
 
-			document.getElementsByClassName('buttons')[0].style.display = 'none'; // Esconde os botões se WebSocket não estiver disponível
+			document.querySelector('.controls-wrapper').style.display = 'none'; // Esconde os botões se WebSocket não estiver disponível
 			document.getElementById('speed').innerHTML = 'WebSocket não suportado. Atualizando via HTTP...';
-			// Atualiza a cada 5 segundos
 			fetchData();
 			setInterval(fetchData, 5000);
 		} else {
@@ -180,46 +236,32 @@
 				websocket.onmessage = onMessage;
 				websocket.onerror = function(event) {
 					console.error('Erro na conexão WebSocket:', event);
-					document.getElementById('speed').innerHTML = 'Erro na conexão. Tentando reconectar...';
+					document.getElementById('speed').innerHTML = 'Erro na conexão...';
 				};
 				attempts++;
-				if (attempts > 5) {
-					document.getElementById('speed').innerHTML = 'Muitas tentativas de conexão. Verifique o ESP32.';
-					return;
-				}
 			}
 
 			function onOpen(event) {
 				console.log('Conexão aberta.');
-				document.getElementById('speed').innerHTML = 'Conectado ao ESP32!';
-				// setTimeout(function () {
-				// 	websocket.send("status");
-				// }, 1000);
+				document.getElementById('speed').innerHTML = 'Conectado!';
 			}
 
 			function onClose(event) {
 				console.log('Conexão fechada.');
-				document.getElementById('speed').innerHTML = 'Desconectado. Tentando reconectar em 2 segundos...';
 				websocket = null;
 				if (attempts <= 5) {
-					console.log('Tentando reconectar...');
+					setTimeout(initWebSocket, 2000);
 				} else {
-					console.error('Muitas tentativas de conexão. Verifique o ESP32.');
-					document.getElementById('speed').innerHTML = 'Muitas tentativas de conexão. Verifique o ESP32.';
-					return;
+					document.getElementById('speed').innerHTML = 'Muitas tentativas. Verifique o ESP32.';
 				}
-				setTimeout(initWebSocket, 2000);
 			}
 
 			function onMessage(event) {
-				console.log('Mensagem recebida:', event.data);
 				const data = JSON.parse(event.data);
 
 				if (data.ready) {
-					document.getElementById('speed').innerHTML = 'Conectado ao ESP32!';
-					setTimeout(() => {
-						sendMessage("status");
-					}, 1000);
+					document.getElementById('speed').innerHTML = 'Conectado!';
+					setTimeout(() => { sendMessage("status"); }, 1000);
 				}
 				if (data.status) {
 					$("#direction").html(data.status === 'stopped' ? 'Parado' : (data.direction || 'Desconhecido'));
@@ -227,26 +269,24 @@
 				if (data.motorD) {
 					$("#motorD").html(data.motorD.rpm || '--');
 					$("#counterD").html(data.motorD.pidOutput || '--');
-				} else {
-					$("#motorD").html('--');
-					$("#counterD").html('--');
 				}
 				if (data.motorE) {
 					$("#motorE").html(data.motorE.rpm || '--');
 					$("#counterE").html(data.motorE.pidOutput || '--');
-				} else {
-					$("#motorE").html('--');
-					$("#counterE").html('--');
 				}
+
+				// Atualizando Giroscópio fixo
 				if (data.gyro) {
-					$("#gyroscope").html(`${data.gyro.x || '--'} | ${data.gyro.y || '--'} | ${data.gyro.z || '--'} °/s`);
-				} else {
-					$("#gyroscope").html('-- | -- | -- °/s');
+					$("#gyro-x").html(data.gyro.x !== undefined ? parseFloat(data.gyro.x).toFixed(1) : '--');
+					$("#gyro-y").html(data.gyro.y !== undefined ? parseFloat(data.gyro.y).toFixed(1) : '--');
+					$("#gyro-z").html(data.gyro.z !== undefined ? parseFloat(data.gyro.z).toFixed(1) : '--');
 				}
+
+				// Atualizando Acelerômetro fixo
 				if (data.accel) {
-					$("#acceleration").html(`${data.accel.x || '--'} | ${data.accel.y || '--'} | ${data.accel.z || '--'} m/s²`);
-				} else {
-					$("#acceleration").html('-- | -- | -- m/s²');
+					$("#accel-x").html(data.accel.x !== undefined ? parseFloat(data.accel.x).toFixed(2) : '--');
+					$("#accel-y").html(data.accel.y !== undefined ? parseFloat(data.accel.y).toFixed(2) : '--');
+					$("#accel-z").html(data.accel.z !== undefined ? parseFloat(data.accel.z).toFixed(2) : '--');
 				}
 			}
 
@@ -254,7 +294,7 @@
 				if (websocket && websocket.readyState === WebSocket.OPEN) {
 					websocket.send(command);
 				} else {
-					console.error('WebSocket não está aberto. Comando não enviado:', command);
+					console.error('WebSocket fechado. Comando ignorado:', command);
 				}
 			}
 
