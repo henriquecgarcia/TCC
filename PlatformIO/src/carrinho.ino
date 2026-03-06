@@ -433,8 +433,8 @@ public:
 		if (!isMoving || currentMove != MOVEMENT_TURN_LEFT) {
 			stop();
 			currentMove = MOVEMENT_TURN_LEFT;
-			motorRight->forward();
-			motorLeft->backward();
+			motorRight->backward();
+			motorLeft->forward();
 			isMoving = true;
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
@@ -448,8 +448,8 @@ public:
 		if (!isMoving || currentMove != MOVEMENT_TURN_RIGHT) {
 			stop();
 			currentMove = MOVEMENT_TURN_RIGHT;
-			motorRight->backward();
-			motorLeft->forward();
+			motorRight->forward();
+			motorLeft->backward();
 			isMoving = true;
 			turning_angleZ = 0.0;
 			lastUpdate = millis();
@@ -705,6 +705,11 @@ void handleCommand(String cmd) {
 		gyro["x"] = sensorMPU->getGyroscopeX();
 		gyro["y"] = sensorMPU->getGyroscopeY();
 		gyro["z"] = sensorMPU->getGyroscopeZ();
+
+		JsonObject accel = doc["accel"].to<JsonObject>();
+		accel["x"] = sensorMPU->getAccelerometerX();
+		accel["y"] = sensorMPU->getAccelerometerY();
+		accel["z"] = sensorMPU->getAccelerometerZ();
 
 		// Temperatura
 		doc["temperature"] = sensorMPU->getTemperatureC();
