@@ -147,6 +147,23 @@
 				<p id="counters" style="font-size: 1.5rem; font-weight:bold; margin-top:1rem;">
 					<span id="counterD">--</span> | <span id="counterE">--</span>
 				</p>
+				<p style="margin-top:0.3rem; font-size:0.95rem;">
+					Voltas: <span id="turnD">--</span> | <span id="turnE">--</span>
+				</p>
+				<p style="margin-top:0.3rem; font-size:0.95rem;">
+					1 volta OK: <span id="fullTurnD">--</span> | <span id="fullTurnE">--</span>
+				</p>
+			</div>
+
+			<div class="card">
+				<h2>Odometria</h2>
+				<div class="sensor-data">
+					<div class="axis"><span>X (m):</span> <span id="odom-x" class="val">--</span></div>
+					<div class="axis"><span>Y (m):</span> <span id="odom-y" class="val">--</span></div>
+					<div class="axis"><span>θ (rad):</span> <span id="odom-theta" class="val">--</span></div>
+					<div class="axis"><span>Map X:</span> <span id="map-x" class="val">--</span></div>
+					<div class="axis"><span>Map Y:</span> <span id="map-y" class="val">--</span></div>
+				</div>
 			</div>
 			
 			<div class="card">
@@ -269,10 +286,22 @@
 				if (data.motorD) {
 					$("#motorD").html(data.motorD.rpm || '--');
 					$("#counterD").html(data.motorD.pidOutput || '--');
+					$("#turnD").html(data.motorD.turns !== undefined ? Number(data.motorD.turns).toFixed(2) : '--');
+					$("#fullTurnD").html(data.motorD.fullTurn ? 'Sim' : 'Nao');
 				}
 				if (data.motorE) {
 					$("#motorE").html(data.motorE.rpm || '--');
 					$("#counterE").html(data.motorE.pidOutput || '--');
+					$("#turnE").html(data.motorE.turns !== undefined ? Number(data.motorE.turns).toFixed(2) : '--');
+					$("#fullTurnE").html(data.motorE.fullTurn ? 'Sim' : 'Nao');
+				}
+
+				if (data.odometry) {
+					$("#odom-x").html(data.odometry.x !== undefined ? Number(data.odometry.x).toFixed(3) : '--');
+					$("#odom-y").html(data.odometry.y !== undefined ? Number(data.odometry.y).toFixed(3) : '--');
+					$("#odom-theta").html(data.odometry.theta !== undefined ? Number(data.odometry.theta).toFixed(3) : '--');
+					$("#map-x").html(data.odometry.mapX !== undefined ? data.odometry.mapX : '--');
+					$("#map-y").html(data.odometry.mapY !== undefined ? data.odometry.mapY : '--');
 				}
 
 				// Atualizando Giroscópio fixo
