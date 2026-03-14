@@ -13,7 +13,7 @@
 			height: 100vh;
 			margin: 0;
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+			background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b) fixed;
 			color: #fff;
 		}
 		.container {
@@ -128,6 +128,37 @@
 		.btn-up:hover, .btn-down:hover, .btn-left:hover, .btn-right:hover {
 			background-color: #45a049;
 		}
+
+		.map-wrapper {
+			margin-top: 1.8rem;
+			display: flex;
+			justify-content: center;
+		}
+		.map-panel {
+			background: rgba(255, 255, 255, 0.14);
+			padding: 1rem;
+			border-radius: 1rem;
+			width: 100%;
+			max-width: 760px;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+		}
+		#map-canvas {
+			width: 100%;
+			max-width: 720px;
+			height: auto;
+			border-radius: 0.75rem;
+			border: 1px solid rgba(255,255,255,0.35);
+			background: rgba(0, 0, 0, 0.18);
+			cursor: crosshair;
+		}
+		.map-meta {
+			margin-top: 0.6rem;
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+			font-size: 0.95rem;
+			flex-wrap: wrap;
+		}
 	</style>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -181,6 +212,17 @@
 					<div class="axis"><span>X:</span> <span id="accel-x" class="val">--</span></div>
 					<div class="axis"><span>Y:</span> <span id="accel-y" class="val">--</span></div>
 					<div class="axis"><span>Z:</span> <span id="accel-z" class="val">--</span></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="map-wrapper">
+			<div class="map-panel">
+				<h2 style="margin:0 0 0.5rem 0;">Mapa e Planejamento (A*)</h2>
+				<canvas id="map-canvas" width="720" height="432"></canvas>
+				<div class="map-meta">
+					<span id="map-info">Mapa: aguardando dados...</span>
+					<span id="path-info">Caminho: --</span>
 				</div>
 			</div>
 		</div>
@@ -244,6 +286,97 @@
 			const gateway = `ws://${window.location.hostname}/car`;
 			let websocket;
 			let attempts = 0;
+			let mapState = null;
+			let mapPollInterval = null;
+
+			const mapCanvas = document.getElementById('map-canvas');
+			const mapCtx = mapCanvas.getContext('2d');
+
+			function renderMap() {
+				if (!mapState || !mapState.rows || !Array.isArray(mapState.rows) || mapState.rows.length === 0) {
+					return;
+				}
+
+				const rows = mapState.rows;
+				const viewH = rows.length;
+				const viewW = rows[0].length;
+				if (!viewW || !viewH) {
+					return;
+				}
+
+				const cellW = mapCanvas.width / viewW;
+				const cellH = mapCanvas.height / viewH;
+
+				mapCtx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
+				for (let y = 0; y < viewH; y++) {
+					const row = rows[y];
+					for (let x = 0; x < viewW; x++) {
+						const occupied = row[x] === '1';
+						mapCtx.fillStyle = occupied ? '#3b1a1a' : '#0f5132';
+						mapCtx.fillRect(x * cellW, y * cellH, cellW, cellH);
+						mapCtx.strokeStyle = 'rgba(255,255,255,0.10)';
+						mapCtx.strokeRect(x * cellW, y * cellH, cellW, cellH);
+					}
+				}
+
+				if (Array.isArray(mapState.path)) {
+					mapCtx.fillStyle = '#ffd54f';
+					mapState.path.forEach((p) => {
+						const px = Number(p.x) - Number(mapState.viewStartX || 0);
+						const py = Number(p.y) - Number(mapState.viewStartY || 0);
+						if (px >= 0 && py >= 0 && px < viewW && py < viewH) {
+							mapCtx.fillRect(px * cellW + 1, py * cellH + 1, Math.max(1, cellW - 2), Math.max(1, cellH - 2));
+						}
+					});
+				}
+
+				if (mapState.target && mapState.target.x !== undefined && mapState.target.y !== undefined) {
+					const tx = Number(mapState.target.x) - Number(mapState.viewStartX || 0);
+					const ty = Number(mapState.target.y) - Number(mapState.viewStartY || 0);
+					if (tx >= 0 && ty >= 0 && tx < viewW && ty < viewH) {
+						mapCtx.fillStyle = '#ff5252';
+						mapCtx.fillRect(tx * cellW + 2, ty * cellH + 2, Math.max(1, cellW - 4), Math.max(1, cellH - 4));
+					}
+				}
+
+				if (mapState.robot && mapState.robot.x !== undefined && mapState.robot.y !== undefined) {
+					const rx = Number(mapState.robot.x) - Number(mapState.viewStartX || 0);
+					const ry = Number(mapState.robot.y) - Number(mapState.viewStartY || 0);
+					if (rx >= 0 && ry >= 0 && rx < viewW && ry < viewH) {
+						mapCtx.fillStyle = '#4fc3f7';
+						mapCtx.beginPath();
+						mapCtx.arc((rx + 0.5) * cellW, (ry + 0.5) * cellH, Math.max(3, Math.min(cellW, cellH) * 0.35), 0, Math.PI * 2);
+						mapCtx.fill();
+					}
+				}
+
+				document.getElementById('map-info').innerHTML = `Mapa ${mapState.width}x${mapState.height} | Janela [${mapState.viewStartX}, ${mapState.viewStartY}]`;
+				document.getElementById('path-info').innerHTML = `Caminho: ${Array.isArray(mapState.path) ? mapState.path.length : 0} células`;
+			}
+
+			mapCanvas.addEventListener('click', (event) => {
+				if (!mapState || !websocket || websocket.readyState !== WebSocket.OPEN) {
+					return;
+				}
+
+				const rect = mapCanvas.getBoundingClientRect();
+				const x = event.clientX - rect.left;
+				const y = event.clientY - rect.top;
+
+				const rows = mapState.rows || [];
+				if (rows.length === 0 || !rows[0] || rows[0].length === 0) {
+					return;
+				}
+
+				const viewH = rows.length;
+				const viewW = rows[0].length;
+				const cellX = Math.floor((x / rect.width) * viewW);
+				const cellY = Math.floor((y / rect.height) * viewH);
+
+				const targetX = Number(mapState.viewStartX || 0) + cellX;
+				const targetY = Number(mapState.viewStartY || 0) + cellY;
+				websocket.send(JSON.stringify({ action: 'path_to', x: targetX, y: targetY }));
+			});
 
 			function initWebSocket() {
 				console.log('Tentando abrir uma conexão WebSocket...');
@@ -261,11 +394,22 @@
 			function onOpen(event) {
 				console.log('Conexão aberta.');
 				document.getElementById('speed').innerHTML = 'Conectado!';
+				sendMessage('map');
+				if (mapPollInterval) {
+					clearInterval(mapPollInterval);
+				}
+				mapPollInterval = setInterval(() => {
+					sendMessage('map');
+				}, 1500);
 			}
 
 			function onClose(event) {
 				console.log('Conexão fechada.');
 				websocket = null;
+				if (mapPollInterval) {
+					clearInterval(mapPollInterval);
+					mapPollInterval = null;
+				}
 				if (attempts <= 5) {
 					setTimeout(initWebSocket, 2000);
 				} else {
@@ -276,9 +420,24 @@
 			function onMessage(event) {
 				const data = JSON.parse(event.data);
 
+				if (data.type === 'map' && data.map) {
+					mapState = data.map;
+					renderMap();
+					return;
+				}
+				if (data.type === 'path') {
+					if (data.ok) {
+						document.getElementById('path-info').innerHTML = `Caminho: ${Array.isArray(data.cells) ? data.cells.length : 0} células`;
+					} else {
+						document.getElementById('path-info').innerHTML = `Caminho: falha (${data.reason || 'erro'})`;
+					}
+					return;
+				}
+
 				if (data.ready) {
 					document.getElementById('speed').innerHTML = 'Conectado!';
 					setTimeout(() => { sendMessage("status"); }, 1000);
+					setTimeout(() => { sendMessage("map"); }, 400);
 				}
 				if (data.status) {
 					$("#direction").html(data.status === 'stopped' ? 'Parado' : (data.direction || 'Desconhecido'));
