@@ -236,7 +236,7 @@ unsigned long lastReading = 0; // para evitar leituras excessivas
 class Motor {
 private:
 	unsigned long lastDebug = 0;
-	unsigned long last_think = 0;
+	unsigned long lastThink = 0;
 	const uint8_t in1Pin, in2Pin, pwmPin;
 	Encoder* encoder;
 
@@ -315,17 +315,18 @@ public:
 		webLog("[Motor " + String(pwmPin) + "] Stopped.\n");
 	}
 
-	void update(double gyro_error = 0.0) {
+	void update(double gyroError = 0.0) {
 		unsigned long now = millis();
-		if (now - last_think < thinkInterval) return;
-		last_think = now;
+		if (now - lastThink < thinkInterval) return;
+		lastThink = now;
 
 		currentRPM = encoder->getRPM(10, thinkInterval/1000.0);
 
-		// controle de RPM
-		float targetRadS  = this->targetRadS;
+		// controle de RPM com compensação de giro (se houver)
+		float targetRadS  = this->targetRadS + gyroError; 
 		float currentRadS = rpmToRadS(currentRPM);
 		float rpmControl  = pidRPM.compute(targetRadS, currentRadS);
+		rpmControl = pidRPM.scaleToPWM(rpmControl); // converte para valor de PWM
 
 		pidOutput = rpmControl;
 		pidOutput = clamp(pidOutput, 0.0, 255.0);
@@ -339,11 +340,13 @@ public:
 					"] RPM out: " + String(rpmControl) +
 					" -> PWM: " + String(pidOutput) +
 					" || Encoder RPM Read: " + String(currentRPM) +
-					" || Gyro Read: " + String(gyro_error) + "\n");
+					" || Gyro Read: " + String(gyroError) + "\n");
 			lastDebug = now;
 		}
 
-		if (targetRadS < 0.01) {
+		float effectiveTargetRadS = targetRadS + gyroError;
+
+		if (effectiveTargetRadS < 0.01) {
 			webLog("[Motor " + String(pwmPin) + "] Target RPM is too low, resetting to 100 RPM\n");
 			this->targetRadS = rpmToRadS(100.0);
 		}
@@ -392,21 +395,39 @@ private:
 	Motor*	  motorLeft;
 	Movement	currentMove	= MOVEMENT_STOPPED;
 	bool		isMoving	   = false;
-	double	  turning_angleZ = 0.0;
+	double	  turningAngleZ = 0.0; // acumulado em radianos
 	unsigned long lastUpdate   = 0;
 	unsigned long lastSocketUpdate = 0;
 	static const unsigned long controlInterval = 100; // ms entre controles
+	double turnLimitRad = 0; // Sempre pra fente!
 
 	// flag para alternar quais motores atualizar
 	bool		nextRight	  = true;
 	double lastGyroZ = 0.0; // último valor do giroscópio Z
 
-	PID pid_gyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
+	PID pidGyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
+	PID pidTurn = PID(10.0, 5.0, 0.5, controlInterval / 1000.0); // Controlador PID para as curvas (ajusta RPM)
+
+	static double normalizeAngle(double angle) {
+		angle = fmod(angle, 2 * M_PI);
+		if (angle < -M_PI) {
+			angle += 2 * M_PI;
+		} else if (angle > M_PI) {
+			angle -= 2 * M_PI;
+		}
+		return angle;
+	}
+
+	void _fixTurning() {
+		turnLimitRad = normalizeAngle(turnLimitRad);
+		turningAngleZ = normalizeAngle(turningAngleZ);
+	}
 
 public:
 	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {
-		pid_gyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
-		pid_gyro.setMaxMin(0.5, -0.5); // limites de correção
+		pidGyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
+		pidGyro.setMaxMin(0.5, -0.5); // limites de correção
+		pidTurn.setMaxMin(M_PI, -M_PI); // limites de correção para curvas
 	}
 
 	void setup() {
@@ -418,10 +439,10 @@ public:
 		motorLeft->begin();
 		isMoving = false;
 		currentMove = MOVEMENT_STOPPED;
-		turning_angleZ = 0.0;
+		turningAngleZ = 0.0;
 		lastUpdate = millis();
 		nextRight = true;  // reinicia alternância
-		pid_gyro.reset();
+		pidGyro.reset();
 		webLog("[PonteH] Configuração completa!\n");
 	}
 
@@ -433,7 +454,6 @@ public:
 			motorRight->forward();
 			motorLeft->forward();
 			isMoving = true;
-			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;  // reinicia alternância
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"forward\"}");
@@ -448,14 +468,13 @@ public:
 			motorRight->backward();
 			motorLeft->backward();
 			isMoving = true;
-			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"backward\"}");
 		}
 	}
 
-	void turnLeft() {
+	void turnLeft(double degs = 90.0) {
 		if (!motorRight || !motorLeft) return;
 		if (!isMoving || currentMove != MOVEMENT_TURN_LEFT) {
 			stop();
@@ -463,14 +482,19 @@ public:
 			motorRight->backward();
 			motorLeft->forward();
 			isMoving = true;
-			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
+			pidTurn.reset(); // Zera o PID na nova curva
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"left\"}");
+
+			double turnRads = degs * (M_PI / 180.0);
+
+			turnLimitRad -= normalizeAngle(turnRads); // converte limite de giro para radianos e normaliza
+			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
 
-	void turnRight() {
+	void turnRight(double degs = 90.0) {
 		if (!motorRight || !motorLeft) return;
 		if (!isMoving || currentMove != MOVEMENT_TURN_RIGHT) {
 			stop();
@@ -478,10 +502,15 @@ public:
 			motorRight->forward();
 			motorLeft->backward();
 			isMoving = true;
-			turning_angleZ = 0.0;
 			lastUpdate = millis();
 			nextRight = true;
+			pidTurn.reset(); // Zera o PID na nova curva
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"right\"}");
+
+			double turnRads = degs * (M_PI / 180.0);
+
+			turnLimitRad += normalizeAngle(turnRads); // converte limite de giro para radianos e normaliza
+			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
 
@@ -492,8 +521,8 @@ public:
 		isMoving = false;
 		nextRight = true;
 
-		pid_gyro.reset();
-		turning_angleZ = 0.0; // reseta o ângulo de giro
+		pidGyro.reset();
+		pidTurn.reset();
 		lastGyroZ = 0.0; // reseta o último valor do giroscópio Z
 
 		currentMove = MOVEMENT_STOPPED;
@@ -504,9 +533,9 @@ public:
 	}
 
 	// Deve ser chamado dentro de loop()
-	void loop(VL53L0X* front_dist_sensor, MPU6050* mpu_sensor) {
+	void loop(VL53L0X* frontDistSensor, MPU6050* mpuSensor) {
 		if (!isMoving || !motorRight || !motorLeft ||
-			!front_dist_sensor || !mpu_sensor) {
+			!frontDistSensor || !mpuSensor) {
 			return;
 		}
 
@@ -525,7 +554,7 @@ public:
 
 		switch (currentMove) {
 			case MOVEMENT_FORWARD: {
-				int d = front_dist_sensor->loop();
+				int d = frontDistSensor->loop();
 				if (d < 100) {
 					stop();
 					#ifdef DEBUG_PRINTS
@@ -537,12 +566,10 @@ public:
 				}
 			}
 			case MOVEMENT_BACKWARDS: {
-				double gz = mpu_sensor->getGyroscopeZ();
+				double gz = lastGyroZ;
 				if (nextRight) {
-					lastGyroZ = pid_gyro.compute(gz, 0.0); // calcula correção do giroscópio
-					lastGyroZ = clamp((lastGyroZ / 255.0) - 0.5, -0.5, 0.5);
-				} else {
-					gz = lastGyroZ;  // usa o último valor salvo, para usar o mesmo valor do giroscópio
+					double read = mpuSensor->getGyroscopeZ();
+					lastGyroZ = pidGyro.compute(read, 0.0); // calcula correção do giroscópio
 				}
 				doUpdate(motorRight,  gz);
 				doUpdate(motorLeft,  -gz);
@@ -550,22 +577,35 @@ public:
 			}
 			case MOVEMENT_TURN_LEFT:
 			case MOVEMENT_TURN_RIGHT: {
-				double gz = mpu_sensor->getGyroscopeZ();
-				// acumula ângulo em graus
-				turning_angleZ += gz * deltaTime;
+				double gz = mpuSensor->getGyroscopeZ();
+
+				if (currentMove == MOVEMENT_TURN_LEFT) gz = -gz; // inverte para esquerda
+				turningAngleZ += gz * deltaTime;
+				const double turningAngleDeg = turningAngleZ * (180.0 / M_PI);
+
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
-					Serial.print(turning_angleZ); Serial.printf(" on deltaTime: %f\n", deltaTime);
+					Serial.print(turningAngleZ);
+					Serial.print(" rad (");
+					Serial.print(turningAngleDeg);
+					Serial.printf(" deg) on deltaTime: %f\n", deltaTime);
 				#endif
-				carSocket.textAll("{\"turning_angleZ\": " + String(turning_angleZ) + ", \"deltaTime\": " + String(deltaTime) + "}");
-				if (fabs(turning_angleZ) > 90.0) {
+				webLog("[PonteH] Turning Angle Z: " + String(turningAngleZ) + " rad (" + String(turningAngleDeg) + " deg) on deltaTime: " + String(deltaTime) + "\n");
+				carSocket.textAll("{\"turning_angleZ\": " + String(turningAngleZ) + ", \"turningAngleZ_deg\": " + String(turningAngleDeg) + ", \"delta_time\": " + String(deltaTime) + "}");
+
+				double deltaToLimit = normalizeAngle(turnLimitRad - turningAngleZ);
+				double turnCorrection = pidTurn.compute(0.0, deltaToLimit);
+
+				if (fabs(deltaToLimit) < 0.05) { // se estiver a menos de ~3 graus do limite, para o carrinho
 					stop();
 					#ifdef DEBUG_PRINTS
-						Serial.println("Parando por ângulo de giro excessivo!");
+						Serial.println("Parando por ângulo de giro alcançado!");
 					#endif
-					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"Excessive turning angle\"}");
+					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"target angle reached\"}");
 					return;
 				}
+
+				// TODO: Colocar a turnCorrection para reduzir/aumentar a velocidade dos motores conforme se aproxima do limite, para curvas mais suaves
 				// mantém direção definida e alterna update
 				doUpdate(motorRight);
 				doUpdate(motorLeft);
@@ -975,6 +1015,7 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 			if (server == &carSocket) {
 				Serial.printf("WebSocket [server #%s] client #%u is ready\n", sockName, client->id());
 				client->text("{\"ready\":\"true\"}");
+				client->text(getMapSnapshotJson());
 			}
 			break;
 		case WS_EVT_DISCONNECT:
@@ -1096,6 +1137,7 @@ void init_ota() {
 			Serial.print(logMessage);
 		else
 			webLog(logMessage);
+		last_sent_percent = current_percent;
 	});
 	ArduinoOTA.onError([](ota_error_t error) {
 		Serial.printf("Error[%u]: ", error);
