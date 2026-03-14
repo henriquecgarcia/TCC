@@ -110,9 +110,9 @@ private:
 	unsigned long lastRead = 0;
 	static const unsigned long readInterval = 20; // ms entre leituras
 
-	MediaMovel gyroX{3};
-	MediaMovel gyroY{3};
-	MediaMovel gyroZ{3};
+	MediaMovel gyroX{1};
+	MediaMovel gyroY{1};
+	MediaMovel gyroZ{1};
 
 	// previne cópia acidental (dois objetos lutando pelo mesmo hardware)
 	MPU6050(const MPU6050&) = delete;
@@ -124,9 +124,9 @@ private:
 	float offsetY = -0.03; // ajuste fino do giroscópio Y
 	float offsetZ = -0.03; // ajuste fino do giroscópio Z
 
-	MediaMovel accelX{3};
-	MediaMovel accelY{3};
-	MediaMovel accelZ{3};
+	MediaMovel accelX{1};
+	MediaMovel accelY{1};
+	MediaMovel accelZ{1};
 	float cachedTempC = 0.0f;
 
 	float offsetAccelX = 0.0; // ajuste fino do acelerômetro X
@@ -399,7 +399,7 @@ private:
 	unsigned long lastUpdate   = 0;
 	unsigned long lastSocketUpdate = 0;
 	static const unsigned long controlInterval = 100; // ms entre controles
-	double turnLimitRad = 0; // Sempre pra fente!
+	double turnLimitRad = 0.0; // Sempre pra fente!
 
 	// flag para alternar quais motores atualizar
 	bool		nextRight	  = true;
@@ -440,6 +440,7 @@ public:
 		isMoving = false;
 		currentMove = MOVEMENT_STOPPED;
 		turningAngleZ = 0.0;
+		turnLimitRad = 0.0;
 		lastUpdate = millis();
 		nextRight = true;  // reinicia alternância
 		pidGyro.reset();
@@ -583,32 +584,34 @@ public:
 				turningAngleZ += gz * deltaTime;
 				const double turningAngleDeg = turningAngleZ * (180.0 / M_PI);
 
+				double deltaToLimit = turnLimitRad - turningAngleZ;
+				double turnCorrection = pidTurn.compute(0.0, deltaToLimit);
+
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
 					Serial.print(turningAngleZ);
 					Serial.print(" rad (");
 					Serial.print(turningAngleDeg);
 					Serial.printf(" deg) on deltaTime: %f\n", deltaTime);
+					Serial.print("Turn correction: ");
+					Serial.println(turnCorrection);
 				#endif
-				webLog("[PonteH] Turning Angle Z: " + String(turningAngleZ) + " rad (" + String(turningAngleDeg) + " deg) on deltaTime: " + String(deltaTime) + "\n");
+				webLog("[PonteH] Turning Angle Z: " + String(turningAngleZ) + " rad (" + String(turningAngleDeg) + " deg) on deltaTime: " + String(deltaTime) + "\nTurn correction: " + String(turnCorrection) + "\n");
 				carSocket.textAll("{\"turning_angleZ\": " + String(turningAngleZ) + ", \"turningAngleZ_deg\": " + String(turningAngleDeg) + ", \"delta_time\": " + String(deltaTime) + "}");
 
-				double deltaToLimit = normalizeAngle(turnLimitRad - turningAngleZ);
-				double turnCorrection = pidTurn.compute(0.0, deltaToLimit);
-
-				if (fabs(deltaToLimit) < 0.05) { // se estiver a menos de ~3 graus do limite, para o carrinho
+				if (fabs(deltaToLimit) < (5.0 * M_PI / 180.0)) { // se estiver a menos de ~3 graus do limite, para o carrinho
 					stop();
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por ângulo de giro alcançado!");
 					#endif
 					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"target angle reached\"}");
+					_fixTurning(); // garante que os ângulos estejam normalizados
 					return;
 				}
 
-				// TODO: Colocar a turnCorrection para reduzir/aumentar a velocidade dos motores conforme se aproxima do limite, para curvas mais suaves
 				// mantém direção definida e alterna update
-				doUpdate(motorRight);
-				doUpdate(motorLeft);
+				doUpdate(motorRight, turnCorrection);
+				doUpdate(motorLeft, -turnCorrection);
 				break;
 			}
 			default:
