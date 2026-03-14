@@ -44,6 +44,10 @@
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #include "LED.h"
 #include "MediaMovel.h"
 #include "Map.h"

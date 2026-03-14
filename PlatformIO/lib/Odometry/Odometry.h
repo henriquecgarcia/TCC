@@ -16,10 +16,6 @@
 #define MAP_ORIGIN_X 0                 // deslocamento em celulas no eixo X
 #define MAP_ORIGIN_Y 0                 // deslocamento em celulas no eixo Y
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 class Odometry {
 public:
     Odometry();

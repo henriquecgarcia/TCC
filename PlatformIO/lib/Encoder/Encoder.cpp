@@ -1,9 +1,5 @@
 #include "Encoder.h"
 
-#ifndef M_PI
-unsigned long double M_PI = 3.14159265358979323846;
-#endif
-
 void Encoder::onPulseA() {
 	countA++;
 	totalCountA++;
