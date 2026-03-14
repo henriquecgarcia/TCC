@@ -994,8 +994,8 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 				String command((const char*)data, len);
 				Serial.printf("Comando recebido do cliente #%u: %s\n", client->id(), command.c_str());
 				if (server == &carSocket) {
-					handleCar(command);
-					webLog("["+ String(sockName) + "] Cliente ["+ String(client->id()) +"]: Comando recebido: " + command + "\n");
+					handleCar(command, client);
+					// webLog("["+ String(sockName) + "] Cliente ["+ String(client->id()) +"]: Comando recebido: " + command + "\n");
 				} else if (server == &ws) {
 					webLog("["+ String(sockName) + "] Cliente ["+ String(client->id()) +"]: Comando recebido: " + command + "\n");
 					handleCommand(command);
@@ -1008,69 +1008,6 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 		case WS_EVT_ERROR:
 			break;
 	}
-}
-
-void http_stop_carro(AsyncWebServerRequest *request) {
-	ponte->stop();
-	lastReading = millis();
-	request->send(200, "application/json", "{\"status\":\"stopped\"}");
-}
-
-void http_handle_forward(AsyncWebServerRequest *request) {
-	ponte->forward();
-	lastReading = millis();
-	request->send(200, "application/json", "{\"status\":\"moving forward\"}");
-}
-
-void http_handle_backward(AsyncWebServerRequest *request) {
-	ponte->backward();
-	lastReading = millis();
-	request->send(200, "application/json", "{\"status\":\"moving backward\"}");
-}
-
-void http_handle_turn_left(AsyncWebServerRequest *request) {
-	ponte->turnLeft();
-	lastReading = millis();
-	request->send(200, "application/json", "{\"status\":\"turning left\"}");
-}
-
-void http_handle_turn_right(AsyncWebServerRequest *request) {
-	ponte->turnRight();
-	lastReading = millis();
-	request->send(200, "application/json", "{\"status\":\"turning right\"}");
-}
-
-void http_handle_test(AsyncWebServerRequest *request) {
-	String html = "<html><head>";
-	html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">";
-	html += "<style>";
-	html += "body { font-family: Arial, sans-serif; }";
-	html += "h1 { color: #333; }";
-	html += "button { padding: 10px 20px; font-size: 16px; margin: 5px; }";
-	html += "button:hover { background-color: #ddd; }";
-	html += "div { margin-top: 20px; }";
-	html += "</style>";
-	html += "<title>Manual Control</title>";
-	html += "</head><body>";
-	html += "<h1>Manual Control</h1>";
-	html += "<button onclick=\"fetchURL('/forward')\">Forward</button>";
-	html += "<button onclick=\"fetchURL('/backward')\">Backward</button>";
-	html += "<button onclick=\"fetchURL('/turn_left')\">Turn Left</button>";
-	html += "<button onclick=\"fetchURL('/turn_right')\">Turn Right</button>";
-	html += "<button onclick=\"fetchURL('/stop')\">Stop</button>";
-	html += "<button onclick=\"fetchURL('/data')\">Data</button>";
-	html += "<div id=\"data\"></div>";
-	html += "<script>";
-	html += "function fetchURL(url) {";
-	html += " fetch(url).then(response => response.json()).then(data => {";
-	html += "  console.log(data);";
-	html += "  document.getElementById('data').innerText = JSON.stringify(data);";
-	html += " });";
-	html += "}";
-	html += "</script>";
-	html += "</body></html>";
-	lastReading = millis();
-	request->send(200, "text/html", html);
 }
 
 void handlePower(AsyncWebServerRequest *request) {
@@ -1100,12 +1037,6 @@ void prepare_http_server() {
 		}
 		request->send(SPIFFS, "/dashboard.html", String(), false);
 	});
-	server.on("/forward", HTTP_GET, http_handle_forward);
-	server.on("/backward", HTTP_GET, http_handle_backward);
-	server.on("/turn_left", HTTP_GET, http_handle_turn_left);
-	server.on("/turn_right", HTTP_GET, http_handle_turn_right);
-	server.on("/stop", HTTP_GET, http_stop_carro);
-	server.on("/test", HTTP_GET, http_handle_test);
 	server.on("/monitor", HTTP_GET, [](AsyncWebServerRequest *request) {
 		if (!SPIFFS.exists("/monitor.html")) {
 			request->send(404, "text/plain", "monitor.html não encontrado");
@@ -1203,16 +1134,6 @@ void setup() {
 
 	led_carro.setup();
 
-	ConnectToWiFi();
-
-	if (!MDNS.begin(otaHostname)) {
-		Serial.println("Erro ao iniciar mDNS");
-	} else {
-		Serial.println("mDNS iniciado!");
-	}
-	prepare_http_server();
-	init_ota();
-
 	if (!SPIFFS.begin(true)) {
 		#ifdef DEBUG_PRINTS
 			Serial.println("Falha ao montar SPIFFS");
@@ -1227,6 +1148,17 @@ void setup() {
 	#ifdef DEBUG_PRINTS
 		Serial.println("SPIFFS Mounted!");
 	#endif
+
+	ConnectToWiFi();
+
+	if (!MDNS.begin(otaHostname)) {
+		Serial.println("Erro ao iniciar mDNS");
+	} else {
+		Serial.println("mDNS iniciado!");
+	}
+	prepare_http_server();
+	init_ota();
+
 	ponte->setup();
 	robotMap->generateStraightLineTest(MAP_ORIGIN_Y);
 	robotMap->setPosition(MAP_ORIGIN_X, MAP_ORIGIN_Y);
