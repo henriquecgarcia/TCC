@@ -39,7 +39,14 @@ float PID::compute(float setpoint, float measurement) {
 
     float output = _Kp * error + _Ki * _integral + _Kd * derivative;
     output = clamp(output, bottom_floor, top_celing);
+    return output;
+}
 
+float PID::scaleToPWM(float output) {
+    const float range = top_celing - bottom_floor;
+    if (range <= 0.0f) {
+        return 0.0f; // Evita divisão por zero
+    }
     float scaled = (output - bottom_floor) * (255.0f / (top_celing - bottom_floor));
     return clamp(scaled, 0.0f, 255.0f);
 }

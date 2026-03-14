@@ -14,6 +14,7 @@ public:
 
     void setMaxMin(float max_v, float min_v);
     float compute(float setpoint, float measurement);
+    float scaleToPWM(float output);
 
     void reset();
 
