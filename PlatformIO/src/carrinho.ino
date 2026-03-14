@@ -67,6 +67,10 @@ static const unsigned int GRID_WIDTH = 120;
 static const unsigned int GRID_HEIGHT = 120;
 static const int ENCODER_TEETH = 10;
 
+static const size_t PATH_BUFFER_SIZE = 512;
+static const unsigned int MAP_VIEW_WIDTH = 40;
+static const unsigned int MAP_VIEW_HEIGHT = 24;
+
 AsyncWebServer server(80);
 AsyncWebSocket carSocket("/car");
 AsyncWebSocket ws("/ws");
@@ -94,6 +98,7 @@ static void webLog(const char* msg) {
 }
 
 void sendTelemetryFrame();
+String getMapSnapshotJson();
 
 #include "VL53L0X.h"
 #include "Adafruit_Sensor.h"
@@ -633,6 +638,9 @@ Encoder *encoderE = new Encoder(16, 17);  // CH A=17, CH B=16
 
 Map *robotMap = new Map(GRID_WIDTH, GRID_HEIGHT);
 Odometry *robotOdom = new Odometry(robotMap);
+Map::Position plannedPath[PATH_BUFFER_SIZE];
+size_t plannedPathLen = 0;
+bool hasPlannedPath = false;
 
 // ——————— Motores com PID ———————
 // Motor Direito  → IN1=12, IN2=13, PWM=32
@@ -722,6 +730,82 @@ void sendTelemetryFrame() {
 	carSocket.textAll(output);
 }
 
+String getMapSnapshotJson() {
+	const Map::Position robotPos = robotMap->getPosition();
+	const unsigned int mapWidth = robotMap->getWidth();
+	const unsigned int mapHeight = robotMap->getHeight();
+
+	if (mapWidth == 0 || mapHeight == 0) {
+		return "{\"type\":\"map\",\"error\":\"empty_map\"}";
+	}
+
+	const unsigned int viewWidth = (MAP_VIEW_WIDTH < mapWidth) ? MAP_VIEW_WIDTH : mapWidth;
+	const unsigned int viewHeight = (MAP_VIEW_HEIGHT < mapHeight) ? MAP_VIEW_HEIGHT : mapHeight;
+
+	unsigned int startX = 0;
+	unsigned int startY = 0;
+
+	if (robotPos.x > (viewWidth / 2U)) {
+		startX = robotPos.x - (viewWidth / 2U);
+	}
+	if (robotPos.y > (viewHeight / 2U)) {
+		startY = robotPos.y - (viewHeight / 2U);
+	}
+	if (startX + viewWidth > mapWidth) {
+		startX = mapWidth - viewWidth;
+	}
+	if (startY + viewHeight > mapHeight) {
+		startY = mapHeight - viewHeight;
+	}
+
+	DynamicJsonDocument doc(16384);
+	doc["type"] = "map";
+	JsonObject mapObj = doc["map"].to<JsonObject>();
+	mapObj["width"] = mapWidth;
+	mapObj["height"] = mapHeight;
+	mapObj["viewWidth"] = viewWidth;
+	mapObj["viewHeight"] = viewHeight;
+	mapObj["viewStartX"] = startX;
+	mapObj["viewStartY"] = startY;
+
+	JsonObject robot = mapObj["robot"].to<JsonObject>();
+	robot["x"] = robotPos.x;
+	robot["y"] = robotPos.y;
+
+	if (robotMap->hasTarget()) {
+		const Map::Position target = robotMap->getTarget();
+		JsonObject targetObj = mapObj["target"].to<JsonObject>();
+		targetObj["x"] = target.x;
+		targetObj["y"] = target.y;
+	}
+
+	JsonArray rows = mapObj["rows"].to<JsonArray>();
+	for (unsigned int y = 0; y < viewHeight; ++y) {
+		String row;
+		row.reserve(viewWidth);
+		const unsigned int ay = startY + y;
+		for (unsigned int x = 0; x < viewWidth; ++x) {
+			const unsigned int ax = startX + x;
+			row += (robotMap->getCell(ax, ay) == 1U) ? '1' : '0';
+		}
+		rows.add(row);
+	}
+
+	JsonArray path = mapObj["path"].to<JsonArray>();
+	if (hasPlannedPath) {
+		for (size_t i = 0; i < plannedPathLen; ++i) {
+			JsonObject step = path.add<JsonObject>();
+			step["x"] = plannedPath[i].x;
+			step["y"] = plannedPath[i].y;
+		}
+	}
+
+	String output;
+	output.reserve(8192);
+	serializeJson(doc, output);
+	return output;
+}
+
 // ——————— WebSocket ———————
 // ——————— Car Command Handler ———————
 String getCarStatus() {
@@ -748,7 +832,72 @@ String getCarStatus() {
 	serializeJson(doc, output);
 	return output;
 }
-void handleCar(const String& cmd) {
+void handleCar(const String& cmd, AsyncWebSocketClient* client = nullptr) {
+	if (cmd.length() > 0 && cmd[0] == '{') {
+		StaticJsonDocument<256> request;
+		DeserializationError error = deserializeJson(request, cmd);
+		if (!error) {
+			const char* action = request["action"] | "";
+			if (strcmp(action, "path_to") == 0) {
+				const long txRaw = request["x"] | -1;
+				const long tyRaw = request["y"] | -1;
+
+				if (txRaw < 0 || tyRaw < 0) {
+					if (client) {
+						client->text("{\"type\":\"path\",\"ok\":false,\"reason\":\"invalid_target\"}");
+					}
+					return;
+				}
+
+				const unsigned int tx = static_cast<unsigned int>(txRaw);
+				const unsigned int ty = static_cast<unsigned int>(tyRaw);
+
+				if (!robotMap->setTarget(tx, ty)) {
+					if (client) {
+						client->text("{\"type\":\"path\",\"ok\":false,\"reason\":\"target_out_of_bounds\"}");
+					}
+					return;
+				}
+
+				size_t outLen = 0;
+				hasPlannedPath = robotMap->findPathAStar(tx, ty, plannedPath, PATH_BUFFER_SIZE, outLen);
+				plannedPathLen = hasPlannedPath ? outLen : 0;
+
+				DynamicJsonDocument response(16384);
+				response["type"] = "path";
+				response["ok"] = hasPlannedPath;
+				if (!hasPlannedPath) {
+					response["reason"] = "path_not_found";
+				}
+
+				JsonObject targetObj = response["target"].to<JsonObject>();
+				targetObj["x"] = tx;
+				targetObj["y"] = ty;
+
+				JsonArray path = response["cells"].to<JsonArray>();
+				if (hasPlannedPath) {
+					for (size_t i = 0; i < plannedPathLen; ++i) {
+						JsonObject step = path.add<JsonObject>();
+						step["x"] = plannedPath[i].x;
+						step["y"] = plannedPath[i].y;
+					}
+				}
+
+				String payload;
+				payload.reserve(12288);
+				serializeJson(response, payload);
+				if (client) {
+					client->text(payload);
+					client->text(getMapSnapshotJson());
+				} else if (carSocket.count() > 0) {
+					carSocket.textAll(payload);
+					carSocket.textAll(getMapSnapshotJson());
+				}
+				return;
+			}
+		}
+	}
+
 	String normalized = cmd;
 	normalized.toLowerCase();
 	const String& command = normalized;
@@ -771,7 +920,18 @@ void handleCar(const String& cmd) {
 		String status = getCarStatus();
 		if (carSocket.count() > 0) {
 			// carSocket.binaryAll(status.c_str(), status.length());
-			carSocket.textAll(status);
+			if (client) {
+				client->text(status);
+			} else {
+				carSocket.textAll(status);
+			}
+		}
+	} else if (command == "map") {
+		String mapPayload = getMapSnapshotJson();
+		if (client) {
+			client->text(mapPayload);
+		} else if (carSocket.count() > 0) {
+			carSocket.textAll(mapPayload);
 		}
 	} else {
 		webLog("Comando desconhecido: " + command + "\n");
@@ -1068,6 +1228,7 @@ void setup() {
 		Serial.println("SPIFFS Mounted!");
 	#endif
 	ponte->setup();
+	robotMap->generateStraightLineTest(MAP_ORIGIN_Y);
 	robotMap->setPosition(MAP_ORIGIN_X, MAP_ORIGIN_Y);
 	robotOdom->reset(0.0f, 0.0f, 0.0f, encoderE->getTotalTicks(), encoderD->getTotalTicks());
 

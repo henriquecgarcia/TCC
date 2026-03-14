@@ -4,12 +4,12 @@
 #include <new>
 
 Map::Map(unsigned int m, unsigned int n)
-    : _m(0), _n(0), _posX(0), _posY(0), _data(nullptr), _spiffsReady(false) {
+    : _m(0), _n(0), _posX(0), _posY(0), _targetX(0), _targetY(0), _hasTarget(false), _data(nullptr), _spiffsReady(false) {
     allocateGrid(m, n);
 }
 
 Map::Map()
-    : _m(0), _n(0), _posX(0), _posY(0), _data(nullptr), _spiffsReady(false) {}
+    : _m(0), _n(0), _posX(0), _posY(0), _targetX(0), _targetY(0), _hasTarget(false), _data(nullptr), _spiffsReady(false) {}
 
 Map::~Map() {
     delete[] _data;
@@ -119,8 +119,54 @@ Map::Position Map::getPosition() const {
     return p;
 }
 
+bool Map::setTarget(unsigned int x, unsigned int y) {
+    if (!isInBounds(x, y)) {
+        return false;
+    }
+
+    _targetX = x;
+    _targetY = y;
+    _hasTarget = true;
+    return true;
+}
+
+bool Map::clearTarget() {
+    _hasTarget = false;
+    _targetX = 0;
+    _targetY = 0;
+    return true;
+}
+
+bool Map::hasTarget() const {
+    return _hasTarget;
+}
+
+Map::Position Map::getTarget() const {
+    Position p;
+    p.x = _targetX;
+    p.y = _targetY;
+    return p;
+}
+
 bool Map::isOccupied(unsigned int x, unsigned int y) const {
     return getCell(x, y) == 1;
+}
+
+bool Map::generateStraightLineTest(unsigned int freeRowY) {
+    if (!_data || _m == 0 || _n == 0 || freeRowY >= _n) {
+        return false;
+    }
+
+    for (unsigned int y = 0; y < _n; ++y) {
+        for (unsigned int x = 0; x < _m; ++x) {
+            const uint8_t occupied = (y == freeRowY) ? 0 : 1;
+            setCell(x, y, occupied);
+        }
+    }
+
+    setPosition(0, freeRowY);
+    setTarget(_m - 1U, freeRowY);
+    return true;
 }
 
 bool Map::findPathAStar(
@@ -474,6 +520,9 @@ bool Map::allocateGrid(unsigned int m, unsigned int n) {
     _n = n;
     _posX = 0;
     _posY = 0;
+    _targetX = 0;
+    _targetY = 0;
+    _hasTarget = false;
     return true;
 }
 

@@ -34,7 +34,14 @@ public:
     bool setPosition(unsigned int x, unsigned int y);
     Position getPosition() const;
 
+    bool setTarget(unsigned int x, unsigned int y);
+    bool clearTarget();
+    bool hasTarget() const;
+    Position getTarget() const;
+
     bool isOccupied(unsigned int x, unsigned int y) const;
+
+    bool generateStraightLineTest(unsigned int freeRowY = 0);
 
     bool findPathAStar(
         unsigned int targetX,
@@ -70,6 +77,9 @@ private:
     unsigned int _n;
     unsigned int _posX;
     unsigned int _posY;
+    unsigned int _targetX;
+    unsigned int _targetY;
+    bool _hasTarget;
     uint8_t* _data;
 
     bool _spiffsReady;
