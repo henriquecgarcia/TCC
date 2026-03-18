@@ -75,6 +75,8 @@ AsyncWebServer server(80);
 AsyncWebSocket carSocket("/car");
 AsyncWebSocket ws("/ws");
 
+#pragma region Funções Auxiliares
+
 static double clamp(double value, double min, double max) {
 	return (value < min) ? min : (value > max) ? max : value;
 }
@@ -103,6 +105,8 @@ String getMapSnapshotJson();
 #include "VL53L0X.h"
 #include "Adafruit_Sensor.h"
 #include "Adafruit_MPU6050.h"
+
+#pragma region "Classe MPU6050/Gryoscopio"
 
 class MPU6050 {
 private:
@@ -232,6 +236,8 @@ public:
 #include "Encoder.h"
 #include "PID.h"
 
+#pragma region "Motor e Controle de Velocidade"
+
 unsigned long lastReading = 0; // para evitar leituras excessivas
 class Motor {
 private:
@@ -240,8 +246,7 @@ private:
 	const uint8_t in1Pin, in2Pin, pwmPin;
 	Encoder* encoder;
 
-	double targetRPM = 100.0;
-	double targetRadS = rpmToRadS(targetRPM);
+	double targetRadS = rpmToRadS(100.0); // alvo em rad/s para controle
 	double currentRPM = 0.0;
 	double pidOutput = 0.0;
 
@@ -372,7 +377,10 @@ public:
 		return currentRPM;
 	}
 	double getTargetRPM() const {
-		return targetRPM;
+		return targetRadS * (30.0 / M_PI); // converte de volta para RPM
+	}
+	double getTargetRadS() const {
+		return targetRadS;
 	}
 	double getPIDOutput() const {
 		return pidOutput;
@@ -381,6 +389,8 @@ public:
 		return encoder->isClockwise();
 	}
 };
+
+#pragma region "Ponte H e controle"
 
 enum Movement {
 	MOVEMENT_FORWARD,
@@ -400,34 +410,32 @@ private:
 	unsigned long lastSocketUpdate = 0;
 	static const unsigned long controlInterval = 100; // ms entre controles
 	double turnLimitRad = 0.0; // Sempre pra fente!
+	unsigned long turnStartedAt = 0;
+	unsigned long turnTimeoutMs = 4000;
+
+	static constexpr double turnToleranceRad = 2.0 * (M_PI / 180.0);      // alvo: erro < 2 graus
+	static constexpr double turnFineThresholdRad = 15.0 * (M_PI / 180.0); // troca coarse -> fine
 
 	// flag para alternar quais motores atualizar
 	bool		nextRight	  = true;
 	double lastGyroZ = 0.0; // último valor do giroscópio Z
 
 	PID pidGyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
-	PID pidTurn = PID(10.0, 5.0, 0.5, controlInterval / 1000.0); // Controlador PID para as curvas (ajusta RPM)
+	PID pidTurn = PID(1.0, 0.2, 0.06, controlInterval / 1000.0); // controlador fino de curva (fase final)
 
 	static double normalizeAngle(double angle) {
 		angle = fmod(angle, 2 * M_PI);
-		if (angle < -M_PI) {
+		if (angle < 0.0) {
 			angle += 2 * M_PI;
-		} else if (angle > M_PI) {
-			angle -= 2 * M_PI;
 		}
 		return angle;
-	}
-
-	void _fixTurning() {
-		turnLimitRad = normalizeAngle(turnLimitRad);
-		turningAngleZ = normalizeAngle(turningAngleZ);
 	}
 
 public:
 	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {
 		pidGyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
 		pidGyro.setMaxMin(0.5, -0.5); // limites de correção
-		pidTurn.setMaxMin(M_PI, -M_PI); // limites de correção para curvas
+		pidTurn.setMaxMin(1.5, -1.5); // limites de correcao na fase fina
 	}
 
 	void setup() {
@@ -444,6 +452,7 @@ public:
 		lastUpdate = millis();
 		nextRight = true;  // reinicia alternância
 		pidGyro.reset();
+		pidTurn.reset();
 		webLog("[PonteH] Configuração completa!\n");
 	}
 
@@ -451,9 +460,9 @@ public:
 		if (!motorRight || !motorLeft) return;
 		if (!isMoving || currentMove != MOVEMENT_FORWARD) {
 			stop();
-			currentMove = MOVEMENT_FORWARD;
 			motorRight->forward();
 			motorLeft->forward();
+			currentMove = MOVEMENT_FORWARD;
 			isMoving = true;
 			lastUpdate = millis();
 			nextRight = true;  // reinicia alternância
@@ -477,40 +486,58 @@ public:
 
 	void turnLeft(double degs = 90.0) {
 		if (!motorRight || !motorLeft) return;
+		degs = fabs(degs);
+		if (degs > 180.0)
+			return turnRight(360.0 - degs); // "vire 270* para esquerda" = "vire 90* para direita"
 		if (!isMoving || currentMove != MOVEMENT_TURN_LEFT) {
 			stop();
-			currentMove = MOVEMENT_TURN_LEFT;
 			motorRight->backward();
 			motorLeft->forward();
+
+			currentMove = MOVEMENT_TURN_LEFT;
 			isMoving = true;
 			lastUpdate = millis();
 			nextRight = true;
-			pidTurn.reset(); // Zera o PID na nova curva
+
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"left\"}");
 
 			double turnRads = degs * (M_PI / 180.0);
 
-			turnLimitRad -= normalizeAngle(turnRads); // converte limite de giro para radianos e normaliza
+			// Curva relativa: alvo desta manobra apenas (nao acumula alvo anterior)
+			turnLimitRad = normalizeAngle(turnRads);
+			turningAngleZ = 0.0;
+			pidTurn.reset();
+			turnStartedAt = millis();
+			turnTimeoutMs = static_cast<unsigned long>(1200.0 + (degs * 35.0));
 			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
 
 	void turnRight(double degs = 90.0) {
 		if (!motorRight || !motorLeft) return;
+		degs = fabs(degs);
+		if (degs > 180.0)
+			return turnLeft(360.0 - degs); // "vire 270* para direita" = "vire 90* para esquerda"
 		if (!isMoving || currentMove != MOVEMENT_TURN_RIGHT) {
 			stop();
-			currentMove = MOVEMENT_TURN_RIGHT;
 			motorRight->forward();
 			motorLeft->backward();
+
+			currentMove = MOVEMENT_TURN_RIGHT;
 			isMoving = true;
 			lastUpdate = millis();
 			nextRight = true;
-			pidTurn.reset(); // Zera o PID na nova curva
+
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"right\"}");
 
 			double turnRads = degs * (M_PI / 180.0);
 
-			turnLimitRad += normalizeAngle(turnRads); // converte limite de giro para radianos e normaliza
+			// Curva relativa: alvo desta manobra apenas (nao acumula alvo anterior)
+			turnLimitRad = normalizeAngle(turnRads);
+			turningAngleZ = 0.0;
+			pidTurn.reset();
+			turnStartedAt = millis();
+			turnTimeoutMs = static_cast<unsigned long>(1200.0 + (degs * 35.0));
 			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
@@ -519,13 +546,15 @@ public:
 		if (!motorRight || !motorLeft) return;
 		motorRight->stop();
 		motorLeft->stop();
-		isMoving = false;
 		nextRight = true;
 
 		pidGyro.reset();
-		pidTurn.reset();
+		// pidTurn.reset();
+		turningAngleZ = 0.0;
+		turnLimitRad = 0.0;
 		lastGyroZ = 0.0; // reseta o último valor do giroscópio Z
 
+		isMoving = false;
 		currentMove = MOVEMENT_STOPPED;
 	}
 
@@ -553,6 +582,7 @@ public:
 			else if (!nextRight && m == motorLeft) m->update(gyroCorr);
 		};
 
+		double gyroRead = mpuSensor->getGyroscopeZ();
 		switch (currentMove) {
 			case MOVEMENT_FORWARD: {
 				int d = frontDistSensor->loop();
@@ -565,27 +595,35 @@ public:
 					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"obstacle\"}");
 					break;
 				}
+				// Como é a mesma lógica para controle de "Frente" e "Trás", não colocamos BREAK, caindo direto para o proximo
 			}
 			case MOVEMENT_BACKWARDS: {
-				double gz = lastGyroZ;
 				if (nextRight) {
-					double read = mpuSensor->getGyroscopeZ();
-					lastGyroZ = pidGyro.compute(read, 0.0); // calcula correção do giroscópio
+					lastGyroZ = pidGyro.compute(0.0, gyroRead); // calcula correção do giroscópio
 				}
-				doUpdate(motorRight,  gz);
-				doUpdate(motorLeft,  -gz);
+				doUpdate(motorRight,  lastGyroZ);
+				doUpdate(motorLeft,  -lastGyroZ);
 				break;
 			}
 			case MOVEMENT_TURN_LEFT:
 			case MOVEMENT_TURN_RIGHT: {
-				double gz = mpuSensor->getGyroscopeZ();
+				double gz = gyroRead;
 
-				if (currentMove == MOVEMENT_TURN_LEFT) gz = -gz; // inverte para esquerda
-				turningAngleZ += gz * deltaTime;
+				if (currentMove == MOVEMENT_TURN_RIGHT) gz = -gz; // inverte para esquerda
+				// anguloGirado = anguloGirado + giroInercialZ * deltaT
+				turningAngleZ = turningAngleZ + (gz * deltaTime);
 				const double turningAngleDeg = turningAngleZ * (180.0 / M_PI);
 
-				double deltaToLimit = turnLimitRad - turningAngleZ;
-				double turnCorrection = pidTurn.compute(0.0, deltaToLimit);
+				double angleError = turnLimitRad - turningAngleZ;
+				double absError = fabs(angleError);
+				bool isFinePhase = (absError <= turnFineThresholdRad);
+
+				double turnCorrection = 0.0;
+				if (isFinePhase) {
+					turnCorrection = pidTurn.compute(turnLimitRad, turningAngleZ);
+					motorRight->setTargetRPM(50.0); // reduz RPM para fase fina
+					motorLeft->setTargetRPM(50.0);
+				}
 
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
@@ -593,19 +631,33 @@ public:
 					Serial.print(" rad (");
 					Serial.print(turningAngleDeg);
 					Serial.printf(" deg) on deltaTime: %f\n", deltaTime);
+					Serial.print("Angle Error (deg): ");
+					Serial.println(angleError * (180.0 / M_PI));
+					Serial.print("Turn phase: ");
+					Serial.println(isFinePhase ? "fine" : "coarse");
 					Serial.print("Turn correction: ");
 					Serial.println(turnCorrection);
 				#endif
-				webLog("[PonteH] Turning Angle Z: " + String(turningAngleZ) + " rad (" + String(turningAngleDeg) + " deg) on deltaTime: " + String(deltaTime) + "\nTurn correction: " + String(turnCorrection) + "\n");
+				webLog("[PonteH] Turning Angle Z: " + String(turningAngleZ) +
+					" rad (" + String(turningAngleDeg) + " deg) on deltaTime: " + String(deltaTime) +
+					"\n[PonteH] Angle error: " + String(angleError * (180.0 / M_PI)) + " deg" +
+					" | phase: " + String(isFinePhase ? "fine" : "coarse") +
+					" | correction: " + String(turnCorrection) + "\n");
 				carSocket.textAll("{\"turning_angleZ\": " + String(turningAngleZ) + ", \"turningAngleZ_deg\": " + String(turningAngleDeg) + ", \"delta_time\": " + String(deltaTime) + "}");
 
-				if (fabs(deltaToLimit) < (5.0 * M_PI / 180.0)) { // se estiver a menos de ~3 graus do limite, para o carrinho
+				if (absError <= turnToleranceRad || fabs(turnLimitRad) < turningAngleZ) {
 					stop();
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por ângulo de giro alcançado!");
 					#endif
 					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"target angle reached\"}");
-					_fixTurning(); // garante que os ângulos estejam normalizados
+					return;
+				}
+
+				if (now - turnStartedAt > turnTimeoutMs) {
+					stop();
+					webLog("[PonteH] Curva interrompida por timeout de seguranca.\n");
+					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"turn timeout\"}");
 					return;
 				}
 
@@ -668,6 +720,8 @@ bool ConnectToWiFi(unsigned long timeoutMs = 15000) {
 	#endif
 	return connected;
 }
+
+#pragma region "Global Objects"
 
 // ——————— Sensores ———————
 VL53L0X *sensor = new VL53L0X();	// VL53L0X no I²C (SDA=21, SCL=22)
