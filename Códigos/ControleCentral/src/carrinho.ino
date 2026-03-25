@@ -1,37 +1,3 @@
-/*
-	Trabalho de conclusão de Curso - UNIFESP - Campus São José dos Campos
-	Alunos: Henrique Campanha Garcia
-	Professor Orientador: André Marcorin
-	Universidade: UNIFESP - Campus São José dos Campos
-	Itens utilizados:
-	- ESP32 --> Controlador do carrinho, que controla tudo.
-	- Ponte H --> Utilizado para controlar os motores do carrinho.
-	- 4 motores CC --> Utilizado para movimentar o carrinho.
-		* Motor 1: Motor direito.
-			| Pino 12 --> Ponte H.
-			| Pino 13 --> Ponte H.
-			| Pino 14 --> PWM.
-		* Motor 2: Motor esquerdo.
-			| Pino 33 --> Ponte H.
-			| Pino 25 --> Ponte H.
-			| Pino 32 --> PWM.
-	- 2 encoders --> Utilizado para medir a velocidade do carrinho.
-		* Encoder 1: Motor direito.
-			| Pino 26 --> Encoder.
-			| Pino 27 --> Encoder.
-		* Encoder 2: Motor esquerdo.
-			| Pino 35 --> Encoder.
-			| Pino 34 --> Encoder.
-	- 1 sensor de distância VL53L0X --> Utilizado para medir a distância do carrinho em relação a um obstáculo.
-		* Pino SDA --> 21
-		* Pino SCL --> 22
-	- 1 sensor MPU6050 --> Utilizado para medir a aceleração e Giroscópio do carrinho.
-		* Pino SDA --> 21
-		* Pino SCL --> 22
-	- 1 bateria de 9V --> Utilizado para alimentar a ponte H que alimenta os motores e o ESP32 (via 5V).
-		* Externo ao ESP32, ligado na ponte H.
-*/
-
 #define DEBUG_PRINTS
 #include <Wire.h>
 #include <Arduino.h>
@@ -43,10 +9,6 @@
 #include <SPIFFS.h>
 #include <ArduinoOTA.h>
 #include <ESPmDNS.h>
-
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 #include "LED.h"
 #include "MediaMovel.h"
@@ -404,8 +366,11 @@ private:
 	Motor*	  motorRight;
 	Motor*	  motorLeft;
 	Movement	currentMove	= MOVEMENT_STOPPED;
+	Movement lastTurnDirection = MOVEMENT_STOPPED;
+
 	bool		isMoving	   = false;
 	double	  turningAngleZ = 0.0; // acumulado em radianos
+	double gyroZAtTurnStart = 0.0; // para calcular o quanto já virou
 	unsigned long lastUpdate   = 0;
 	unsigned long lastSocketUpdate = 0;
 	static const unsigned long controlInterval = 100; // ms entre controles
@@ -414,14 +379,20 @@ private:
 	unsigned long turnTimeoutMs = 4000;
 
 	static constexpr double turnToleranceRad = 2.0 * (M_PI / 180.0);      // alvo: erro < 2 graus
-	static constexpr double turnFineThresholdRad = 15.0 * (M_PI / 180.0); // troca coarse -> fine
+	static constexpr double turnFineThresholdRad = 25.0 * (M_PI / 180.0); // troca coarse -> fine
 
 	// flag para alternar quais motores atualizar
 	bool		nextRight	  = true;
 	double lastGyroZ = 0.0; // último valor do giroscópio Z
 
 	PID pidGyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
-	PID pidTurn = PID(1.0, 0.2, 0.06, controlInterval / 1000.0); // controlador fino de curva (fase final)
+
+	/*
+	static const float kP_values[] = {0.08f, 0.12f, 0.18f};
+	static const float kI_values[] = {0.00f, 0.02f, 0.05f};
+	static const float kD_values[] = {0.00f, 0.04f, 0.08f};
+	*/
+	PID pidTurn = PID(0.08, 0.00, 0.00, controlInterval / 1000.0); // controlador fino de curva (fase final)
 
 	static double normalizeAngle(double angle) {
 		angle = fmod(angle, 2 * M_PI);
@@ -435,7 +406,7 @@ public:
 	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {
 		pidGyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
 		pidGyro.setMaxMin(0.5, -0.5); // limites de correção
-		pidTurn.setMaxMin(1.5, -1.5); // limites de correcao na fase fina
+		pidTurn.setMaxMin(M_PI, 0.0); // limites de correcao na fase fina
 	}
 
 	void setup() {
@@ -494,6 +465,9 @@ public:
 			motorRight->backward();
 			motorLeft->forward();
 
+			motorRight->setTargetRPM(75.0);
+			motorLeft->setTargetRPM(75.0);
+
 			currentMove = MOVEMENT_TURN_LEFT;
 			isMoving = true;
 			lastUpdate = millis();
@@ -504,12 +478,13 @@ public:
 			double turnRads = degs * (M_PI / 180.0);
 
 			// Curva relativa: alvo desta manobra apenas (nao acumula alvo anterior)
-			turnLimitRad = normalizeAngle(turnRads);
+			turnLimitRad = normalizeAngle(turnRads) - gyroZAtTurnStart * (lastTurnDirection == MOVEMENT_TURN_LEFT ? 1 : -1);
 			turningAngleZ = 0.0;
 			pidTurn.reset();
+
+			double turnLimitDeg = turnLimitRad * (180.0 / M_PI);
 			turnStartedAt = millis();
-			turnTimeoutMs = static_cast<unsigned long>(1200.0 + (degs * 35.0));
-			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
+			webLog("[PonteH] Turn limit set to " + String(turnLimitDeg) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
 
@@ -523,6 +498,9 @@ public:
 			motorRight->forward();
 			motorLeft->backward();
 
+			motorRight->setTargetRPM(75.0);
+			motorLeft->setTargetRPM(75.0);
+
 			currentMove = MOVEMENT_TURN_RIGHT;
 			isMoving = true;
 			lastUpdate = millis();
@@ -533,12 +511,13 @@ public:
 			double turnRads = degs * (M_PI / 180.0);
 
 			// Curva relativa: alvo desta manobra apenas (nao acumula alvo anterior)
-			turnLimitRad = normalizeAngle(turnRads);
+			turnLimitRad = normalizeAngle(turnRads) - gyroZAtTurnStart * (lastTurnDirection == MOVEMENT_TURN_LEFT ? 1 : -1);
 			turningAngleZ = 0.0;
 			pidTurn.reset();
+
+			double turnLimitDeg = turnLimitRad * (180.0 / M_PI);
 			turnStartedAt = millis();
-			turnTimeoutMs = static_cast<unsigned long>(1200.0 + (degs * 35.0));
-			webLog("[PonteH] Turn limit set to " + String(degs) + " degrees (" + String(turnLimitRad) + " radians)\n");
+			webLog("[PonteH] Turn limit set to " + String(turnLimitDeg) + " degrees (" + String(turnLimitRad) + " radians)\n");
 		}
 	}
 
@@ -585,8 +564,8 @@ public:
 		double gyroRead = mpuSensor->getGyroscopeZ();
 		switch (currentMove) {
 			case MOVEMENT_FORWARD: {
-				int d = frontDistSensor->loop();
-				if (d < 100) {
+				int frontDistance = frontDistSensor->loop();
+				if (frontDistance < 100) {
 					stop();
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por obstáculo!");
@@ -601,8 +580,8 @@ public:
 				if (nextRight) {
 					lastGyroZ = pidGyro.compute(0.0, gyroRead); // calcula correção do giroscópio
 				}
-				doUpdate(motorRight,  lastGyroZ);
-				doUpdate(motorLeft,  -lastGyroZ);
+				doUpdate(motorRight, -lastGyroZ);
+				doUpdate(motorLeft,   lastGyroZ);
 				break;
 			}
 			case MOVEMENT_TURN_LEFT:
@@ -618,12 +597,14 @@ public:
 				double absError = fabs(angleError);
 				bool isFinePhase = (absError <= turnFineThresholdRad);
 
-				double turnCorrection = 0.0;
+				double turnCorrection = pidTurn.compute(turnLimitRad, turningAngleZ);
 				if (isFinePhase) {
-					turnCorrection = pidTurn.compute(turnLimitRad, turningAngleZ);
-					motorRight->setTargetRPM(50.0); // reduz RPM para fase fina
-					motorLeft->setTargetRPM(50.0);
+					// // turnCorrection = pidTurn.compute(turnLimitRad, turningAngleZ);
+					// motorRight->setTargetRPM(50.0); // reduz RPM para fase fina
+					// motorLeft->setTargetRPM(50.0);
 				}
+
+				turnCorrection = turnCorrection * deltaTime;
 
 				#ifdef DEBUG_PRINTS
 					Serial.print("[PonteH] Turning Angle Z: ");
@@ -647,6 +628,8 @@ public:
 
 				if (absError <= turnToleranceRad || fabs(turnLimitRad) < turningAngleZ) {
 					stop();
+					lastTurnDirection = currentMove;
+					gyroZAtTurnStart = angleError; // Acumula o erro para a próxima curva
 					#ifdef DEBUG_PRINTS
 						Serial.println("Parando por ângulo de giro alcançado!");
 					#endif
@@ -656,6 +639,8 @@ public:
 
 				if (now - turnStartedAt > turnTimeoutMs) {
 					stop();
+					lastTurnDirection = currentMove;
+					gyroZAtTurnStart = angleError; // Acumula o erro para a próxima curva
 					webLog("[PonteH] Curva interrompida por timeout de seguranca.\n");
 					carSocket.textAll("{\"movement\": \"stopped\", \"reason\": \"turn timeout\"}");
 					return;
@@ -1167,6 +1152,7 @@ void init_ota() {
 	ArduinoOTA.setPassword(otaPassword);
 
 	ArduinoOTA.onStart([]() {
+		ponte->stop();
 		String type;
 		if (ArduinoOTA.getCommand() == U_FLASH) {
 			type = "sketch";
