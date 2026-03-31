@@ -1,4 +1,6 @@
 #define DEBUG_PRINTS
+#include "Constants.h"
+
 #include <Wire.h>
 #include <Arduino.h>
 #include <math.h>
@@ -195,185 +197,28 @@ public:
 	}
 };
 
-#include "Encoder.h"
 #include "PID.h"
-
-#pragma region "Motor e Controle de Velocidade"
-
-unsigned long lastReading = 0; // para evitar leituras excessivas
-class Motor {
-private:
-	unsigned long lastDebug = 0;
-	unsigned long lastThink = 0;
-	const uint8_t in1Pin, in2Pin, pwmPin;
-	Encoder* encoder;
-
-	double targetRadS = rpmToRadS(100.0); // alvo em rad/s para controle
-	double currentRPM = 0.0;
-	double pidOutput = 0.0;
-
-	PID pidRPM; // PID original para controle de RPM
-
-	static constexpr unsigned long thinkInterval = 500; // ms entre updates
-
-	double rpmToRadS(double rpm) {
-		return rpm * (M_PI / 30.0f); // converte RPM para rad/s
-	}
-
-public:
-	// Construtor: inicializa ambos PIDs
-	Motor(int in1, int in2, int pwm, Encoder* enc, float kp_rpm = 1.0, float ki_rpm = 5.0, float kd_rpm = 0.0) : in1Pin(in1), in2Pin(in2), pwmPin(pwm), encoder(enc),
-		pidRPM(kp_rpm, ki_rpm, kd_rpm, thinkInterval/1000.0f) {}
-
-	void begin() {
-		pinMode(in1Pin, OUTPUT);
-		pinMode(in2Pin, OUTPUT);
-		pinMode(pwmPin, OUTPUT);
-
-		encoder->begin();
-		encoder->reset();
-
-		stop();
-		// limites RPM em rad/s
-		pidRPM.setMaxMin(rpmToRadS(200.0), 0.0);
-	}
-
-	void setTunings(float kp, float ki, float kd) {
-		pidRPM.setTunning(kp, ki, kd);
-	}
-	void setTargetRPM(double rpm) {
-		targetRadS = rpmToRadS(rpm);
-	}
-
-	void forward() {
-		encoder->reset();
-		stop();
-
-		digitalWrite(in1Pin, HIGH);
-		digitalWrite(in2Pin, LOW);
-
-		targetRadS = rpmToRadS(100.0);
-
-		webLog("[Motor " + String(pwmPin) + "] Direction is now forwards.\n");
-	}
-	void backward() {
-		encoder->reset();
-		stop();
-
-		digitalWrite(in1Pin, LOW);
-		digitalWrite(in2Pin, HIGH);
-
-		targetRadS = rpmToRadS(100.0);
-
-		webLog("[Motor " + String(pwmPin) + "] Direction is now backwards.\n");
-	}
-	void stop() {
-		digitalWrite(in1Pin, LOW);
-		digitalWrite(in2Pin, LOW);
-		encoder->reset();
-
-		targetRadS = 0.0;
-		pidRPM.reset();
-		currentRPM = 0.0;
-		pidOutput = 0.0;
-		analogWrite(pwmPin, 0);
-		lastReading = millis();
-
-		webLog("[Motor " + String(pwmPin) + "] Stopped.\n");
-	}
-
-	void update(double gyroError = 0.0) {
-		unsigned long now = millis();
-		if (now - lastThink < thinkInterval) return;
-		lastThink = now;
-
-		currentRPM = encoder->getRPM(10, thinkInterval/1000.0);
-
-		// controle de RPM com compensação de giro (se houver)
-		float targetRadS  = this->targetRadS + gyroError; 
-		float currentRadS = rpmToRadS(currentRPM);
-		float rpmControl  = pidRPM.compute(targetRadS, currentRadS);
-		rpmControl = pidRPM.scaleToPWM(rpmControl); // converte para valor de PWM
-
-		pidOutput = rpmControl;
-		pidOutput = clamp(pidOutput, 0.0, 255.0);
-
-		analogWrite(pwmPin, int(pidOutput));
-		encoder->reset();
-
-		if (now - lastDebug >= thinkInterval) {
-			webLog("[Motor " + String(pwmPin) + 
-					" (" + (pwmPin == 32 ? "Right" : "Left") + ") " +
-					"] RPM out: " + String(rpmControl) +
-					" -> PWM: " + String(pidOutput) +
-					" || Encoder RPM Read: " + String(currentRPM) +
-					" || Gyro Read: " + String(gyroError) + "\n");
-			lastDebug = now;
-		}
-
-		float effectiveTargetRadS = targetRadS + gyroError;
-
-		if (effectiveTargetRadS < 0.01) {
-			webLog("[Motor " + String(pwmPin) + "] Target RPM is too low, resetting to 100 RPM\n");
-			this->targetRadS = rpmToRadS(100.0);
-		}
-	}
-
-
-	bool isMoving() {
-		return (pidOutput > 1.0) && (targetRadS > 0.0);
-	}
-
-	void manualAddPID(int value) {
-		pidOutput += value;
-		analogWrite(pwmPin, int(pidOutput));
-		#ifdef DEBUG_PRINTS
-			Serial.print("[Motor "); Serial.print(pwmPin);
-			Serial.print("] PID manual adicionado: "); Serial.println(value);
-			Serial.print("Novo PID Output: "); Serial.println(pidOutput);
-		#endif
-		lastReading = millis();
-	}
-
-	double getRPM() const {
-		return currentRPM;
-	}
-	double getTargetRPM() const {
-		return targetRadS * (30.0 / M_PI); // converte de volta para RPM
-	}
-	double getTargetRadS() const {
-		return targetRadS;
-	}
-	double getPIDOutput() const {
-		return pidOutput;
-	}
-	bool isClockwise() const {
-		return encoder->isClockwise();
-	}
-};
 
 #pragma region "Ponte H e controle"
 
-enum Movement {
-	MOVEMENT_FORWARD,
-	MOVEMENT_BACKWARDS,
-	MOVEMENT_TURN_LEFT,
-	MOVEMENT_TURN_RIGHT,
-	MOVEMENT_STOPPED
-};
 class PonteH {
 private:
-	Motor*	  motorRight;
-	Motor*	  motorLeft;
-	Movement	currentMove	= MOVEMENT_STOPPED;
+	// TODO: REFATORAR PARA A LOGICA SEPARADA DE CONTROLE DOS MOTORES.
+	Movement currentMove = MOVEMENT_STOPPED;
 	Movement lastTurnDirection = MOVEMENT_STOPPED;
 
-	bool		isMoving	   = false;
-	double	  turningAngleZ = 0.0; // acumulado em radianos
+
+	static constexpr double targetVelocityForward = (150.0 * 2.0 * M_PI) / 60.0; // 150 RPM convertido para rad/s
+	static constexpr double targetVelocityTurn = (75.0 * 2.0 * M_PI) / 60.0; // 75 RPM convertido para rad/s
+
+	bool isMoving = false;
+	double turningAngleZ = 0.0; // acumulado em radianos
 	double gyroZAtTurnStart = 0.0; // para calcular o quanto já virou
-	unsigned long lastUpdate   = 0;
+	unsigned long lastUpdate = 0;
 	unsigned long lastSocketUpdate = 0;
+
 	static const unsigned long controlInterval = 100; // ms entre controles
+
 	double turnLimitRad = 0.0; // Sempre pra fente!
 	unsigned long turnStartedAt = 0;
 	unsigned long turnTimeoutMs = 4000;
@@ -381,17 +226,8 @@ private:
 	static constexpr double turnToleranceRad = 2.0 * (M_PI / 180.0);      // alvo: erro < 2 graus
 	static constexpr double turnFineThresholdRad = 25.0 * (M_PI / 180.0); // troca coarse -> fine
 
-	// flag para alternar quais motores atualizar
-	bool		nextRight	  = true;
-	double lastGyroZ = 0.0; // último valor do giroscópio Z
-
 	PID pidGyro = PID(0.1, 0.0, 0.0, controlInterval / 1000.0); // Kp, Ki, Kd para giroscópio
 
-	/*
-	static const float kP_values[] = {0.08f, 0.12f, 0.18f};
-	static const float kI_values[] = {0.00f, 0.02f, 0.05f};
-	static const float kD_values[] = {0.00f, 0.04f, 0.08f};
-	*/
 	PID pidTurn = PID(0.08, 0.00, 0.00, controlInterval / 1000.0); // controlador fino de curva (fase final)
 
 	static double normalizeAngle(double angle) {
@@ -403,75 +239,64 @@ private:
 	}
 
 public:
-	PonteH(Motor* right, Motor* left) : motorRight(right), motorLeft(left) {
+	PonteH() {
 		pidGyro.setTunning(0.1, 0.0, 0.0); // Kp, Ki, Kd
 		pidGyro.setMaxMin(0.5, -0.5); // limites de correção
 		pidTurn.setMaxMin(M_PI, 0.0); // limites de correcao na fase fina
 	}
 
+	void sendCommand(double targetRadSLeft, double targetRadSRight) {
+		int16_t scaledLeft = static_cast<int16_t>( floor(targetRadSLeft * 1000.0) );
+		int16_t scaledRight = static_cast<int16_t>( floor(targetRadSRight * 1000.0) );
+		Wire.beginTransmission(MOTOR_CONTROLER_ESP32_ADDR);
+		MotorCommand cmd;
+		cmd.targetRadSLeft = scaledLeft;
+		cmd.targetRadSRight = scaledRight;
+		Wire.write((uint8_t*)&cmd, sizeof(MotorCommand));
+		Wire.endTransmission();
+	}
+
 	void setup() {
-		if (!motorRight || !motorLeft) {
-			webLog("[PonteH] Erro: Motores não configurados corretamente!\n");
-			return;
-		}
-		motorRight->begin();
-		motorLeft->begin();
 		isMoving = false;
 		currentMove = MOVEMENT_STOPPED;
 		turningAngleZ = 0.0;
 		turnLimitRad = 0.0;
 		lastUpdate = millis();
-		nextRight = true;  // reinicia alternância
 		pidGyro.reset();
 		pidTurn.reset();
 		webLog("[PonteH] Configuração completa!\n");
 	}
 
 	void forward() {
-		if (!motorRight || !motorLeft) return;
 		if (!isMoving || currentMove != MOVEMENT_FORWARD) {
-			stop();
-			motorRight->forward();
-			motorLeft->forward();
 			currentMove = MOVEMENT_FORWARD;
+			sendCommand(targetVelocityForward, targetVelocityForward);
 			isMoving = true;
 			lastUpdate = millis();
-			nextRight = true;  // reinicia alternância
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"forward\"}");
 		}
 	}
 
 	void backward() {
-		if (!motorRight || !motorLeft) return;
 		if (!isMoving || currentMove != MOVEMENT_BACKWARDS) {
-			stop();
 			currentMove = MOVEMENT_BACKWARDS;
-			motorRight->backward();
-			motorLeft->backward();
+			sendCommand(-targetVelocityForward, -targetVelocityForward);
 			isMoving = true;
 			lastUpdate = millis();
-			nextRight = true;
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"backward\"}");
 		}
 	}
 
 	void turnLeft(double degs = 90.0) {
-		if (!motorRight || !motorLeft) return;
 		degs = fabs(degs);
 		if (degs > 180.0)
 			return turnRight(360.0 - degs); // "vire 270* para esquerda" = "vire 90* para direita"
 		if (!isMoving || currentMove != MOVEMENT_TURN_LEFT) {
-			stop();
-			motorRight->backward();
-			motorLeft->forward();
-
-			motorRight->setTargetRPM(75.0);
-			motorLeft->setTargetRPM(75.0);
+			sendCommand(targetVelocityTurn, -targetVelocityTurn);
 
 			currentMove = MOVEMENT_TURN_LEFT;
 			isMoving = true;
 			lastUpdate = millis();
-			nextRight = true;
 
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"left\"}");
 
@@ -489,22 +314,15 @@ public:
 	}
 
 	void turnRight(double degs = 90.0) {
-		if (!motorRight || !motorLeft) return;
 		degs = fabs(degs);
 		if (degs > 180.0)
 			return turnLeft(360.0 - degs); // "vire 270* para direita" = "vire 90* para esquerda"
 		if (!isMoving || currentMove != MOVEMENT_TURN_RIGHT) {
-			stop();
-			motorRight->forward();
-			motorLeft->backward();
-
-			motorRight->setTargetRPM(75.0);
-			motorLeft->setTargetRPM(75.0);
+			sendCommand(-targetVelocityTurn, targetVelocityTurn);
 
 			currentMove = MOVEMENT_TURN_RIGHT;
 			isMoving = true;
 			lastUpdate = millis();
-			nextRight = true;
 
 			carSocket.textAll("{\"status\": \"moving\", \"direction\": \"right\"}");
 
@@ -522,29 +340,44 @@ public:
 	}
 
 	void stop() {
-		if (!motorRight || !motorLeft) return;
-		motorRight->stop();
-		motorLeft->stop();
-		nextRight = true;
+		sendCommand(0.0, 0.0); // comando de parada imediato
 
 		pidGyro.reset();
 		// pidTurn.reset();
 		turningAngleZ = 0.0;
 		turnLimitRad = 0.0;
-		lastGyroZ = 0.0; // reseta o último valor do giroscópio Z
 
 		isMoving = false;
 		currentMove = MOVEMENT_STOPPED;
+	}
+
+	MotorStatus fetchMotorStatus() {
+		MotorStatus status;
+
+		Wire.requestFrom(MOTOR_CONTROLER_ESP32_ADDR, sizeof(MotorStatus));
+
+		if (Wire.available() == sizeof(MotorStatus)) {
+			uint8_t* ptr = (uint8_t*)&status;
+			for (int i = 0; i < sizeof(MotorStatus); i++) {
+				ptr[i] = Wire.read();
+			}
+		} else {
+			webLog("[PonteH] Erro ao ler status dos motores: dados insuficientes recebidos\n");
+			// Preenche o status com valores de erro
+			status.radSLeft = -1.0;
+			status.radSRight = -1.0;
+			status.pwmLeft = -1.0;
+			status.pwmRight = -1.0;
+		}
+		return status;
 	}
 
 	bool isStopped() const {
 		return !isMoving || (currentMove == MOVEMENT_STOPPED); // Vai que eu esqueci de setar como parado em uma das duas, ai... Agora ta seguro :)
 	}
 
-	// Deve ser chamado dentro de loop()
 	void loop(VL53L0X* frontDistSensor, MPU6050* mpuSensor) {
-		if (!isMoving || !motorRight || !motorLeft ||
-			!frontDistSensor || !mpuSensor) {
+		if (!isMoving || !frontDistSensor || !mpuSensor) {
 			return;
 		}
 
@@ -555,15 +388,10 @@ public:
 		double deltaTime = (now - lastUpdate) / 1000.0;  // em segundos
 		lastUpdate = now;
 
-		// Função auxiliar para chamar update() alternado
-		auto doUpdate = [&](Motor* m, double gyroCorr = 0.0) {
-			if (nextRight && m == motorRight)	  m->update(gyroCorr);
-			else if (!nextRight && m == motorLeft) m->update(gyroCorr);
-		};
-
 		double gyroRead = mpuSensor->getGyroscopeZ();
 		switch (currentMove) {
 			case MOVEMENT_FORWARD: {
+				// NTS: Com o pensamento descentralizado, isso continua basicamente igual, só adicionar o "SENDCOMMAND" com vel = 0;
 				int frontDistance = frontDistSensor->loop();
 				if (frontDistance < 100) {
 					stop();
@@ -577,15 +405,17 @@ public:
 				// Como é a mesma lógica para controle de "Frente" e "Trás", não colocamos BREAK, caindo direto para o proximo
 			}
 			case MOVEMENT_BACKWARDS: {
-				if (nextRight) {
-					lastGyroZ = pidGyro.compute(0.0, gyroRead); // calcula correção do giroscópio
-				}
-				doUpdate(motorRight, -lastGyroZ);
-				doUpdate(motorLeft,   lastGyroZ);
+				const double gyroFixPid = pidGyro.compute(0.0, gyroRead); // calcula correção do giroscópio
+				// PID direto com o targetVelocity aqui?
+				sendCommand(
+					(currentMove == MOVEMENT_BACKWARDS ? -targetVelocityForward : targetVelocityForward) + gyroFixPid,
+					(currentMove == MOVEMENT_BACKWARDS ? -targetVelocityForward : targetVelocityForward) - gyroFixPid
+				);
 				break;
 			}
 			case MOVEMENT_TURN_LEFT:
 			case MOVEMENT_TURN_RIGHT: {
+				// TODO: REFAZER TODA ESSA PARTE, codigo merda que tem que ser modificado para descentralizar o controle dos motores
 				double gz = gyroRead;
 
 				if (currentMove == MOVEMENT_TURN_RIGHT) gz = -gz; // inverte para esquerda
@@ -647,8 +477,10 @@ public:
 				}
 
 				// mantém direção definida e alterna update
-				doUpdate(motorRight, turnCorrection);
-				doUpdate(motorLeft, -turnCorrection);
+				sendCommand(
+					(currentMove == MOVEMENT_TURN_LEFT ? -targetVelocityTurn : targetVelocityTurn) + turnCorrection,
+					(currentMove == MOVEMENT_TURN_LEFT ? -targetVelocityTurn : targetVelocityTurn) - turnCorrection
+				);
 				break;
 			}
 			default:
@@ -667,7 +499,6 @@ public:
 		}
 
 		// alterna para a próxima chamada
-		nextRight = !nextRight;
 	}
 
 	Movement getCurrentMove() const {
@@ -712,26 +543,14 @@ bool ConnectToWiFi(unsigned long timeoutMs = 15000) {
 VL53L0X *sensor = new VL53L0X();	// VL53L0X no I²C (SDA=21, SCL=22)
 MPU6050 *sensorMPU = new MPU6050();	// MPU6050 no I²C (SDA=21, SCL=22)
 
-// ——————— Encoders ———————
-// Motor Direito
-Encoder *encoderD = new Encoder(15, 4);  // CH A=4, CH B=15
-// Motor Esquerdo
-Encoder *encoderE = new Encoder(16, 17);  // CH A=17, CH B=16
-
 Map *robotMap = new Map(GRID_WIDTH, GRID_HEIGHT);
 Odometry *robotOdom = new Odometry(robotMap);
 Map::Position plannedPath[PATH_BUFFER_SIZE];
 size_t plannedPathLen = 0;
 bool hasPlannedPath = false;
 
-// ——————— Motores com PID ———————
-// Motor Direito  → IN1=12, IN2=13, PWM=32
-Motor *motorDireito  = new Motor( 12, 13, 32, encoderD, intentKp, intentKi, intentKd );
-// Motor Esquerdo → IN1=26, IN2=25, PWM=33
-Motor *motorEsquerdo = new Motor( 26, 25, 33, encoderE, intentKp, intentKi, intentKd );
-
 // ——————— Ponte H (drive de 2 motores) ———————
-PonteH *ponte = new PonteH(motorDireito, motorEsquerdo);
+PonteH *ponte = new PonteH();
 
 // ——————— Outros ———————
 // LED da carroceria (MQTT)
@@ -781,23 +600,15 @@ void sendTelemetryFrame() {
 	doc["temperature"] = sensorMPU->getTemperatureC();
 	doc["distance"] = sensor->loop();
 
+	// TODO: Dados dos motores tem que ser modificado e pedido para o ESCRAVO!
+	MotorStatus motorStatus = ponte->fetchMotorStatus();
 	JsonObject motorD = doc["motorD"].to<JsonObject>();
-	motorD["rpm"] = motorDireito->getRPM();
-	motorD["pidOutput"] = motorDireito->getPIDOutput();
-	motorD["targetRPM"] = motorDireito->getTargetRPM();
-	motorD["isClockwise"] = motorDireito->isClockwise();
-	motorD["ticks"] = encoderD->getTotalTicks();
-	motorD["turns"] = encoderD->getTotalRevolutions(ENCODER_TEETH);
-	motorD["fullTurn"] = encoderD->hasCompletedFullTurn(ENCODER_TEETH);
+	motorD["rpm"] = motorStatus.radSRight * (60.0 / (2.0 * M_PI)); // converte de rad/s para RPM
+	motorD["pwm"] = motorStatus.pwmRight;
 
 	JsonObject motorE = doc["motorE"].to<JsonObject>();
-	motorE["rpm"] = motorEsquerdo->getRPM();
-	motorE["pidOutput"] = motorEsquerdo->getPIDOutput();
-	motorE["targetRPM"] = motorEsquerdo->getTargetRPM();
-	motorE["isClockwise"] = motorEsquerdo->isClockwise();
-	motorE["ticks"] = encoderE->getTotalTicks();
-	motorE["turns"] = encoderE->getTotalRevolutions(ENCODER_TEETH);
-	motorE["fullTurn"] = encoderE->hasCompletedFullTurn(ENCODER_TEETH);
+	motorE["rpm"] = motorStatus.radSLeft * (60.0 / (2.0 * M_PI)); // converte de rad/s para RPM
+	motorE["pwm"] = motorStatus.pwmLeft;
 
 	JsonObject odom = doc["odometry"].to<JsonObject>();
 	odom["x"] = robotOdom->getX();
@@ -1064,7 +875,6 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 			if (server == &carSocket) {
 				if (server->count() == 0) {
 					ponte->stop();
-					lastReading = millis();
 				}
 			}
 			webLog("["+ String(sockName) + "] Cliente ["+ String(client->id()) +"]: Desconectado\n");
@@ -1091,20 +901,6 @@ void onWebSocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsE
 		case WS_EVT_ERROR:
 			break;
 	}
-}
-
-void handlePower(AsyncWebServerRequest *request) {
-	if (request->hasParam("mode")) {
-		String mode = request->getParam("mode")->value();
-		if (mode == "normal") {
-			powerManager.setPowerMode(POWER_NORMAL);
-		} else if (mode == "saving") {
-			powerManager.setPowerMode(POWER_SAVING);
-		}
-	}
-	String json = "{\"power_mode\":\"" + String(powerManager.isPowerSaving() ? "saving" : "normal") + "\"}";
-	request->send(200, "application/json", json);
-	lastReading = millis();
 }
 
 bool isIdle() {
@@ -1206,10 +1002,6 @@ void init_ota() {
 }
 
 void setup() {
-	// Configura o gerenciador de energia
-	powerManager.isIdleCheck = isIdle;
-	powerManager.lastCommandReceived = &lastReading;
-
 	Serial.begin(115200);
 
 	#ifdef DEBUG_PRINTS
@@ -1245,9 +1037,10 @@ void setup() {
 	init_ota();
 
 	ponte->setup();
+	// TODO: Repensar odometria
 	robotMap->generateStraightLineTest(MAP_ORIGIN_Y);
 	robotMap->setPosition(MAP_ORIGIN_X, MAP_ORIGIN_Y);
-	robotOdom->reset(0.0f, 0.0f, 0.0f, encoderE->getTotalTicks(), encoderD->getTotalTicks());
+	robotOdom->reset(0.0f, 0.0f, 0.0f);
 
 	Wire.begin();
 	sensor->setup();
@@ -1256,8 +1049,6 @@ void setup() {
 	#ifdef DEBUG_PRINTS
 		Serial.println("Setup completo!");
 	#endif
-
-	lastReading = millis();
 }
 
 unsigned long lastLoopTime = 0;
@@ -1284,7 +1075,8 @@ void loop() {
 		lastLoopTime = now;
 
 		sensorMPU->loop();
-		robotOdom->update(encoderE->getTotalTicks(), encoderD->getTotalTicks());
+		// TODO: Repensar como fazer a odometria com os encoders no "Slave"
+		// robotOdom->update(encoderE->getTotalTicks(), encoderD->getTotalTicks());
 
 		ponte->loop(sensor, sensorMPU);
 	}

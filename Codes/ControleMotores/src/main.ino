@@ -4,6 +4,10 @@
 #include <math.h>
 #define DEBUG_PRINTS
 
+const double intentKp = 1.0;
+const double intentKi = 0.5;
+const double intentKd = 0.0;
+
 #pragma region Funções Auxiliares
 
 static double clamp(double value, double min, double max) {
@@ -23,49 +27,85 @@ enum MotorDirection {
 
 class Motor {
 private:
-	unsigned long lastReading = 0; // para evitar leituras excessivas
+	unsigned long lastReading = 0;
 	unsigned long lastDebug = 0;
 	unsigned long lastThink = 0;
+
 	const uint8_t in1Pin, in2Pin, pwmPin;
+	const uint8_t ledcChannel;
+
+	static const int ledcFreq = 20000;	 // 20 kHz
+	static const int ledcResolution = 8;   // 8 bits
+	static const int PWM_MAX = (1 << ledcResolution) - 1;
+
 	Encoder* encoder;
 
-	double targetRadS = rpmToRadS(100.0); // alvo em rad/s para controle
+	volatile double targetRadS = rpmToRadS(100.0);
 	double currentRPM = 0.0;
 	double pidOutput = 0.0;
 
 	MotorDirection direction = STOPPED;
+	PID pidRPM;
 
-	PID pidRPM; // PID original para controle de RPM
-
-	static constexpr unsigned long thinkInterval = 500; // ms entre updates
+	static constexpr unsigned long thinkInterval = 500;
 
 	double rpmToRadS(double rpm) {
-		return rpm * (M_PI / 30.0f); // converte RPM para rad/s
+		return rpm * (M_PI / 30.0f);
+	}
+
+	void applyDirection() {
+		switch (direction) {
+			case FORWARD:
+				digitalWrite(in1Pin, HIGH);
+				digitalWrite(in2Pin, LOW);
+				break;
+			case BACKWARD:
+				digitalWrite(in1Pin, LOW);
+				digitalWrite(in2Pin, HIGH);
+				break;
+			case STOPPED:
+			default:
+				digitalWrite(in1Pin, LOW);
+				digitalWrite(in2Pin, LOW);
+				break;
+		}
+	}
+
+	void setPWM(int value) {
+		value = clamp(value, 0, PWM_MAX);
+		ledcWrite(ledcChannel, value);
 	}
 
 public:
-	// Construtor: inicializa ambos PIDs
-	Motor(int in1, int in2, int pwm, Encoder* enc, float kp_rpm = 1.0, float ki_rpm = 5.0, float kd_rpm = 0.0) : in1Pin(in1), in2Pin(in2), pwmPin(pwm), encoder(enc),
-		pidRPM(kp_rpm, ki_rpm, kd_rpm, thinkInterval/1000.0f) {}
+	Motor(int in1, int in2, int pwm, uint8_t channel, Encoder* enc, float kp = 1.0, float ki = 5.0, float kd = 0.0)
+		: in1Pin(in1), in2Pin(in2), pwmPin(pwm), ledcChannel(channel), encoder(enc), pidRPM(kp, ki, kd, thinkInterval / 1000.0f) {}
 
 	void begin() {
 		pinMode(in1Pin, OUTPUT);
 		pinMode(in2Pin, OUTPUT);
-		pinMode(pwmPin, OUTPUT);
+
+		ledcSetup(ledcChannel, ledcFreq, ledcResolution);
+		ledcAttachPin(pwmPin, ledcChannel);
 
 		encoder->begin();
 		encoder->reset();
 
 		stop();
-		// limites RPM em rad/s
+
 		pidRPM.setMaxMin(rpmToRadS(200.0), 0.0);
 	}
 
-	void setTunings(float kp, float ki, float kd) {
-		pidRPM.setTunning(kp, ki, kd);
+	void setDirection(MotorDirection dir) {
+		direction = dir;
+		applyDirection();
 	}
+
+	void setTargetRadS(double radS) {
+		targetRadS = clamp(radS, 0.0, rpmToRadS(200.0));
+	}
+
 	void setTargetRPM(double rpm) {
-		targetRadS = rpmToRadS(rpm);
+		return setTargetRadS(rpmToRadS(rpm));
 	}
 
 	void forward() {
@@ -89,16 +129,17 @@ public:
 		targetRadS = rpmToRadS(100.0);
 	}
 	void stop() {
-		digitalWrite(in1Pin, LOW);
-		digitalWrite(in2Pin, LOW);
-		encoder->reset();
-
 		direction = STOPPED;
+		applyDirection();
+
 		targetRadS = 0.0;
-		pidRPM.reset();
 		currentRPM = 0.0;
 		pidOutput = 0.0;
-		analogWrite(pwmPin, 0);
+
+		pidRPM.reset();
+		setPWM(0);
+
+		encoder->reset();
 		lastReading = millis();
 	}
 
@@ -107,20 +148,19 @@ public:
 		if (now - lastThink < thinkInterval) return;
 		lastThink = now;
 
-		currentRPM = encoder->getRPM(10, thinkInterval/1000.0);
+		currentRPM = encoder->getRPM(10, thinkInterval / 1000.0);
 
-		// controle de RPM com compensação de giro (se houver)
 		float currentRadS = rpmToRadS(currentRPM);
-		float rpmControl  = pidRPM.compute(targetRadS, currentRadS);
-		rpmControl = pidRPM.scaleToPWM(rpmControl); // converte para valor de PWM
 
-		pidOutput = rpmControl;
-		pidOutput = clamp(pidOutput, 0.0, 255.0);
+		float control = pidRPM.compute(targetRadS, currentRadS);
+		control = pidRPM.scaleToPWM(control);
 
-		analogWrite(pwmPin, int(pidOutput));
+		pidOutput = clamp(control, 0, PWM_MAX);
+
+		setPWM((int)pidOutput);
+
 		encoder->reset();
 	}
-
 
 	bool isMoving() {
 		return (pidOutput > 1.0) && (targetRadS > 0.0);
@@ -128,12 +168,16 @@ public:
 
 	void manualAddPID(int value) {
 		pidOutput += value;
-		analogWrite(pwmPin, int(pidOutput));
+		pidOutput = clamp(pidOutput, 0, PWM_MAX);
+
+		setPWM((int)pidOutput);
+
 		#ifdef DEBUG_PRINTS
 			Serial.print("[Motor "); Serial.print(pwmPin);
-			Serial.print("] PID manual adicionado: "); Serial.println(value);
-			Serial.print("Novo PID Output: "); Serial.println(pidOutput);
+			Serial.print("] PID manual: "); Serial.println(value);
+			Serial.print("Novo PWM: "); Serial.println(pidOutput);
 		#endif
+
 		lastReading = millis();
 	}
 
@@ -217,10 +261,10 @@ public:
 
 	void processReceivedCommand(const MotorCommand& cmd) {
 		if (!motorRight || !motorLeft) return;
-		int16_t targetRpmDir = cmd.targetRpmDir;
-		int16_t targetRpmEsq = cmd.targetRpmEsq;
+		int16_t targetRadSDir = cmd.targetRadSRight;
+		int16_t targetRadSEsq = cmd.targetRadSLeft;
 
-		bool shouldMove = (targetRpmDir != 0) || (targetRpmEsq != 0);
+		bool shouldMove = (targetRadSDir != 0) || (targetRadSEsq != 0);
 		if (!shouldMove) {
 			stop();
 			return;
@@ -230,13 +274,13 @@ public:
 		MotorDirection dirDir = motorRight->getDirection();
 		MotorDirection dirEsq = motorLeft->getDirection();
 
-		if (targetRpmDir > 0) {
-			motorRight->setTargetRPM(targetRpmDir);
+		if (targetRadSDir > 0) {
+			motorRight->setTargetRadS(targetRadSDir);
 			if (dirDir != FORWARD) {
 				motorRight->forward();
 			}
-		} else if (targetRpmDir < 0) {
-			motorRight->setTargetRPM(-targetRpmDir);
+		} else if (targetRadSDir < 0) {
+			motorRight->setTargetRadS(-targetRadSDir);
 			if (dirDir != BACKWARD) {
 				motorRight->backward();
 			}
@@ -244,13 +288,13 @@ public:
 			motorRight->stop();
 		}
 
-		if (targetRpmEsq > 0) {
-			motorLeft->setTargetRPM(targetRpmEsq);
+		if (targetRadSEsq > 0) {
+			motorLeft->setTargetRadS(targetRadSEsq);
 			if (dirEsq != FORWARD) {
 				motorLeft->forward();
 			}
-		} else if (targetRpmEsq < 0) {
-			motorLeft->setTargetRPM(-targetRpmEsq);
+		} else if (targetRadSEsq < 0) {
+			motorLeft->setTargetRadS(-targetRadSEsq);
 			if (dirEsq != BACKWARD) {
 				motorLeft->backward();
 			}
@@ -276,18 +320,62 @@ public:
 	}
 };
 
+// ——————— Encoders ———————
+// Motor Direito (Motor A)
+Encoder *encoderD = new Encoder(15, 4);  // CH A=15, CH B=4
+// Motor Esquerdo (Motor B) — moved to avoid pin conflicts with IN pins
+Encoder *encoderE = new Encoder(34, 35);  // CH A=34, CH B=35
+
+// ——————— Motores ———————
+// Mapeamento solicitado:
+// 🔵 Motor A (Direito)
+// IN1 -> GPIO18, IN2 -> GPIO19, PWM -> GPIO27 (LEDC channel 0)
+// 🔴 Motor B (Esquerdo)
+// IN3 -> GPIO16, IN4 -> GPIO17, PWM -> GPIO14 (LEDC channel 1)
+
+Motor *motorDireito  = new Motor(18, 19, 27, 0, encoderD, intentKp, intentKi, intentKd );
+Motor *motorEsquerdo = new Motor(16, 17, 14, 1, encoderE, intentKp, intentKi, intentKd );
+
+PonteH ponteH(motorDireito, motorEsquerdo);
+
 void onReceive(int numBytes) {
-	String received = "";
-	while (Wire.available()) {
-		char c = Wire.read();
-		received += c;
-		Serial.print(c);
+	// Verifica se recebeu exatamente o tamanho esperado
+	if (numBytes != sizeof(MotorCommand)) {
+		// Descarta bytes inválidos
+		while (Wire.available()) Wire.read();
+		return;
 	}
-	Serial.print("Received: ");
-	Serial.println(received);
+	MotorCommand currentCommand;
+
+	uint8_t buffer[sizeof(MotorCommand)];
+
+	// Lê todos os bytes
+	for (int i = 0; i < sizeof(MotorCommand); i++) {
+		if (Wire.available()) {
+			buffer[i] = Wire.read();
+		}
+	}
+
+	memcpy((void*)&currentCommand, buffer, sizeof(MotorCommand));
+
+	ponteH.processReceivedCommand(currentCommand);
 }
+
+volatile MotorStatus currentStatus;
+
 void onRequest() {
-	Wire.write("Hello from ESP32!");
+	// Copia local para evitar inconsistência
+	MotorStatus snapshot;
+
+	noInterrupts();
+	snapshot.radSLeft = (int16_t)motorEsquerdo->getTargetRadS();
+	snapshot.radSRight = (int16_t)motorDireito->getTargetRadS();
+	snapshot.pwmLeft = (int16_t)motorEsquerdo->getPIDOutput();
+	snapshot.pwmRight = (int16_t)motorDireito->getPIDOutput();
+	interrupts();
+
+	// Envia como array de bytes
+	Wire.write((uint8_t*)&snapshot, sizeof(MotorStatus));
 }
 
 void setup() {
@@ -299,4 +387,5 @@ void setup() {
 
 void loop() {
 	// PonteH.loop() deve ser chamado aqui para atualizar o controle dos motores
+	ponteH.loop();
 }

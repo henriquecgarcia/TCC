@@ -14,13 +14,13 @@ enum Movement {
 };
 
 typedef struct {
-	int16_t targetRpmDir;
-	int16_t targetRpmEsq;
+	int16_t targetRadSRight;
+	int16_t targetRadSLeft;
 } MotorCommand;
 
 typedef struct {
-    int16_t rpmLeft;
-    int16_t rpmRight;
+    int16_t radSLeft;
+    int16_t radSRight;
     int16_t pwmLeft;
     int16_t pwmRight;
 } MotorStatus;
