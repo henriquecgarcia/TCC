@@ -73,7 +73,8 @@ private:
 
 	void setPWM(int value) {
 		value = clamp(value, 0, PWM_MAX);
-		ledcWrite(ledcChannel, value);
+		// ledcWrite(ledcChannel, value);
+		analogWrite(pwmPin, value);
 	}
 
 public:
@@ -84,8 +85,8 @@ public:
 		pinMode(in1Pin, OUTPUT);
 		pinMode(in2Pin, OUTPUT);
 
-		ledcSetup(ledcChannel, ledcFreq, ledcResolution);
-		ledcAttachPin(pwmPin, ledcChannel);
+		// ledcSetup(ledcChannel, ledcFreq, ledcResolution);
+		// ledcAttachPin(pwmPin, ledcChannel);
 
 		encoder->begin();
 		encoder->reset();
@@ -105,7 +106,7 @@ public:
 	}
 
 	void setTargetRPM(double rpm) {
-		return setTargetRadS(rpmToRadS(rpm));
+		setTargetRadS(rpmToRadS(rpm));
 	}
 
 	void forward() {
@@ -115,8 +116,6 @@ public:
 		digitalWrite(in1Pin, HIGH);
 		digitalWrite(in2Pin, LOW);
 		direction = FORWARD;
-
-		targetRadS = rpmToRadS(100.0);
 	}
 	void backward() {
 		encoder->reset();
@@ -125,8 +124,6 @@ public:
 		digitalWrite(in1Pin, LOW);
 		digitalWrite(in2Pin, HIGH);
 		direction = BACKWARD;
-
-		targetRadS = rpmToRadS(100.0);
 	}
 	void stop() {
 		direction = STOPPED;
@@ -253,6 +250,12 @@ public:
 		motorLeft->setTargetRPM(75.0);
 	}
 
+	void test() {
+		if (!motorRight || !motorLeft) return;
+		motorRight->setTargetRPM(100.0);
+		motorLeft->setTargetRPM(100.0);
+	}
+
 	void stop() {
 		if (!motorRight || !motorLeft) return;
 		motorRight->stop();
@@ -261,8 +264,8 @@ public:
 
 	void processReceivedCommand(const MotorCommand& cmd) {
 		if (!motorRight || !motorLeft) return;
-		int16_t targetRadSDir = cmd.targetRadSRight;
-		int16_t targetRadSEsq = cmd.targetRadSLeft;
+		double targetRadSDir = cmd.targetRadSRight / 1000.0;
+		double targetRadSEsq = cmd.targetRadSLeft / 1000.0;
 
 		bool shouldMove = (targetRadSDir != 0) || (targetRadSEsq != 0);
 		if (!shouldMove) {
@@ -329,11 +332,11 @@ Encoder *encoderE = new Encoder(34, 35);  // CH A=34, CH B=35
 // ——————— Motores ———————
 // Mapeamento solicitado:
 // 🔵 Motor A (Direito)
-// IN1 -> GPIO18, IN2 -> GPIO19, PWM -> GPIO27 (LEDC channel 0)
+// IN1 -> GPIO18, IN2 -> GPIO19, PWM -> GPIO33 (LEDC channel 0)
 // 🔴 Motor B (Esquerdo)
 // IN3 -> GPIO16, IN4 -> GPIO17, PWM -> GPIO14 (LEDC channel 1)
 
-Motor *motorDireito  = new Motor(18, 19, 27, 0, encoderD, intentKp, intentKi, intentKd );
+Motor *motorDireito  = new Motor(18, 19, 33, 0, encoderD, intentKp, intentKi, intentKd );
 Motor *motorEsquerdo = new Motor(16, 17, 14, 1, encoderE, intentKp, intentKi, intentKd );
 
 PonteH ponteH(motorDireito, motorEsquerdo);
@@ -368,8 +371,8 @@ void onRequest() {
 	MotorStatus snapshot;
 
 	noInterrupts();
-	snapshot.radSLeft = (int16_t)motorEsquerdo->getTargetRadS();
-	snapshot.radSRight = (int16_t)motorDireito->getTargetRadS();
+	snapshot.radSLeft = (int16_t)(motorEsquerdo->getTargetRadS() * 1000.0);
+	snapshot.radSRight = (int16_t)(motorDireito->getTargetRadS() * 1000.0);
 	snapshot.pwmLeft = (int16_t)motorEsquerdo->getPIDOutput();
 	snapshot.pwmRight = (int16_t)motorDireito->getPIDOutput();
 	interrupts();
@@ -380,12 +383,43 @@ void onRequest() {
 
 void setup() {
 	Serial.begin(115200);
-	Wire.begin((uint8_t) MOTOR_CONTROLER_ESP32_ADDR);
-	Wire.onReceive(onReceive);
-	Wire.onRequest(onRequest);
+	// Wire.begin((uint8_t) MOTOR_CONTROLER_ESP32_ADDR);
+	// Wire.onReceive(onReceive);
+	// Wire.onRequest(onRequest);
+	ponteH.setup();
+	Serial.println("Setup completo. Aguardando comandos...");
 }
 
 void loop() {
-	// PonteH.loop() deve ser chamado aqui para atualizar o controle dos motores
 	ponteH.loop();
+
+	if (Serial.available()) {
+		char cmd = Serial.read();
+
+		switch (cmd)
+		{
+		case 'f':
+			ponteH.forward();
+			ponteH.test();
+			Serial.println("Comando: Forward");
+			break;
+		case 'b':
+			ponteH.backward();
+			ponteH.test();
+			Serial.println("Comando: Backward");
+			break;
+		case 'l':
+			ponteH.turnLeft();
+			Serial.println("Comando: Turn Left");
+			break;
+		case 'r':
+			ponteH.turnRight();
+			Serial.println("Comando: Turn Right");
+			break;
+		default:
+			ponteH.stop();
+			Serial.println("Comando: Stop");
+			break;
+		}
+	}
 }
