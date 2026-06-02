@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LCARS Monitor ESP32</title>
+	<link rel="stylesheet" href="./monitor.css">
+	<script src="./monitor.js" defer></script>
+</head>
+<body>
+	<div class="lcars-shell">
+		<aside class="lcars-rail" aria-hidden="true">
+			<div class="rail-cap rail-cap-top"></div>
+			<div class="rail-block rail-block-orange"></div>
+			<div class="rail-block rail-block-violet"></div>
+			<div class="rail-block rail-block-blue"></div>
+			<div class="rail-spacer"></div>
+			<div class="rail-block rail-block-peach"></div>
+			<div class="rail-cap rail-cap-bottom"></div>
+		</aside>
+
+		<main class="monitor-layout">
+			<header class="lcars-header">
+				<div class="header-elbow" aria-hidden="true"></div>
+				<div class="header-title">
+					<p class="station-code">LCARS 47-ESP32</p>
+					<h1>Web Serial Monitor</h1>
+				</div>
+				<div id="connection-status" class="connection-status is-offline">Offline</div>
+			</header>
+
+			<section class="terminal-panel" aria-label="Terminal do ESP32">
+				<div class="panel-topline">
+					<span>COMMS</span>
+					<span>WS /ws</span>
+					<span id="log-count">0000</span>
+				</div>
+				<pre id="terminal" class="terminal" aria-live="polite">Conectando ao ESP32...</pre>
+			</section>
+
+			<form id="command-form" class="command-bar">
+				<label class="sr-only" for="input-box">Enviar comando</label>
+				<input type="text" id="input-box" autocomplete="off" placeholder="Enviar comando...">
+				<button type="submit">Enviar</button>
+			</form>
+
+			<nav class="action-strip" aria-label="Acoes do terminal">
+				<button type="button" id="clear-terminal">Limpar</button>
+				<button type="button" id="reload-page">Recarregar</button>
+				<button type="button" id="download-logs">Baixar Logs</button>
+			</nav>
+		</main>
+	</div>
+</body>
+</html>

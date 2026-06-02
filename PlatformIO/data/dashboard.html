@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TCC | Robô Autônomo ESP32</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #172033;
+      --muted: #697386;
+      --line: #dce4ef;
+      --primary: #2563eb;
+      --primary-2: #1d4ed8;
+      --danger: #ef4444;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --wall: #1f2937;
+      --free: #e8eef6;
+      --path: #8b5cf6;
+      --shadow: 0 20px 50px rgba(15, 23, 42, .10);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% -10%, rgba(37, 99, 235, .18), transparent 34rem),
+        radial-gradient(circle at 90% 12%, rgba(139, 92, 246, .12), transparent 30rem),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 100%);
+    }
+
+    button, input, a { font: inherit; }
+    button, .link-button {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 44px;
+      padding: 0 16px;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 750;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease, background .14s ease;
+      user-select: none;
+    }
+    button:hover, .link-button:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(15, 23, 42, .11); border-color: #c8d5e6; }
+    button:active { transform: translateY(0); box-shadow: none; }
+    input {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 14px;
+      padding: 0 13px;
+      color: var(--text);
+      outline: none;
+    }
+    input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(37, 99, 235, .12); }
+
+    .app {
+      width: min(1220px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 32px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(220, 228, 239, .9);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .logo {
+      width: 50px; height: 50px; border-radius: 18px;
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, .26);
+      display: grid; place-items: center; color: #fff; font-weight: 900;
+    }
+    .brand h1 { margin: 0; font-size: clamp(1.25rem, 2.8vw, 2rem); letter-spacing: -.04em; line-height: 1; }
+    .brand p { margin: 5px 0 0; color: var(--muted); font-weight: 600; font-size: .93rem; }
+    .connection { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .pill {
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: .86rem;
+      font-weight: 850;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .pill.online { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+    .pill.offline { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .card, .panel {
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(220, 228, 239, .95);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .card { padding: 16px; display: grid; gap: 8px; min-height: 116px; }
+    .card .label { color: var(--muted); font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .045em; }
+    .card .value { font-size: clamp(1.35rem, 3vw, 2.1rem); font-weight: 900; letter-spacing: -.045em; line-height: 1.04; overflow-wrap: anywhere; }
+    .card .hint { color: var(--muted); font-size: .88rem; font-weight: 650; }
+    .bar { height: 4px; width: 48px; border-radius: 999px; background: var(--primary); }
+    .bar.green { background: var(--success); } .bar.amber { background: var(--warning); } .bar.red { background: var(--danger); }
+
+    .main-grid { display: grid; grid-template-columns: 390px minmax(0, 1fr); gap: 16px; align-items: stretch; }
+    .panel { padding: 18px; min-width: 0; }
+    .panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .panel h2 { margin: 0; font-size: 1.05rem; letter-spacing: -.02em; }
+    .panel .desc { margin: 5px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.4; }
+
+    .controls { display: grid; gap: 12px; }
+    .primary-action { min-height: 58px; background: var(--primary); color: #fff; border-color: transparent; font-size: 1.02rem; }
+    .primary-action:hover { background: var(--primary-2); }
+    .danger { background: #fff1f2; color: #b91c1c; border-color: #fecdd3; }
+    .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .button-grid.three { grid-template-columns: repeat(3, 1fr); }
+    .path-form, .manual-form { display: grid; gap: 10px; padding-top: 4px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    label { display: grid; gap: 6px; color: var(--muted); font-weight: 750; font-size: .88rem; }
+    .manual-inline { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+    .subtle { color: var(--muted); font-size: .82rem; line-height: 1.4; margin: 0; }
+
+    .map-wrap { position: relative; }
+    canvas {
+      width: 100%;
+      aspect-ratio: 1 / .72;
+      min-height: 430px;
+      display: block;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .legend { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px; color: var(--muted); font-weight: 750; font-size: .86rem; }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+    .dot.free { background: var(--free); } .dot.wall { background: var(--wall); } .dot.robot { background: var(--primary); border-radius: 999px; } .dot.path { background: var(--path); } .dot.target { background: var(--success); border-radius: 999px; }
+
+    .details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .data-list { display: grid; gap: 8px; }
+    .data-list div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    .data-list span { color: var(--muted); font-weight: 750; font-size: .87rem; }
+    .data-list strong { text-align: right; overflow-wrap: anywhere; }
+    .log {
+      height: 220px;
+      overflow: auto;
+      border-radius: 16px;
+      background: #101827;
+      color: #dbeafe;
+      padding: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .8rem;
+    }
+    .log p { margin: 0 0 7px; }
+    .log-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+
+    @media (max-width: 980px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .connection { justify-content: flex-start; }
+      .metrics, .main-grid, .details { grid-template-columns: 1fr; }
+      canvas { min-height: 320px; }
+    }
+    @media (max-width: 560px) {
+      .app { width: min(100% - 18px, 1220px); padding-top: 10px; }
+      .topbar, .panel, .card { border-radius: 18px; }
+      .button-grid, .button-grid.three, .form-row, .manual-inline, .log-actions { grid-template-columns: 1fr; }
+      .logo { width: 44px; height: 44px; border-radius: 15px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">ESP</div>
+        <div>
+          <h1>Robô Autônomo em Grade</h1>
+          <p>Mapa 7x7, células de 30 cm, telemetria e navegação A*.</p>
+        </div>
+      </div>
+      <div class="connection">
+        <span id="connection-status" class="pill offline">Offline</span>
+        <span id="packet-count" class="pill">0000 pacotes</span>
+      </div>
+    </header>
+
+    <section class="metrics">
+      <article class="card"><div class="bar"></div><span class="label">Estado</span><strong id="robot-status" class="value">--</strong><small id="robot-direction" class="hint">Direção: --</small></article>
+      <article class="card"><div class="bar green"></div><span class="label">Célula atual</span><strong class="value"><span id="grid-x">--</span>, <span id="grid-y">--</span></strong><small id="cell-size" class="hint">Célula: -- cm</small></article>
+      <article class="card"><div class="bar amber"></div><span class="label">Heading</span><strong id="theta-deg" class="value">--°</strong><small id="world-position" class="hint">x/y: --</small></article>
+      <article class="card"><div class="bar red"></div><span class="label">Distância frontal</span><strong id="front-distance" class="value">--</strong><small id="sensor-age" class="hint">Sensores: --</small></article>
+    </section>
+
+    <section class="main-grid">
+      <section class="panel">
+        <div class="panel-head">
+          <div><h2>Controles</h2><p class="desc">O avanço manual é sempre discreto: uma célula por comando.</p></div>
+          <span id="input-status" class="pill">Pronto</span>
+        </div>
+        <div class="controls">
+          <button type="button" class="primary-action" data-command='{"action":"forward_cells","cells":1}'>Vá 1 célula para frente</button>
+          <div class="button-grid">
+            <button type="button" data-command="left">Girar esquerda</button>
+            <button type="button" data-command="right">Girar direita</button>
+          </div>
+          <button type="button" class="danger" data-command="stop">Parar imediatamente</button>
+          <div class="button-grid three">
+            <button type="button" data-command="status">Status</button>
+            <button type="button" data-command="map">Mapa</button>
+            <button type="button" data-command='{"action":"experiment_log","mode":"clear"}'>Limpar CSV</button>
+          </div>
+          <form id="path-form" class="path-form">
+            <div class="form-row">
+              <label>Destino X<input id="target-x" type="number" min="1" max="5" value="5"></label>
+              <label>Destino Y<input id="target-y" type="number" min="1" max="5" value="5"></label>
+            </div>
+            <button type="submit">Executar caminho A*</button>
+            <p class="subtle">Use destinos internos do mapa: X/Y entre 1 e 5. As bordas são obstáculos.</p>
+          </form>
+          <form id="command-form" class="manual-form">
+            <label for="command-input">Comando manual JSON</label>
+            <div class="manual-inline">
+              <input id="command-input" type="text" autocomplete="off" placeholder='{"action":"forward_cells","cells":2}'>
+              <button type="submit">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div><h2>Mapa binário 7x7</h2><p class="desc">1 = ocupado, 0 = livre. O robô começa em (1,1).</p></div>
+          <span id="map-info" class="pill">Aguardando mapa</span>
+        </div>
+        <div class="map-wrap"><canvas id="map-canvas" width="900" height="650"></canvas></div>
+        <div class="legend">
+          <span><i class="dot free"></i>Livre</span>
+          <span><i class="dot wall"></i>Ocupado</span>
+          <span><i class="dot robot"></i>Robô</span>
+          <span><i class="dot path"></i>Caminho</span>
+          <span><i class="dot target"></i>Destino</span>
+        </div>
+      </section>
+    </section>
+
+    <section class="details">
+      <section class="panel">
+        <div class="panel-head"><h2>Navegação</h2><span id="cell-nav-state" class="pill">--</span></div>
+        <div class="data-list">
+          <div><span>Progresso</span><strong id="cell-nav-progress">--</strong></div>
+          <div><span>Modo A*</span><strong id="cell-nav-path">--</strong></div>
+          <div><span>Dando ré</span><strong id="cell-nav-reverse">--</strong></div>
+          <div><span>Obstáculo</span><strong id="cell-nav-obstacle">--</strong></div>
+          <div><span>Abort</span><strong id="cell-nav-abort">--</strong></div>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2>Motores</h2><span class="pill">PID</span></div>
+        <div class="data-list">
+          <div><span>RPM direito</span><strong id="motor-d-rpm">--</strong></div>
+          <div><span>RPM esquerdo</span><strong id="motor-e-rpm">--</strong></div>
+          <div><span>PID direito</span><strong id="motor-d-pid">--</strong></div>
+          <div><span>PID esquerdo</span><strong id="motor-e-pid">--</strong></div>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2>Eventos</h2><a class="link-button" href="/api/tcc-log.csv">Baixar CSV</a></div>
+        <div id="io-log" class="log" aria-live="polite"></div>
+        <div class="log-actions">
+          <button type="button" data-command='{"action":"experiment_log","mode":"enable"}'>Log ON</button>
+          <button type="button" data-command='{"action":"experiment_log","mode":"disable"}'>Log OFF</button>
+          <button type="button" data-command="map">Atualizar</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+      const $ = (id) => document.getElementById(id);
+      const statusBadge = $('connection-status');
+      const packetCount = $('packet-count');
+      const ioLog = $('io-log');
+      const canvas = $('map-canvas');
+      const ctx = canvas.getContext('2d');
+      let ws, reconnectTimer, packets = 0, mapState = null, lastLocation = null, plannedPath = [];
+
+      const setText = (id, value) => { const el = $(id); if (el) el.textContent = value; };
+      const fixed = (value, digits = 2) => { const n = Number(value); return Number.isFinite(n) ? n.toFixed(digits) : '--'; };
+      const boolLabel = (value) => value === true ? 'Sim' : value === false ? 'Não' : '--';
+
+      function addLog(text) {
+        const line = document.createElement('p');
+        line.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+        ioLog.appendChild(line);
+        while (ioLog.children.length > 80) ioLog.removeChild(ioLog.firstChild);
+        ioLog.scrollTop = ioLog.scrollHeight;
+      }
+
+      function setConnection(online) {
+        statusBadge.textContent = online ? 'Online' : 'Offline';
+        statusBadge.classList.toggle('online', online);
+        statusBadge.classList.toggle('offline', !online);
+        setText('input-status', online ? 'Online' : 'Reconectando');
+      }
+
+      function send(payload) {
+        if (!ws || ws.readyState !== WebSocket.OPEN) { addLog('WebSocket offline; comando não enviado.'); return; }
+        const message = typeof payload === 'string' ? payload : JSON.stringify(payload);
+        ws.send(message);
+        addLog(`TX ${message}`);
+      }
+
+      function connect() {
+        clearTimeout(reconnectTimer);
+        ws = new WebSocket(`ws://${location.host}/car`);
+        ws.addEventListener('open', () => { setConnection(true); addLog('WebSocket conectado.'); send('status'); send('map'); });
+        ws.addEventListener('close', () => { setConnection(false); addLog('WebSocket desconectado.'); reconnectTimer = setTimeout(connect, 1400); });
+        ws.addEventListener('error', () => setConnection(false));
+        ws.addEventListener('message', (event) => { packets += 1; packetCount.textContent = `${String(packets).padStart(4, '0')} pacotes`; handleMessage(event.data); });
+      }
+
+      function handleMessage(raw) {
+        let data;
+        try { data = JSON.parse(raw); } catch (_) { addLog(`RX ${raw}`); return; }
+        if (data.ready) return;
+        if (data.type === 'map') { updateMap(data.map); return; }
+        if (data.map && data.map.type === 'map') { updateMap(data.map.map); return; }
+        if (data.type === 'path') {
+          plannedPath = Array.isArray(data.cells) ? data.cells : [];
+          addLog(data.ok ? `Caminho com ${plannedPath.length} células.` : `Falha no caminho: ${data.reason || '--'}`);
+          drawMap(); send('map'); return;
+        }
+        if (data.type === 'cell_nav') { updateCellNav(data); return; }
+        updateTelemetry(data);
+      }
+
+      function updateTelemetry(data) {
+        setText('robot-status', data.status || '--');
+        setText('robot-direction', `Direção: ${data.direction || '--'}`);
+        if (data.location) {
+          lastLocation = data.location;
+          setText('grid-x', data.location.grid_x ?? '--');
+          setText('grid-y', data.location.grid_y ?? '--');
+          setText('theta-deg', `${fixed(data.location.theta_deg, 1)}°`);
+          setText('world-position', `x=${fixed(data.location.world_x_m, 3)}m · y=${fixed(data.location.world_y_m, 3)}m`);
+          setText('cell-size', `Célula: ${fixed((data.location.cell_size_m || 0) * 100, 0)} cm`);
+        }
+        setText('front-distance', Number.isFinite(Number(data.distance)) ? `${data.distance} mm` : '--');
+        if (data.sensor_age) setText('sensor-age', `MPU ${data.sensor_age.mpu_ms ?? '--'} ms · ToF ${data.sensor_age.tof_ms ?? '--'} ms`);
+        if (data.cell_nav) updateCellNav(data.cell_nav);
+        if (data.motorD) { setText('motor-d-rpm', fixed(data.motorD.rpm, 1)); setText('motor-d-pid', fixed(data.motorD.pidOutput, 1)); }
+        if (data.motorE) { setText('motor-e-rpm', fixed(data.motorE.rpm, 1)); setText('motor-e-pid', fixed(data.motorE.pidOutput, 1)); }
+        drawMap();
+      }
+
+      function updateCellNav(nav) {
+        setText('cell-nav-state', nav.state || nav.event || '--');
+        setText('cell-nav-progress', `${nav.completed ?? '--'}/${nav.requested ?? '--'}`);
+        setText('cell-nav-path', nav.path_mode === true ? `${nav.path_index ?? 0}/${nav.path_len ?? 0}` : 'Manual');
+        setText('cell-nav-reverse', boolLabel(nav.reverse));
+        setText('cell-nav-obstacle', boolLabel(nav.obstacle));
+        setText('cell-nav-abort', nav.abort_reason || nav.reason || '--');
+        if (nav.event) addLog(`NAV ${nav.event} · ${nav.state || '--'}${nav.reverse ? ' · ré' : ''}`);
+      }
+
+      function updateMap(map) {
+        if (!map) return;
+        mapState = map;
+        if (map.robot) lastLocation = { grid_x: map.robot.x, grid_y: map.robot.y, world_x_m: map.robot.world_x_m, world_y_m: map.robot.world_y_m, theta_deg: map.robot.theta_deg };
+        if (Array.isArray(map.path) && map.path.length) plannedPath = map.path;
+        setText('map-info', `${map.width || '--'}x${map.height || '--'} · ${fixed((map.cell_size_m || 0) * 100, 0)} cm`);
+        drawMap();
+      }
+
+      function drawMap() {
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#ffffff'); g.addColorStop(1, '#f1f5f9');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+
+        const rows = mapState?.rows || ['1111111','1000001','1000001','1000001','1000001','1000001','1111111'];
+        const rowsCount = rows.length, colsCount = rows[0]?.length || 7;
+        const pad = 34;
+        const cell = Math.floor(Math.min((w - pad * 2) / colsCount, (h - pad * 2) / rowsCount));
+        const ox = Math.floor((w - cell * colsCount) / 2);
+        const oy = Math.floor((h - cell * rowsCount) / 2);
+        const pathSet = new Set((plannedPath || []).map((p) => `${p.x},${p.y}`));
+        const target = mapState?.target;
+        const robotX = lastLocation?.grid_x ?? mapState?.robot?.x ?? 1;
+        const robotY = lastLocation?.grid_y ?? mapState?.robot?.y ?? 1;
+
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (let y = 0; y < rowsCount; y++) {
+          for (let x = 0; x < colsCount; x++) {
+            const absoluteX = (mapState?.viewStartX || 0) + x;
+            const absoluteY = (mapState?.viewStartY || 0) + y;
+            const px = ox + x * cell, py = oy + y * cell;
+            const occupied = rows[y]?.[x] === '1';
+            const radius = Math.max(8, cell * .08);
+            roundRect(px + 4, py + 4, cell - 8, cell - 8, radius);
+            ctx.fillStyle = occupied ? '#1f2937' : '#e8eef6'; ctx.fill();
+            ctx.strokeStyle = occupied ? 'rgba(255,255,255,.08)' : '#d6e0ed'; ctx.lineWidth = 2; ctx.stroke();
+
+            if (pathSet.has(`${absoluteX},${absoluteY}`)) {
+              roundRect(px + cell * .22, py + cell * .22, cell * .56, cell * .56, radius);
+              ctx.fillStyle = 'rgba(139, 92, 246, .78)'; ctx.fill();
+            }
+            if (target && target.x === absoluteX && target.y === absoluteY) {
+              ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.arc(px + cell / 2, py + cell / 2, Math.max(10, cell * .18), 0, Math.PI * 2); ctx.fill();
+            }
+            if (robotX === absoluteX && robotY === absoluteY) {
+              ctx.fillStyle = '#2563eb'; ctx.beginPath(); ctx.arc(px + cell / 2, py + cell / 2, Math.max(18, cell * .28), 0, Math.PI * 2); ctx.fill();
+              ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 4; ctx.stroke();
+              ctx.fillStyle = '#fff'; ctx.font = `900 ${Math.max(16, cell * .22)}px system-ui`; ctx.fillText('R', px + cell / 2, py + cell / 2);
+            }
+            ctx.fillStyle = occupied ? 'rgba(255,255,255,.72)' : '#64748b';
+            ctx.font = `700 ${Math.max(10, cell * .12)}px system-ui`;
+            ctx.textAlign = 'left'; ctx.textBaseline = 'top'; ctx.fillText(`${absoluteX},${absoluteY}`, px + 12, py + 10);
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          }
+        }
+      }
+
+      function roundRect(x, y, width, height, radius) {
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.arcTo(x + width, y, x + width, y + height, radius);
+        ctx.arcTo(x + width, y + height, x, y + height, radius);
+        ctx.arcTo(x, y + height, x, y, radius);
+        ctx.arcTo(x, y, x + width, y, radius);
+        ctx.closePath();
+      }
+
+      document.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-command]');
+        if (!button) return;
+        send(button.dataset.command);
+      });
+      $('command-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const value = $('command-input').value.trim();
+        if (value) send(value);
+        $('command-input').value = '';
+      });
+      $('path-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        send({ action: 'path_to', x: Number($('target-x').value), y: Number($('target-y').value), execute: true });
+      });
+
+      drawMap(); connect();
+    })();
+  </script>
+</body>
+</html>

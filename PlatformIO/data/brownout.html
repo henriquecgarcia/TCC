@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>LCARS Brownout ESP32</title>
+	<link rel="stylesheet" href="./brownout.css">
+	<script src="./brownout.js" defer></script>
+</head>
+<body>
+	<div class="lcars-shell">
+		<aside class="lcars-rail" aria-hidden="true">
+			<div class="rail-cap rail-cap-top"></div>
+			<div class="rail-block rail-block-orange"></div>
+			<div class="rail-block rail-block-violet"></div>
+			<div class="rail-block rail-block-blue"></div>
+			<div class="rail-spacer"></div>
+			<div class="rail-block rail-block-peach"></div>
+			<div class="rail-cap rail-cap-bottom"></div>
+		</aside>
+
+		<main class="brownout-layout">
+			<header class="lcars-header">
+				<div class="header-elbow" aria-hidden="true"></div>
+				<div class="header-title">
+					<p class="station-code">LCARS POWER DIAGNOSTICS</p>
+					<h1>Brownout Logs</h1>
+				</div>
+				<div id="connection-status" class="connection-status is-offline">Offline</div>
+			</header>
+
+			<section class="summary-grid" aria-label="Resumo de brownout">
+				<div class="readout">
+					<span>Boots</span>
+					<strong id="boot-count">--</strong>
+				</div>
+				<div class="readout readout-alert">
+					<span>Brownouts</span>
+					<strong id="brownout-count">--</strong>
+				</div>
+				<div class="readout">
+					<span>Último reset</span>
+					<strong id="last-reset">--</strong>
+				</div>
+				<div class="readout">
+					<span>Reset atual</span>
+					<strong id="was-brownout">--</strong>
+				</div>
+			</section>
+
+			<section class="lcars-panel">
+				<div class="panel-topline">
+					<span>Histórico</span>
+					<span>ESP_RST_BROWNOUT</span>
+					<span id="event-count">000</span>
+				</div>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Boot</th>
+								<th>Uptime no registro</th>
+								<th>Motivo</th>
+							</tr>
+						</thead>
+						<tbody id="events-body">
+							<tr><td colspan="4">Carregando...</td></tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="note-panel">
+				<p id="note">Brownout é registrado depois que o ESP32 reinicia. Se a tensão cair forte demais, nenhum firmware consegue salvar dados durante a queda; por isso esta tela usa o motivo de reset informado pelo chip no próximo boot.</p>
+			</section>
+
+			<nav class="action-strip" aria-label="Ações">
+				<a href="/">Dashboard</a>
+				<a href="/monitor">Monitor</a>
+				<button type="button" id="refresh-logs">Atualizar</button>
+				<button type="button" id="clear-logs">Limpar Histórico</button>
+			</nav>
+		</main>
+	</div>
+</body>
+</html>
