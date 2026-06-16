@@ -8,7 +8,7 @@
  * Extended Kalman Filter para estimação de pose (x, y, theta)
  * Combina:
  *   - Odometria (encoders) como predição
- *   - Giroscópio (MPU6050) para correção de theta
+ *   - Magnetômetro QMC5883L ou giroscópio para correção de theta
  *   - Sensor de distância (VL53L0X) para detecção de obstáculos
  *
  * Estado: [x, y, theta]
@@ -91,9 +91,16 @@ public:
     void predict(long leftTicks, long rightTicks, float deltaTime_s);
 
     /**
-     * Atualização com giroscópio: corrige theta usando MPU6050
+     * Atualização com giroscópio: corrige theta usando velocidade angular.
+     * Mantido por compatibilidade com versões antigas do projeto.
      */
     void updateWithGyro(float gyroZ_rad_s, float deltaTime_s);
+
+    /**
+     * Atualização com magnetômetro: corrige theta usando heading absoluto.
+     * Esta é a atualização recomendada quando o sensor usado é o QMC5883L.
+     */
+    void updateWithHeading(float heading_rad);
 
     /**
      * Atualização com distância: detecta obstáculo próximo e ajusta

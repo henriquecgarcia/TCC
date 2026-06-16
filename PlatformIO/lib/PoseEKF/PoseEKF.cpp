@@ -199,6 +199,49 @@ void PoseEKF::updateWithGyro(float gyroZ_rad_s, float deltaTime_s) {
     lastTheta = measuredTheta;
 }
 
+
+void PoseEKF::updateWithHeading(float heading_rad) {
+    // O QMC5883L fornece heading absoluto, não velocidade angular.
+    // Esta atualização usa o heading diretamente como medição de theta.
+    normalizeAngle(heading_rad);
+
+    float innovation = heading_rad - state[2];
+    normalizeAngle(innovation);
+
+    // H = [0 0 1], então S = P_theta + R_theta.
+    float S = P[2][2] + R[0][0];
+
+    if (S > 0.0001f) {
+        float K[3];
+        K[0] = P[0][2] / S;
+        K[1] = P[1][2] / S;
+        K[2] = P[2][2] / S;
+
+        state[0] += K[0] * innovation;
+        state[1] += K[1] * innovation;
+        state[2] += K[2] * innovation;
+        normalizeAngle(state[2]);
+
+        float newP[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                newP[i][j] = P[i][j];
+                if (j == 2) {
+                    newP[i][j] -= K[i] * P[2][j];
+                }
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                P[i][j] = newP[i][j];
+            }
+        }
+    }
+
+    lastTheta = state[2];
+}
+
 void PoseEKF::holdCurrentPose(long leftTicksNow, long rightTicksNow) {
     // Não altera x, y ou theta. Apenas evita que ticks acumulados durante
     // a parada sejam interpretados como deslocamento no próximo predict().

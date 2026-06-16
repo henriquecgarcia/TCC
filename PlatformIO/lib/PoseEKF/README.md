@@ -5,7 +5,7 @@
 O **PoseEKF** é um Filtro de Kalman Estendido implementado para estimar a pose (x, y, θ) do robô com melhor precisão do que a odometria pura. Ele combina:
 
 - **Odometria (encoders)**: Predição da posição usando movimento dos motores
-- **Giroscópio (MPU6050)**: Correção contínua da orientação (θ)
+- **Magnetômetro (QMC5883L)**: Correção contínua da orientação (θ)
 - **Sensor de Distância (VL53L0X)**: Detecção de obstáculos (expansível para updates de posição)
 
 ## Arquitetura
@@ -29,7 +29,7 @@ onde:
    - Propaga covariância P através Jacobiano F
 
 2. ATUALIZAÇÃO (updateWithGyro)
-   - Lê taxa angular do giroscópio
+   - Lê taxa angular do magnetômetro
    - Integra para obter θ_medido
    - Computa Ganho de Kalman
    - Corrige estado e reduz covariância
@@ -57,7 +57,7 @@ Define a confiabilidade dos sensores. Valores maiores = menos confiança na medi
 
 ```cpp
 void setMeasurementNoise(
-    float rTheta,      // Incerteza do giroscópio (padrão: 0.02)
+    float rTheta,      // Incerteza do magnetômetro (padrão: 0.02)
     float rDistance,   // Incerteza de distância (padrão: 0.05)
     float rDrift       // Incerteza de drift (padrão: 0.01)
 );
@@ -105,9 +105,9 @@ ekf->predict(
     deltaTime_s
 );
 
-// ATUALIZAÇÃO: usar giroscópio para orientação
+// ATUALIZAÇÃO: usar magnetômetro para orientação
 ekf->updateWithGyro(
-    sensorMPU->getGyroscopeZ(),
+    sensorQMC->getAngularVelocityZRadS(),
     deltaTime_s
 );
 
@@ -166,7 +166,7 @@ O sistema envia dados do EKF via WebSocket:
 
 ## Tuning de Desempenho
 
-### Cenário: Drift do Giroscópio Muito Alto
+### Cenário: Drift do Magnetômetro Muito Alto
 
 ```cpp
 ekf->setMeasurementNoise(
@@ -176,7 +176,7 @@ ekf->setMeasurementNoise(
 );
 ```
 
-### Cenário: Giroscópio Muito Ruidoso
+### Cenário: Magnetômetro Muito Ruidoso
 
 ```cpp
 ekf->setMeasurementNoise(

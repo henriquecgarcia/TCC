@@ -11,7 +11,7 @@
 
 Sensores no barramento:
 
-- MPU6050;
+- QMC5883L;
 - VL53L0X.
 
 ## Motores — L298N
@@ -62,3 +62,13 @@ Sensores no barramento:
 - Confirme alimentação externa dos motores; não alimente motores pelo 5V do ESP32.
 - Mantenha GND comum entre ESP32, L298N e sensores.
 
+
+
+## QMC5883L
+
+```txt
+VCC -> 5V
+GND -> GND comum
+SDA -> GPIO 21
+SCL -> GPIO 22
+```

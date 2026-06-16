@@ -30,7 +30,7 @@ Segundo a LLM:
 	- Eu: Estudo mais que válido para entender o comportamento dos motores e ajustar o sistema, mas... Vamos ver...
 * **Firmware (PID):** Garantir que o PID rode a uma frequência de amostragem perfeitamente cravada (ex: usando interrupção de hardware ou *Task* fixada em um *Core* pelo FreeRTOS a 50Hz) e habilitar a proteção *Anti-Windup*.
 	- Eu: Não entendi nada disso... Verificar com Marcorin.
-* **Sensores:** O magnetômetro deve ser usado como filtro complementar ao giroscópio (MPU6050) para anular o *drift* (desvio acumulado) no eixo Z ao longo do tempo.
+* **Sensores:** O magnetômetro deve ser usado como filtro complementar ao giroscópio (QMC5883L) para anular o *drift* (desvio acumulado) no eixo Z ao longo do tempo.
 	- Eu: Mas o magnetômetro não seria um substituto para o giroscópio? | Verificar...
 * **Texto Acadêmico:** Adicionar seção "Sintonia do Controlador PID", exibindo os gráficos do ensaio de malha aberta e o gráfico "antes vs depois" do controle em malha fechada demonstrando a redução do erro.
 	- Eu: Soon (TM).
@@ -311,13 +311,13 @@ Esta versão corrige um problema observado em testes físicos: após andar uma c
 
 Correções aplicadas:
 
-- Leitura do MPU6050 em thread FreeRTOS própria.
+- Leitura do QMC5883L em thread FreeRTOS própria.
 - Leitura do VL53L0X em thread FreeRTOS própria.
 - Cache thread-safe para sensores.
 - Travamento da pose quando a PonteH está parada.
 - Snap da pose para a célula discreta esperada ao fim de cada célula.
 - Redução do intervalo de controle dos motores para 100 ms.
-- A Web UI agora recebe `sensor_age.mpu_ms` e `sensor_age.tof_ms` para diagnosticar atraso nas leituras.
+- A Web UI agora recebe `sensor_age.mag_ms` e `sensor_age.tof_ms` para diagnosticar atraso nas leituras.
 
 Teste recomendado:
 
@@ -366,7 +366,7 @@ pio run -t uploadfs
 
 ## Ajuste de giro após testes físicos
 
-Nos testes reais, foi identificado que o carrinho estava girando aproximadamente o dobro do ângulo solicitado. Para estabilizar a execução, a PonteH agora aplica `TURN_COMMAND_SCALE = 0.50` sobre o alvo interno de giro. Assim, os comandos de alto nível continuam usando 90°, 45° etc., mas o controle de motor corta o giro pela metade.
+Nos testes reais, foi identificado que o carrinho estava girando aproximadamente o dobro do ângulo solicitado. Para estabilizar a execução, a PonteH agora aplica `TURN_ENCODER_SCALE = 0.50` sobre o alvo interno de giro. Assim, os comandos de alto nível continuam usando 90°, 45° etc., mas a estimativa angular por encoder é multiplicada pela escala antes de decidir a parada.
 
 Esse ajuste fica em `src/carrinho.ino` e pode ser recalibrado em incrementos pequenos, por exemplo `0.45`, `0.50`, `0.55`.
 
@@ -395,3 +395,34 @@ Para validar, faça primeiro testes isolados:
 1. `{"action":"forward_cells","cells":1}` — deve registrar aproximadamente `0.30 m`.
 2. `left` ou `right` — o `Turning Angle Z` deve crescer positivo até o alvo interno, sem ficar negativo.
 3. `{"action":"path_to","x":5,"y":5,"execute":true}` — o caminho não deve mais entrar em timeout de giro repetidamente.
+
+## QMC5883L integrado ao firmware
+
+O firmware agora usa um driver simples para QMC5883L baseado no código de teste com registradores explícitos:
+
+- endereço principal: `0x2C`;
+- fallback automático: `0x0D`;
+- configuração: `0x1D` no registrador `0x09`;
+- OSR 512, range 8G, ODR 200 Hz e modo contínuo;
+- conversão raw → Gauss com `3000 LSB/Gauss`;
+- heading calculado por `atan2(yGauss, xGauss)`.
+
+Comandos úteis:
+
+```json
+{"action":"qmc_zero","mode":"current"}
+```
+
+```json
+{"action":"qmc_config","declination_deg":0.0}
+```
+
+```json
+{"action":"qmc_config","offset_x":0,"offset_y":0,"offset_z":0}
+```
+
+Pelo monitor:
+
+```txt
+qmc_scan
+```
