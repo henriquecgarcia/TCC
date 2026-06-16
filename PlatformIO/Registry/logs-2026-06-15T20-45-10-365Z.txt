@@ -1,0 +1,493 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[17:42:38] {"map": }
+[17:42:45] [GridCellNavigator] Executando caminho A* com 9 célula(s).
+[17:42:45] [GridCellNavigator] Avançando célula 1/8 para X=2 Y=1.
+[17:42:45] [GridCellNavigator] Obstáculo detectado em X=1 Y=2 | mapa 7x7 preservado, sem setCell().
+[17:42:45] [GridCellNavigator] Navegação abortada: obstacle_detected_map_preserved
+[17:42:56] [GridCellNavigator] Executando caminho A* com 9 célula(s).
+[17:42:56] [PonteH] Encoder turn calibrated: direction=right target=113.84 deg (1.99 radians) timeout=20245 ms
+[17:42:56] [PonteH] Remaining angle: 24.78 deg | qmc_heading: 138.62 deg | phase: coarse | target_rpm: 105.00
+[17:42:56] [PonteH] Remaining angle: 30.31 deg | qmc_heading: 144.15 deg | phase: coarse | target_rpm: 105.00
+[17:42:56] [PonteH] Remaining angle: 30.31 deg | qmc_heading: 144.15 deg | phase: coarse | target_rpm: 105.00
+[17:42:56] [PonteH] Remaining angle: 3.28 deg | qmc_heading: 117.12 deg | phase: fine | target_rpm: 38.00
+[17:42:57] [PonteH] Remaining angle: 3.28 deg | qmc_heading: 117.12 deg | phase: fine | target_rpm: 38.00
+[17:42:57] [PonteH] Remaining angle: 2.14 deg | qmc_heading: 115.98 deg | phase: fine | target_rpm: 38.00
+[17:42:57] [PonteH] Remaining angle: 28.22 deg | qmc_heading: 142.06 deg | phase: coarse | target_rpm: 105.00
+[17:42:57] [PonteH] Remaining angle: 28.22 deg | qmc_heading: 142.06 deg | phase: coarse | target_rpm: 105.00
+[17:42:57] [PonteH] Remaining angle: 27.93 deg | qmc_heading: 141.77 deg | phase: coarse | target_rpm: 105.00
+[17:42:57] [PonteH] Remaining angle: 27.93 deg | qmc_heading: 141.77 deg | phase: coarse | target_rpm: 105.00
+[17:42:57] [PonteH] Remaining angle: -7.93 deg | qmc_heading: 105.91 deg | phase: fine | target_rpm: 38.00
+[17:42:57] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:42:57] [PonteH] Encoder turn calibrated: direction=right target=97.12 deg (1.70 radians) timeout=18741 ms
+[17:42:57] [PonteH] Remaining angle: 8.78 deg | qmc_heading: 105.91 deg | phase: fine | target_rpm: 45.00
+[17:42:57] [PonteH] Remaining angle: 8.78 deg | qmc_heading: 105.91 deg | phase: fine | target_rpm: 45.00
+[17:42:57] [PonteH] Remaining angle: 22.92 deg | qmc_heading: 120.05 deg | phase: coarse | target_rpm: 105.00
+[17:42:57] [PonteH] Remaining angle: 38.50 deg | qmc_heading: 135.63 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 45.05 deg | qmc_heading: 142.17 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 45.05 deg | qmc_heading: 142.17 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 45.92 deg | qmc_heading: 143.04 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 45.92 deg | qmc_heading: 143.04 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 47.99 deg | qmc_heading: 145.11 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 58.93 deg | qmc_heading: 156.05 deg | phase: coarse | target_rpm: 105.00
+[17:42:58] [PonteH] Remaining angle: 61.73 deg | qmc_heading: 158.85 deg | phase: coarse | target_rpm: 105.00
+[17:42:59] [PonteH] Remaining angle: -11.53 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:42:59] [PonteH] Encoder turn calibrated: direction=right target=88.77 deg (1.55 radians) timeout=17989 ms
+[17:42:59] [PonteH] Remaining angle: -3.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:42:59] [PonteH] Encoder turn calibrated: direction=right target=84.59 deg (1.48 radians) timeout=17613 ms
+[17:43:00] [PonteH] Remaining angle: 1.00 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:00] [PonteH] Encoder turn calibrated: direction=right target=80.41 deg (1.40 radians) timeout=17236 ms
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:58] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 5.18 deg | qmc_heading: 85.59 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Remaining angle: 32.30 deg | qmc_heading: 112.71 deg | phase: coarse | target_rpm: 105.00
+[17:42:59] [PonteH] Remaining angle: 32.30 deg | qmc_heading: 112.71 deg | phase: coarse | target_rpm: 105.00
+[17:42:59] [PonteH] Remaining angle: -2.30 deg | qmc_heading: 78.11 deg | phase: fine | target_rpm: 38.00
+[17:42:59] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:42:59] [PonteH] Encoder turn calibrated: direction=right target=51.16 deg (0.89 radians) timeout=14604 ms
+[17:43:00] [PonteH] Remaining angle: 26.95 deg | qmc_heading: 78.11 deg | phase: coarse | target_rpm: 105.00
+[17:43:00] [PonteH] Remaining angle: 26.95 deg | qmc_heading: 78.11 deg | phase: coarse | target_rpm: 105.00
+[17:43:00] [PonteH] Remaining angle: 23.05 deg | qmc_heading: 74.21 deg | phase: coarse | target_rpm: 105.00
+[17:43:00] [PonteH] Remaining angle: 19.05 deg | qmc_heading: 70.22 deg | phase: coarse | target_rpm: 105.00
+[17:43:00] [PonteH] Remaining angle: 10.38 deg | qmc_heading: 61.54 deg | phase: fine | target_rpm: 45.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:00] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:01] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Remaining angle: 5.79 deg | qmc_heading: 56.95 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Remaining angle: 15.48 deg | qmc_heading: 66.64 deg | phase: coarse | target_rpm: 105.00
+[17:43:02] [PonteH] Remaining angle: -5.58 deg | qmc_heading: 45.58 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:02] [PonteH] Encoder turn calibrated: direction=right target=26.09 deg (0.46 radians) timeout=12348 ms
+[17:43:02] [PonteH] Remaining angle: -3.11 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:02] [PonteH] Encoder turn calibrated: direction=right target=21.91 deg (0.38 radians) timeout=11971 ms
+[17:43:02] [PonteH] Remaining angle: 1.07 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:02] [PonteH] Encoder turn calibrated: direction=right target=21.91 deg (0.38 radians) timeout=11971 ms
+[17:43:02] [PonteH] Remaining angle: 1.07 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:02] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:03] [PonteH] Encoder turn calibrated: direction=right target=21.91 deg (0.38 radians) timeout=11971 ms
+[17:43:03] [PonteH] Remaining angle: 1.07 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:03] [PonteH] Encoder turn calibrated: direction=right target=17.73 deg (0.31 radians) timeout=11595 ms
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:03] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:04] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:04] [PonteH] Remaining angle: 5.25 deg | qmc_heading: 22.98 deg | phase: fine | target_rpm: 38.00
+[17:43:04] [PonteH] Remaining angle: 97.57 deg | qmc_heading: 115.30 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 94.39 deg | qmc_heading: 112.13 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 90.99 deg | qmc_heading: 108.72 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 79.45 deg | qmc_heading: 97.18 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 76.49 deg | qmc_heading: 94.22 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 66.24 deg | qmc_heading: 83.97 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 63.61 deg | qmc_heading: 81.34 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 25.92 deg | qmc_heading: 43.65 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 25.92 deg | qmc_heading: 43.65 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 29.56 deg | qmc_heading: 47.29 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 60.11 deg | qmc_heading: 77.84 deg | phase: coarse | target_rpm: 105.00
+[17:43:04] [PonteH] Remaining angle: 79.16 deg | qmc_heading: 96.89 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 99.43 deg | qmc_heading: 117.16 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 99.43 deg | qmc_heading: 117.16 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 71.79 deg | qmc_heading: 89.52 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 71.79 deg | qmc_heading: 89.52 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 75.13 deg | qmc_heading: 92.86 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 75.13 deg | qmc_heading: 92.86 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 72.49 deg | qmc_heading: 90.22 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 72.33 deg | qmc_heading: 90.06 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: 72.16 deg | qmc_heading: 89.89 deg | phase: coarse | target_rpm: 105.00
+[17:43:05] [PonteH] Remaining angle: -195.35 deg | qmc_heading: -177.62 deg | phase: fine | target_rpm: 38.00
+[17:43:05] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:06] [PonteH] Encoder turn calibrated: direction=left target=177.05 deg (3.09 radians) timeout=25934 ms
+[17:43:06] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:06] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:06] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:06] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:07] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 330.99 deg | qmc_heading: -153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 305.68 deg | qmc_heading: -128.63 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 303.16 deg | qmc_heading: -126.11 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 300.46 deg | qmc_heading: -123.41 deg | phase: coarse | target_rpm: 105.00
+[17:43:08] [PonteH] Remaining angle: 290.94 deg | qmc_heading: -113.89 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 290.94 deg | qmc_heading: -113.89 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:09] [PonteH] Remaining angle: 294.30 deg | qmc_heading: -117.25 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 328.32 deg | qmc_heading: -151.27 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 328.32 deg | qmc_heading: -151.27 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 328.32 deg | qmc_heading: -151.27 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 328.32 deg | qmc_heading: -151.27 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 224.42 deg | qmc_heading: -47.37 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 142.71 deg | qmc_heading: 34.34 deg | phase: coarse | target_rpm: 105.00
+[17:43:10] [PonteH] Remaining angle: 131.04 deg | qmc_heading: 46.01 deg | phase: coarse | target_rpm: 105.00
+[17:43:11] [PonteH] Remaining angle: 131.04 deg | qmc_heading: 46.01 deg | phase: coarse | target_rpm: 105.00
+[17:43:11] [PonteH] Remaining angle: 112.16 deg | qmc_heading: 64.90 deg | phase: coarse | target_rpm: 105.00
+[17:43:11] [PonteH] Remaining angle: 111.07 deg | qmc_heading: 65.98 deg | phase: coarse | target_rpm: 105.00
+[17:43:11] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:11] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 109.91 deg | qmc_heading: 67.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 48.61 deg | qmc_heading: 128.44 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 10.97 deg | qmc_heading: 166.08 deg | phase: fine | target_rpm: 45.00
+[17:43:12] [PonteH] Remaining angle: 10.97 deg | qmc_heading: 166.08 deg | phase: fine | target_rpm: 45.00
+[17:43:12] [PonteH] Remaining angle: 61.85 deg | qmc_heading: 115.21 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 37.70 deg | qmc_heading: 139.35 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 22.01 deg | qmc_heading: 155.04 deg | phase: coarse | target_rpm: 105.00
+[17:43:12] [PonteH] Remaining angle: 15.47 deg | qmc_heading: 161.59 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 15.47 deg | qmc_heading: 161.59 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 30.91 deg | qmc_heading: 146.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 30.91 deg | qmc_heading: 146.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 30.91 deg | qmc_heading: 146.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 30.91 deg | qmc_heading: 146.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 30.91 deg | qmc_heading: 146.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 324.89 deg | qmc_heading: -147.84 deg | phase: coarse | target_rpm: 105.00
+[17:43:13] [PonteH] Remaining angle: 324.89 deg | qmc_heading: -147.84 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 48.76 deg | qmc_heading: 128.29 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 48.76 deg | qmc_heading: 128.29 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 48.76 deg | qmc_heading: 128.29 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 81.29 deg | qmc_heading: 95.76 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 76.91 deg | qmc_heading: 100.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:14] [PonteH] Remaining angle: 64.05 deg | qmc_heading: 113.01 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 48.09 deg | qmc_heading: 128.97 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 41.31 deg | qmc_heading: 135.74 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 40.95 deg | qmc_heading: 136.11 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 33.30 deg | qmc_heading: 143.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 33.07 deg | qmc_heading: 143.99 deg | phase: coarse | target_rpm: 105.00
+[17:43:15] [PonteH] Remaining angle: 23.12 deg | qmc_heading: 153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 23.12 deg | qmc_heading: 153.93 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 350.16 deg | qmc_heading: -173.10 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 320.92 deg | qmc_heading: -143.86 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 289.55 deg | qmc_heading: -112.50 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 306.81 deg | qmc_heading: -129.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 306.81 deg | qmc_heading: -129.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 299.58 deg | qmc_heading: -122.53 deg | phase: coarse | target_rpm: 105.00
+[17:43:16] [PonteH] Remaining angle: 299.58 deg | qmc_heading: -122.53 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 299.58 deg | qmc_heading: -122.53 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 305.72 deg | qmc_heading: -128.66 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 305.72 deg | qmc_heading: -128.66 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 344.25 deg | qmc_heading: -167.19 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 9.78 deg | qmc_heading: 167.27 deg | phase: fine | target_rpm: 45.00
+[17:43:17] [PonteH] Remaining angle: 103.63 deg | qmc_heading: 73.42 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 57.24 deg | qmc_heading: 119.81 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 50.13 deg | qmc_heading: 126.92 deg | phase: coarse | target_rpm: 105.00
+[17:43:17] [PonteH] Remaining angle: 88.47 deg | qmc_heading: 88.58 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 200.44 deg | qmc_heading: -23.38 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 188.10 deg | qmc_heading: -11.04 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 246.18 deg | qmc_heading: -69.12 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 252.44 deg | qmc_heading: -75.38 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 252.44 deg | qmc_heading: -75.38 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 202.63 deg | qmc_heading: -25.58 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 202.63 deg | qmc_heading: -25.58 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 118.25 deg | qmc_heading: 58.81 deg | phase: coarse | target_rpm: 105.00
+[17:43:18] [PonteH] Remaining angle: 118.25 deg | qmc_heading: 58.81 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 231.69 deg | qmc_heading: -54.63 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 249.11 deg | qmc_heading: -72.06 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 267.81 deg | qmc_heading: -90.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 295.00 deg | qmc_heading: -117.94 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 305.19 deg | qmc_heading: -128.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 305.19 deg | qmc_heading: -128.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 305.19 deg | qmc_heading: -128.14 deg | phase: coarse | target_rpm: 105.00
+[17:43:19] [PonteH] Remaining angle: 340.81 deg | qmc_heading: -163.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:20] [PonteH] Remaining angle: 340.81 deg | qmc_heading: -163.75 deg | phase: coarse | target_rpm: 105.00
+[17:43:20] [PonteH] Remaining angle: 338.72 deg | qmc_heading: -161.66 deg | phase: coarse | target_rpm: 105.00
+[17:43:20] [PonteH] Remaining angle: 338.72 deg | qmc_heading: -161.66 deg | phase: coarse | target_rpm: 105.00
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:43:22] {"map": }
+[17:43:22] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:23] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:23] [PonteH] Remaining angle: -246.17 deg | qmc_heading: -114.01 deg | phase: fine | target_rpm: 38.00
+[17:43:23] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:23] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:23] [PonteH] Remaining angle: -246.35 deg | qmc_heading: -114.19 deg | phase: fine | target_rpm: 38.00
+[17:43:23] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:24] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:24] [PonteH] Remaining angle: -245.86 deg | qmc_heading: -113.70 deg | phase: fine | target_rpm: 38.00
+[17:43:24] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:24] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:24] [PonteH] Remaining angle: -245.83 deg | qmc_heading: -113.67 deg | phase: fine | target_rpm: 38.00
+[17:43:24] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:24] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:24] [PonteH] Remaining angle: -242.63 deg | qmc_heading: -110.47 deg | phase: fine | target_rpm: 38.00
+[17:43:24] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:25] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+[17:43:25] [PonteH] Remaining angle: -242.64 deg | qmc_heading: -110.48 deg | phase: fine | target_rpm: 38.00
+[17:43:25] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:25] [PonteH] Encoder turn calibrated: direction=right target=132.16 deg (2.31 radians) timeout=21894 ms
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:43:27] {"map": }
+[17:43:27] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:27] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:27] [PonteH] Remaining angle: -226.39 deg | qmc_heading: -110.95 deg | phase: fine | target_rpm: 38.00
+[17:43:27] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:27] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:28] [PonteH] Remaining angle: -229.12 deg | qmc_heading: -113.68 deg | phase: fine | target_rpm: 38.00
+[17:43:28] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:28] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:28] [PonteH] Remaining angle: -227.59 deg | qmc_heading: -112.14 deg | phase: fine | target_rpm: 38.00
+[17:43:28] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:28] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:28] [PonteH] Remaining angle: -226.59 deg | qmc_heading: -111.14 deg | phase: fine | target_rpm: 38.00
+[17:43:28] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:28] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:28] [PonteH] Remaining angle: -227.90 deg | qmc_heading: -112.45 deg | phase: fine | target_rpm: 38.00
+[17:43:28] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:28] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:29] [PonteH] Remaining angle: -228.89 deg | qmc_heading: -113.44 deg | phase: fine | target_rpm: 38.00
+[17:43:29] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:29] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:29] [PonteH] Remaining angle: -229.19 deg | qmc_heading: -113.74 deg | phase: fine | target_rpm: 38.00
+[17:43:29] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:29] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:29] [PonteH] Remaining angle: -229.38 deg | qmc_heading: -113.93 deg | phase: fine | target_rpm: 38.00
+[17:43:29] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:30] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:30] [PonteH] Remaining angle: -225.75 deg | qmc_heading: -110.31 deg | phase: fine | target_rpm: 38.00
+[17:43:30] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:30] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:30] [PonteH] Remaining angle: -226.71 deg | qmc_heading: -111.27 deg | phase: fine | target_rpm: 38.00
+[17:43:30] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:30] [PonteH] Encoder turn calibrated: direction=right target=115.45 deg (2.01 radians) timeout=20390 ms
+[17:43:31] [PonteH] Remaining angle: -227.66 deg | qmc_heading: -112.22 deg | phase: fine | target_rpm: 38.00
+[17:43:31] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:31] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:31] [PonteH] Remaining angle: -224.23 deg | qmc_heading: -112.96 deg | phase: fine | target_rpm: 38.00
+[17:43:31] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:31] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:31] [PonteH] Remaining angle: -223.30 deg | qmc_heading: -112.03 deg | phase: fine | target_rpm: 38.00
+[17:43:31] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:31] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:31] [PonteH] Remaining angle: -223.37 deg | qmc_heading: -112.10 deg | phase: fine | target_rpm: 38.00
+[17:43:31] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:32] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:32] [PonteH] Remaining angle: -223.37 deg | qmc_heading: -112.10 deg | phase: fine | target_rpm: 38.00
+[17:43:32] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:32] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:32] [PonteH] Remaining angle: -223.92 deg | qmc_heading: -112.65 deg | phase: fine | target_rpm: 38.00
+[17:43:32] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:32] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:32] [PonteH] Remaining angle: -227.26 deg | qmc_heading: -115.99 deg | phase: fine | target_rpm: 38.00
+[17:43:33] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:33] [PonteH] Encoder turn calibrated: direction=right target=111.27 deg (1.94 radians) timeout=20014 ms
+[17:43:33] [PonteH] Remaining angle: -224.53 deg | qmc_heading: -113.26 deg | phase: fine | target_rpm: 38.00
+[17:43:33] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:33] [PonteH] Encoder turn calibrated: direction=right target=107.09 deg (1.87 radians) timeout=19638 ms
+[17:43:33] [PonteH] Remaining angle: -219.95 deg | qmc_heading: -112.87 deg | phase: fine | target_rpm: 38.00
+[17:43:33] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:34] [PonteH] Encoder turn calibrated: direction=right target=107.09 deg (1.87 radians) timeout=19638 ms
+[17:43:34] [PonteH] Remaining angle: -218.50 deg | qmc_heading: -111.41 deg | phase: fine | target_rpm: 38.00
+[17:43:34] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:34] [PonteH] Encoder turn calibrated: direction=right target=107.09 deg (1.87 radians) timeout=19638 ms
+[17:43:34] [PonteH] Remaining angle: -218.13 deg | qmc_heading: -111.04 deg | phase: fine | target_rpm: 38.00
+[17:43:34] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:34] [PonteH] Encoder turn calibrated: direction=right target=107.09 deg (1.87 radians) timeout=19638 ms
+[17:43:35] [PonteH] Remaining angle: -221.32 deg | qmc_heading: -114.23 deg | phase: fine | target_rpm: 38.00
+[17:43:35] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:35] [PonteH] Encoder turn calibrated: direction=right target=102.91 deg (1.80 radians) timeout=19261 ms
+[17:43:35] [PonteH] Remaining angle: -216.93 deg | qmc_heading: -114.02 deg | phase: fine | target_rpm: 38.00
+[17:43:35] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:36] [PonteH] Encoder turn calibrated: direction=right target=102.91 deg (1.80 radians) timeout=19261 ms
+[17:43:36] [PonteH] Remaining angle: -216.97 deg | qmc_heading: -114.05 deg | phase: fine | target_rpm: 38.00
+[17:43:36] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:36] [PonteH] Encoder turn calibrated: direction=right target=102.91 deg (1.80 radians) timeout=19261 ms
+[17:43:36] [PonteH] Remaining angle: -214.79 deg | qmc_heading: -111.88 deg | phase: fine | target_rpm: 38.00
+[17:43:36] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:36] [PonteH] Encoder turn calibrated: direction=right target=102.91 deg (1.80 radians) timeout=19261 ms
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:43:39] {"map": }
+[17:43:39] [PonteH] Remaining angle: -192.66 deg | qmc_heading: -110.65 deg | phase: fine | target_rpm: 38.00
+[17:43:39] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:39] [PonteH] Encoder turn calibrated: direction=right target=77.84 deg (1.36 radians) timeout=17005 ms
+[17:43:40] [PonteH] Remaining angle: -191.12 deg | qmc_heading: -113.28 deg | phase: fine | target_rpm: 38.00
+[17:43:40] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:40] [PonteH] Encoder turn calibrated: direction=right target=77.84 deg (1.36 radians) timeout=17005 ms
+[17:43:40] [PonteH] Remaining angle: -193.85 deg | qmc_heading: -116.01 deg | phase: fine | target_rpm: 38.00
+[17:43:40] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:40] [PonteH] Encoder turn calibrated: direction=right target=77.84 deg (1.36 radians) timeout=17005 ms
+[17:43:40] [PonteH] Remaining angle: -193.32 deg | qmc_heading: -115.48 deg | phase: fine | target_rpm: 38.00
+[17:43:40] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:41] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:41] [PonteH] Remaining angle: -187.51 deg | qmc_heading: -113.85 deg | phase: fine | target_rpm: 38.00
+[17:43:41] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:41] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:41] [PonteH] Remaining angle: -187.28 deg | qmc_heading: -113.62 deg | phase: fine | target_rpm: 38.00
+[17:43:41] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:41] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:42] [PonteH] Remaining angle: -187.14 deg | qmc_heading: -113.48 deg | phase: fine | target_rpm: 38.00
+[17:43:42] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:42] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:42] [PonteH] Remaining angle: -187.14 deg | qmc_heading: -113.48 deg | phase: fine | target_rpm: 38.00
+[17:43:42] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:42] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:42] [PonteH] Remaining angle: -185.59 deg | qmc_heading: -111.93 deg | phase: fine | target_rpm: 38.00
+[17:43:42] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:43] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:43] [PonteH] Remaining angle: -185.59 deg | qmc_heading: -111.93 deg | phase: fine | target_rpm: 38.00
+[17:43:43] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:43] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:43] [PonteH] Remaining angle: -185.64 deg | qmc_heading: -111.98 deg | phase: fine | target_rpm: 38.00
+[17:43:43] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:43] [PonteH] Encoder turn calibrated: direction=right target=73.66 deg (1.29 radians) timeout=16629 ms
+[17:43:43] [PonteH] Remaining angle: -185.41 deg | qmc_heading: -111.75 deg | phase: fine | target_rpm: 38.00
+[17:43:43] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:44] [PonteH] Encoder turn calibrated: direction=right target=69.48 deg (1.21 radians) timeout=16253 ms
+[17:43:44] [PonteH] Remaining angle: -180.98 deg | qmc_heading: -111.50 deg | phase: fine | target_rpm: 38.00
+[17:43:44] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:44] [PonteH] Encoder turn calibrated: direction=right target=69.48 deg (1.21 radians) timeout=16253 ms
+[17:43:44] [PonteH] Remaining angle: -180.86 deg | qmc_heading: -111.38 deg | phase: fine | target_rpm: 38.00
+[17:43:44] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:44] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:44] [PonteH] Remaining angle: -178.77 deg | qmc_heading: -113.46 deg | phase: fine | target_rpm: 38.00
+[17:43:45] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:45] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:45] [PonteH] Remaining angle: -176.69 deg | qmc_heading: -111.39 deg | phase: fine | target_rpm: 38.00
+[17:43:45] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:45] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:45] [PonteH] Remaining angle: -177.66 deg | qmc_heading: -112.36 deg | phase: fine | target_rpm: 38.00
+[17:43:45] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:46] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:46] [PonteH] Remaining angle: -178.94 deg | qmc_heading: -113.64 deg | phase: fine | target_rpm: 38.00
+[17:43:46] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:46] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:46] [PonteH] Remaining angle: -177.47 deg | qmc_heading: -112.16 deg | phase: fine | target_rpm: 38.00
+[17:43:46] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:46] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+[17:43:46] [PonteH] Remaining angle: -175.88 deg | qmc_heading: -110.58 deg | phase: fine | target_rpm: 38.00
+[17:43:47] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:47] [PonteH] Encoder turn calibrated: direction=right target=65.30 deg (1.14 radians) timeout=15877 ms
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:43:49] {"map": }
+[17:43:50] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:50] [PonteH] Remaining angle: -154.41 deg | qmc_heading: -110.00 deg | phase: fine | target_rpm: 38.00
+[17:43:50] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:50] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:50] [PonteH] Remaining angle: -156.57 deg | qmc_heading: -112.16 deg | phase: fine | target_rpm: 38.00
+[17:43:50] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:50] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:50] [PonteH] Remaining angle: -154.25 deg | qmc_heading: -109.84 deg | phase: fine | target_rpm: 38.00
+[17:43:50] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:50] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:50] [PonteH] Remaining angle: -156.74 deg | qmc_heading: -112.33 deg | phase: fine | target_rpm: 38.00
+[17:43:51] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:51] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:51] [PonteH] Remaining angle: -155.76 deg | qmc_heading: -111.35 deg | phase: fine | target_rpm: 38.00
+[17:43:51] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:51] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:51] [PonteH] Remaining angle: -155.27 deg | qmc_heading: -110.86 deg | phase: fine | target_rpm: 38.00
+[17:43:51] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:51] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:52] [PonteH] Remaining angle: -154.96 deg | qmc_heading: -110.55 deg | phase: fine | target_rpm: 38.00
+[17:43:52] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:52] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:52] [PonteH] Remaining angle: -154.78 deg | qmc_heading: -110.37 deg | phase: fine | target_rpm: 38.00
+[17:43:52] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:52] [PonteH] Encoder turn calibrated: direction=right target=44.41 deg (0.78 radians) timeout=13996 ms
+[17:43:53] [PonteH] Remaining angle: -157.51 deg | qmc_heading: -113.10 deg | phase: fine | target_rpm: 38.00
+[17:43:53] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:53] [PonteH] Encoder turn calibrated: direction=right target=40.23 deg (0.70 radians) timeout=13620 ms
+[17:43:53] [PonteH] Remaining angle: -151.58 deg | qmc_heading: -111.35 deg | phase: fine | target_rpm: 38.00
+[17:43:53] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:53] [PonteH] Encoder turn calibrated: direction=right target=40.23 deg (0.70 radians) timeout=13620 ms
+[17:43:53] [PonteH] Remaining angle: -153.05 deg | qmc_heading: -112.82 deg | phase: fine | target_rpm: 38.00
+[17:43:53] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:53] [PonteH] Encoder turn calibrated: direction=right target=40.23 deg (0.70 radians) timeout=13620 ms
+[17:43:53] [PonteH] Remaining angle: -151.84 deg | qmc_heading: -111.61 deg | phase: fine | target_rpm: 38.00
+[17:43:54] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:54] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:54] [PonteH] Remaining angle: -144.46 deg | qmc_heading: -108.40 deg | phase: fine | target_rpm: 38.00
+[17:43:54] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:54] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:54] [PonteH] Remaining angle: -147.01 deg | qmc_heading: -110.96 deg | phase: fine | target_rpm: 38.00
+[17:43:54] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:54] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:54] [PonteH] Remaining angle: -148.72 deg | qmc_heading: -112.67 deg | phase: fine | target_rpm: 38.00
+[17:43:54] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:54] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:54] [PonteH] Remaining angle: -148.37 deg | qmc_heading: -112.31 deg | phase: fine | target_rpm: 38.00
+[17:43:55] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:55] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:55] [PonteH] Remaining angle: -147.55 deg | qmc_heading: -111.49 deg | phase: fine | target_rpm: 38.00
+[17:43:55] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:55] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:55] [PonteH] Remaining angle: -147.68 deg | qmc_heading: -111.63 deg | phase: fine | target_rpm: 38.00
+[17:43:55] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:55] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:55] [PonteH] Remaining angle: -148.00 deg | qmc_heading: -111.95 deg | phase: fine | target_rpm: 38.00
+[17:43:56] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:56] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:56] [PonteH] Remaining angle: -148.21 deg | qmc_heading: -112.15 deg | phase: fine | target_rpm: 38.00
+[17:43:56] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:56] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:56] [PonteH] Remaining angle: -149.67 deg | qmc_heading: -113.61 deg | phase: fine | target_rpm: 38.00
+[17:43:56] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:56] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:56] [PonteH] Remaining angle: -147.05 deg | qmc_heading: -110.99 deg | phase: fine | target_rpm: 38.00
+[17:43:57] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:57] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:57] [PonteH] Remaining angle: -149.50 deg | qmc_heading: -113.45 deg | phase: fine | target_rpm: 38.00
+[17:43:57] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:57] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:58] [PonteH] Remaining angle: -147.86 deg | qmc_heading: -111.81 deg | phase: fine | target_rpm: 38.00
+[17:43:58] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:43:58] [PonteH] Encoder turn calibrated: direction=right target=36.05 deg (0.63 radians) timeout=13244 ms
+[17:43:58] [PonteH] Remaining angle: -147.23 deg | qmc_heading: -111.18 deg | phase: fine | target_rpm: 38.00
+[17:43:58] [PonteH] Curva finalizada por encoder. Alvo angular atingido.

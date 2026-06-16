@@ -1,0 +1,60 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[16:27:30] {"map": }
+[16:27:53] [GridCellNavigator] Executando caminho A* com 5 célula(s).
+[16:27:54] [GridCellNavigator] Avançando célula 1/4 para X=2 Y=1.
+[16:27:56] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.286 m.
+[16:27:56] [GridCellNavigator] Avançando célula 2/4 para X=3 Y=1.
+[16:27:58] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.291 m.
+[16:27:59] [GridCellNavigator] Avançando célula 3/4 para X=4 Y=1.
+[16:28:01] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.286 m.
+[16:28:01] [GridCellNavigator] Avançando célula 4/4 para X=5 Y=1.
+[16:28:04] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.306 m.
+[16:28:16] [GridCellNavigator] Executando caminho A* com 2 célula(s).
+[16:28:17] [PonteH] Turn limit calibrated: internal=90.00 deg (1.57 radians)
+[16:28:17] [PonteH] Turning Angle Z: 2.68 rad (153.71 deg) on deltaTime: 0.10
+[PonteH] Angle error: -91.20 deg | phase: coarse | correction: -1.50
+[16:28:19] [PonteH] Turning Angle Z: 2.64 rad (150.98 deg) on deltaTime: 0.12
+[PonteH] Angle error: -88.47 deg | phase: coarse | correction: -1.50
+[16:28:19] [PonteH] Turning Angle Z: 2.64 rad (150.98 deg) on deltaTime: 0.11
+[PonteH] Angle error: -88.47 deg | phase: coarse | correction: -1.50
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[16:28:23] {"map": }
+[16:28:24] [PonteH] Turning Angle Z: -2.99 rad (-171.19 deg) on deltaTime: 0.12
+[PonteH] Angle error: 233.70 deg | phase: coarse | correction: 1.50
+[16:28:24] [PonteH] Turning Angle Z: 0.77 rad (44.27 deg) on deltaTime: 0.11
+[PonteH] Angle error: 18.24 deg | phase: coarse | correction: -1.50
+[16:28:25] [PonteH] Turning Angle Z: 1.74 rad (99.82 deg) on deltaTime: 0.12
+[PonteH] Angle error: -37.31 deg | phase: coarse | correction: -0.95
+[16:28:26] [PonteH] Turning Angle Z: 1.74 rad (99.82 deg) on deltaTime: 0.12
+[PonteH] Angle error: -37.31 deg | phase: coarse | correction: -0.38
+[16:28:26] [PonteH] Turning Angle Z: -0.50 rad (-28.37 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.88 deg | phase: coarse | correction: 1.50
+[16:28:27] [PonteH] Turning Angle Z: -0.50 rad (-28.37 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.88 deg | phase: coarse | correction: 1.50
+[16:28:27] [PonteH] Turning Angle Z: -0.50 rad (-28.37 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.88 deg | phase: coarse | correction: 1.50
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[16:28:33] {"map": }
+[16:28:34] [PonteH] Turning Angle Z: -1.59 rad (-91.34 deg) on deltaTime: 0.15
+[PonteH] Angle error: 153.84 deg | phase: coarse | correction: 1.50
+[16:28:34] [PonteH] Turning Angle Z: 0.57 rad (32.42 deg) on deltaTime: 0.11
+[PonteH] Angle error: 30.08 deg | phase: coarse | correction: -0.47
+[16:28:35] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.15
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: -0.11
+[16:28:35] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.11
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.24
+[16:28:35] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.14
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.24
+[16:28:35] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.12
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.24
+[16:28:35] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.14
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.24
+[16:28:36] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.12
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.23
+[16:28:36] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.14
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.23
+[16:28:37] [PonteH] Turning Angle Z: 1.15 rad (65.84 deg) on deltaTime: 0.12
+[PonteH] Angle error: -3.33 deg | phase: fine | correction: 0.23

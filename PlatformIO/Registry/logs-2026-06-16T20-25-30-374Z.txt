@@ -1,0 +1,167 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[5:21:49 PM] {"map": }
+[5:21:58 PM] [GridCellNavigator] Executando caminho A* com 4 célula(s).
+[5:21:58 PM] [PonteH] Encoder turn calibrated: direction=left target=90.00 deg (1.57 radians) timeout=18100 ms
+[5:21:58 PM] [PonteH] Encoder Turn Z scaled: 0.00 rad (0.00 deg) | raw: 0.00 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 151.48 deg | phase: coarse | target_rpm: 105.00
+[5:21:58 PM] [PonteH] Encoder Turn Z scaled: 0.04 rad (2.09 deg) | raw: 4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.10
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 149.34 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.04 rad (2.09 deg) | raw: 4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 34.71 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.04 rad (2.09 deg) | raw: 4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.10
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 118.65 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.04 rad (2.09 deg) | raw: 4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 143.05 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.04 rad (2.09 deg) | raw: 4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 129.76 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.07 rad (4.18 deg) | raw: 8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 119.18 deg | phase: coarse | target_rpm: 105.00
+[5:21:59 PM] [PonteH] Encoder Turn Z scaled: 0.07 rad (4.18 deg) | raw: 8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 116.47 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.07 rad (4.18 deg) | raw: 8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 117.03 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.07 rad (4.18 deg) | raw: 8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 117.26 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.15 rad (8.36 deg) | raw: 16.71 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: 117.26 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.22 rad (12.54 deg) | raw: 25.07 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: 117.26 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.26 rad (14.62 deg) | raw: 29.25 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 75.38 deg | qmc_heading: 108.92 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.40 rad (22.98 deg) | raw: 45.96 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 67.02 deg | qmc_heading: 108.92 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.51 rad (29.25 deg) | raw: 58.50 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 60.75 deg | qmc_heading: 104.92 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.58 rad (33.43 deg) | raw: 66.86 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 56.57 deg | qmc_heading: 100.69 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.77 rad (43.87 deg) | raw: 87.75 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 46.13 deg | qmc_heading: -171.04 deg | phase: coarse | target_rpm: 105.00
+[5:22:00 PM] [PonteH] Encoder Turn Z scaled: 0.91 rad (52.23 deg) | raw: 104.46 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 37.77 deg | qmc_heading: -66.02 deg | phase: coarse | target_rpm: 105.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.06 rad (60.59 deg) | raw: 121.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 29.41 deg | qmc_heading: -9.82 deg | phase: coarse | target_rpm: 105.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.28 rad (73.12 deg) | raw: 146.25 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 16.88 deg | qmc_heading: 43.38 deg | phase: coarse | target_rpm: 105.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.42 rad (81.48 deg) | raw: 162.96 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 8.52 deg | qmc_heading: 134.47 deg | phase: fine | target_rpm: 55.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.50 rad (85.66 deg) | raw: 171.32 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 4.34 deg | qmc_heading: 173.48 deg | phase: fine | target_rpm: 55.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.53 rad (87.75 deg) | raw: 175.50 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: 173.48 deg | phase: fine | target_rpm: 55.00
+[5:22:01 PM] [PonteH] Encoder Turn Z scaled: 1.53 rad (87.75 deg) | raw: 175.50 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: 173.48 deg | phase: fine | target_rpm: 55.00
+[5:22:02 PM] [PonteH] Encoder Turn Z scaled: 1.57 rad (89.84 deg) | raw: 179.68 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 0.16 deg | qmc_heading: 69.67 deg | phase: fine | target_rpm: 55.00
+[5:22:02 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[5:22:02 PM] [GridCellNavigator] Avançando célula 1/3 para X=1 Y=2.
+[5:22:02 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=66.21 deg
+[5:22:02 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=70.39 deg
+[5:22:03 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=78.75 deg
+[5:22:03 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=149.46 deg
+[5:22:03 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=135.31 deg
+[5:22:03 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=2. Distância: 0.286 m.
+[5:22:04 PM] [GridCellNavigator] Avançando célula 2/3 para X=1 Y=3.
+[5:22:04 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=159.47 deg
+[5:22:04 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=140.55 deg
+[5:22:05 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=160.85 deg
+[5:22:05 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=176.49 deg
+[5:22:06 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=167.34 deg
+[5:22:06 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=3. Distância: 0.286 m.
+[5:22:06 PM] [GridCellNavigator] Avançando célula 3/3 para X=1 Y=4.
+[5:22:07 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=127.99 deg
+[5:22:07 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=163.65 deg
+[5:22:07 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=179.02 deg
+[5:22:08 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=131.06 deg
+[5:22:09 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=93.28 deg
+[5:22:09 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=4. Distância: 0.286 m.
+[5:22:20 PM] [GridCellNavigator] Executando caminho A* com 4 célula(s).
+[5:22:20 PM] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[5:22:20 PM] [PonteH] Encoder Turn Z scaled: 0.00 rad (0.00 deg) | raw: 0.00 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 74.62 deg | phase: coarse | target_rpm: 105.00
+[5:22:20 PM] [PonteH] Encoder Turn Z scaled: -0.04 rad (-2.09 deg) | raw: -4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 67.34 deg | phase: coarse | target_rpm: 105.00
+[5:22:21 PM] [PonteH] Encoder Turn Z scaled: -0.04 rad (-2.09 deg) | raw: -4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 34.13 deg | phase: coarse | target_rpm: 105.00
+[5:22:21 PM] [PonteH] Encoder Turn Z scaled: -0.04 rad (-2.09 deg) | raw: -4.18 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 87.91 deg | qmc_heading: 16.19 deg | phase: coarse | target_rpm: 105.00
+[5:22:21 PM] [PonteH] Encoder Turn Z scaled: -0.07 rad (-4.18 deg) | raw: -8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 10.99 deg | phase: coarse | target_rpm: 105.00
+[5:22:21 PM] [PonteH] Encoder Turn Z scaled: -0.07 rad (-4.18 deg) | raw: -8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 7.81 deg | phase: coarse | target_rpm: 105.00
+[5:22:21 PM] [PonteH] Encoder Turn Z scaled: -0.07 rad (-4.18 deg) | raw: -8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 2.93 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.07 rad (-4.18 deg) | raw: -8.36 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 1.89 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.11 rad (-6.27 deg) | raw: -12.54 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 83.73 deg | qmc_heading: 1.89 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.15 rad (-8.36 deg) | raw: -16.71 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: 1.89 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.22 rad (-12.54 deg) | raw: -25.07 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: 1.89 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.33 rad (-18.80 deg) | raw: -37.61 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 71.20 deg | qmc_heading: 57.67 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.36 rad (-20.89 deg) | raw: -41.79 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 69.11 deg | qmc_heading: 90.80 deg | phase: coarse | target_rpm: 105.00
+[5:22:22 PM] [PonteH] Encoder Turn Z scaled: -0.44 rad (-25.07 deg) | raw: -50.14 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 64.93 deg | qmc_heading: 91.25 deg | phase: coarse | target_rpm: 105.00
+[5:22:23 PM] [PonteH] Encoder Turn Z scaled: -0.58 rad (-33.43 deg) | raw: -66.86 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 56.57 deg | qmc_heading: 86.64 deg | phase: coarse | target_rpm: 105.00
+[5:22:23 PM] [PonteH] Encoder Turn Z scaled: -0.66 rad (-37.61 deg) | raw: -75.21 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 52.39 deg | qmc_heading: -31.57 deg | phase: coarse | target_rpm: 105.00
+[5:22:23 PM] [PonteH] Encoder Turn Z scaled: -0.73 rad (-41.79 deg) | raw: -83.57 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 48.21 deg | qmc_heading: 5.17 deg | phase: coarse | target_rpm: 105.00
+[5:22:23 PM] [PonteH] Encoder Turn Z scaled: -0.84 rad (-48.05 deg) | raw: -96.11 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 41.95 deg | qmc_heading: 5.17 deg | phase: coarse | target_rpm: 105.00
+[5:22:23 PM] [PonteH] Encoder Turn Z scaled: -1.02 rad (-58.50 deg) | raw: -117.00 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 31.50 deg | qmc_heading: 25.99 deg | phase: coarse | target_rpm: 105.00
+[5:22:24 PM] [PonteH] Encoder Turn Z scaled: -1.13 rad (-64.77 deg) | raw: -129.54 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.12
+[PonteH] Remaining angle: 25.23 deg | qmc_heading: 50.31 deg | phase: coarse | target_rpm: 105.00
+[5:22:24 PM] [PonteH] Encoder Turn Z scaled: -1.13 rad (-64.77 deg) | raw: -129.54 deg | scale: 0.50 | rejected_spikes: 0 | deltaTime: 0.11
+[PonteH] Remaining angle: 25.23 deg | qmc_heading: 59.01 deg | phase: coarse | target_rpm: 105.00
+[5:22:24 PM] [EKF] Spike ignorado no encoder esquerdo: delta=23 ticks
+[5:22:24 PM] [EKF] Spike ignorado no encoder esquerdo: delta=45 ticks
+[5:22:24 PM] [PonteH] Spike de encoder ignorado durante giro: delta_raw=-317.57 deg | limite=68.40 deg | raw_total=-447.11 deg
+[5:22:24 PM] [PonteH] Encoder Turn Z scaled: -1.13 rad (-64.77 deg) | raw: -447.11 deg | scale: 0.50 | rejected_spikes: 1 | deltaTime: 0.11
+[PonteH] Remaining angle: 25.23 deg | qmc_heading: 60.31 deg | phase: coarse | target_rpm: 105.00
+[5:22:24 PM] [EKF] Spike ignorado no encoder esquerdo: delta=829 ticks
+[5:22:24 PM] [PonteH] Spike de encoder ignorado durante giro: delta_raw=-3484.93 deg | limite=63.00 deg | raw_total=-3932.04 deg
+[5:22:24 PM] [PonteH] Encoder Turn Z scaled: -1.13 rad (-64.77 deg) | raw: -3932.04 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 25.23 deg | qmc_heading: 60.31 deg | phase: coarse | target_rpm: 105.00
+[5:22:25 PM] [PonteH] Encoder Turn Z scaled: -1.20 rad (-68.95 deg) | raw: -3940.39 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.12
+[PonteH] Remaining angle: 21.05 deg | qmc_heading: 104.54 deg | phase: coarse | target_rpm: 105.00
+[5:22:25 PM] [PonteH] Encoder Turn Z scaled: -1.24 rad (-71.04 deg) | raw: -3944.57 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 18.96 deg | qmc_heading: 139.02 deg | phase: coarse | target_rpm: 105.00
+[5:22:25 PM] [PonteH] Encoder Turn Z scaled: -1.28 rad (-73.12 deg) | raw: -3948.75 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.10
+[PonteH] Remaining angle: 16.88 deg | qmc_heading: 129.84 deg | phase: coarse | target_rpm: 105.00
+[5:22:25 PM] [PonteH] Encoder Turn Z scaled: -1.31 rad (-75.21 deg) | raw: -3952.93 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.12
+[PonteH] Remaining angle: 14.79 deg | qmc_heading: 139.51 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.39 rad (-79.39 deg) | raw: -3961.29 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 10.61 deg | qmc_heading: 152.26 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.46 rad (-83.57 deg) | raw: -3969.64 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: 157.06 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.46 rad (-83.57 deg) | raw: -3969.64 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: 163.43 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.46 rad (-83.57 deg) | raw: -3969.64 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: 170.88 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.53 rad (-87.75 deg) | raw: -3978.00 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: 170.69 deg | phase: fine | target_rpm: 55.00
+[5:22:26 PM] [PonteH] Encoder Turn Z scaled: -1.57 rad (-89.84 deg) | raw: -3982.18 deg | scale: 0.50 | rejected_spikes: 2 | deltaTime: 0.11
+[PonteH] Remaining angle: 0.16 deg | qmc_heading: 168.98 deg | phase: fine | target_rpm: 55.00
+[5:22:27 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[5:22:27 PM] [GridCellNavigator] Avançando célula 1/3 para X=2 Y=4.
+[5:22:27 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=172.79 deg
+[5:22:27 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=176.59 deg
+[5:22:27 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=163.72 deg
+[5:22:27 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=150.73 deg
+[5:22:28 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=128.23 deg
+[5:22:28 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=4. Distância: 0.286 m.
+[5:22:28 PM] [GridCellNavigator] Avançando célula 2/3 para X=3 Y=4.
+[5:22:28 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=45.80 deg
+[5:22:28 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=163.57 deg
+[5:22:28 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=86.59 deg
+[5:22:29 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=88.27 deg
+[5:22:29 PM] [QMC5883L] Heading ignorado no EKF por salto: innovation=120.42 deg
+[5:22:29 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=4. Distância: 0.286 m.
+[5:22:29 PM] [GridCellNavigator] Avançando célula 3/3 para X=4 Y=4.
+[5:22:32 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=4. Distância: 0.286 m.

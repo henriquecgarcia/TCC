@@ -1,0 +1,692 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[4:33:00 PM] {"map": }
+[4:33:11 PM] [GridCellNavigator] Executando caminho A* com 5 célula(s).
+[4:33:11 PM] [PonteH] QMC turn calibrated: direction=left target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.10 rad (5.59 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 90.25 deg | signed_error: 90.25 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.10 rad (5.52 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 90.32 deg | signed_error: 90.32 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.09 rad (5.33 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 90.52 deg | signed_error: 90.52 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.08 rad (4.72 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 91.12 deg | signed_error: 91.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.04 rad (2.40 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 93.44 deg | signed_error: 93.44 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.06 rad (3.69 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 92.16 deg | signed_error: 92.16 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:12 PM] [PonteH] QMC Heading Z: 0.08 rad (4.45 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 91.39 deg | signed_error: 91.39 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.02 rad (1.22 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 94.63 deg | signed_error: 94.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.04 rad (2.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 93.81 deg | signed_error: 93.81 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.06 rad (3.32 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 92.53 deg | signed_error: 92.53 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.14 rad (7.80 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 88.04 deg | signed_error: 88.04 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 33
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.12 rad (7.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 88.80 deg | signed_error: 88.80 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.15 rad (8.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 87.45 deg | signed_error: 87.45 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:13 PM] [PonteH] QMC Heading Z: 0.16 rad (9.38 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 86.47 deg | signed_error: 86.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.18 rad (10.35 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 85.49 deg | signed_error: 85.49 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.20 rad (11.49 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 84.35 deg | signed_error: 84.35 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.15 rad (8.79 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 87.05 deg | signed_error: 87.05 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.12 rad (6.98 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 88.87 deg | signed_error: 88.87 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.18 rad (10.15 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 85.69 deg | signed_error: 85.69 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:14 PM] [PonteH] QMC Heading Z: 0.20 rad (11.36 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 84.49 deg | signed_error: 84.49 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:15 PM] [PonteH] QMC Heading Z: 0.20 rad (11.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 84.42 deg | signed_error: 84.42 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:15 PM] [PonteH] QMC Heading Z: 0.23 rad (13.18 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 82.67 deg | signed_error: 82.67 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:15 PM] [PonteH] QMC Heading Z: 1.13 rad (65.02 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 30.82 deg | signed_error: 30.82 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:16 PM] [PonteH] QMC Heading Z: 2.50 rad (143.48 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 47.63 deg | signed_error: -47.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:16 PM] [PonteH] QMC Heading Z: 2.40 rad (137.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 41.58 deg | signed_error: -41.58 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:16 PM] [PonteH] QMC Heading Z: 2.14 rad (122.58 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 26.73 deg | signed_error: -26.73 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:16 PM] [PonteH] QMC Heading Z: 2.23 rad (127.88 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 32.04 deg | signed_error: -32.04 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:16 PM] [PonteH] QMC Heading Z: 0.32 rad (18.52 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 77.32 deg | signed_error: 77.32 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:16 PM] [PonteH] QMC Heading Z: 1.74 rad (99.55 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 3.71 deg | signed_error: -3.71 deg | phase: fine | stable: 1/3 | qmc_age_ms: 18
+[4:33:16 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:16 PM] [PonteH] QMC turn calibrated: direction=left target=61.58 deg (1.07 radians) timeout=15542 ms
+[4:33:16 PM] [PonteH] QMC Heading Z: 0.68 rad (38.95 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 151.72 deg | signed_error: 151.72 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:16 PM] [PonteH] QMC Heading Z: 0.19 rad (10.88 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 179.78 deg | signed_error: 179.78 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 0
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.16 rad (9.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 178.47 deg | signed_error: -178.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 23
+[4:33:17 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 33
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.05 rad (3.12 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 172.46 deg | signed_error: -172.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:18 PM] [PonteH] QMC Heading Z: 0.52 rad (29.77 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 160.89 deg | signed_error: 160.89 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:18 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:18 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:19 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 34
+[4:33:19 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:19 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 25
+[4:33:19 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:19 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:20 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:20 PM] [PonteH] QMC Heading Z: 1.49 rad (85.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 105.02 deg | signed_error: 105.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 40
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 41
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 23
+[4:33:20 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:21 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:21 PM] [PonteH] QMC Heading Z: 2.57 rad (147.39 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 43.28 deg | signed_error: 43.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:21 PM] [PonteH] QMC Heading Z: 2.16 rad (123.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 67.03 deg | signed_error: 67.03 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:21 PM] [PonteH] QMC Heading Z: 1.34 rad (77.06 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 113.61 deg | signed_error: 113.61 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:21 PM] [PonteH] QMC Heading Z: 1.03 rad (59.10 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 131.56 deg | signed_error: 131.56 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:21 PM] [PonteH] QMC Heading Z: 1.38 rad (79.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 111.38 deg | signed_error: 111.38 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:21 PM] [PonteH] QMC Heading Z: 1.74 rad (99.47 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 91.20 deg | signed_error: 91.20 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 29
+[4:33:21 PM] [PonteH] QMC Heading Z: -0.57 rad (-32.48 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 136.86 deg | signed_error: -136.86 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:22 PM] [PonteH] QMC Heading Z: -0.57 rad (-32.48 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 136.86 deg | signed_error: -136.86 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.30 rad (17.31 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.36 deg | signed_error: 173.36 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:22 PM] [PonteH] QMC Heading Z: 1.43 rad (82.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 108.62 deg | signed_error: 108.62 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:22 PM] [PonteH] QMC Heading Z: 1.43 rad (82.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 108.62 deg | signed_error: 108.62 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 33
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:22 PM] [PonteH] QMC Heading Z: 0.07 rad (4.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.37 deg | signed_error: -173.37 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:23 PM] [PonteH] QMC Heading Z: -0.42 rad (-23.82 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 145.51 deg | signed_error: -145.51 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 23
+[4:33:23 PM] [PonteH] QMC Heading Z: -0.42 rad (-23.82 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 145.51 deg | signed_error: -145.51 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:23 PM] [PonteH] QMC Heading Z: -1.27 rad (-72.83 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 96.50 deg | signed_error: -96.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.69 rad (-154.32 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 15.01 deg | signed_error: -15.01 deg | phase: fine | stable: 0/3 | qmc_age_ms: 6
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.69 rad (-154.32 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 15.01 deg | signed_error: -15.01 deg | phase: fine | stable: 0/3 | qmc_age_ms: 2
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.78 rad (-159.51 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 9.82 deg | signed_error: -9.82 deg | phase: fine | stable: 0/3 | qmc_age_ms: 12
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.46 rad (-141.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 28.30 deg | signed_error: -28.30 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.36 rad (-135.32 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 34.02 deg | signed_error: -34.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:23 PM] [PonteH] QMC Heading Z: -2.70 rad (-154.55 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 14.79 deg | signed_error: -14.79 deg | phase: fine | stable: 0/3 | qmc_age_ms: 2
+[4:33:24 PM] [PonteH] QMC Heading Z: -2.70 rad (-154.55 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 14.79 deg | signed_error: -14.79 deg | phase: fine | stable: 0/3 | qmc_age_ms: 39
+[4:33:24 PM] [PonteH] QMC Heading Z: -0.59 rad (-33.67 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 135.67 deg | signed_error: -135.67 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:24 PM] [PonteH] QMC Heading Z: 0.59 rad (33.52 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 157.14 deg | signed_error: 157.14 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:24 PM] [PonteH] QMC Heading Z: 0.52 rad (30.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 160.61 deg | signed_error: 160.61 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:24 PM] [PonteH] QMC Heading Z: 0.06 rad (3.72 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.05 deg | signed_error: -173.05 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:24 PM] [PonteH] QMC Heading Z: 0.88 rad (50.34 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 140.33 deg | signed_error: 140.33 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:24 PM] [PonteH] QMC Heading Z: 1.30 rad (74.60 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 116.07 deg | signed_error: 116.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:24 PM] [PonteH] QMC Heading Z: 0.95 rad (54.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 136.24 deg | signed_error: 136.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:25 PM] [PonteH] QMC Heading Z: 0.95 rad (54.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 136.24 deg | signed_error: 136.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:25 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:25 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:25 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:25 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:26 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:26 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:26 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:26 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:26 PM] [PonteH] QMC Heading Z: 0.86 rad (49.17 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.50 deg | signed_error: 141.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:26 PM] [PonteH] QMC Heading Z: -0.68 rad (-39.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 130.28 deg | signed_error: -130.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:26 PM] [PonteH] QMC Heading Z: -0.68 rad (-39.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 130.28 deg | signed_error: -130.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:27 PM] [PonteH] QMC Heading Z: -1.47 rad (-84.00 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 85.33 deg | signed_error: -85.33 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:27 PM] [PonteH] QMC Heading Z: -1.30 rad (-74.29 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 95.05 deg | signed_error: -95.05 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:27 PM] [PonteH] QMC Heading Z: -1.07 rad (-61.19 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 108.15 deg | signed_error: -108.15 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.94 rad (-53.67 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 115.67 deg | signed_error: -115.67 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.42 rad (-24.21 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 145.12 deg | signed_error: -145.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.42 rad (-24.21 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 145.12 deg | signed_error: -145.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.55 rad (-31.58 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 137.75 deg | signed_error: -137.75 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.79 rad (-45.26 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 124.07 deg | signed_error: -124.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:27 PM] [PonteH] QMC Heading Z: -0.79 rad (-45.26 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 124.07 deg | signed_error: -124.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:28 PM] [PonteH] QMC Heading Z: -0.25 rad (-14.37 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 154.97 deg | signed_error: -154.97 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.58 rad (33.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 157.23 deg | signed_error: 157.23 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.58 rad (33.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 157.23 deg | signed_error: 157.23 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.48 rad (27.56 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 163.11 deg | signed_error: 163.11 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.69 rad (39.27 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 151.39 deg | signed_error: 151.39 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.69 rad (39.27 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 151.39 deg | signed_error: 151.39 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:28 PM] [PonteH] QMC Heading Z: 1.02 rad (58.46 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 132.21 deg | signed_error: 132.21 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.91 rad (52.10 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 138.57 deg | signed_error: 138.57 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:28 PM] [PonteH] QMC Heading Z: 0.73 rad (41.74 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 148.92 deg | signed_error: 148.92 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:28 PM] [PonteH] QMC Heading Z: -0.61 rad (-34.79 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 134.54 deg | signed_error: -134.54 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:28 PM] [PonteH] QMC Heading Z: -0.89 rad (-50.74 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 118.59 deg | signed_error: -118.59 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:28 PM] [PonteH] QMC Heading Z: -1.44 rad (-82.64 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 86.69 deg | signed_error: -86.69 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:28 PM] [PonteH] QMC Heading Z: -1.50 rad (-85.98 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 83.35 deg | signed_error: -83.35 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:29 PM] [PonteH] QMC Heading Z: -1.50 rad (-85.98 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 83.35 deg | signed_error: -83.35 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:29 PM] [PonteH] QMC Heading Z: -2.09 rad (-119.79 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 49.54 deg | signed_error: -49.54 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:29 PM] [PonteH] QMC Heading Z: -0.68 rad (-38.71 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 130.63 deg | signed_error: -130.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:29 PM] [PonteH] QMC Heading Z: -0.68 rad (-38.71 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 130.63 deg | signed_error: -130.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:29 PM] [PonteH] QMC Heading Z: -0.72 rad (-41.24 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 128.09 deg | signed_error: -128.09 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:29 PM] [PonteH] QMC Heading Z: -1.63 rad (-93.34 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 75.99 deg | signed_error: -75.99 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:29 PM] [PonteH] QMC Heading Z: -1.63 rad (-93.34 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 75.99 deg | signed_error: -75.99 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:29 PM] [PonteH] QMC Heading Z: 0.18 rad (10.10 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 179.44 deg | signed_error: -179.44 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:29 PM] [PonteH] QMC Heading Z: 0.17 rad (9.73 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 179.07 deg | signed_error: -179.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:29 PM] [PonteH] QMC Heading Z: 0.42 rad (23.96 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.71 deg | signed_error: 166.71 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.30 rad (-17.07 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 152.27 deg | signed_error: -152.27 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.30 rad (-17.07 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 152.27 deg | signed_error: -152.27 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 41
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.11 rad (-6.48 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 162.85 deg | signed_error: -162.85 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 29
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.11 rad (-6.48 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 162.85 deg | signed_error: -162.85 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:30 PM] [PonteH] QMC Heading Z: 0.68 rad (38.74 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 151.93 deg | signed_error: 151.93 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.79 rad (-45.25 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 124.08 deg | signed_error: -124.08 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:30 PM] [PonteH] QMC Heading Z: -0.79 rad (-45.25 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 124.08 deg | signed_error: -124.08 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:30 PM] [PonteH] QMC Heading Z: -2.96 rad (-169.35 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 0.02 deg | signed_error: 0.02 deg | phase: fine | stable: 1/3 | qmc_age_ms: 37
+[4:33:30 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:30 PM] [PonteH] QMC turn calibrated: direction=left target=59.81 deg (1.04 radians) timeout=15382 ms
+[4:33:30 PM] [PonteH] QMC Heading Z: -2.82 rad (-161.66 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 52.12 deg | signed_error: 52.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:30 PM] [PonteH] QMC Heading Z: -2.82 rad (-161.66 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 52.12 deg | signed_error: 52.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:30 PM] [PonteH] QMC Heading Z: -2.82 rad (-161.66 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 52.12 deg | signed_error: 52.12 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.70 rad (-97.48 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 12.06 deg | signed_error: -12.06 deg | phase: fine | stable: 0/3 | qmc_age_ms: 32
+[4:33:31 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:31 PM] [PonteH] QMC turn calibrated: direction=left target=57.40 deg (1.00 radians) timeout=15166 ms
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.34 rad (-76.90 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 36.82 deg | signed_error: 36.82 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.34 rad (-76.90 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 36.82 deg | signed_error: 36.82 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.10 rad (-63.23 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 23.16 deg | signed_error: 23.16 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.09 rad (-62.57 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 22.50 deg | signed_error: 22.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.09 rad (-62.57 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 22.50 deg | signed_error: 22.50 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:31 PM] [PonteH] QMC Heading Z: -1.06 rad (-60.82 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 20.75 deg | signed_error: 20.75 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.09 rad (-62.26 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 22.18 deg | signed_error: 22.18 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.10 rad (-63.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 23.07 deg | signed_error: 23.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.08 rad (-61.81 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 21.74 deg | signed_error: 21.74 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.07 rad (-61.34 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 21.27 deg | signed_error: 21.27 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.07 rad (-61.03 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 20.96 deg | signed_error: 20.96 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:32 PM] [PonteH] QMC Heading Z: -1.10 rad (-63.01 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 22.93 deg | signed_error: 22.93 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.10 rad (-63.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 23.06 deg | signed_error: 23.06 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.10 rad (-62.76 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 22.68 deg | signed_error: 22.68 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.05 rad (-60.14 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 20.07 deg | signed_error: 20.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.04 rad (-59.50 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 19.43 deg | signed_error: 19.43 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.02 rad (-58.21 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 18.14 deg | signed_error: 18.14 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.01 rad (-57.78 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 17.71 deg | signed_error: 17.71 deg | phase: fine | stable: 0/3 | qmc_age_ms: 7
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.00 rad (-57.51 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 17.44 deg | signed_error: 17.44 deg | phase: fine | stable: 0/3 | qmc_age_ms: 21
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.02 rad (-58.31 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 18.24 deg | signed_error: 18.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:33 PM] [PonteH] QMC Heading Z: -1.38 rad (-79.23 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 39.16 deg | signed_error: 39.16 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:34 PM] [PonteH] QMC Heading Z: -1.72 rad (-98.30 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 58.23 deg | signed_error: 58.23 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:34 PM] [PonteH] QMC Heading Z: -2.03 rad (-116.30 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 76.22 deg | signed_error: 76.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:34 PM] [PonteH] QMC Heading Z: -2.67 rad (-152.79 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 112.71 deg | signed_error: 112.71 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:34 PM] [PonteH] QMC Heading Z: -2.69 rad (-154.00 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 113.92 deg | signed_error: 113.92 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:34 PM] [PonteH] QMC Heading Z: -2.48 rad (-142.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 102.20 deg | signed_error: 102.20 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 36
+[4:33:34 PM] [PonteH] QMC Heading Z: -0.68 rad (-39.02 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 1.06 deg | signed_error: -1.06 deg | phase: fine | stable: 1/3 | qmc_age_ms: 29
+[4:33:34 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:35 PM] [PonteH] QMC turn calibrated: direction=left target=73.26 deg (1.28 radians) timeout=16593 ms
+[4:33:35 PM] [PonteH] QMC Heading Z: 1.04 rad (59.87 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 25.63 deg | signed_error: -25.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:35 PM] [PonteH] QMC Heading Z: 1.04 rad (59.87 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 25.63 deg | signed_error: -25.63 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:35 PM] [PonteH] QMC Heading Z: 0.51 rad (29.00 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 5.24 deg | signed_error: 5.24 deg | phase: fine | stable: 0/3 | qmc_age_ms: 2
+[4:33:35 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:35 PM] [PonteH] QMC turn calibrated: direction=left target=73.05 deg (1.28 radians) timeout=16574 ms
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.51 rad (29.00 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 73.05 deg | signed_error: 73.05 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.51 rad (29.15 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 72.90 deg | signed_error: 72.90 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.52 rad (29.72 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 72.34 deg | signed_error: 72.34 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 34
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.51 rad (29.45 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 72.61 deg | signed_error: 72.61 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.50 rad (28.81 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 73.24 deg | signed_error: 73.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.49 rad (27.91 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 74.14 deg | signed_error: 74.14 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 35
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.49 rad (28.23 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 73.83 deg | signed_error: 73.83 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.49 rad (28.23 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 73.83 deg | signed_error: 73.83 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.51 rad (29.37 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 72.69 deg | signed_error: 72.69 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:36 PM] [PonteH] QMC Heading Z: 0.52 rad (30.00 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 72.06 deg | signed_error: 72.06 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.52 rad (30.07 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 71.98 deg | signed_error: 71.98 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 29
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.54 rad (31.15 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.90 deg | signed_error: 70.90 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 23
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.53 rad (30.32 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 71.74 deg | signed_error: 71.74 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.53 rad (30.32 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 71.74 deg | signed_error: 71.74 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.57 rad (32.59 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 69.46 deg | signed_error: 69.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 29
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.60 rad (34.28 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 67.77 deg | signed_error: 67.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.60 rad (34.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 67.77 deg | signed_error: 67.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.55 rad (31.76 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.30 deg | signed_error: 70.30 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.56 rad (31.87 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.19 deg | signed_error: 70.19 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.56 rad (31.87 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.19 deg | signed_error: 70.19 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:37 PM] [PonteH] QMC Heading Z: 0.58 rad (32.99 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 69.06 deg | signed_error: 69.06 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:37 PM] [PonteH] QMC Heading Z: 1.21 rad (69.53 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 32.53 deg | signed_error: 32.53 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:38 PM] [PonteH] QMC Heading Z: 1.53 rad (87.42 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 14.64 deg | signed_error: 14.64 deg | phase: fine | stable: 0/3 | qmc_age_ms: 21
+[4:33:38 PM] [PonteH] QMC Heading Z: 2.13 rad (121.88 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 19.82 deg | signed_error: -19.82 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:38 PM] [PonteH] Curva finalizada pelo QMC5883L. Alvo angular atingido.
+[4:33:38 PM] [PonteH] QMC turn calibrated: direction=left target=70.83 deg (1.24 radians) timeout=16374 ms
+[4:33:38 PM] [PonteH] QMC Heading Z: 1.54 rad (88.48 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 104.22 deg | signed_error: 104.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:38 PM] [PonteH] QMC Heading Z: 1.54 rad (88.48 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 104.22 deg | signed_error: 104.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:38 PM] [PonteH] QMC Heading Z: 0.60 rad (34.44 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 158.27 deg | signed_error: 158.27 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.53 rad (30.29 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 162.41 deg | signed_error: 162.41 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.53 rad (30.29 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 162.41 deg | signed_error: 162.41 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.53 rad (30.27 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 162.43 deg | signed_error: 162.43 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.51 rad (29.36 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 163.34 deg | signed_error: 163.34 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.50 rad (28.45 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 164.25 deg | signed_error: 164.25 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.45 rad (25.94 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.77 deg | signed_error: 166.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.45 rad (25.94 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 166.77 deg | signed_error: 166.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.45 rad (25.52 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 167.18 deg | signed_error: 167.18 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:39 PM] [PonteH] QMC Heading Z: 0.45 rad (25.62 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 167.08 deg | signed_error: 167.08 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:40 PM] [PonteH] QMC Heading Z: 0.46 rad (26.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.42 deg | signed_error: 166.42 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:40 PM] [PonteH] QMC Heading Z: 0.48 rad (27.30 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 165.40 deg | signed_error: 165.40 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:40 PM] [PonteH] QMC Heading Z: 0.47 rad (26.67 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.04 deg | signed_error: 166.04 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:40 PM] [PonteH] QMC Heading Z: 0.47 rad (26.86 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 165.84 deg | signed_error: 165.84 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 5
+[4:33:40 PM] [PonteH] QMC Heading Z: 0.44 rad (25.42 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 167.28 deg | signed_error: 167.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.45 rad (25.92 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.79 deg | signed_error: 166.79 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.45 rad (25.92 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.79 deg | signed_error: 166.79 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.42 rad (24.18 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 168.52 deg | signed_error: 168.52 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 43
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.41 rad (23.68 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.02 deg | signed_error: 169.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.41 rad (23.68 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.02 deg | signed_error: 169.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.41 rad (23.68 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.03 deg | signed_error: 169.03 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:41 PM] [PonteH] QMC Heading Z: 0.42 rad (24.30 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 168.40 deg | signed_error: 168.40 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:42 PM] [PonteH] QMC Heading Z: 0.77 rad (44.03 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 148.67 deg | signed_error: 148.67 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:42 PM] [PonteH] QMC Heading Z: 1.72 rad (98.52 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 94.18 deg | signed_error: 94.18 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:42 PM] [PonteH] QMC Heading Z: 2.04 rad (116.90 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 75.81 deg | signed_error: 75.81 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:42 PM] [PonteH] QMC Heading Z: 2.06 rad (118.11 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 74.59 deg | signed_error: 74.59 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 26
+[4:33:42 PM] [PonteH] QMC Heading Z: 1.92 rad (109.97 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 82.73 deg | signed_error: 82.73 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:42 PM] [PonteH] QMC Heading Z: 2.12 rad (121.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 71.42 deg | signed_error: 71.42 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:42 PM] [PonteH] QMC Heading Z: 2.22 rad (126.93 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 65.77 deg | signed_error: 65.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:42 PM] [PonteH] QMC Heading Z: 1.63 rad (93.53 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 99.18 deg | signed_error: 99.18 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:42 PM] [PonteH] QMC Heading Z: 0.71 rad (40.73 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 151.97 deg | signed_error: 151.97 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:42 PM] [PonteH] QMC Heading Z: 0.71 rad (40.73 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 151.97 deg | signed_error: 151.97 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:43 PM] [PonteH] QMC Heading Z: 0.41 rad (23.69 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.01 deg | signed_error: 169.01 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:43 PM] [PonteH] QMC Heading Z: 0.41 rad (23.69 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.01 deg | signed_error: 169.01 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:43 PM] [PonteH] QMC Heading Z: 0.41 rad (23.69 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.01 deg | signed_error: 169.01 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:43 PM] [PonteH] QMC Heading Z: 0.35 rad (20.04 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 172.66 deg | signed_error: 172.66 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 10
+[4:33:43 PM] [PonteH] QMC Heading Z: 0.40 rad (22.84 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 169.86 deg | signed_error: 169.86 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:44 PM] [PonteH] QMC Heading Z: 0.35 rad (20.25 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 172.45 deg | signed_error: 172.45 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 26
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.03 rad (-1.95 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 165.35 deg | signed_error: -165.35 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 27
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.49 rad (-27.90 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 139.40 deg | signed_error: -139.40 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.76 rad (-43.70 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 123.60 deg | signed_error: -123.60 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.66 rad (-37.99 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 129.30 deg | signed_error: -129.30 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 32
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.66 rad (-37.99 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 129.30 deg | signed_error: -129.30 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:44 PM] [PonteH] QMC Heading Z: -0.89 rad (-50.91 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 116.38 deg | signed_error: -116.38 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:44 PM] [PonteH] QMC Heading Z: -1.93 rad (-110.40 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 56.89 deg | signed_error: -56.89 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:44 PM] [PonteH] QMC Heading Z: -2.14 rad (-122.43 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 44.87 deg | signed_error: -44.87 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 23
+[4:33:44 PM] [PonteH] QMC Heading Z: -1.90 rad (-108.69 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 58.61 deg | signed_error: -58.61 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:45 PM] [PonteH] QMC Heading Z: -0.09 rad (-5.21 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 162.09 deg | signed_error: -162.09 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:45 PM] [PonteH] QMC Heading Z: 0.81 rad (46.54 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 146.17 deg | signed_error: 146.17 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:45 PM] [PonteH] QMC Heading Z: 1.50 rad (86.17 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 106.53 deg | signed_error: 106.53 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:45 PM] [PonteH] QMC Heading Z: 0.63 rad (35.85 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 156.85 deg | signed_error: 156.85 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:45 PM] [PonteH] QMC Heading Z: 1.17 rad (66.88 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 125.83 deg | signed_error: 125.83 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:46 PM] [PonteH] QMC Heading Z: 0.55 rad (31.46 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 161.24 deg | signed_error: 161.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:46 PM] [PonteH] QMC Heading Z: 0.55 rad (31.46 deg) on deltaTime: 0.10
+[PonteH] Remaining QMC angle: 161.24 deg | signed_error: 161.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:46 PM] [PonteH] QMC Heading Z: -1.68 rad (-96.54 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.76 deg | signed_error: -70.76 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:46 PM] [PonteH] QMC Heading Z: -1.79 rad (-102.41 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 64.89 deg | signed_error: -64.89 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:46 PM] [PonteH] QMC Heading Z: -1.79 rad (-102.41 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 64.89 deg | signed_error: -64.89 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 39
+[4:33:46 PM] [PonteH] QMC Heading Z: -0.72 rad (-41.08 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 126.22 deg | signed_error: -126.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:46 PM] [PonteH] QMC Heading Z: -0.72 rad (-41.08 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 126.22 deg | signed_error: -126.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 9
+[4:33:46 PM] [PonteH] QMC Heading Z: -0.72 rad (-41.08 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 126.22 deg | signed_error: -126.22 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 25
+[4:33:46 PM] [PonteH] QMC Heading Z: 0.27 rad (15.40 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 177.31 deg | signed_error: 177.31 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 38
+[4:33:46 PM] [PonteH] QMC Heading Z: 0.14 rad (7.84 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 175.14 deg | signed_error: -175.14 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:46 PM] [PonteH] QMC Heading Z: 0.35 rad (19.95 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 172.75 deg | signed_error: 172.75 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:47 PM] [PonteH] QMC Heading Z: 0.89 rad (50.77 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.93 deg | signed_error: 141.93 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:47 PM] [PonteH] QMC Heading Z: -0.12 rad (-6.66 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 160.64 deg | signed_error: -160.64 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 1
+[4:33:47 PM] [PonteH] QMC Heading Z: -0.12 rad (-6.66 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 160.64 deg | signed_error: -160.64 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 38
+[4:33:47 PM] [PonteH] QMC Heading Z: -1.63 rad (-93.26 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 74.03 deg | signed_error: -74.03 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:47 PM] [PonteH] QMC Heading Z: -1.60 rad (-91.49 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 75.81 deg | signed_error: -75.81 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:47 PM] [PonteH] QMC Heading Z: -1.20 rad (-69.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 98.26 deg | signed_error: -98.26 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 40
+[4:33:47 PM] [PonteH] QMC Heading Z: -0.44 rad (-25.35 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 141.95 deg | signed_error: -141.95 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:48 PM] [PonteH] QMC Heading Z: -0.44 rad (-25.35 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 141.95 deg | signed_error: -141.95 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:48 PM] [PonteH] QMC Heading Z: 0.11 rad (6.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 173.58 deg | signed_error: -173.58 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:48 PM] [PonteH] QMC Heading Z: 0.51 rad (29.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 163.65 deg | signed_error: 163.65 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:48 PM] [PonteH] QMC Heading Z: 0.79 rad (45.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 147.67 deg | signed_error: 147.67 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:48 PM] [PonteH] QMC Heading Z: 0.73 rad (42.11 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 150.59 deg | signed_error: 150.59 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:48 PM] [PonteH] QMC Heading Z: -0.55 rad (-31.53 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 135.77 deg | signed_error: -135.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 31
+[4:33:48 PM] [PonteH] QMC Heading Z: -0.55 rad (-31.53 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 135.77 deg | signed_error: -135.77 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 18
+[4:33:48 PM] [PonteH] QMC Heading Z: -1.19 rad (-67.92 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 99.38 deg | signed_error: -99.38 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:48 PM] [PonteH] QMC Heading Z: -0.24 rad (-13.84 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 153.46 deg | signed_error: -153.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 22
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.24 rad (-13.84 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 153.46 deg | signed_error: -153.46 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.34 rad (-19.46 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 147.84 deg | signed_error: -147.84 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:49 PM] [PonteH] QMC Heading Z: 0.15 rad (8.77 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 176.07 deg | signed_error: -176.07 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 37
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.07 rad (-4.24 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 163.06 deg | signed_error: -163.06 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 11
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.34 rad (-19.51 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 147.79 deg | signed_error: -147.79 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 17
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.01 rad (-0.82 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.47 deg | signed_error: -166.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.01 rad (-0.82 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 166.47 deg | signed_error: -166.47 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:49 PM] [PonteH] QMC Heading Z: -0.39 rad (-22.11 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 145.19 deg | signed_error: -145.19 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 15
+[4:33:49 PM] [PonteH] QMC Heading Z: -1.83 rad (-104.66 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 62.64 deg | signed_error: -62.64 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 8
+[4:33:50 PM] [PonteH] QMC Heading Z: -1.94 rad (-111.00 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 56.29 deg | signed_error: -56.29 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 25
+[4:33:50 PM] [PonteH] QMC Heading Z: -2.25 rad (-129.03 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 38.26 deg | signed_error: -38.26 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 19
+[4:33:50 PM] [PonteH] QMC Heading Z: -2.01 rad (-115.28 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 52.02 deg | signed_error: -52.02 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:50 PM] [PonteH] QMC Heading Z: -1.73 rad (-99.40 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 67.89 deg | signed_error: -67.89 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:50 PM] [PonteH] QMC Heading Z: -0.31 rad (-17.67 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 149.62 deg | signed_error: -149.62 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 4
+[4:33:50 PM] [PonteH] QMC Heading Z: -0.42 rad (-24.05 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 143.24 deg | signed_error: -143.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:50 PM] [PonteH] QMC Heading Z: -0.53 rad (-30.44 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 136.86 deg | signed_error: -136.86 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 30
+[4:33:51 PM] [PonteH] QMC Heading Z: -0.16 rad (-9.19 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 158.11 deg | signed_error: -158.11 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 25
+[4:33:51 PM] [PonteH] QMC Heading Z: -0.22 rad (-12.58 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 154.72 deg | signed_error: -154.72 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:51 PM] [PonteH] QMC Heading Z: 0.65 rad (37.14 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 155.56 deg | signed_error: 155.56 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 3
+[4:33:51 PM] [PonteH] QMC Heading Z: 0.48 rad (27.70 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 165.00 deg | signed_error: 165.00 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 6
+[4:33:52 PM] [PonteH] QMC Heading Z: 0.48 rad (27.70 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 165.00 deg | signed_error: 165.00 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:52 PM] [PonteH] QMC Heading Z: 0.31 rad (17.62 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 175.08 deg | signed_error: 175.08 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 36
+[4:33:52 PM] [PonteH] QMC Heading Z: 0.21 rad (12.03 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 179.32 deg | signed_error: -179.32 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:52 PM] [PonteH] QMC Heading Z: 0.13 rad (7.70 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 175.00 deg | signed_error: -175.00 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 2
+[4:33:52 PM] [PonteH] QMC Heading Z: 0.05 rad (2.63 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 169.93 deg | signed_error: -169.93 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 34
+[4:33:52 PM] [PonteH] QMC Heading Z: -1.14 rad (-65.10 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 102.19 deg | signed_error: -102.19 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 16
+[4:33:52 PM] [PonteH] QMC Heading Z: -1.14 rad (-65.10 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 102.19 deg | signed_error: -102.19 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:53 PM] [PonteH] QMC Heading Z: -2.78 rad (-159.47 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 7.83 deg | signed_error: -7.83 deg | phase: fine | stable: 0/3 | qmc_age_ms: 12
+[4:33:53 PM] [PonteH] QMC Heading Z: -1.60 rad (-91.54 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 75.75 deg | signed_error: -75.75 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:53 PM] [PonteH] QMC Heading Z: -1.72 rad (-98.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 68.87 deg | signed_error: -68.87 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 12
+[4:33:53 PM] [PonteH] QMC Heading Z: -1.66 rad (-95.06 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 72.24 deg | signed_error: -72.24 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 7
+[4:33:53 PM] [PonteH] QMC Heading Z: -2.80 rad (-160.28 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 7.02 deg | signed_error: -7.02 deg | phase: fine | stable: 0/3 | qmc_age_ms: 1
+[4:33:53 PM] [PonteH] QMC Heading Z: -2.75 rad (-157.43 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 9.87 deg | signed_error: -9.87 deg | phase: fine | stable: 0/3 | qmc_age_ms: 7
+[4:33:54 PM] [PonteH] QMC Heading Z: 0.17 rad (9.50 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 176.80 deg | signed_error: -176.80 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:54 PM] [PonteH] QMC Heading Z: 1.19 rad (68.31 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 124.39 deg | signed_error: 124.39 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 20
+[4:33:54 PM] [PonteH] QMC Heading Z: 2.14 rad (122.43 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 70.28 deg | signed_error: 70.28 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:54 PM] [PonteH] QMC Heading Z: 2.08 rad (119.13 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 73.57 deg | signed_error: 73.57 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 24
+[4:33:54 PM] [PonteH] QMC Heading Z: 1.71 rad (97.76 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 94.94 deg | signed_error: 94.94 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 21
+[4:33:54 PM] [PonteH] QMC Heading Z: 1.10 rad (63.04 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 129.66 deg | signed_error: 129.66 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 14
+[4:33:55 PM] [PonteH] QMC Heading Z: 1.60 rad (91.77 deg) on deltaTime: 0.11
+[PonteH] Remaining QMC angle: 100.93 deg | signed_error: 100.93 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 38
+[4:33:55 PM] [PonteH] QMC Heading Z: 1.61 rad (92.12 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 100.58 deg | signed_error: 100.58 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 13
+[4:33:55 PM] [PonteH] QMC Heading Z: 1.61 rad (92.47 deg) on deltaTime: 0.12
+[PonteH] Remaining QMC angle: 100.23 deg | signed_error: 100.23 deg | phase: coarse | stable: 0/3 | qmc_age_ms: 28
+[4:33:55 PM] Carro parado.

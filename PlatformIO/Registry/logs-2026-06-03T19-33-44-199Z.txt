@@ -1,0 +1,492 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[16:26:46] {"map": }
+[16:27:00] [GridCellNavigator] Executando caminho A* com 6 célula(s).
+[16:27:00] [GridCellNavigator] Avançando célula 1/5 para X=2 Y=1.
+[16:27:02] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.291 m.
+[16:27:03] [GridCellNavigator] Avançando célula 2/5 para X=3 Y=1.
+[16:27:05] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.327 m.
+[16:27:05] [GridCellNavigator] Avançando célula 3/5 para X=4 Y=1.
+[16:27:07] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.286 m.
+[16:27:08] [GridCellNavigator] Avançando célula 4/5 para X=5 Y=1.
+[16:27:10] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.286 m.
+[16:27:10] [PonteH] Turn limit calibrated: requested=90.00 deg, internal=90.00 deg (1.57 radians)
+[16:27:10] [PonteH] Turning Angle Z: -0.00 rad (-0.08 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.08 deg | phase: coarse | correction: 0.00
+[16:27:10] [PonteH] Turning Angle Z: -0.00 rad (-0.07 deg) on deltaTime: 0.10
+[PonteH] Angle error: 90.07 deg | phase: coarse | correction: 0.00
+[16:27:10] [PonteH] Turning Angle Z: -0.00 rad (-0.17 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.17 deg | phase: coarse | correction: 0.00
+[16:27:10] [PonteH] Turning Angle Z: -0.00 rad (-0.25 deg) on deltaTime: 0.10
+[PonteH] Angle error: 90.25 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.34 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.34 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.42 deg) on deltaTime: 0.10
+[PonteH] Angle error: 90.42 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.51 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.51 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.59 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.59 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.68 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.68 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.01 rad (-0.77 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.77 deg | phase: coarse | correction: 0.00
+[16:27:11] [PonteH] Turning Angle Z: -0.02 rad (-0.86 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.86 deg | phase: coarse | correction: 0.00
+[16:27:12] [PonteH] Turning Angle Z: -0.02 rad (-0.95 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.95 deg | phase: coarse | correction: 0.00
+[16:27:12] [PonteH] Turning Angle Z: 0.01 rad (0.76 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.24 deg | phase: coarse | correction: 0.00
+[16:27:12] [PonteH] Turning Angle Z: 0.07 rad (4.26 deg) on deltaTime: 0.12
+[PonteH] Angle error: 85.74 deg | phase: coarse | correction: 0.00
+[16:27:12] [PonteH] Turning Angle Z: 0.13 rad (7.68 deg) on deltaTime: 0.11
+[PonteH] Angle error: 82.32 deg | phase: coarse | correction: 0.00
+[16:27:12] [PonteH] Turning Angle Z: 0.19 rad (11.01 deg) on deltaTime: 0.12
+[PonteH] Angle error: 78.99 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 0.32 rad (18.40 deg) on deltaTime: 0.12
+[PonteH] Angle error: 71.60 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 0.49 rad (27.91 deg) on deltaTime: 0.12
+[PonteH] Angle error: 62.09 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 0.64 rad (36.59 deg) on deltaTime: 0.12
+[PonteH] Angle error: 53.41 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 0.74 rad (42.52 deg) on deltaTime: 0.12
+[PonteH] Angle error: 47.48 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 0.87 rad (49.78 deg) on deltaTime: 0.11
+[PonteH] Angle error: 40.22 deg | phase: coarse | correction: 0.00
+[16:27:13] [PonteH] Turning Angle Z: 1.03 rad (58.86 deg) on deltaTime: 0.10
+[PonteH] Angle error: 31.14 deg | phase: coarse | correction: 0.00
+[16:27:14] [PonteH] Turning Angle Z: 1.19 rad (68.12 deg) on deltaTime: 0.11
+[PonteH] Angle error: 21.88 deg | phase: coarse | correction: 0.00
+[16:27:14] [PonteH] Turning Angle Z: 1.29 rad (73.67 deg) on deltaTime: 0.11
+[PonteH] Angle error: 16.33 deg | phase: coarse | correction: 0.00
+[16:27:14] [PonteH] Turning Angle Z: 1.41 rad (80.77 deg) on deltaTime: 0.11
+[PonteH] Angle error: 9.23 deg | phase: fine | correction: 0.26
+[16:27:14] [PonteH] Turning Angle Z: 1.49 rad (85.64 deg) on deltaTime: 0.11
+[PonteH] Angle error: 4.36 deg | phase: fine | correction: 0.03
+[16:27:14] [PonteH] Turning Angle Z: 1.48 rad (84.88 deg) on deltaTime: 0.10
+[PonteH] Angle error: 5.12 deg | phase: fine | correction: 0.10
+[16:27:14] [PonteH] Turning Angle Z: 1.48 rad (84.57 deg) on deltaTime: 0.11
+[PonteH] Angle error: 5.43 deg | phase: fine | correction: 0.11
+[16:27:14] [PonteH] Turning Angle Z: 1.47 rad (84.44 deg) on deltaTime: 0.11
+[PonteH] Angle error: 5.56 deg | phase: fine | correction: 0.11
+[16:27:14] [PonteH] Turning Angle Z: 1.47 rad (84.35 deg) on deltaTime: 0.11
+[PonteH] Angle error: 5.65 deg | phase: fine | correction: 0.11
+[16:27:14] [PonteH] Turning Angle Z: 1.47 rad (84.27 deg) on deltaTime: 0.11
+[PonteH] Angle error: 5.73 deg | phase: fine | correction: 0.12
+[16:27:14] [PonteH] Turning Angle Z: 1.49 rad (85.19 deg) on deltaTime: 0.10
+[PonteH] Angle error: 4.81 deg | phase: fine | correction: 0.09
+[16:27:14] [PonteH] Turning Angle Z: 1.52 rad (86.98 deg) on deltaTime: 0.11
+[PonteH] Angle error: 3.02 deg | phase: fine | correction: 0.05
+[16:27:15] [PonteH] Turning Angle Z: 1.57 rad (89.96 deg) on deltaTime: 0.11
+[PonteH] Angle error: 0.04 deg | phase: fine | correction: -0.01
+[16:27:15] [PonteH] Turn limit calibrated: requested=161.46 deg, internal=161.46 deg (2.82 radians)
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.38 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.84 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.92 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.53 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.99 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.61 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.07 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.70 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.16 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.01 rad (-0.79 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.25 deg | phase: coarse | correction: 0.00
+[16:27:15] [PonteH] Turning Angle Z: -0.02 rad (-0.87 deg) on deltaTime: 0.11
+[PonteH] Angle error: 162.33 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: -0.02 rad (-0.96 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.42 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: -0.02 rad (-1.05 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.51 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: -0.02 rad (-1.12 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.58 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: -0.01 rad (-0.76 deg) on deltaTime: 0.12
+[PonteH] Angle error: 162.22 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.05 rad (2.93 deg) on deltaTime: 0.10
+[PonteH] Angle error: 158.53 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.15 rad (8.85 deg) on deltaTime: 0.12
+[PonteH] Angle error: 152.61 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.24 rad (13.55 deg) on deltaTime: 0.11
+[PonteH] Angle error: 147.91 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.34 rad (19.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 142.00 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.48 rad (27.50 deg) on deltaTime: 0.12
+[PonteH] Angle error: 133.96 deg | phase: coarse | correction: 0.00
+[16:27:16] [PonteH] Turning Angle Z: 0.69 rad (39.31 deg) on deltaTime: 0.12
+[PonteH] Angle error: 122.16 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 0.91 rad (52.15 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.31 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.08 rad (61.71 deg) on deltaTime: 0.12
+[PonteH] Angle error: 99.75 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.23 rad (70.32 deg) on deltaTime: 0.12
+[PonteH] Angle error: 91.15 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.31 rad (75.25 deg) on deltaTime: 0.11
+[PonteH] Angle error: 86.22 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.52 rad (87.26 deg) on deltaTime: 0.12
+[PonteH] Angle error: 74.20 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.66 rad (95.03 deg) on deltaTime: 0.12
+[PonteH] Angle error: 66.43 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.76 rad (100.56 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.91 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 1.90 rad (108.79 deg) on deltaTime: 0.12
+[PonteH] Angle error: 52.67 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 2.08 rad (119.27 deg) on deltaTime: 0.12
+[PonteH] Angle error: 42.19 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 2.26 rad (129.31 deg) on deltaTime: 0.12
+[PonteH] Angle error: 32.15 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 2.45 rad (140.52 deg) on deltaTime: 0.11
+[PonteH] Angle error: 20.94 deg | phase: coarse | correction: 0.00
+[16:27:17] [PonteH] Turning Angle Z: 2.72 rad (155.58 deg) on deltaTime: 0.12
+[PonteH] Angle error: 5.89 deg | phase: fine | correction: 0.17
+[16:27:18] [PonteH] Turning Angle Z: 2.80 rad (160.17 deg) on deltaTime: 0.12
+[PonteH] Angle error: 1.29 deg | phase: fine | correction: -0.02
+[16:27:18] [PonteH] Turn limit calibrated: requested=60.45 deg, internal=60.45 deg (1.06 radians)
+[16:27:18] [PonteH] Turning Angle Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Angle error: 60.45 deg | phase: coarse | correction: 0.00
+[16:27:18] [PonteH] Turning Angle Z: 0.00 rad (0.11 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.34 deg | phase: coarse | correction: 0.00
+[16:27:18] [PonteH] Turning Angle Z: 0.00 rad (0.11 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.35 deg | phase: coarse | correction: 0.00
+[16:27:18] [PonteH] Turning Angle Z: 0.00 rad (0.27 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.19 deg | phase: coarse | correction: 0.00
+[16:27:18] [PonteH] Turning Angle Z: 0.01 rad (0.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.13 deg | phase: coarse | correction: 0.00
+[16:27:18] [PonteH] Turning Angle Z: 0.01 rad (0.41 deg) on deltaTime: 0.12
+[PonteH] Angle error: 60.05 deg | phase: coarse | correction: 0.00
+[16:27:19] [PonteH] Turning Angle Z: 0.01 rad (0.49 deg) on deltaTime: 0.10
+[PonteH] Angle error: 59.97 deg | phase: coarse | correction: 0.00
+[16:27:19] [PonteH] Turning Angle Z: 0.01 rad (0.58 deg) on deltaTime: 0.11
+[PonteH] Angle error: 59.87 deg | phase: coarse | correction: 0.00
+[16:27:19] [PonteH] Turning Angle Z: 0.01 rad (0.73 deg) on deltaTime: 0.11
+[PonteH] Angle error: 59.72 deg | phase: coarse | correction: 0.00
+[16:27:19] [PonteH] Turning Angle Z: 0.05 rad (3.10 deg) on deltaTime: 0.11
+[PonteH] Angle error: 57.36 deg | phase: coarse | correction: 0.00
+[16:27:19] [PonteH] Turning Angle Z: 0.12 rad (7.04 deg) on deltaTime: 0.11
+[PonteH] Angle error: 53.41 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.19 rad (10.67 deg) on deltaTime: 0.10
+[PonteH] Angle error: 49.78 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.27 rad (15.75 deg) on deltaTime: 0.11
+[PonteH] Angle error: 44.71 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.37 rad (21.12 deg) on deltaTime: 0.11
+[PonteH] Angle error: 39.34 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.47 rad (26.78 deg) on deltaTime: 0.12
+[PonteH] Angle error: 33.68 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.65 rad (37.14 deg) on deltaTime: 0.11
+[PonteH] Angle error: 23.32 deg | phase: coarse | correction: 0.00
+[16:27:20] [PonteH] Turning Angle Z: 0.87 rad (49.74 deg) on deltaTime: 0.10
+[PonteH] Angle error: 10.71 deg | phase: fine | correction: 0.30
+[16:27:20] [PonteH] Turning Angle Z: 1.00 rad (57.29 deg) on deltaTime: 0.11
+[PonteH] Angle error: 3.17 deg | phase: fine | correction: -0.02
+[16:27:20] [PonteH] Turning Angle Z: 1.01 rad (57.63 deg) on deltaTime: 0.11
+[PonteH] Angle error: 2.82 deg | phase: fine | correction: 0.05
+[16:27:20] [PonteH] Turning Angle Z: 1.01 rad (57.69 deg) on deltaTime: 0.11
+[PonteH] Angle error: 2.77 deg | phase: fine | correction: 0.05
+[16:27:20] [PonteH] Turning Angle Z: 1.01 rad (57.78 deg) on deltaTime: 0.11
+[PonteH] Angle error: 2.68 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.01 rad (57.86 deg) on deltaTime: 0.11
+[PonteH] Angle error: 2.59 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.01 rad (57.95 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.51 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.01 rad (58.04 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.42 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.01 rad (58.13 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.33 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.02 rad (58.22 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.24 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.02 rad (58.31 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.15 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.02 rad (58.42 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.04 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turning Angle Z: 1.02 rad (58.54 deg) on deltaTime: 0.11
+[PonteH] Angle error: 1.92 deg | phase: fine | correction: 0.05
+[16:27:21] [PonteH] Turn limit calibrated: requested=110.03 deg, internal=110.03 deg (1.92 radians)
+[16:27:21] [PonteH] Turning Angle Z: 0.00 rad (0.08 deg) on deltaTime: 0.10
+[PonteH] Angle error: 109.95 deg | phase: coarse | correction: 0.00
+[16:27:21] [PonteH] Turning Angle Z: 0.00 rad (0.16 deg) on deltaTime: 0.11
+[PonteH] Angle error: 109.87 deg | phase: coarse | correction: 0.00
+[16:27:21] [PonteH] Turning Angle Z: 0.00 rad (0.26 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.78 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.34 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.69 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.43 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.60 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.53 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.50 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.63 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.40 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.72 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.31 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.01 rad (0.81 deg) on deltaTime: 0.11
+[PonteH] Angle error: 109.22 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.02 rad (0.90 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.13 deg | phase: coarse | correction: 0.00
+[16:27:22] [PonteH] Turning Angle Z: 0.03 rad (1.43 deg) on deltaTime: 0.12
+[PonteH] Angle error: 108.60 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.07 rad (4.21 deg) on deltaTime: 0.12
+[PonteH] Angle error: 105.82 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.17 rad (9.90 deg) on deltaTime: 0.12
+[PonteH] Angle error: 100.13 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.27 rad (15.72 deg) on deltaTime: 0.12
+[PonteH] Angle error: 94.32 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.39 rad (22.10 deg) on deltaTime: 0.12
+[PonteH] Angle error: 87.93 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.52 rad (29.70 deg) on deltaTime: 0.11
+[PonteH] Angle error: 80.33 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.63 rad (36.14 deg) on deltaTime: 0.12
+[PonteH] Angle error: 73.89 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.77 rad (44.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 65.70 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 0.92 rad (52.93 deg) on deltaTime: 0.10
+[PonteH] Angle error: 57.10 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 1.03 rad (58.80 deg) on deltaTime: 0.12
+[PonteH] Angle error: 51.23 deg | phase: coarse | correction: 0.00
+[16:27:23] [PonteH] Turning Angle Z: 1.10 rad (63.19 deg) on deltaTime: 0.10
+[PonteH] Angle error: 46.84 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.18 rad (67.79 deg) on deltaTime: 0.11
+[PonteH] Angle error: 42.24 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.29 rad (73.86 deg) on deltaTime: 0.11
+[PonteH] Angle error: 36.17 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.41 rad (80.60 deg) on deltaTime: 0.11
+[PonteH] Angle error: 29.43 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.49 rad (85.59 deg) on deltaTime: 0.11
+[PonteH] Angle error: 24.44 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.58 rad (90.42 deg) on deltaTime: 0.10
+[PonteH] Angle error: 19.61 deg | phase: coarse | correction: 0.00
+[16:27:24] [PonteH] Turning Angle Z: 1.68 rad (96.23 deg) on deltaTime: 0.11
+[PonteH] Angle error: 13.80 deg | phase: fine | correction: 0.39
+[16:27:24] [PonteH] Turning Angle Z: 1.73 rad (99.28 deg) on deltaTime: 0.11
+[PonteH] Angle error: 10.75 deg | phase: fine | correction: 0.16
+[16:27:24] [PonteH] Turning Angle Z: 1.76 rad (101.11 deg) on deltaTime: 0.11
+[PonteH] Angle error: 8.92 deg | phase: fine | correction: 0.15
+[16:27:25] [PonteH] Turning Angle Z: 1.81 rad (103.93 deg) on deltaTime: 0.11
+[PonteH] Angle error: 6.10 deg | phase: fine | correction: 0.09
+[16:27:25] [PonteH] Turning Angle Z: 1.87 rad (107.02 deg) on deltaTime: 0.10
+[PonteH] Angle error: 3.01 deg | phase: fine | correction: 0.04
+[16:27:25] [PonteH] Turning Angle Z: 1.92 rad (109.89 deg) on deltaTime: 0.11
+[PonteH] Angle error: 0.14 deg | phase: fine | correction: -0.01
+[16:27:25] [PonteH] Turn limit calibrated: requested=161.20 deg, internal=161.20 deg (2.81 radians)
+[16:27:25] [PonteH] Turning Angle Z: -0.00 rad (-0.11 deg) on deltaTime: 0.10
+[PonteH] Angle error: 161.30 deg | phase: coarse | correction: 0.00
+[16:27:25] [PonteH] Turning Angle Z: -0.00 rad (-0.19 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.38 deg | phase: coarse | correction: 0.00
+[16:27:25] [PonteH] Turning Angle Z: -0.01 rad (-0.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.65 deg | phase: coarse | correction: 0.00
+[16:27:25] [PonteH] Turning Angle Z: -0.01 rad (-0.43 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.63 deg | phase: coarse | correction: 0.00
+[16:27:25] [PonteH] Turning Angle Z: -0.01 rad (-0.52 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.72 deg | phase: coarse | correction: 0.00
+[16:27:25] [PonteH] Turning Angle Z: -0.01 rad (-0.61 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.81 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: -0.01 rad (-0.71 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.91 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: -0.01 rad (-0.77 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.97 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: -0.01 rad (-0.60 deg) on deltaTime: 0.12
+[PonteH] Angle error: 161.80 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: -0.01 rad (-0.68 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.87 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: 0.01 rad (0.77 deg) on deltaTime: 0.12
+[PonteH] Angle error: 160.42 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: 0.09 rad (5.28 deg) on deltaTime: 0.12
+[PonteH] Angle error: 155.91 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: 0.17 rad (9.85 deg) on deltaTime: 0.12
+[PonteH] Angle error: 151.35 deg | phase: coarse | correction: 0.00
+[16:27:26] [PonteH] Turning Angle Z: 0.27 rad (15.49 deg) on deltaTime: 0.12
+[PonteH] Angle error: 145.70 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 0.39 rad (22.21 deg) on deltaTime: 0.12
+[PonteH] Angle error: 138.98 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 0.47 rad (27.10 deg) on deltaTime: 0.12
+[PonteH] Angle error: 134.09 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 0.57 rad (32.48 deg) on deltaTime: 0.11
+[PonteH] Angle error: 128.72 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 0.72 rad (41.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 119.74 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 0.91 rad (51.87 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.33 deg | phase: coarse | correction: 0.00
+[16:27:27] [PonteH] Turning Angle Z: 1.14 rad (65.19 deg) on deltaTime: 0.12
+[PonteH] Angle error: 96.00 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.30 rad (74.65 deg) on deltaTime: 0.12
+[PonteH] Angle error: 86.55 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.37 rad (78.52 deg) on deltaTime: 0.12
+[PonteH] Angle error: 82.68 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.47 rad (84.48 deg) on deltaTime: 0.12
+[PonteH] Angle error: 76.72 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.60 rad (91.61 deg) on deltaTime: 0.11
+[PonteH] Angle error: 69.59 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.64 rad (93.92 deg) on deltaTime: 0.12
+[PonteH] Angle error: 67.27 deg | phase: coarse | correction: 0.00
+[16:27:28] [PonteH] Turning Angle Z: 1.71 rad (97.75 deg) on deltaTime: 0.12
+[PonteH] Angle error: 63.45 deg | phase: coarse | correction: 0.00
+[16:27:29] [PonteH] Turning Angle Z: 1.80 rad (103.41 deg) on deltaTime: 0.12
+[PonteH] Angle error: 57.79 deg | phase: coarse | correction: 0.00
+[16:27:29] [PonteH] Turning Angle Z: 1.92 rad (109.73 deg) on deltaTime: 0.12
+[PonteH] Angle error: 51.46 deg | phase: coarse | correction: 0.00
+[16:27:29] [PonteH] Turning Angle Z: 2.00 rad (114.68 deg) on deltaTime: 0.12
+[PonteH] Angle error: 46.51 deg | phase: coarse | correction: 0.00
+[16:27:29] [PonteH] Turning Angle Z: 2.04 rad (116.94 deg) on deltaTime: 0.11
+[PonteH] Angle error: 44.26 deg | phase: coarse | correction: 0.00
+[16:27:29] [PonteH] Turning Angle Z: 2.07 rad (118.47 deg) on deltaTime: 0.10
+[PonteH] Angle error: 42.72 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.15 rad (123.28 deg) on deltaTime: 0.11
+[PonteH] Angle error: 37.91 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.27 rad (129.87 deg) on deltaTime: 0.11
+[PonteH] Angle error: 31.33 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.37 rad (136.06 deg) on deltaTime: 0.11
+[PonteH] Angle error: 25.14 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.44 rad (140.02 deg) on deltaTime: 0.11
+[PonteH] Angle error: 21.17 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.50 rad (143.27 deg) on deltaTime: 0.10
+[PonteH] Angle error: 17.92 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 2.62 rad (150.07 deg) on deltaTime: 0.11
+[PonteH] Angle error: 11.13 deg | phase: fine | correction: 0.31
+[16:27:30] [PonteH] Turning Angle Z: 2.70 rad (154.95 deg) on deltaTime: 0.11
+[PonteH] Angle error: 6.25 deg | phase: fine | correction: 0.06
+[16:27:30] [PonteH] Turning Angle Z: 2.73 rad (156.20 deg) on deltaTime: 0.11
+[PonteH] Angle error: 4.99 deg | phase: fine | correction: 0.08
+[16:27:30] [PonteH] Turning Angle Z: 2.72 rad (155.90 deg) on deltaTime: 0.11
+[PonteH] Angle error: 5.29 deg | phase: fine | correction: 0.11
+[16:27:30] [PonteH] Turning Angle Z: 2.72 rad (155.90 deg) on deltaTime: 0.10
+[PonteH] Angle error: 5.29 deg | phase: fine | correction: 0.10
+[16:27:30] [PonteH] Turning Angle Z: 2.76 rad (157.88 deg) on deltaTime: 0.11
+[PonteH] Angle error: 3.32 deg | phase: fine | correction: 0.05
+[16:27:30] [PonteH] Turning Angle Z: 2.80 rad (160.34 deg) on deltaTime: 0.11
+[PonteH] Angle error: 0.86 deg | phase: fine | correction: 0.00
+[16:27:30] [PonteH] Turn limit calibrated: requested=65.23 deg, internal=65.23 deg (1.14 radians)
+[16:27:30] [PonteH] Turning Angle Z: 0.01 rad (0.33 deg) on deltaTime: 0.10
+[PonteH] Angle error: 64.91 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 0.01 rad (0.44 deg) on deltaTime: 0.11
+[PonteH] Angle error: 64.80 deg | phase: coarse | correction: 0.00
+[16:27:30] [PonteH] Turning Angle Z: 0.01 rad (0.52 deg) on deltaTime: 0.12
+[PonteH] Angle error: 64.71 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.01 rad (0.61 deg) on deltaTime: 0.12
+[PonteH] Angle error: 64.62 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.01 rad (0.70 deg) on deltaTime: 0.12
+[PonteH] Angle error: 64.53 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.02 rad (1.28 deg) on deltaTime: 0.12
+[PonteH] Angle error: 63.95 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.04 rad (2.44 deg) on deltaTime: 0.11
+[PonteH] Angle error: 62.79 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.05 rad (2.95 deg) on deltaTime: 0.12
+[PonteH] Angle error: 62.28 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.06 rad (3.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 62.00 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.06 rad (3.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 62.00 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.07 rad (3.90 deg) on deltaTime: 0.12
+[PonteH] Angle error: 61.33 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.11 rad (6.50 deg) on deltaTime: 0.12
+[PonteH] Angle error: 58.73 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.26 rad (15.15 deg) on deltaTime: 0.12
+[PonteH] Angle error: 50.08 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.39 rad (22.44 deg) on deltaTime: 0.11
+[PonteH] Angle error: 42.79 deg | phase: coarse | correction: 0.00
+[16:27:31] [PonteH] Turning Angle Z: 0.55 rad (31.42 deg) on deltaTime: 0.12
+[PonteH] Angle error: 33.81 deg | phase: coarse | correction: 0.00
+[16:27:32] [PonteH] Turning Angle Z: 0.71 rad (40.74 deg) on deltaTime: 0.12
+[PonteH] Angle error: 24.49 deg | phase: coarse | correction: 0.00
+[16:27:32] [PonteH] Turning Angle Z: 0.83 rad (47.56 deg) on deltaTime: 0.12
+[PonteH] Angle error: 17.67 deg | phase: coarse | correction: 0.00
+[16:27:32] [PonteH] Turning Angle Z: 0.98 rad (56.29 deg) on deltaTime: 0.12
+[PonteH] Angle error: 8.94 deg | phase: fine | correction: 0.25
+[16:27:32] [PonteH] Turning Angle Z: 1.06 rad (60.54 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.69 deg | phase: fine | correction: 0.04
+[16:27:32] [PonteH] Turning Angle Z: 1.06 rad (60.51 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.72 deg | phase: fine | correction: 0.09
+[16:27:32] [PonteH] Turning Angle Z: 1.06 rad (60.64 deg) on deltaTime: 0.11
+[PonteH] Angle error: 4.59 deg | phase: fine | correction: 0.09
+[16:27:32] [PonteH] Turning Angle Z: 1.06 rad (60.75 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.49 deg | phase: fine | correction: 0.09
+[16:27:32] [PonteH] Turning Angle Z: 1.06 rad (60.84 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.40 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.06 rad (60.90 deg) on deltaTime: 0.10
+[PonteH] Angle error: 4.33 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.06 rad (60.99 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.24 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.07 rad (61.08 deg) on deltaTime: 0.11
+[PonteH] Angle error: 4.15 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.07 rad (61.16 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.07 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.07 rad (61.22 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.01 deg | phase: fine | correction: 0.09
+[16:27:33] [PonteH] Turning Angle Z: 1.07 rad (61.32 deg) on deltaTime: 0.12
+[PonteH] Angle error: 3.91 deg | phase: fine | correction: 0.09
+[16:27:34] [PonteH] Turning Angle Z: 1.07 rad (61.42 deg) on deltaTime: 0.12
+[PonteH] Angle error: 3.81 deg | phase: fine | correction: 0.09
+[16:27:34] [PonteH] Turning Angle Z: 1.07 rad (61.49 deg) on deltaTime: 0.12
+[PonteH] Angle error: 3.74 deg | phase: fine | correction: 0.09
+[16:27:34] [PonteH] Turning Angle Z: 1.08 rad (61.62 deg) on deltaTime: 0.12
+[PonteH] Angle error: 3.61 deg | phase: fine | correction: 0.09
+[16:27:34] [PonteH] Turning Angle Z: 1.09 rad (62.23 deg) on deltaTime: 0.11
+[PonteH] Angle error: 3.00 deg | phase: fine | correction: 0.07
+[16:27:34] [PonteH] Turning Angle Z: 1.13 rad (64.60 deg) on deltaTime: 0.12
+[PonteH] Angle error: 0.63 deg | phase: fine | correction: 0.01
+[16:27:34] [PonteH] Turn limit calibrated: requested=116.64 deg, internal=116.64 deg (2.04 radians)
+[16:27:34] [PonteH] Turning Angle Z: 0.00 rad (0.20 deg) on deltaTime: 0.12
+[PonteH] Angle error: 116.45 deg | phase: coarse | correction: 0.00
+[16:27:34] [PonteH] Turning Angle Z: 0.01 rad (0.34 deg) on deltaTime: 0.11
+[PonteH] Angle error: 116.31 deg | phase: coarse | correction: 0.00
+[16:27:34] [PonteH] Turning Angle Z: 0.01 rad (0.43 deg) on deltaTime: 0.11
+[PonteH] Angle error: 116.21 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.01 rad (0.53 deg) on deltaTime: 0.11
+[PonteH] Angle error: 116.12 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.01 rad (0.62 deg) on deltaTime: 0.11
+[PonteH] Angle error: 116.03 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.01 rad (0.70 deg) on deltaTime: 0.10
+[PonteH] Angle error: 115.95 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.01 rad (0.78 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.86 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.02 rad (0.87 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.78 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.02 rad (0.96 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.68 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.03 rad (1.45 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.19 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.06 rad (3.66 deg) on deltaTime: 0.11
+[PonteH] Angle error: 112.98 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.15 rad (8.45 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.20 deg | phase: coarse | correction: 0.00
+[16:27:35] [PonteH] Turning Angle Z: 0.23 rad (13.01 deg) on deltaTime: 0.11
+[PonteH] Angle error: 103.64 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.30 rad (17.25 deg) on deltaTime: 0.12
+[PonteH] Angle error: 99.39 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.45 rad (25.76 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.88 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.60 rad (34.52 deg) on deltaTime: 0.12
+[PonteH] Angle error: 82.12 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.70 rad (40.35 deg) on deltaTime: 0.12
+[PonteH] Angle error: 76.30 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.80 rad (45.80 deg) on deltaTime: 0.11
+[PonteH] Angle error: 70.84 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.85 rad (48.47 deg) on deltaTime: 0.12
+[PonteH] Angle error: 68.17 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.88 rad (50.64 deg) on deltaTime: 0.12
+[PonteH] Angle error: 66.00 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 0.99 rad (56.69 deg) on deltaTime: 0.12
+[PonteH] Angle error: 59.96 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 1.13 rad (65.01 deg) on deltaTime: 0.12
+[PonteH] Angle error: 51.63 deg | phase: coarse | correction: 0.00
+[16:27:36] [PonteH] Turning Angle Z: 1.24 rad (71.25 deg) on deltaTime: 0.12
+[PonteH] Angle error: 45.39 deg | phase: coarse | correction: 0.00
+[16:27:37] [PonteH] Turning Angle Z: 1.30 rad (74.25 deg) on deltaTime: 0.12
+[PonteH] Angle error: 42.40 deg | phase: coarse | correction: 0.00
+[16:27:37] [PonteH] Turning Angle Z: 1.38 rad (79.16 deg) on deltaTime: 0.11
+[PonteH] Angle error: 37.48 deg | phase: coarse | correction: 0.00
+[16:27:37] [PonteH] Turning Angle Z: 1.55 rad (89.00 deg) on deltaTime: 0.12
+[PonteH] Angle error: 27.64 deg | phase: coarse | correction: 0.00
+[16:27:37] [PonteH] Turning Angle Z: 1.69 rad (96.54 deg) on deltaTime: 0.12
+[PonteH] Angle error: 20.10 deg | phase: coarse | correction: 0.00
+[16:27:37] [PonteH] Turning Angle Z: 1.86 rad (106.61 deg) on deltaTime: 0.12
+[PonteH] Angle error: 10.03 deg | phase: fine | correction: 0.28
+[16:27:37] [PonteH] Turning Angle Z: 1.95 rad (111.86 deg) on deltaTime: 0.12
+[PonteH] Angle error: 4.79 deg | phase: fine | correction: 0.03
+[16:27:38] [PonteH] Turning Angle Z: 1.98 rad (113.32 deg) on deltaTime: 0.12
+[PonteH] Angle error: 3.33 deg | phase: fine | correction: 0.05
+[16:27:38] [PonteH] Turning Angle Z: 1.98 rad (113.73 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.92 deg | phase: fine | correction: 0.05
+[16:27:38] [PonteH] Turning Angle Z: 1.99 rad (113.91 deg) on deltaTime: 0.11
+[PonteH] Angle error: 2.74 deg | phase: fine | correction: 0.05
+[16:27:38] [PonteH] Turning Angle Z: 1.99 rad (113.98 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.66 deg | phase: fine | correction: 0.05
+[16:27:38] [PonteH] Turning Angle Z: 1.99 rad (114.07 deg) on deltaTime: 0.12
+[PonteH] Angle error: 2.57 deg | phase: fine | correction: 0.05
+Desconectado. Tentando reconectar em 2 segundos.

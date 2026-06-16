@@ -1,0 +1,465 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[17:09:55] {"map": }
+[17:10:15] [GridCellNavigator] Executando caminho A* com 6 célula(s).
+[17:10:15] [GridCellNavigator] Avançando célula 1/5 para X=2 Y=1.
+[17:10:18] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.291 m.
+[17:10:18] [GridCellNavigator] Avançando célula 2/5 para X=3 Y=1.
+[17:10:20] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.286 m.
+[17:10:20] [GridCellNavigator] Avançando célula 3/5 para X=4 Y=1.
+[17:10:23] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.291 m.
+[17:10:23] [GridCellNavigator] Avançando célula 4/5 para X=5 Y=1.
+[17:10:25] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.286 m.
+[17:10:25] [PonteH] Turn limit calibrated: requested=90.00 deg, internal=90.00 deg (1.57 radians)
+[17:10:26] [PonteH] Turning Angle Z: -0.00 rad (-0.28 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.28 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: -0.00 rad (-0.20 deg) on deltaTime: 0.10
+[PonteH] Angle error: 90.20 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: -0.00 rad (-0.24 deg) on deltaTime: 0.12
+[PonteH] Angle error: 90.24 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: -0.00 rad (-0.09 deg) on deltaTime: 0.11
+[PonteH] Angle error: 90.09 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: 0.00 rad (0.01 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.99 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: 0.00 rad (0.12 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.88 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: 0.00 rad (0.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.77 deg | phase: coarse | correction: 0.00
+[17:10:26] [PonteH] Turning Angle Z: 0.01 rad (0.34 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.66 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Turning Angle Z: 0.01 rad (0.41 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.59 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Turning Angle Z: 0.01 rad (0.58 deg) on deltaTime: 0.12
+[PonteH] Angle error: 89.42 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Turning Angle Z: 0.01 rad (0.69 deg) on deltaTime: 0.11
+[PonteH] Angle error: 89.31 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Turning Angle Z: -0.03 rad (-1.47 deg) on deltaTime: 0.10
+[PonteH] Angle error: 91.47 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Turning Angle Z: -0.11 rad (-6.18 deg) on deltaTime: 0.12
+[PonteH] Angle error: 96.18 deg | phase: coarse | correction: 0.00
+[17:10:27] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:27] [PonteH] Turn limit calibrated: requested=92.88 deg, internal=92.88 deg (1.62 radians)
+[17:10:28] [PonteH] Turning Angle Z: 0.00 rad (0.11 deg) on deltaTime: 0.10
+[PonteH] Angle error: 92.77 deg | phase: coarse | correction: 0.00
+[17:10:28] [PonteH] Turning Angle Z: -0.00 rad (-0.18 deg) on deltaTime: 0.12
+[PonteH] Angle error: 93.06 deg | phase: coarse | correction: 0.00
+[17:10:28] [PonteH] Turning Angle Z: -0.00 rad (-0.05 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.93 deg | phase: coarse | correction: 0.00
+[17:10:28] [PonteH] Turning Angle Z: 0.00 rad (0.05 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.83 deg | phase: coarse | correction: 0.00
+[17:10:28] [PonteH] Turning Angle Z: 0.00 rad (0.17 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.71 deg | phase: coarse | correction: 0.00
+[17:10:28] [PonteH] Turning Angle Z: 0.00 rad (0.28 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.60 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: 0.01 rad (0.38 deg) on deltaTime: 0.11
+[PonteH] Angle error: 92.50 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: 0.01 rad (0.48 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.40 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: 0.01 rad (0.36 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.52 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: 0.01 rad (0.43 deg) on deltaTime: 0.12
+[PonteH] Angle error: 92.45 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: 0.01 rad (0.50 deg) on deltaTime: 0.11
+[PonteH] Angle error: 92.38 deg | phase: coarse | correction: 0.00
+[17:10:29] [PonteH] Turning Angle Z: -0.03 rad (-1.46 deg) on deltaTime: 0.10
+[PonteH] Angle error: 94.34 deg | phase: coarse | correction: 0.00
+[17:10:30] [PonteH] Turning Angle Z: -0.09 rad (-5.14 deg) on deltaTime: 0.11
+[PonteH] Angle error: 98.02 deg | phase: coarse | correction: 0.00
+[17:10:30] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:30] [PonteH] Turn limit calibrated: requested=98.30 deg, internal=98.30 deg (1.72 radians)
+[17:10:30] [PonteH] Turning Angle Z: 0.00 rad (0.11 deg) on deltaTime: 0.10
+[PonteH] Angle error: 98.19 deg | phase: coarse | correction: 0.00
+[17:10:30] [PonteH] Turning Angle Z: 0.00 rad (0.17 deg) on deltaTime: 0.11
+[PonteH] Angle error: 98.13 deg | phase: coarse | correction: 0.00
+[17:10:30] [PonteH] Turning Angle Z: 0.00 rad (0.28 deg) on deltaTime: 0.11
+[PonteH] Angle error: 98.02 deg | phase: coarse | correction: 0.00
+[17:10:30] [PonteH] Turning Angle Z: 0.01 rad (0.39 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.91 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.50 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.80 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.60 deg) on deltaTime: 0.10
+[PonteH] Angle error: 97.70 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.44 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.86 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.59 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.72 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.70 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.60 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.69 deg) on deltaTime: 0.11
+[PonteH] Angle error: 97.61 deg | phase: coarse | correction: 0.00
+[17:10:31] [PonteH] Turning Angle Z: 0.01 rad (0.65 deg) on deltaTime: 0.10
+[PonteH] Angle error: 97.65 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Turning Angle Z: -0.05 rad (-2.60 deg) on deltaTime: 0.12
+[PonteH] Angle error: 100.90 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Turning Angle Z: -0.11 rad (-6.39 deg) on deltaTime: 0.12
+[PonteH] Angle error: 104.69 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:32] [PonteH] Turn limit calibrated: requested=104.11 deg, internal=104.11 deg (1.82 radians)
+[17:10:32] [PonteH] Turning Angle Z: 0.00 rad (0.15 deg) on deltaTime: 0.10
+[PonteH] Angle error: 103.95 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Turning Angle Z: 0.00 rad (0.25 deg) on deltaTime: 0.10
+[PonteH] Angle error: 103.86 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Turning Angle Z: 0.01 rad (0.34 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.77 deg | phase: coarse | correction: 0.00
+[17:10:32] [PonteH] Turning Angle Z: 0.01 rad (0.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.65 deg | phase: coarse | correction: 0.00
+[17:10:33] [PonteH] Turning Angle Z: 0.01 rad (0.56 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.55 deg | phase: coarse | correction: 0.00
+[17:10:33] [PonteH] Turning Angle Z: 0.01 rad (0.67 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.44 deg | phase: coarse | correction: 0.00
+[17:10:33] [PonteH] Turning Angle Z: 0.01 rad (0.77 deg) on deltaTime: 0.11
+[PonteH] Angle error: 103.33 deg | phase: coarse | correction: 0.00
+[17:10:33] [PonteH] Turning Angle Z: 0.02 rad (0.88 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.22 deg | phase: coarse | correction: 0.00
+[17:10:33] [PonteH] Turning Angle Z: 0.02 rad (0.99 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.12 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.02 rad (1.10 deg) on deltaTime: 0.12
+[PonteH] Angle error: 103.01 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.02 rad (1.21 deg) on deltaTime: 0.12
+[PonteH] Angle error: 102.90 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: -0.01 rad (-0.62 deg) on deltaTime: 0.12
+[PonteH] Angle error: 104.73 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: -0.07 rad (-4.24 deg) on deltaTime: 0.12
+[PonteH] Angle error: 108.35 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: -0.14 rad (-8.24 deg) on deltaTime: 0.11
+[PonteH] Angle error: 112.35 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:34] [PonteH] Turn limit calibrated: requested=109.49 deg, internal=109.49 deg (1.91 radians)
+[17:10:34] [PonteH] Turning Angle Z: 0.00 rad (0.17 deg) on deltaTime: 0.10
+[PonteH] Angle error: 109.32 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.29 deg) on deltaTime: 0.11
+[PonteH] Angle error: 109.20 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.40 deg) on deltaTime: 0.12
+[PonteH] Angle error: 109.10 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.50 deg) on deltaTime: 0.12
+[PonteH] Angle error: 108.99 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.60 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.89 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.71 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.78 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.01 rad (0.80 deg) on deltaTime: 0.10
+[PonteH] Angle error: 108.69 deg | phase: coarse | correction: 0.00
+[17:10:34] [PonteH] Turning Angle Z: 0.02 rad (0.91 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.58 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: 0.02 rad (1.02 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.47 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: 0.02 rad (1.12 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.38 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: 0.02 rad (1.00 deg) on deltaTime: 0.11
+[PonteH] Angle error: 108.50 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: 0.02 rad (0.92 deg) on deltaTime: 0.10
+[PonteH] Angle error: 108.57 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: -0.03 rad (-1.67 deg) on deltaTime: 0.11
+[PonteH] Angle error: 111.16 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Turning Angle Z: -0.12 rad (-7.02 deg) on deltaTime: 0.11
+[PonteH] Angle error: 116.51 deg | phase: coarse | correction: 0.00
+[17:10:35] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:35] [PonteH] Turn limit calibrated: requested=115.79 deg, internal=115.79 deg (2.02 radians)
+[17:10:35] [PonteH] Turning Angle Z: 0.01 rad (0.34 deg) on deltaTime: 0.10
+[PonteH] Angle error: 115.45 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.01 rad (0.46 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.33 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.01 rad (0.59 deg) on deltaTime: 0.11
+[PonteH] Angle error: 115.21 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.01 rad (0.68 deg) on deltaTime: 0.10
+[PonteH] Angle error: 115.11 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.01 rad (0.71 deg) on deltaTime: 0.12
+[PonteH] Angle error: 115.09 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.01 rad (0.80 deg) on deltaTime: 0.12
+[PonteH] Angle error: 115.00 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.02 rad (0.89 deg) on deltaTime: 0.11
+[PonteH] Angle error: 114.91 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.02 rad (1.00 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.80 deg | phase: coarse | correction: 0.00
+[17:10:36] [PonteH] Turning Angle Z: 0.02 rad (1.11 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.68 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: 0.02 rad (1.22 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.57 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: 0.02 rad (1.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.46 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: 0.03 rad (1.44 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.35 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: 0.03 rad (1.44 deg) on deltaTime: 0.12
+[PonteH] Angle error: 114.35 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: -0.03 rad (-1.57 deg) on deltaTime: 0.11
+[PonteH] Angle error: 117.36 deg | phase: coarse | correction: 0.00
+[17:10:37] [PonteH] Turning Angle Z: -0.12 rad (-6.93 deg) on deltaTime: 0.12
+[PonteH] Angle error: 122.73 deg | phase: coarse | correction: 0.00
+[17:10:38] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:38] [PonteH] Turn limit calibrated: requested=122.38 deg, internal=122.38 deg (2.14 radians)
+[17:10:38] [PonteH] Turning Angle Z: 0.01 rad (0.77 deg) on deltaTime: 0.10
+[PonteH] Angle error: 121.61 deg | phase: coarse | correction: 0.00
+[17:10:38] [PonteH] Turning Angle Z: 0.01 rad (0.83 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.55 deg | phase: coarse | correction: 0.00
+[17:10:38] [PonteH] Turning Angle Z: 0.02 rad (0.92 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.46 deg | phase: coarse | correction: 0.00
+[17:10:38] [PonteH] Turning Angle Z: 0.02 rad (1.04 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.34 deg | phase: coarse | correction: 0.00
+[17:10:38] [PonteH] Turning Angle Z: 0.02 rad (1.14 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.24 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: 0.02 rad (1.26 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.13 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: 0.02 rad (1.37 deg) on deltaTime: 0.12
+[PonteH] Angle error: 121.02 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: 0.03 rad (1.48 deg) on deltaTime: 0.12
+[PonteH] Angle error: 120.90 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: 0.03 rad (1.59 deg) on deltaTime: 0.12
+[PonteH] Angle error: 120.79 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: 0.03 rad (1.69 deg) on deltaTime: 0.11
+[PonteH] Angle error: 120.69 deg | phase: coarse | correction: 0.00
+[17:10:39] [PonteH] Turning Angle Z: -0.00 rad (-0.14 deg) on deltaTime: 0.12
+[PonteH] Angle error: 122.52 deg | phase: coarse | correction: 0.00
+[17:10:40] [PonteH] Turning Angle Z: -0.07 rad (-4.08 deg) on deltaTime: 0.12
+[PonteH] Angle error: 126.46 deg | phase: coarse | correction: 0.00
+[17:10:40] [PonteH] Turning Angle Z: -0.15 rad (-8.41 deg) on deltaTime: 0.12
+[PonteH] Angle error: 130.80 deg | phase: coarse | correction: 0.00
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:10:42] {"map": }
+[17:10:42] [PonteH] Turning Angle Z: 0.01 rad (0.79 deg) on deltaTime: 0.12
+[PonteH] Angle error: 142.69 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.02 rad (0.87 deg) on deltaTime: 0.12
+[PonteH] Angle error: 142.62 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: -0.01 rad (-0.71 deg) on deltaTime: 0.12
+[PonteH] Angle error: 144.20 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: -0.09 rad (-4.95 deg) on deltaTime: 0.12
+[PonteH] Angle error: 148.44 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: -0.16 rad (-9.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 152.82 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:43] [PonteH] Turn limit calibrated: requested=150.67 deg, internal=150.67 deg (2.63 radians)
+[17:10:43] [PonteH] Turning Angle Z: 0.00 rad (0.12 deg) on deltaTime: 0.10
+[PonteH] Angle error: 150.56 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.00 rad (0.19 deg) on deltaTime: 0.10
+[PonteH] Angle error: 150.49 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.01 rad (0.31 deg) on deltaTime: 0.12
+[PonteH] Angle error: 150.36 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.01 rad (0.42 deg) on deltaTime: 0.11
+[PonteH] Angle error: 150.26 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.01 rad (0.53 deg) on deltaTime: 0.12
+[PonteH] Angle error: 150.15 deg | phase: coarse | correction: 0.00
+[17:10:43] [PonteH] Turning Angle Z: 0.01 rad (0.64 deg) on deltaTime: 0.12
+[PonteH] Angle error: 150.04 deg | phase: coarse | correction: 0.00
+[17:10:44] [PonteH] Turning Angle Z: 0.01 rad (0.73 deg) on deltaTime: 0.10
+[PonteH] Angle error: 149.94 deg | phase: coarse | correction: 0.00
+[17:10:44] [PonteH] Turning Angle Z: 0.01 rad (0.79 deg) on deltaTime: 0.12
+[PonteH] Angle error: 149.88 deg | phase: coarse | correction: 0.00
+[17:10:44] [PonteH] Turning Angle Z: 0.02 rad (0.93 deg) on deltaTime: 0.11
+[PonteH] Angle error: 149.74 deg | phase: coarse | correction: 0.00
+[17:10:44] [PonteH] Turning Angle Z: 0.02 rad (1.05 deg) on deltaTime: 0.12
+[PonteH] Angle error: 149.63 deg | phase: coarse | correction: 0.00
+[17:10:44] [PonteH] Turning Angle Z: 0.02 rad (1.14 deg) on deltaTime: 0.12
+[PonteH] Angle error: 149.54 deg | phase: coarse | correction: 0.00
+[17:10:45] [PonteH] Turning Angle Z: 0.02 rad (1.20 deg) on deltaTime: 0.12
+[PonteH] Angle error: 149.47 deg | phase: coarse | correction: 0.00
+[17:10:45] [PonteH] Turning Angle Z: -0.02 rad (-0.94 deg) on deltaTime: 0.12
+[PonteH] Angle error: 151.61 deg | phase: coarse | correction: 0.00
+[17:10:45] [PonteH] Turning Angle Z: -0.11 rad (-6.29 deg) on deltaTime: 0.12
+[PonteH] Angle error: 156.96 deg | phase: coarse | correction: 0.00
+[17:10:45] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:45] [PonteH] Turn limit calibrated: requested=155.54 deg, internal=155.54 deg (2.71 radians)
+[17:10:45] [PonteH] Turning Angle Z: 0.01 rad (0.86 deg) on deltaTime: 0.10
+[PonteH] Angle error: 154.68 deg | phase: coarse | correction: 0.00
+[17:10:45] [PonteH] Turning Angle Z: 0.02 rad (1.03 deg) on deltaTime: 0.12
+[PonteH] Angle error: 154.51 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.02 rad (1.13 deg) on deltaTime: 0.12
+[PonteH] Angle error: 154.41 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.02 rad (1.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 154.31 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.02 rad (1.35 deg) on deltaTime: 0.12
+[PonteH] Angle error: 154.20 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.02 rad (1.40 deg) on deltaTime: 0.11
+[PonteH] Angle error: 154.14 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.03 rad (1.50 deg) on deltaTime: 0.12
+[PonteH] Angle error: 154.04 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.03 rad (1.59 deg) on deltaTime: 0.11
+[PonteH] Angle error: 153.95 deg | phase: coarse | correction: 0.00
+[17:10:46] [PonteH] Turning Angle Z: 0.03 rad (1.70 deg) on deltaTime: 0.11
+[PonteH] Angle error: 153.85 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.02 rad (1.39 deg) on deltaTime: 0.11
+[PonteH] Angle error: 154.16 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.03 rad (1.51 deg) on deltaTime: 0.10
+[PonteH] Angle error: 154.03 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: -0.03 rad (-1.82 deg) on deltaTime: 0.11
+[PonteH] Angle error: 157.36 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: -0.10 rad (-5.80 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.34 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:47] [PonteH] Turn limit calibrated: requested=161.83 deg, internal=161.83 deg (2.82 radians)
+[17:10:47] [PonteH] Turning Angle Z: 0.00 rad (0.12 deg) on deltaTime: 0.10
+[PonteH] Angle error: 161.71 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.00 rad (0.25 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.59 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.01 rad (0.36 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.48 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.01 rad (0.47 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.37 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.01 rad (0.58 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.26 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.01 rad (0.69 deg) on deltaTime: 0.11
+[PonteH] Angle error: 161.15 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.01 rad (0.78 deg) on deltaTime: 0.10
+[PonteH] Angle error: 161.05 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.02 rad (0.89 deg) on deltaTime: 0.11
+[PonteH] Angle error: 160.95 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.02 rad (1.00 deg) on deltaTime: 0.12
+[PonteH] Angle error: 160.83 deg | phase: coarse | correction: 0.00
+[17:10:47] [PonteH] Turning Angle Z: 0.02 rad (1.10 deg) on deltaTime: 0.12
+[PonteH] Angle error: 160.74 deg | phase: coarse | correction: 0.00
+[17:10:48] [PonteH] Turning Angle Z: 0.02 rad (1.03 deg) on deltaTime: 0.12
+[PonteH] Angle error: 160.81 deg | phase: coarse | correction: 0.00
+[17:10:48] [PonteH] Turning Angle Z: -0.04 rad (-2.37 deg) on deltaTime: 0.12
+[PonteH] Angle error: 164.20 deg | phase: coarse | correction: 0.00
+[17:10:48] [PonteH] Turning Angle Z: -0.13 rad (-7.54 deg) on deltaTime: 0.12
+[PonteH] Angle error: 169.37 deg | phase: coarse | correction: 0.00
+[17:10:48] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:48] [PonteH] Turn limit calibrated: requested=166.81 deg, internal=166.81 deg (2.91 radians)
+[17:10:49] [PonteH] Turning Angle Z: 0.00 rad (0.03 deg) on deltaTime: 0.10
+[PonteH] Angle error: 166.78 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.00 rad (0.15 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.66 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.00 rad (0.25 deg) on deltaTime: 0.11
+[PonteH] Angle error: 166.56 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.01 rad (0.35 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.46 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.01 rad (0.46 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.35 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.01 rad (0.57 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.24 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.01 rad (0.67 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.14 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.01 rad (0.83 deg) on deltaTime: 0.12
+[PonteH] Angle error: 165.98 deg | phase: coarse | correction: 0.00
+[17:10:49] [PonteH] Turning Angle Z: 0.02 rad (0.94 deg) on deltaTime: 0.12
+[PonteH] Angle error: 165.87 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: 0.02 rad (0.92 deg) on deltaTime: 0.11
+[PonteH] Angle error: 165.89 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: 0.00 rad (0.08 deg) on deltaTime: 0.12
+[PonteH] Angle error: 166.72 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.05 rad (-3.13 deg) on deltaTime: 0.12
+[PonteH] Angle error: 169.94 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.16 rad (-9.00 deg) on deltaTime: 0.12
+[PonteH] Angle error: 175.81 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:50] [PonteH] Turn limit calibrated: requested=172.90 deg, internal=172.90 deg (3.02 radians)
+[17:10:50] [PonteH] Turning Angle Z: -0.00 rad (-0.09 deg) on deltaTime: 0.10
+[PonteH] Angle error: 173.00 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.01 rad (-0.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 173.24 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.00 rad (-0.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 173.14 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.00 rad (-0.13 deg) on deltaTime: 0.12
+[PonteH] Angle error: 173.04 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: -0.00 rad (-0.03 deg) on deltaTime: 0.12
+[PonteH] Angle error: 172.93 deg | phase: coarse | correction: 0.00
+[17:10:50] [PonteH] Turning Angle Z: 0.00 rad (0.08 deg) on deltaTime: 0.12
+[PonteH] Angle error: 172.82 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: 0.00 rad (0.19 deg) on deltaTime: 0.12
+[PonteH] Angle error: 172.71 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: 0.01 rad (0.29 deg) on deltaTime: 0.11
+[PonteH] Angle error: 172.61 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: 0.01 rad (0.40 deg) on deltaTime: 0.11
+[PonteH] Angle error: 172.51 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: -0.00 rad (-0.24 deg) on deltaTime: 0.11
+[PonteH] Angle error: 173.14 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: -0.07 rad (-3.94 deg) on deltaTime: 0.11
+[PonteH] Angle error: 176.85 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Turning Angle Z: -0.15 rad (-8.64 deg) on deltaTime: 0.11
+[PonteH] Angle error: 181.54 deg | phase: coarse | correction: 0.00
+[17:10:51] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:52] [PonteH] Turn limit calibrated: requested=178.85 deg, internal=178.85 deg (3.12 radians)
+[17:10:52] [PonteH] Turning Angle Z: -0.00 rad (-0.13 deg) on deltaTime: 0.10
+[PonteH] Angle error: 178.98 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.29 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.14 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.50 deg) on deltaTime: 0.10
+[PonteH] Angle error: 179.35 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.63 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.48 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.74 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.59 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.60 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.45 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.01 rad (-0.68 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.53 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.02 rad (-1.06 deg) on deltaTime: 0.10
+[PonteH] Angle error: 179.91 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.02 rad (-1.29 deg) on deltaTime: 0.11
+[PonteH] Angle error: 180.14 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.02 rad (-1.42 deg) on deltaTime: 0.11
+[PonteH] Angle error: 180.27 deg | phase: coarse | correction: 0.00
+[17:10:52] [PonteH] Turning Angle Z: -0.03 rad (-1.53 deg) on deltaTime: 0.12
+[PonteH] Angle error: 180.38 deg | phase: coarse | correction: 0.00
+[17:10:53] [PonteH] Turning Angle Z: -0.05 rad (-2.59 deg) on deltaTime: 0.12
+[PonteH] Angle error: 181.44 deg | phase: coarse | correction: 0.00
+[17:10:53] [PonteH] Turning Angle Z: -0.10 rad (-5.81 deg) on deltaTime: 0.12
+[PonteH] Angle error: 184.66 deg | phase: coarse | correction: 0.00
+[17:10:53] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:53] [PonteH] Turn limit calibrated: requested=178.03 deg, internal=178.03 deg (3.11 radians)
+[17:10:53] [PonteH] Turning Angle Z: 0.00 rad (0.15 deg) on deltaTime: 0.11
+[PonteH] Angle error: 177.88 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: 0.00 rad (0.23 deg) on deltaTime: 0.12
+[PonteH] Angle error: 177.80 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: 0.01 rad (0.33 deg) on deltaTime: 0.12
+[PonteH] Angle error: 177.70 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: 0.01 rad (0.45 deg) on deltaTime: 0.12
+[PonteH] Angle error: 177.59 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: 0.01 rad (0.56 deg) on deltaTime: 0.12
+[PonteH] Angle error: 177.48 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: 0.01 rad (0.67 deg) on deltaTime: 0.12
+[PonteH] Angle error: 177.36 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: -0.00 rad (-0.03 deg) on deltaTime: 0.12
+[PonteH] Angle error: 178.06 deg | phase: coarse | correction: 0.00
+[17:10:54] [PonteH] Turning Angle Z: -0.03 rad (-1.51 deg) on deltaTime: 0.11
+[PonteH] Angle error: 179.54 deg | phase: coarse | correction: 0.00
+[17:10:55] [PonteH] Turning Angle Z: -0.06 rad (-3.17 deg) on deltaTime: 0.12
+[PonteH] Angle error: 181.20 deg | phase: coarse | correction: 0.00
+[17:10:55] [PonteH] Turning Angle Z: -0.09 rad (-5.39 deg) on deltaTime: 0.12
+[PonteH] Angle error: 183.42 deg | phase: coarse | correction: 0.00
+[17:10:55] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:55] [PonteH] Turn limit calibrated: requested=178.78 deg, internal=178.78 deg (3.12 radians)
+[17:10:55] [PonteH] Turning Angle Z: -0.00 rad (-0.08 deg) on deltaTime: 0.10
+[PonteH] Angle error: 178.86 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.00 rad (-0.21 deg) on deltaTime: 0.12
+[PonteH] Angle error: 178.99 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.01 rad (-0.31 deg) on deltaTime: 0.12
+[PonteH] Angle error: 179.09 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.01 rad (-0.44 deg) on deltaTime: 0.12
+[PonteH] Angle error: 179.21 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.02 rad (-1.02 deg) on deltaTime: 0.12
+[PonteH] Angle error: 179.80 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.02 rad (-1.17 deg) on deltaTime: 0.12
+[PonteH] Angle error: 179.95 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.02 rad (-1.30 deg) on deltaTime: 0.12
+[PonteH] Angle error: 180.08 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.02 rad (-1.40 deg) on deltaTime: 0.11
+[PonteH] Angle error: 180.17 deg | phase: coarse | correction: 0.00
+[17:10:56] [PonteH] Turning Angle Z: -0.03 rad (-1.50 deg) on deltaTime: 0.10
+[PonteH] Angle error: 180.28 deg | phase: coarse | correction: 0.00
+[17:10:57] [PonteH] Turning Angle Z: -0.03 rad (-1.60 deg) on deltaTime: 0.11
+[PonteH] Angle error: 180.38 deg | phase: coarse | correction: 0.00
+[17:10:57] [PonteH] Turning Angle Z: -0.04 rad (-2.11 deg) on deltaTime: 0.11
+[PonteH] Angle error: 180.89 deg | phase: coarse | correction: 0.00
+[17:10:57] [PonteH] Turning Angle Z: -0.10 rad (-5.58 deg) on deltaTime: 0.11
+[PonteH] Angle error: 184.36 deg | phase: coarse | correction: 0.00
+[17:10:57] [PonteH] Curva abortada: o ângulo acumulado ficou negativo. Verifique sinal do gyro ou fiação dos motores.
+[17:10:57] [PonteH] Turn limit calibrated: requested=178.54 deg, internal=178.54 deg (3.12 radians)
+[17:10:58] [PonteH] Turning Angle Z: -0.00 rad (-0.00 deg) on deltaTime: 0.10
+[PonteH] Angle error: 178.55 deg | phase: coarse | correction: 0.00
+[17:10:58] [PonteH] Turning Angle Z: -0.00 rad (-0.28 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.83 deg | phase: coarse | correction: 0.00
+[17:10:58] [PonteH] Turning Angle Z: -0.00 rad (-0.09 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.63 deg | phase: coarse | correction: 0.00
+[17:10:58] [PonteH] Turning Angle Z: -0.00 rad (-0.11 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.66 deg | phase: coarse | correction: 0.00
+[17:10:58] [PonteH] Turning Angle Z: -0.00 rad (-0.01 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.56 deg | phase: coarse | correction: 0.00
+[17:10:58] [PonteH] Turning Angle Z: 0.00 rad (0.09 deg) on deltaTime: 0.10
+[PonteH] Angle error: 178.45 deg | phase: coarse | correction: 0.00
+[17:10:59] [PonteH] Turning Angle Z: 0.00 rad (0.19 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.35 deg | phase: coarse | correction: 0.00
+[17:10:59] [PonteH] Turning Angle Z: 0.01 rad (0.30 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.25 deg | phase: coarse | correction: 0.00
+[17:10:59] [PonteH] Turning Angle Z: 0.01 rad (0.40 deg) on deltaTime: 0.11
+[PonteH] Angle error: 178.14 deg | phase: coarse | correction: 0.00
+Desconectado. Tentando reconectar em 2 segundos.

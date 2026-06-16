@@ -1,0 +1,182 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[18:05:18] {"map": }
+[18:05:21] [GridCellNavigator] Executando caminho A* com 6 célula(s).
+[18:05:21] [GridCellNavigator] Avançando célula 1/5 para X=2 Y=1.
+[18:05:23] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.291 m.
+[18:05:23] [GridCellNavigator] Avançando célula 2/5 para X=3 Y=1.
+[18:05:25] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.286 m.
+[18:05:26] [GridCellNavigator] Avançando célula 3/5 para X=4 Y=1.
+[18:05:28] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.286 m.
+[18:05:28] [GridCellNavigator] Avançando célula 4/5 para X=5 Y=1.
+[18:05:30] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.296 m.
+[18:05:31] [PonteH] QMC PID turn started: direction=left target=90.00 deg (1.57 rad) start=-1.12 target_heading=3.60 timeout=18100 ms
+[18:05:31] [PonteH] Remaining angle: 89.21 deg | progress: 0.79 deg | signed_error: -89.21 deg | qmc_heading: -64.73 deg | qmc_rate_abs: 0.39 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:31] [PonteH] Remaining angle: 85.74 deg | progress: 4.26 deg | signed_error: -85.74 deg | qmc_heading: -68.19 deg | qmc_rate_abs: 0.55 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:31] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:31] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:31] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:32] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:33] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:33] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:33] [PonteH] Remaining angle: 85.27 deg | progress: 4.73 deg | signed_error: -85.27 deg | qmc_heading: -68.67 deg | qmc_rate_abs: 0.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:33] [PonteH] Remaining angle: 12.04 deg | progress: 77.96 deg | signed_error: -12.04 deg | qmc_heading: -141.89 deg | qmc_rate_abs: 6.59 rad/s | phase: fine | target_rpm: 36.00
+[18:05:33] [PonteH] Remaining angle: 5.26 deg | progress: 84.74 deg | signed_error: -5.26 deg | qmc_heading: -148.67 deg | qmc_rate_abs: 6.93 rad/s | phase: fine | target_rpm: 36.00
+[18:05:33] [PonteH] Remaining angle: 0.57 deg | progress: 89.43 deg | signed_error: -0.57 deg | qmc_heading: -153.37 deg | qmc_rate_abs: 0.68 rad/s | phase: fine | target_rpm: 36.00
+[18:05:33] [PonteH] Curva finalizada por PID QMC. Alvo angular atingido.
+[18:05:33] [PonteH] QMC PID turn started: direction=right target=22.82 deg (0.40 rad) start=-2.79 target_heading=3.89 timeout=12053 ms
+[18:05:33] [PonteH] Remaining angle: 32.50 deg | progress: 0.00 deg | signed_error: 32.50 deg | qmc_heading: -169.64 deg | qmc_rate_abs: 2.03 rad/s | phase: coarse | target_rpm: 62.40
+[18:05:34] [PonteH] Remaining angle: 41.69 deg | progress: 0.00 deg | signed_error: 41.69 deg | qmc_heading: -178.82 deg | qmc_rate_abs: 1.22 rad/s | phase: coarse | target_rpm: 63.02
+[18:05:34] [PonteH] Remaining angle: 44.61 deg | progress: 0.00 deg | signed_error: 44.61 deg | qmc_heading: 178.26 deg | qmc_rate_abs: 0.42 rad/s | phase: coarse | target_rpm: 63.81
+[18:05:34] [PonteH] Remaining angle: 41.43 deg | progress: 0.00 deg | signed_error: 41.43 deg | qmc_heading: -178.57 deg | qmc_rate_abs: 0.20 rad/s | phase: coarse | target_rpm: 56.19
+[18:05:34] [PonteH] Remaining angle: 43.46 deg | progress: 0.00 deg | signed_error: 43.46 deg | qmc_heading: 179.41 deg | qmc_rate_abs: 0.06 rad/s | phase: coarse | target_rpm: 61.75
+[18:05:34] [PonteH] Remaining angle: 42.02 deg | progress: 0.00 deg | signed_error: 42.02 deg | qmc_heading: -179.15 deg | qmc_rate_abs: 0.02 rad/s | phase: coarse | target_rpm: 57.91
+[18:05:34] [PonteH] Remaining angle: 41.09 deg | progress: 0.00 deg | signed_error: 41.09 deg | qmc_heading: -178.22 deg | qmc_rate_abs: 0.33 rad/s | phase: coarse | target_rpm: 56.89
+[18:05:35] [PonteH] Remaining angle: 44.22 deg | progress: 0.00 deg | signed_error: 44.22 deg | qmc_heading: 178.64 deg | qmc_rate_abs: 0.52 rad/s | phase: coarse | target_rpm: 63.39
+[18:05:35] [PonteH] Remaining angle: 40.66 deg | progress: 0.00 deg | signed_error: 40.66 deg | qmc_heading: -177.79 deg | qmc_rate_abs: 0.24 rad/s | phase: coarse | target_rpm: 54.90
+[18:05:35] [PonteH] Remaining angle: 39.33 deg | progress: 0.00 deg | signed_error: 39.33 deg | qmc_heading: -176.46 deg | qmc_rate_abs: 0.47 rad/s | phase: coarse | target_rpm: 54.22
+[18:05:35] [PonteH] Remaining angle: 40.02 deg | progress: 0.00 deg | signed_error: 40.02 deg | qmc_heading: -177.16 deg | qmc_rate_abs: 0.03 rad/s | phase: coarse | target_rpm: 56.24
+[18:05:35] [PonteH] Remaining angle: 41.00 deg | progress: 0.00 deg | signed_error: 41.00 deg | qmc_heading: -178.14 deg | qmc_rate_abs: 0.20 rad/s | phase: coarse | target_rpm: 57.77
+[18:05:35] [PonteH] Remaining angle: 39.79 deg | progress: 0.00 deg | signed_error: 39.79 deg | qmc_heading: -176.92 deg | qmc_rate_abs: 0.11 rad/s | phase: coarse | target_rpm: 54.92
+[18:05:36] [PonteH] Remaining angle: 40.83 deg | progress: 0.00 deg | signed_error: 40.83 deg | qmc_heading: -177.96 deg | qmc_rate_abs: 0.02 rad/s | phase: coarse | target_rpm: 57.55
+[18:05:36] [PonteH] Remaining angle: 44.24 deg | progress: 0.00 deg | signed_error: 44.24 deg | qmc_heading: 178.62 deg | qmc_rate_abs: 0.62 rad/s | phase: coarse | target_rpm: 63.56
+[18:05:36] [PonteH] Remaining angle: 39.35 deg | progress: 0.00 deg | signed_error: 39.35 deg | qmc_heading: -176.48 deg | qmc_rate_abs: 0.60 rad/s | phase: coarse | target_rpm: 52.38
+[18:05:36] [PonteH] Remaining angle: 51.56 deg | progress: 0.00 deg | signed_error: 51.56 deg | qmc_heading: 171.31 deg | qmc_rate_abs: 1.24 rad/s | phase: coarse | target_rpm: 78.38
+[18:05:36] [PonteH] Remaining angle: 32.21 deg | progress: 0.00 deg | signed_error: 32.21 deg | qmc_heading: -169.35 deg | qmc_rate_abs: 2.95 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:36] [PonteH] Remaining angle: 43.47 deg | progress: 0.00 deg | signed_error: -43.47 deg | qmc_heading: -93.66 deg | qmc_rate_abs: 11.20 rad/s | phase: coarse | target_rpm: 66.59
+[18:05:36] [PonteH] Remaining angle: 115.65 deg | progress: 0.00 deg | signed_error: -115.65 deg | qmc_heading: -21.48 deg | qmc_rate_abs: 14.58 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:36] [PonteH] Remaining angle: 11.72 deg | progress: 11.10 deg | signed_error: 11.72 deg | qmc_heading: -148.85 deg | qmc_rate_abs: 17.45 rad/s | phase: fine | target_rpm: 36.00
+[18:05:36] [PonteH] Remaining angle: 24.38 deg | progress: 0.00 deg | signed_error: -24.38 deg | qmc_heading: -112.75 deg | qmc_rate_abs: 17.85 rad/s | phase: coarse | target_rpm: 40.67
+[18:05:37] [PonteH] Remaining angle: 6.25 deg | progress: 16.57 deg | signed_error: -6.25 deg | qmc_heading: -130.89 deg | qmc_rate_abs: 1.90 rad/s | phase: fine | target_rpm: 36.00
+[18:05:37] [PonteH] Remaining angle: 23.92 deg | progress: 0.00 deg | signed_error: 23.92 deg | qmc_heading: -161.05 deg | qmc_rate_abs: 10.49 rad/s | phase: coarse | target_rpm: 42.65
+[18:05:37] [PonteH] Remaining angle: 27.15 deg | progress: 0.00 deg | signed_error: 27.15 deg | qmc_heading: -164.28 deg | qmc_rate_abs: 1.18 rad/s | phase: coarse | target_rpm: 39.60
+[18:05:37] [PonteH] Remaining angle: 24.00 deg | progress: 0.00 deg | signed_error: 24.00 deg | qmc_heading: -161.13 deg | qmc_rate_abs: 0.64 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:37] [PonteH] Remaining angle: 32.54 deg | progress: 0.00 deg | signed_error: 32.54 deg | qmc_heading: -169.68 deg | qmc_rate_abs: 0.61 rad/s | phase: coarse | target_rpm: 49.92
+[18:05:37] [PonteH] Remaining angle: 37.89 deg | progress: 0.00 deg | signed_error: 37.89 deg | qmc_heading: -175.02 deg | qmc_rate_abs: 1.34 rad/s | phase: coarse | target_rpm: 55.69
+[18:05:37] [PonteH] Remaining angle: 37.13 deg | progress: 0.00 deg | signed_error: 37.13 deg | qmc_heading: -174.27 deg | qmc_rate_abs: 0.03 rad/s | phase: coarse | target_rpm: 51.46
+[18:05:37] [PonteH] Remaining angle: 33.73 deg | progress: 0.00 deg | signed_error: 33.73 deg | qmc_heading: -170.87 deg | qmc_rate_abs: 0.53 rad/s | phase: coarse | target_rpm: 45.32
+[18:05:37] [PonteH] Remaining angle: 38.45 deg | progress: 0.00 deg | signed_error: 38.45 deg | qmc_heading: -175.58 deg | qmc_rate_abs: 0.38 rad/s | phase: coarse | target_rpm: 56.15
+[18:05:37] [PonteH] Remaining angle: 35.17 deg | progress: 0.00 deg | signed_error: 35.17 deg | qmc_heading: -172.30 deg | qmc_rate_abs: 0.03 rad/s | phase: coarse | target_rpm: 47.39
+[18:05:38] [PonteH] Remaining angle: 30.39 deg | progress: 0.00 deg | signed_error: 30.39 deg | qmc_heading: -167.52 deg | qmc_rate_abs: 0.91 rad/s | phase: coarse | target_rpm: 39.93
+[18:05:38] [PonteH] Remaining angle: 27.03 deg | progress: 0.00 deg | signed_error: 27.03 deg | qmc_heading: -164.17 deg | qmc_rate_abs: 0.51 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:38] [PonteH] Remaining angle: 26.01 deg | progress: 0.00 deg | signed_error: 26.01 deg | qmc_heading: -163.14 deg | qmc_rate_abs: 0.25 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:38] [PonteH] Remaining angle: 24.91 deg | progress: 0.00 deg | signed_error: 24.91 deg | qmc_heading: -162.04 deg | qmc_rate_abs: 0.33 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:39] [PonteH] Remaining angle: 27.56 deg | progress: 0.00 deg | signed_error: 27.56 deg | qmc_heading: -164.69 deg | qmc_rate_abs: 0.23 rad/s | phase: coarse | target_rpm: 39.87
+[18:05:39] [PonteH] Remaining angle: 30.98 deg | progress: 0.00 deg | signed_error: 30.98 deg | qmc_heading: -168.11 deg | qmc_rate_abs: 0.63 rad/s | phase: coarse | target_rpm: 45.04
+[18:05:39] [PonteH] Remaining angle: 34.55 deg | progress: 0.00 deg | signed_error: 34.55 deg | qmc_heading: -171.69 deg | qmc_rate_abs: 0.54 rad/s | phase: coarse | target_rpm: 50.11
+[18:05:39] [PonteH] Remaining angle: 14.99 deg | progress: 7.83 deg | signed_error: 14.99 deg | qmc_heading: -152.12 deg | qmc_rate_abs: 2.88 rad/s | phase: fine | target_rpm: 36.00
+[18:05:39] [PonteH] Remaining angle: 85.78 deg | progress: 0.00 deg | signed_error: -85.78 deg | qmc_heading: -51.35 deg | qmc_rate_abs: 13.33 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:39] [PonteH] Remaining angle: 105.93 deg | progress: 0.00 deg | signed_error: -105.93 deg | qmc_heading: -31.20 deg | qmc_rate_abs: 15.26 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:39] [PonteH] Remaining angle: 105.93 deg | progress: 0.00 deg | signed_error: -105.93 deg | qmc_heading: -31.20 deg | qmc_rate_abs: 15.26 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:39] [PonteH] Remaining angle: 104.79 deg | progress: 0.00 deg | signed_error: -104.79 deg | qmc_heading: -32.34 deg | qmc_rate_abs: 6.39 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:39] [PonteH] Remaining angle: 78.47 deg | progress: 0.00 deg | signed_error: -78.47 deg | qmc_heading: -58.66 deg | qmc_rate_abs: 4.18 rad/s | phase: coarse | target_rpm: 95.78
+[18:05:39] [PonteH] Remaining angle: 85.79 deg | progress: 0.00 deg | signed_error: -85.79 deg | qmc_heading: -51.35 deg | qmc_rate_abs: 0.40 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:39] [PonteH] Remaining angle: 87.00 deg | progress: 0.00 deg | signed_error: -87.00 deg | qmc_heading: -50.13 deg | qmc_rate_abs: 0.79 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 79.11 deg | progress: 0.00 deg | signed_error: -79.11 deg | qmc_heading: -58.02 deg | qmc_rate_abs: 1.03 rad/s | phase: coarse | target_rpm: 106.33
+[18:05:40] [PonteH] Remaining angle: 176.87 deg | progress: 0.00 deg | signed_error: 176.87 deg | qmc_heading: 46.00 deg | qmc_rate_abs: 17.20 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 158.00 deg | progress: 0.00 deg | signed_error: 158.00 deg | qmc_heading: 64.86 deg | qmc_rate_abs: 4.25 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 169.91 deg | progress: 0.00 deg | signed_error: 169.91 deg | qmc_heading: 52.96 deg | qmc_rate_abs: 0.64 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 109.41 deg | progress: 0.00 deg | signed_error: 109.41 deg | qmc_heading: 113.46 deg | qmc_rate_abs: 9.22 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 175.53 deg | progress: 0.00 deg | signed_error: 175.53 deg | qmc_heading: 47.33 deg | qmc_rate_abs: 5.81 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 141.33 deg | progress: 0.00 deg | signed_error: 141.33 deg | qmc_heading: 81.54 deg | qmc_rate_abs: 0.60 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:40] [PonteH] Remaining angle: 130.58 deg | progress: 0.00 deg | signed_error: -130.58 deg | qmc_heading: -6.55 deg | qmc_rate_abs: 22.43 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:41] [PonteH] Remaining angle: 119.67 deg | progress: 0.00 deg | signed_error: -119.67 deg | qmc_heading: -17.46 deg | qmc_rate_abs: 6.13 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:41] [PonteH] Remaining angle: 119.88 deg | progress: 0.00 deg | signed_error: -119.88 deg | qmc_heading: -17.25 deg | qmc_rate_abs: 0.04 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:41] [PonteH] Remaining angle: 13.21 deg | progress: 9.62 deg | signed_error: 13.21 deg | qmc_heading: -150.34 deg | qmc_rate_abs: 15.40 rad/s | phase: fine | target_rpm: 36.00
+[18:05:41] [PonteH] Remaining angle: 28.53 deg | progress: 0.00 deg | signed_error: -28.53 deg | qmc_heading: -108.60 deg | qmc_rate_abs: 0.40 rad/s | phase: coarse | target_rpm: 47.87
+[18:05:41] [PonteH] Remaining angle: 47.80 deg | progress: 0.00 deg | signed_error: -47.80 deg | qmc_heading: -89.34 deg | qmc_rate_abs: 12.42 rad/s | phase: coarse | target_rpm: 76.82
+[18:05:41] [PonteH] Remaining angle: 6.77 deg | progress: 16.06 deg | signed_error: -6.77 deg | qmc_heading: -130.37 deg | qmc_rate_abs: 8.31 rad/s | phase: fine | target_rpm: 36.00
+[18:05:41] [PonteH] Remaining angle: 1.69 deg | progress: 21.13 deg | signed_error: -1.69 deg | qmc_heading: -135.44 deg | qmc_rate_abs: 0.77 rad/s | phase: fine | target_rpm: 36.00
+[18:05:41] [PonteH] Remaining angle: 1.37 deg | progress: 21.45 deg | signed_error: -1.37 deg | qmc_heading: -135.76 deg | qmc_rate_abs: 0.80 rad/s | phase: fine | target_rpm: 36.00
+[18:05:41] [PonteH] Curva finalizada por PID QMC. Alvo angular atingido.
+[18:05:42] [PonteH] QMC PID turn started: direction=right target=163.29 deg (2.85 rad) start=-2.37 target_heading=0.48 timeout=24695 ms
+[18:05:42] [PonteH] Remaining angle: 163.58 deg | progress: 0.00 deg | signed_error: 163.58 deg | qmc_heading: -136.27 deg | qmc_rate_abs: 0.07 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 161.92 deg | progress: 1.37 deg | signed_error: 161.92 deg | qmc_heading: -134.61 deg | qmc_rate_abs: 0.47 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 156.03 deg | progress: 7.26 deg | signed_error: 156.03 deg | qmc_heading: -128.72 deg | qmc_rate_abs: 1.07 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 156.46 deg | progress: 6.83 deg | signed_error: 156.46 deg | qmc_heading: -129.15 deg | qmc_rate_abs: 0.28 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 156.07 deg | progress: 7.21 deg | signed_error: 156.07 deg | qmc_heading: -128.76 deg | qmc_rate_abs: 0.03 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 161.95 deg | progress: 1.34 deg | signed_error: 161.95 deg | qmc_heading: -134.64 deg | qmc_rate_abs: 0.95 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:42] [PonteH] Remaining angle: 158.10 deg | progress: 5.18 deg | signed_error: 158.10 deg | qmc_heading: -130.79 deg | qmc_rate_abs: 0.03 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 152.96 deg | progress: 10.32 deg | signed_error: 152.96 deg | qmc_heading: -125.65 deg | qmc_rate_abs: 0.72 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 152.73 deg | progress: 10.56 deg | signed_error: 152.73 deg | qmc_heading: -125.42 deg | qmc_rate_abs: 0.40 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 125.99 deg | progress: 37.29 deg | signed_error: 125.99 deg | qmc_heading: -98.68 deg | qmc_rate_abs: 4.39 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 99.62 deg | progress: 63.67 deg | signed_error: 99.62 deg | qmc_heading: -72.31 deg | qmc_rate_abs: 3.21 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 141.14 deg | progress: 22.15 deg | signed_error: 141.14 deg | qmc_heading: -113.83 deg | qmc_rate_abs: 3.87 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 141.61 deg | progress: 21.68 deg | signed_error: 141.61 deg | qmc_heading: -114.30 deg | qmc_rate_abs: 3.54 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:43] [PonteH] Remaining angle: 129.70 deg | progress: 33.59 deg | signed_error: 129.70 deg | qmc_heading: -102.39 deg | qmc_rate_abs: 1.97 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 113.45 deg | progress: 49.84 deg | signed_error: 113.45 deg | qmc_heading: -86.14 deg | qmc_rate_abs: 2.17 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 107.31 deg | progress: 55.98 deg | signed_error: 107.31 deg | qmc_heading: -80.00 deg | qmc_rate_abs: 1.19 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 155.29 deg | progress: 7.99 deg | signed_error: 155.29 deg | qmc_heading: -127.98 deg | qmc_rate_abs: 3.79 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 178.69 deg | progress: 0.00 deg | signed_error: -178.69 deg | qmc_heading: -154.00 deg | qmc_rate_abs: 8.86 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 118.43 deg | progress: 44.85 deg | signed_error: 118.43 deg | qmc_heading: -91.12 deg | qmc_rate_abs: 7.53 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:44] [PonteH] Remaining angle: 44.72 deg | progress: 118.57 deg | signed_error: 44.72 deg | qmc_heading: -17.41 deg | qmc_rate_abs: 13.21 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:45] [PonteH] Remaining angle: 14.83 deg | progress: 148.45 deg | signed_error: -14.83 deg | qmc_heading: 42.14 deg | qmc_rate_abs: 11.24 rad/s | phase: fine | target_rpm: 36.00
+[18:05:45] [PonteH] Remaining angle: 57.61 deg | progress: 105.67 deg | signed_error: -57.61 deg | qmc_heading: 84.92 deg | qmc_rate_abs: 9.23 rad/s | phase: coarse | target_rpm: 102.84
+[18:05:45] [PonteH] Remaining angle: 47.48 deg | progress: 115.81 deg | signed_error: -47.48 deg | qmc_heading: 74.79 deg | qmc_rate_abs: 0.81 rad/s | phase: coarse | target_rpm: 60.98
+[18:05:45] [PonteH] Remaining angle: 26.30 deg | progress: 136.99 deg | signed_error: -26.30 deg | qmc_heading: 53.61 deg | qmc_rate_abs: 3.48 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:45] [PonteH] Remaining angle: 49.91 deg | progress: 113.37 deg | signed_error: -49.91 deg | qmc_heading: 77.22 deg | qmc_rate_abs: 1.21 rad/s | phase: coarse | target_rpm: 82.06
+[18:05:45] [PonteH] Remaining angle: 59.04 deg | progress: 104.25 deg | signed_error: -59.04 deg | qmc_heading: 86.35 deg | qmc_rate_abs: 3.98 rad/s | phase: coarse | target_rpm: 87.21
+[18:05:45] [PonteH] Remaining angle: 36.74 deg | progress: 126.54 deg | signed_error: -36.74 deg | qmc_heading: 64.06 deg | qmc_rate_abs: 3.78 rad/s | phase: coarse | target_rpm: 39.63
+[18:05:45] [PonteH] Remaining angle: 45.04 deg | progress: 118.24 deg | signed_error: -45.04 deg | qmc_heading: 72.35 deg | qmc_rate_abs: 0.19 rad/s | phase: coarse | target_rpm: 67.24
+[18:05:45] [PonteH] Remaining angle: 53.69 deg | progress: 109.60 deg | signed_error: -53.69 deg | qmc_heading: 81.00 deg | qmc_rate_abs: 1.83 rad/s | phase: coarse | target_rpm: 79.49
+[18:05:45] [PonteH] Remaining angle: 39.22 deg | progress: 124.07 deg | signed_error: -39.22 deg | qmc_heading: 66.53 deg | qmc_rate_abs: 1.32 rad/s | phase: coarse | target_rpm: 47.18
+[18:05:45] [PonteH] Remaining angle: 24.88 deg | progress: 138.41 deg | signed_error: -24.88 deg | qmc_heading: 52.19 deg | qmc_rate_abs: 1.75 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:46] [PonteH] Remaining angle: 50.87 deg | progress: 112.41 deg | signed_error: -50.87 deg | qmc_heading: 78.18 deg | qmc_rate_abs: 2.34 rad/s | phase: coarse | target_rpm: 84.64
+[18:05:46] [PonteH] Remaining angle: 56.13 deg | progress: 107.15 deg | signed_error: -56.13 deg | qmc_heading: 83.44 deg | qmc_rate_abs: 2.82 rad/s | phase: coarse | target_rpm: 81.13
+[18:05:46] [PonteH] Remaining angle: 56.13 deg | progress: 107.15 deg | signed_error: -56.13 deg | qmc_heading: 83.44 deg | qmc_rate_abs: 2.82 rad/s | phase: coarse | target_rpm: 78.38
+[18:05:46] [PonteH] Remaining angle: 59.10 deg | progress: 104.19 deg | signed_error: -59.10 deg | qmc_heading: 86.41 deg | qmc_rate_abs: 0.37 rad/s | phase: coarse | target_rpm: 84.07
+[18:05:46] [PonteH] Remaining angle: 164.13 deg | progress: 0.00 deg | signed_error: -164.13 deg | qmc_heading: -168.56 deg | qmc_rate_abs: 12.03 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 131.54 deg | progress: 31.74 deg | signed_error: -131.54 deg | qmc_heading: 158.85 deg | qmc_rate_abs: 9.59 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 131.54 deg | progress: 31.74 deg | signed_error: -131.54 deg | qmc_heading: 158.85 deg | qmc_rate_abs: 9.59 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 136.54 deg | progress: 26.74 deg | signed_error: 136.54 deg | qmc_heading: -109.23 deg | qmc_rate_abs: 6.99 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 108.57 deg | progress: 54.72 deg | signed_error: 108.57 deg | qmc_heading: -81.26 deg | qmc_rate_abs: 6.66 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 124.62 deg | progress: 38.67 deg | signed_error: 124.62 deg | qmc_heading: -97.30 deg | qmc_rate_abs: 1.39 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 142.66 deg | progress: 20.63 deg | signed_error: 142.66 deg | qmc_heading: -115.35 deg | qmc_rate_abs: 3.05 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:46] [PonteH] Remaining angle: 165.90 deg | progress: 0.00 deg | signed_error: 165.90 deg | qmc_heading: -138.59 deg | qmc_rate_abs: 4.31 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 178.04 deg | progress: 0.00 deg | signed_error: -178.04 deg | qmc_heading: -154.65 deg | qmc_rate_abs: 3.16 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 168.46 deg | progress: 0.00 deg | signed_error: -168.46 deg | qmc_heading: -164.23 deg | qmc_rate_abs: 2.14 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 175.28 deg | progress: 0.00 deg | signed_error: -175.28 deg | qmc_heading: -157.41 deg | qmc_rate_abs: 0.35 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 140.15 deg | progress: 23.13 deg | signed_error: 140.15 deg | qmc_heading: -112.84 deg | qmc_rate_abs: 7.22 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 45.29 deg | progress: 117.99 deg | signed_error: 45.29 deg | qmc_heading: -17.98 deg | qmc_rate_abs: 12.80 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:47] [PonteH] Remaining angle: 117.60 deg | progress: 45.68 deg | signed_error: 117.60 deg | qmc_heading: -90.29 deg | qmc_rate_abs: 1.76 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:47] [PonteH] Remaining angle: 81.29 deg | progress: 82.00 deg | signed_error: 81.29 deg | qmc_heading: -53.98 deg | qmc_rate_abs: 4.04 rad/s | phase: coarse | target_rpm: 94.48
+[18:05:48] [PonteH] Remaining angle: 81.29 deg | progress: 82.00 deg | signed_error: 81.29 deg | qmc_heading: -53.98 deg | qmc_rate_abs: 4.04 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:48] [PonteH] Remaining angle: 38.51 deg | progress: 124.77 deg | signed_error: 38.51 deg | qmc_heading: -11.20 deg | qmc_rate_abs: 4.34 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:48] [PonteH] Remaining angle: 53.00 deg | progress: 110.29 deg | signed_error: 53.00 deg | qmc_heading: -25.68 deg | qmc_rate_abs: 1.38 rad/s | phase: coarse | target_rpm: 81.58
+[18:05:48] [PonteH] Remaining angle: 71.04 deg | progress: 92.25 deg | signed_error: 71.04 deg | qmc_heading: -43.73 deg | qmc_rate_abs: 5.35 rad/s | phase: coarse | target_rpm: 108.63
+[18:05:48] [PonteH] Remaining angle: 71.21 deg | progress: 92.07 deg | signed_error: 71.21 deg | qmc_heading: -43.90 deg | qmc_rate_abs: 1.06 rad/s | phase: coarse | target_rpm: 99.53
+[18:05:48] [PonteH] Remaining angle: 76.81 deg | progress: 86.47 deg | signed_error: 76.81 deg | qmc_heading: -49.50 deg | qmc_rate_abs: 1.05 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:48] [PonteH] Remaining angle: 100.48 deg | progress: 62.80 deg | signed_error: 100.48 deg | qmc_heading: -73.17 deg | qmc_rate_abs: 5.04 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:48] [PonteH] Remaining angle: 100.43 deg | progress: 62.86 deg | signed_error: 100.43 deg | qmc_heading: -73.12 deg | qmc_rate_abs: 0.50 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:49] [PonteH] Remaining angle: 107.45 deg | progress: 55.84 deg | signed_error: 107.45 deg | qmc_heading: -80.14 deg | qmc_rate_abs: 0.49 rad/s | phase: coarse | target_rpm: 110.00
+[18:05:49] [PonteH] Remaining angle: 51.03 deg | progress: 112.26 deg | signed_error: 51.03 deg | qmc_heading: -23.72 deg | qmc_rate_abs: 7.90 rad/s | phase: coarse | target_rpm: 41.71
+[18:05:49] [PonteH] Remaining angle: 12.69 deg | progress: 150.59 deg | signed_error: -12.69 deg | qmc_heading: 40.00 deg | qmc_rate_abs: 5.93 rad/s | phase: fine | target_rpm: 36.00
+[18:05:49] [PonteH] Remaining angle: 37.21 deg | progress: 126.08 deg | signed_error: -37.21 deg | qmc_heading: 64.52 deg | qmc_rate_abs: 3.95 rad/s | phase: coarse | target_rpm: 64.78
+[18:05:49] [PonteH] Remaining angle: 35.30 deg | progress: 127.99 deg | signed_error: -35.30 deg | qmc_heading: 62.61 deg | qmc_rate_abs: 0.94 rad/s | phase: coarse | target_rpm: 48.29
+[18:05:49] [PonteH] Remaining angle: 20.01 deg | progress: 143.28 deg | signed_error: -20.01 deg | qmc_heading: 47.32 deg | qmc_rate_abs: 1.99 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:49] [PonteH] Remaining angle: 25.47 deg | progress: 137.82 deg | signed_error: -25.47 deg | qmc_heading: 52.78 deg | qmc_rate_abs: 0.57 rad/s | phase: coarse | target_rpm: 38.41
+[18:05:49] [PonteH] Remaining angle: 34.41 deg | progress: 128.88 deg | signed_error: -34.41 deg | qmc_heading: 61.72 deg | qmc_rate_abs: 1.37 rad/s | phase: coarse | target_rpm: 52.72
+[18:05:49] [PonteH] Remaining angle: 25.53 deg | progress: 137.76 deg | signed_error: -25.53 deg | qmc_heading: 52.84 deg | qmc_rate_abs: 0.41 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:49] [PonteH] Remaining angle: 6.44 deg | progress: 156.84 deg | signed_error: 6.44 deg | qmc_heading: 20.87 deg | qmc_rate_abs: 5.21 rad/s | phase: fine | target_rpm: 36.00
+[18:05:49] [PonteH] Remaining angle: 13.53 deg | progress: 149.76 deg | signed_error: 13.53 deg | qmc_heading: 13.78 deg | qmc_rate_abs: 1.55 rad/s | phase: fine | target_rpm: 36.00
+[18:05:50] [PonteH] Remaining angle: 13.55 deg | progress: 149.73 deg | signed_error: 13.55 deg | qmc_heading: 13.76 deg | qmc_rate_abs: 0.14 rad/s | phase: fine | target_rpm: 36.00
+[18:05:50] [PonteH] Remaining angle: 13.84 deg | progress: 149.44 deg | signed_error: 13.84 deg | qmc_heading: 13.47 deg | qmc_rate_abs: 0.39 rad/s | phase: fine | target_rpm: 36.00
+[18:05:50] [PonteH] Remaining angle: 11.32 deg | progress: 151.96 deg | signed_error: 11.32 deg | qmc_heading: 15.99 deg | qmc_rate_abs: 0.78 rad/s | phase: fine | target_rpm: 36.00
+[18:05:50] [PonteH] Remaining angle: 13.34 deg | progress: 149.95 deg | signed_error: 13.34 deg | qmc_heading: 13.98 deg | qmc_rate_abs: 0.52 rad/s | phase: fine | target_rpm: 36.00
+[18:05:50] [PonteH] Remaining angle: 13.65 deg | progress: 149.63 deg | signed_error: 13.65 deg | qmc_heading: 13.66 deg | qmc_rate_abs: 0.12 rad/s | phase: fine | target_rpm: 36.00
+[18:05:51] [PonteH] Remaining angle: 14.70 deg | progress: 148.58 deg | signed_error: 14.70 deg | qmc_heading: 12.61 deg | qmc_rate_abs: 0.09 rad/s | phase: fine | target_rpm: 36.00
+[18:05:51] [PonteH] Remaining angle: 14.78 deg | progress: 148.50 deg | signed_error: 14.78 deg | qmc_heading: 12.53 deg | qmc_rate_abs: 0.07 rad/s | phase: fine | target_rpm: 36.00
+[18:05:51] [PonteH] Remaining angle: 14.75 deg | progress: 148.54 deg | signed_error: 14.75 deg | qmc_heading: 12.56 deg | qmc_rate_abs: 0.05 rad/s | phase: fine | target_rpm: 36.00
+[18:05:51] [PonteH] Remaining angle: 15.91 deg | progress: 147.38 deg | signed_error: 15.91 deg | qmc_heading: 11.40 deg | qmc_rate_abs: 0.19 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:51] [PonteH] Remaining angle: 21.59 deg | progress: 141.70 deg | signed_error: 21.59 deg | qmc_heading: 5.72 deg | qmc_rate_abs: 1.04 rad/s | phase: coarse | target_rpm: 36.00
+[18:05:52] [PonteH] Remaining angle: 25.43 deg | progress: 137.86 deg | signed_error: 25.43 deg | qmc_heading: 1.88 deg | qmc_rate_abs: 1.19 rad/s | phase: coarse | target_rpm: 37.51
+[18:05:52] [PonteH] Remaining angle: 27.08 deg | progress: 136.20 deg | signed_error: 27.08 deg | qmc_heading: 0.23 deg | qmc_rate_abs: 0.44 rad/s | phase: coarse | target_rpm: 38.68
+[18:05:52] [PonteH] Remaining angle: 34.99 deg | progress: 128.29 deg | signed_error: 34.99 deg | qmc_heading: -7.68 deg | qmc_rate_abs: 1.29 rad/s | phase: coarse | target_rpm: 53.00
+[18:05:52] [PonteH] Remaining angle: 32.61 deg | progress: 130.67 deg | signed_error: 32.61 deg | qmc_heading: -5.30 deg | qmc_rate_abs: 0.09 rad/s | phase: coarse | target_rpm: 44.29
+[18:05:52] [PonteH] Remaining angle: 4.21 deg | progress: 159.08 deg | signed_error: 4.21 deg | qmc_heading: 23.10 deg | qmc_rate_abs: 3.14 rad/s | phase: fine | target_rpm: 36.00
+[18:05:52] Carro parado.

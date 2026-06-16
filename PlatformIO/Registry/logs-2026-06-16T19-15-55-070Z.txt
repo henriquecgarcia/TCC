@@ -1,0 +1,332 @@
+Conectando ao ESP32...
+Conectado ao ESP32.
+[4:12:16 PM] {"map": }
+[4:12:32 PM] [GridCellNavigator] Executando caminho A* com 5 célula(s).
+[4:12:32 PM] [PonteH] Encoder turn calibrated: direction=left target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:12:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 4.81 deg | phase: coarse | target_rpm: 105.00
+[4:12:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 4.32 deg | phase: coarse | target_rpm: 105.00
+[4:12:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -18.55 deg | phase: coarse | target_rpm: 105.00
+[4:12:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -25.75 deg | phase: coarse | target_rpm: 105.00
+[4:12:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -27.54 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -30.09 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -35.90 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -41.37 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -46.84 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -58.64 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: -60.10 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: -65.95 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.36 rad (20.89 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 69.11 deg | qmc_heading: -39.23 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.58 rad (33.43 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 56.57 deg | qmc_heading: -35.42 deg | phase: coarse | target_rpm: 105.00
+[4:12:33 PM] [PonteH] Encoder Turn Z: 0.80 rad (45.96 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 44.04 deg | qmc_heading: -39.16 deg | phase: coarse | target_rpm: 105.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.46 rad (83.57 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -81.88 deg | phase: fine | target_rpm: 45.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.46 rad (83.57 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -135.05 deg | phase: fine | target_rpm: 45.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.46 rad (83.57 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -146.96 deg | phase: fine | target_rpm: 45.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.46 rad (83.57 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -123.26 deg | phase: fine | target_rpm: 45.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.46 rad (83.57 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -120.88 deg | phase: fine | target_rpm: 45.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -123.90 deg | phase: fine | target_rpm: 38.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -119.98 deg | phase: fine | target_rpm: 38.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -117.93 deg | phase: fine | target_rpm: 38.00
+[4:12:34 PM] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -115.14 deg | phase: fine | target_rpm: 38.00
+[4:12:35 PM] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -111.71 deg | phase: fine | target_rpm: 38.00
+[4:12:35 PM] [PonteH] Encoder Turn Z: 1.60 rad (91.93 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -104.39 deg | phase: fine | target_rpm: 38.00
+[4:12:35 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:12:35 PM] [GridCellNavigator] Avançando célula 1/4 para X=1 Y=2.
+[4:12:37 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=2. Distância: 0.286 m.
+[4:12:37 PM] [GridCellNavigator] Avançando célula 2/4 para X=1 Y=3.
+[4:12:39 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=3. Distância: 0.291 m.
+[4:12:40 PM] [GridCellNavigator] Avançando célula 3/4 para X=1 Y=4.
+[4:12:42 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=4. Distância: 0.286 m.
+[4:12:42 PM] [GridCellNavigator] Avançando célula 4/4 para X=1 Y=5.
+[4:12:44 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=5. Distância: 0.286 m.
+[4:13:07 PM] [GridCellNavigator] Executando caminho A* com 5 célula(s).
+[4:13:07 PM] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -126.90 deg | phase: coarse | target_rpm: 105.00
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -122.94 deg | phase: coarse | target_rpm: 105.00
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -165.82 deg | phase: coarse | target_rpm: 105.00
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -169.57 deg | phase: coarse | target_rpm: 105.00
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -169.91 deg | phase: coarse | target_rpm: 105.00
+[4:13:07 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -177.78 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 178.86 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:08 PM] [PonteH] Encoder Turn Z: -0.29 rad (-16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: 178.83 deg | phase: coarse | target_rpm: 105.00
+[4:13:09 PM] [PonteH] Encoder Turn Z: -1.46 rad (-83.57 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -78.52 deg | phase: fine | target_rpm: 45.00
+[4:13:09 PM] [PonteH] Encoder Turn Z: -2.33 rad (-133.71 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -15.20 deg | phase: fine | target_rpm: 38.00
+[4:13:09 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:09 PM] [PonteH] Encoder turn calibrated: direction=left target=43.71 deg (0.76 radians) timeout=13934 ms
+[4:13:09 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 39.54 deg | qmc_heading: -11.10 deg | phase: coarse | target_rpm: 105.00
+[4:13:09 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 39.54 deg | qmc_heading: -8.93 deg | phase: coarse | target_rpm: 105.00
+[4:13:09 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.18 deg | qmc_heading: -37.41 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.18 deg | qmc_heading: -43.34 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.18 deg | qmc_heading: -47.43 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 27.00 deg | qmc_heading: -48.47 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 27.00 deg | qmc_heading: -57.84 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 27.00 deg | qmc_heading: -60.55 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 27.00 deg | qmc_heading: -45.92 deg | phase: coarse | target_rpm: 105.00
+[4:13:10 PM] [PonteH] Encoder Turn Z: 0.44 rad (25.07 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 18.64 deg | qmc_heading: -43.33 deg | phase: coarse | target_rpm: 105.00
+[4:13:11 PM] [PonteH] Encoder Turn Z: 0.58 rad (33.43 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 10.29 deg | qmc_heading: -50.82 deg | phase: fine | target_rpm: 45.00
+[4:13:11 PM] [PonteH] Encoder Turn Z: 0.80 rad (45.96 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -60.92 deg | phase: fine | target_rpm: 38.00
+[4:13:11 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:11 PM] [PonteH] Encoder turn calibrated: direction=right target=2.25 deg (0.04 radians) timeout=10202 ms
+[4:13:11 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -35.98 deg | phase: fine | target_rpm: 38.00
+[4:13:11 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -38.60 deg | phase: fine | target_rpm: 38.00
+[4:13:11 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -88.65 deg | phase: fine | target_rpm: 38.00
+[4:13:12 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:12 PM] [GridCellNavigator] Avançando célula 1/4 para X=2 Y=5.
+[4:13:12 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=5. Distância: 0.286 m.
+[4:13:13 PM] [GridCellNavigator] Avançando célula 2/4 para X=3 Y=5.
+[4:13:15 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=5. Distância: 0.296 m.
+[4:13:15 PM] [GridCellNavigator] Avançando célula 3/4 para X=4 Y=5.
+[4:13:17 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=5. Distância: 0.296 m.
+[4:13:18 PM] [GridCellNavigator] Avançando célula 4/4 para X=5 Y=5.
+[4:13:20 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=5. Distância: 0.286 m.
+[4:13:28 PM] [GridCellNavigator] Executando caminho A* com 9 célula(s).
+[4:13:28 PM] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:13:29 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -91.60 deg | phase: coarse | target_rpm: 105.00
+[4:13:29 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -99.80 deg | phase: coarse | target_rpm: 105.00
+[4:13:29 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -111.34 deg | phase: coarse | target_rpm: 105.00
+[4:13:29 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -119.76 deg | phase: coarse | target_rpm: 105.00
+[4:13:30 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:30 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:30 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:30 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:30 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: -120.46 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.29 rad (-16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: -109.06 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.29 rad (-16.71 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: -10.92 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.44 rad (-25.07 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 64.93 deg | qmc_heading: 37.22 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.51 rad (-29.25 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 60.75 deg | qmc_heading: 18.28 deg | phase: coarse | target_rpm: 105.00
+[4:13:31 PM] [PonteH] Encoder Turn Z: -0.73 rad (-41.79 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 48.21 deg | qmc_heading: -5.90 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: -1.02 rad (-58.50 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.50 deg | qmc_heading: -5.90 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: -1.17 rad (-66.86 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 23.14 deg | qmc_heading: 28.18 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: -2.48 rad (-142.07 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: 41.00 deg | phase: fine | target_rpm: 38.00
+[4:13:32 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:32 PM] [PonteH] Encoder turn calibrated: direction=left target=52.07 deg (0.91 radians) timeout=14686 ms
+[4:13:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 52.07 deg | qmc_heading: 166.74 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 52.07 deg | qmc_heading: 176.47 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 43.71 deg | qmc_heading: 178.01 deg | phase: coarse | target_rpm: 105.00
+[4:13:32 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 43.71 deg | qmc_heading: 75.87 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 43.71 deg | qmc_heading: 21.25 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 43.71 deg | qmc_heading: 3.00 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.15 rad (8.36 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 43.71 deg | qmc_heading: -3.42 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 39.54 deg | qmc_heading: -8.76 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 39.54 deg | qmc_heading: -9.28 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 39.54 deg | qmc_heading: -9.28 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 35.36 deg | qmc_heading: -9.28 deg | phase: coarse | target_rpm: 105.00
+[4:13:33 PM] [PonteH] Encoder Turn Z: 0.51 rad (29.25 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 22.82 deg | qmc_heading: -9.28 deg | phase: coarse | target_rpm: 105.00
+[4:13:34 PM] [PonteH] Encoder Turn Z: 0.58 rad (33.43 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 18.64 deg | qmc_heading: -7.86 deg | phase: coarse | target_rpm: 105.00
+[4:13:34 PM] [PonteH] Encoder Turn Z: 0.73 rad (41.79 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 10.29 deg | qmc_heading: -122.72 deg | phase: fine | target_rpm: 45.00
+[4:13:34 PM] [PonteH] Encoder Turn Z: 0.88 rad (50.14 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 1.93 deg | qmc_heading: -78.08 deg | phase: fine | target_rpm: 38.00
+[4:13:34 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:34 PM] [GridCellNavigator] Avançando célula 1/8 para X=5 Y=4.
+[4:13:34 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=4. Distância: 0.311 m.
+[4:13:35 PM] [GridCellNavigator] Avançando célula 2/8 para X=5 Y=3.
+[4:13:37 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=3. Distância: 0.296 m.
+[4:13:37 PM] [GridCellNavigator] Avançando célula 3/8 para X=5 Y=2.
+[4:13:39 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=2. Distância: 0.286 m.
+[4:13:40 PM] [GridCellNavigator] Avançando célula 4/8 para X=5 Y=1.
+[4:13:42 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.286 m.
+[4:13:42 PM] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:13:42 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.18 deg | phase: coarse | target_rpm: 105.00
+[4:13:42 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:42 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:43 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -0.44 rad (-25.07 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 64.93 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -0.51 rad (-29.25 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 60.75 deg | qmc_heading: -77.53 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -0.58 rad (-33.43 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 56.57 deg | qmc_heading: -42.62 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -0.66 rad (-37.61 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 52.39 deg | qmc_heading: -24.01 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -1.09 rad (-62.68 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 27.32 deg | qmc_heading: -24.01 deg | phase: coarse | target_rpm: 105.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: -1.68 rad (-96.11 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -71.04 deg | phase: fine | target_rpm: 38.00
+[4:13:44 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:44 PM] [PonteH] Encoder turn calibrated: direction=left target=6.11 deg (0.11 radians) timeout=10549 ms
+[4:13:44 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -141.25 deg | phase: fine | target_rpm: 45.00
+[4:13:44 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -159.14 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -161.02 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -161.27 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -161.44 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -162.46 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -162.84 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -161.09 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -164.67 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 6.11 deg | qmc_heading: -162.40 deg | phase: fine | target_rpm: 45.00
+[4:13:45 PM] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 1.93 deg | qmc_heading: -164.85 deg | phase: fine | target_rpm: 38.00
+[4:13:45 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:13:45 PM] [GridCellNavigator] Avançando célula 5/8 para X=4 Y=1.
+[4:13:47 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.291 m.
+[4:13:48 PM] [GridCellNavigator] Avançando célula 6/8 para X=3 Y=1.
+[4:13:50 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.286 m.
+[4:13:51 PM] [GridCellNavigator] Avançando célula 7/8 para X=2 Y=1.
+[4:13:53 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.286 m.
+[4:13:53 PM] [GridCellNavigator] Avançando célula 8/8 para X=1 Y=1.
+[4:13:55 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=1. Distância: 0.286 m.
+[4:14:00 PM] [GridCellNavigator] Executando caminho A* com 5 célula(s).
+[4:14:00 PM] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 162.22 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.07 rad (-4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.15 rad (-8.36 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 81.64 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.22 rad (-12.54 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.22 rad (-12.54 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:01 PM] [PonteH] Encoder Turn Z: -0.29 rad (-16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -0.29 rad (-16.71 deg) on deltaTime: 0.15
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -0.44 rad (-25.07 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 64.93 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -0.95 rad (-54.32 deg) on deltaTime: 0.14
+[PonteH] Remaining angle: 35.68 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -1.02 rad (-58.50 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.50 deg | qmc_heading: 160.25 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -1.17 rad (-66.86 deg) on deltaTime: 0.14
+[PonteH] Remaining angle: 23.14 deg | qmc_heading: 139.59 deg | phase: coarse | target_rpm: 105.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -1.46 rad (-83.57 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: 139.59 deg | phase: fine | target_rpm: 45.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -1.46 rad (-83.57 deg) on deltaTime: 0.13
+[PonteH] Remaining angle: 6.43 deg | qmc_heading: -149.89 deg | phase: fine | target_rpm: 45.00
+[4:14:02 PM] [PonteH] Encoder Turn Z: -1.53 rad (-87.75 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -114.81 deg | phase: fine | target_rpm: 38.00
+[4:14:03 PM] [PonteH] Encoder Turn Z: -1.53 rad (-87.75 deg) on deltaTime: 0.13
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: -104.47 deg | phase: fine | target_rpm: 38.00
+[4:14:03 PM] [PonteH] Encoder Turn Z: -1.60 rad (-91.93 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -98.98 deg | phase: fine | target_rpm: 38.00
+[4:14:03 PM] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[4:14:03 PM] [GridCellNavigator] Avançando célula 1/4 para X=1 Y=2.
+[4:14:05 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=2. Distância: 0.296 m.
+[4:14:06 PM] [GridCellNavigator] Avançando célula 2/4 para X=1 Y=3.
+[4:14:08 PM] [GridCellNavigator] Célula concluída. Pose fixada em X=1 Y=3. Distância: 0.286 m.
+[4:14:09 PM] [GridCellNavigator] Avançando célula 3/4 para X=1 Y=4.
+[4:14:09 PM] [GridCellNavigator] Obstáculo detectado em X=1 Y=4 | mapa 7x7 preservado, sem setCell().
+[4:14:09 PM] [GridCellNavigator] Navegação abortada: obstacle_detected_map_preserved

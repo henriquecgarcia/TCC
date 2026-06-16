@@ -1,0 +1,102 @@
+Conectando ao ESP32...
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:24:31] {"map": }
+[17:24:41] [PonteH] Encoder turn calibrated: direction=right target=90.00 deg (1.57 radians) timeout=18100 ms
+[17:24:41] Carro virando para a direita.
+[17:24:41] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 2.14 deg | phase: coarse | target_rpm: 105.00
+[17:24:41] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -127.52 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -166.12 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -178.35 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -177.80 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 179.74 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -177.78 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: -178.13 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 170.30 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: 0.00 rad (0.00 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 90.00 deg | qmc_heading: 159.17 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: -1.02 rad (-58.50 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.50 deg | qmc_heading: -167.73 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: -1.09 rad (-62.68 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 27.32 deg | qmc_heading: -177.86 deg | phase: coarse | target_rpm: 105.00
+[17:24:42] [PonteH] Encoder Turn Z: -1.24 rad (-71.04 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 18.96 deg | qmc_heading: -49.15 deg | phase: coarse | target_rpm: 105.00
+[17:24:43] [PonteH] Encoder Turn Z: -1.24 rad (-71.04 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 18.96 deg | qmc_heading: -144.29 deg | phase: coarse | target_rpm: 105.00
+[17:24:43] [PonteH] Encoder Turn Z: -1.39 rad (-79.39 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 10.61 deg | qmc_heading: -151.74 deg | phase: fine | target_rpm: 45.00
+[17:24:43] [PonteH] Encoder Turn Z: -15.61 rad (-894.21 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: -179.10 deg | phase: fine | target_rpm: 38.00
+[17:24:43] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+Desconectado. Tentando reconectar em 2 segundos.
+Desconectado. Tentando reconectar em 2 segundos.
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:25:07] {"map": }
+Desconectado. Tentando reconectar em 2 segundos.
+Conectado ao ESP32.
+[17:26:54] {"map": }
+[17:26:58] [GridCellNavigator] Executando caminho A* com 6 célula(s).
+[17:26:58] [GridCellNavigator] Avançando célula 1/5 para X=2 Y=1.
+[17:27:00] [GridCellNavigator] Célula concluída. Pose fixada em X=2 Y=1. Distância: 0.286 m.
+[17:27:00] [GridCellNavigator] Avançando célula 2/5 para X=3 Y=1.
+[17:27:01] [GridCellNavigator] Célula concluída. Pose fixada em X=3 Y=1. Distância: 0.311 m.
+[17:27:02] [GridCellNavigator] Avançando célula 3/5 para X=4 Y=1.
+[17:27:04] [GridCellNavigator] Célula concluída. Pose fixada em X=4 Y=1. Distância: 0.286 m.
+[17:27:04] [GridCellNavigator] Avançando célula 4/5 para X=5 Y=1.
+[17:27:07] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=1. Distância: 0.286 m.
+[17:27:07] [PonteH] Encoder turn calibrated: direction=left target=90.00 deg (1.57 radians) timeout=18100 ms
+[17:27:07] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.44 deg | phase: coarse | target_rpm: 105.00
+[17:27:07] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.20 deg | phase: coarse | target_rpm: 105.00
+[17:27:07] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.10
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:08] [PonteH] Encoder Turn Z: 0.07 rad (4.18 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 85.82 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.22 rad (12.54 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 77.46 deg | qmc_heading: 84.19 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: 60.71 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.29 rad (16.71 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 73.29 deg | qmc_heading: 60.71 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.44 rad (25.07 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 64.93 deg | qmc_heading: 60.71 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.51 rad (29.25 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 60.75 deg | qmc_heading: 60.71 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 0.73 rad (41.79 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 48.21 deg | qmc_heading: -13.69 deg | phase: coarse | target_rpm: 105.00
+[17:27:09] [PonteH] Encoder Turn Z: 1.02 rad (58.50 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 31.50 deg | qmc_heading: -13.69 deg | phase: coarse | target_rpm: 105.00
+[17:27:10] [PonteH] Encoder Turn Z: 1.17 rad (66.86 deg) on deltaTime: 0.11
+[PonteH] Remaining angle: 23.14 deg | qmc_heading: -13.69 deg | phase: coarse | target_rpm: 105.00
+[17:27:10] [PonteH] Encoder Turn Z: 1.31 rad (75.21 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 14.79 deg | qmc_heading: -13.69 deg | phase: fine | target_rpm: 55.00
+[17:27:10] [PonteH] Encoder Turn Z: 1.53 rad (87.75 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 2.25 deg | qmc_heading: 99.48 deg | phase: fine | target_rpm: 38.00
+[17:27:10] [PonteH] Encoder Turn Z: 1.60 rad (91.93 deg) on deltaTime: 0.12
+[PonteH] Remaining angle: 0.00 deg | qmc_heading: 136.87 deg | phase: fine | target_rpm: 38.00
+[17:27:10] [PonteH] Curva finalizada por encoder. Alvo angular atingido.
+[17:27:11] [GridCellNavigator] Avançando célula 5/5 para X=5 Y=2.
+[17:27:12] [GridCellNavigator] Célula concluída. Pose fixada em X=5 Y=2. Distância: 0.291 m.
