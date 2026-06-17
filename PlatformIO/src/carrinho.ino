@@ -87,32 +87,6 @@ static void webLog(const char* msg) {
 	WebInterface::getInstance().log(msg);
 }
 
-void sendTelemetryFrame();
-String getMapSnapshotJson();
-int getCachedFrontDistanceMm();
-float getCachedGyroZ();
-float getCachedMagAngleZ();
-float getCachedMagRateZ();
-unsigned long getCachedQmcAgeMs();
-unsigned long getCachedMagAgeMs();
-unsigned long getCachedTofAgeMs();
-
-/**
- * Retorna true quando existe algum comando físico ativo nos motores.
- *
- * Esta função é usada para impedir que a odometria/EKF continue integrando
- * ruído quando o robô está parado. Sem essa trava, pequenos ruídos dos
- * encoders ou do QMC5883L podem fazer a localização discreta "andar sozinha"
- * no mapa enviado ao WebServer.
- */
-bool isRobotPhysicallyCommanded();
-long getSignedLeftTicks();
-long getSignedRightTicks();
-long getRawLeftEncoderTicks();
-long getRawRightEncoderTicks();
-void updateSignedEncoderTicks();
-void syncEncoderReferenceForEKF();
-
 #include "VL53L0X.h"
 #include "QMC5883L_Custom.h"
 

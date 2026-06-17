@@ -176,7 +176,10 @@
     .data-list strong { text-align: right; overflow-wrap: anywhere; }
     .log {
       height: 220px;
-      overflow: auto;
+      max-height: 220px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
       border-radius: 16px;
       background: #101827;
       color: #dbeafe;
@@ -184,7 +187,7 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: .8rem;
     }
-    .log p { margin: 0 0 7px; }
+    .log p { margin: 0 0 7px; overflow-wrap: anywhere; }
     .log-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
 
     @media (max-width: 980px) {
@@ -371,17 +374,17 @@
 
       function updateTelemetry(data) {
         setText('robot-status', data.status || '--');
-        setText('robot-direction', `Direção: ${data.direction || '--'}`);
+        setText('robot-direction', `Movimento: ${data.direction || '--'}`);
         if (data.location) {
           lastLocation = data.location;
           setText('grid-x', data.location.grid_x ?? '--');
           setText('grid-y', data.location.grid_y ?? '--');
-          setText('theta-deg', `${fixed(data.location.theta_deg, 1)}°`);
+          setText('theta-deg', headingText(data.location.theta_deg));
           setText('world-position', `x=${fixed(data.location.world_x_m, 3)}m · y=${fixed(data.location.world_y_m, 3)}m`);
           setText('cell-size', `Célula: ${fixed((data.location.cell_size_m || 0) * 100, 0)} cm`);
         }
         setText('front-distance', Number.isFinite(Number(data.distance)) ? `${data.distance} mm` : '--');
-        if (data.sensor_age) setText('sensor-age', `MPU ${data.sensor_age.mpu_ms ?? '--'} ms · ToF ${data.sensor_age.tof_ms ?? '--'} ms`);
+        if (data.sensor_age) setText('sensor-age', `QMC ${data.sensor_age.qmc_ms ?? data.sensor_age.mag_ms ?? data.sensor_age.mpu_ms ?? '--'} ms · ToF ${data.sensor_age.tof_ms ?? '--'} ms`);
         if (data.cell_nav) updateCellNav(data.cell_nav);
         if (data.motorD) { setText('motor-d-rpm', fixed(data.motorD.rpm, 1)); setText('motor-d-pid', fixed(data.motorD.pidOutput, 1)); }
         if (data.motorE) { setText('motor-e-rpm', fixed(data.motorE.rpm, 1)); setText('motor-e-pid', fixed(data.motorE.pidOutput, 1)); }
@@ -405,6 +408,54 @@
         if (Array.isArray(map.path) && map.path.length) plannedPath = map.path;
         setText('map-info', `${map.width || '--'}x${map.height || '--'} · ${fixed((map.cell_size_m || 0) * 100, 0)} cm`);
         drawMap();
+      }
+
+      function normalizeDegrees(value) {
+        const n = Number(value);
+        if (!Number.isFinite(n)) return 0;
+        return ((n % 360) + 360) % 360;
+      }
+
+      function headingText(thetaDeg) {
+        const deg = normalizeDegrees(thetaDeg);
+        const labels = ['Leste', 'Nordeste', 'Norte', 'Noroeste', 'Oeste', 'Sudoeste', 'Sul', 'Sudeste'];
+        const index = Math.round(deg / 45) % 8;
+        return `${deg.toFixed(1)}° · ${labels[index]}`;
+      }
+
+      function drawRobotArrow(cx, cy, radius, thetaDeg) {
+        // O theta do EKF usa eixo X positivo como frente. Como o canvas tem Y positivo para baixo, invertimos o sinal no desenho.
+        const angle = -Number(thetaDeg || 0) * Math.PI / 180;
+        const tipX = cx + Math.cos(angle) * radius * 1.15;
+        const tipY = cy + Math.sin(angle) * radius * 1.15;
+        const tailX = cx - Math.cos(angle) * radius * 0.58;
+        const tailY = cy - Math.sin(angle) * radius * 0.58;
+        const perpX = Math.cos(angle + Math.PI / 2);
+        const perpY = Math.sin(angle + Math.PI / 2);
+        const wing = radius * 0.52;
+
+        ctx.fillStyle = '#2563eb';
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = Math.max(3, radius * .14);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(tipX, tipY);
+        ctx.lineTo(tailX + perpX * wing, tailY + perpY * wing);
+        ctx.lineTo(tailX - perpX * wing, tailY - perpY * wing);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(37, 99, 235, .28)';
+        ctx.lineWidth = Math.max(2, radius * .10);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(angle) * radius * 1.65, cy + Math.sin(angle) * radius * 1.65);
+        ctx.stroke();
       }
 
       function drawMap() {
@@ -445,9 +496,8 @@
               ctx.fillStyle = '#16a34a'; ctx.beginPath(); ctx.arc(px + cell / 2, py + cell / 2, Math.max(10, cell * .18), 0, Math.PI * 2); ctx.fill();
             }
             if (robotX === absoluteX && robotY === absoluteY) {
-              ctx.fillStyle = '#2563eb'; ctx.beginPath(); ctx.arc(px + cell / 2, py + cell / 2, Math.max(18, cell * .28), 0, Math.PI * 2); ctx.fill();
-              ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 4; ctx.stroke();
-              ctx.fillStyle = '#fff'; ctx.font = `900 ${Math.max(16, cell * .22)}px system-ui`; ctx.fillText('R', px + cell / 2, py + cell / 2);
+              const thetaDeg = Number(lastLocation?.theta_deg ?? mapState?.robot?.theta_deg ?? 0);
+              drawRobotArrow(px + cell / 2, py + cell / 2, Math.max(18, cell * .28), thetaDeg);
             }
             ctx.fillStyle = occupied ? 'rgba(255,255,255,.72)' : '#64748b';
             ctx.font = `700 ${Math.max(10, cell * .12)}px system-ui`;

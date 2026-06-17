@@ -13,32 +13,37 @@
 	let websocket = null;
 	let reconnectTimer = null;
 	let receivedLines = 0;
+	const maxTerminalLines = 900;
+	let terminalBuffer = ['Conectando ao ESP32...'];
 
 	function setStatus(online, label) {
 		statusBadge.textContent = label;
-		statusBadge.classList.toggle('is-online', online);
-		statusBadge.classList.toggle('is-offline', !online);
+		statusBadge.classList.toggle('online', online);
+		statusBadge.classList.toggle('offline', !online);
 	}
 
 	function updateLogCount() {
-		logCount.textContent = String(receivedLines).padStart(4, '0').slice(-4);
+		logCount.textContent = `${String(receivedLines).padStart(4, '0').slice(-4)} linhas`;
 	}
 
 	function appendTerminal(text) {
-		if (terminal.textContent && !terminal.textContent.endsWith('\n')) {
-			terminal.textContent += '\n';
+		const cleanText = String(text).replace(/\n$/, '');
+		terminalBuffer.push(cleanText);
+		if (terminalBuffer.length > maxTerminalLines) {
+			terminalBuffer = terminalBuffer.slice(-maxTerminalLines);
 		}
-		terminal.textContent += text;
+		terminal.textContent = terminalBuffer.join('\n');
 		terminal.scrollTop = terminal.scrollHeight;
 	}
 
 	function appendLine(text) {
 		receivedLines += 1;
 		updateLogCount();
-		appendTerminal(text.endsWith('\n') ? text : `${text}\n`);
+		appendTerminal(text);
 	}
 
 	function clearTerminal() {
+		terminalBuffer = [];
 		terminal.textContent = '';
 		receivedLines = 0;
 		updateLogCount();

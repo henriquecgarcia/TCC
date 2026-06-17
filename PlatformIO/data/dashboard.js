@@ -118,20 +118,20 @@
 
   function updateTelemetry(data) {
     setText('robot-status', data.status || '--');
-    setText('robot-direction', `Direção: ${data.direction || '--'}`);
+    setText('robot-direction', `Movimento: ${data.direction || '--'}`);
 
     if (data.location) {
       lastLocation = data.location;
       setText('grid-x', data.location.grid_x ?? '--');
       setText('grid-y', data.location.grid_y ?? '--');
-      setText('theta-deg', `${fixed(data.location.theta_deg, 1)}°`);
+      setText('theta-deg', headingText(data.location.theta_deg));
       setText('world-position', `x=${fixed(data.location.world_x_m, 3)}m · y=${fixed(data.location.world_y_m, 3)}m`);
       setText('cell-size', `Célula: ${fixed((data.location.cell_size_m || 0) * 100, 0)} cm`);
     }
 
     setText('front-distance', Number.isFinite(Number(data.distance)) ? `${data.distance} mm` : '--');
     if (data.sensor_age) {
-      setText('sensor-age', `MPU ${data.sensor_age.mpu_ms ?? '--'} ms · ToF ${data.sensor_age.tof_ms ?? '--'} ms`);
+      setText('sensor-age', `QMC ${data.sensor_age.qmc_ms ?? data.sensor_age.mag_ms ?? data.sensor_age.mpu_ms ?? '--'} ms · ToF ${data.sensor_age.tof_ms ?? '--'} ms`);
     }
 
     if (data.cell_nav) updateCellNav(data.cell_nav);
@@ -176,6 +176,53 @@
     if (Array.isArray(map.path) && map.path.length) plannedPath = map.path;
     setText('map-info', `${map.width || '--'}x${map.height || '--'} · célula ${fixed((map.cell_size_m || 0) * 100, 0)} cm`);
     drawMap();
+  }
+
+  function normalizeDegrees(value) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return 0;
+    return ((n % 360) + 360) % 360;
+  }
+
+  function headingText(thetaDeg) {
+    const deg = normalizeDegrees(thetaDeg);
+    const labels = ['Leste', 'Nordeste', 'Norte', 'Noroeste', 'Oeste', 'Sudoeste', 'Sul', 'Sudeste'];
+    const index = Math.round(deg / 45) % 8;
+    return `${deg.toFixed(1)}° · ${labels[index]}`;
+  }
+
+  function drawRobotArrow(cx, cy, radius, thetaDeg) {
+    const angle = -Number(thetaDeg || 0) * Math.PI / 180;
+    const tipX = cx + Math.cos(angle) * radius * 1.15;
+    const tipY = cy + Math.sin(angle) * radius * 1.15;
+    const tailX = cx - Math.cos(angle) * radius * 0.58;
+    const tailY = cy - Math.sin(angle) * radius * 0.58;
+    const perpX = Math.cos(angle + Math.PI / 2);
+    const perpY = Math.sin(angle + Math.PI / 2);
+    const wing = radius * 0.52;
+
+    ctx.fillStyle = '#2563eb';
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = Math.max(3, radius * .14);
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.moveTo(tipX, tipY);
+    ctx.lineTo(tailX + perpX * wing, tailY + perpY * wing);
+    ctx.lineTo(tailX - perpX * wing, tailY - perpY * wing);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(37, 99, 235, .28)';
+    ctx.lineWidth = Math.max(2, radius * .10);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(angle) * radius * 1.65, cy + Math.sin(angle) * radius * 1.65);
+    ctx.stroke();
   }
 
   function drawMap() {
@@ -223,15 +270,8 @@
         }
 
         if (robotX === absoluteX && robotY === absoluteY) {
-          ctx.fillStyle = '#2563eb';
-          ctx.beginPath();
-          ctx.arc(px + cell / 2, py + cell / 2, Math.max(12, cell * .28), 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#fff';
-          ctx.font = `700 ${Math.max(12, cell * .18)}px system-ui`;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('R', px + cell / 2, py + cell / 2);
+          const thetaDeg = Number(lastLocation?.theta_deg ?? mapState?.robot?.theta_deg ?? 0);
+          drawRobotArrow(px + cell / 2, py + cell / 2, Math.max(12, cell * .28), thetaDeg);
         }
 
         ctx.fillStyle = occupied ? 'rgba(255,255,255,.8)' : '#64748b';

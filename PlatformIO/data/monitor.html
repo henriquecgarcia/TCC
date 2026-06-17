@@ -1,55 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>LCARS Monitor ESP32</title>
-	<link rel="stylesheet" href="./monitor.css">
-	<script src="./monitor.js" defer></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TCC | WebMonitor ESP32</title>
+  <link rel="stylesheet" href="./monitor.css">
+  <script src="./monitor.js" defer></script>
 </head>
 <body>
-	<div class="lcars-shell">
-		<aside class="lcars-rail" aria-hidden="true">
-			<div class="rail-cap rail-cap-top"></div>
-			<div class="rail-block rail-block-orange"></div>
-			<div class="rail-block rail-block-violet"></div>
-			<div class="rail-block rail-block-blue"></div>
-			<div class="rail-spacer"></div>
-			<div class="rail-block rail-block-peach"></div>
-			<div class="rail-cap rail-cap-bottom"></div>
-		</aside>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">ESP</div>
+        <div>
+          <h1>WebMonitor ESP32</h1>
+          <p>Console WebSocket para logs, comandos manuais e depuração do robô.</p>
+        </div>
+      </div>
+      <div class="connection">
+        <span id="connection-status" class="pill offline">Offline</span>
+        <span id="log-count" class="pill">0000 linhas</span>
+        <a class="link-button" href="/">Interface principal</a>
+      </div>
+    </header>
 
-		<main class="monitor-layout">
-			<header class="lcars-header">
-				<div class="header-elbow" aria-hidden="true"></div>
-				<div class="header-title">
-					<p class="station-code">LCARS 47-ESP32</p>
-					<h1>Web Serial Monitor</h1>
-				</div>
-				<div id="connection-status" class="connection-status is-offline">Offline</div>
-			</header>
+    <section class="monitor-grid">
+      <section class="panel terminal-panel" aria-label="Terminal do ESP32">
+        <div class="panel-head">
+          <div>
+            <h2>Console</h2>
+            <p class="desc">Recebe tudo que chega pelo <strong>/ws</strong>. A área tem altura fixa e rolagem vertical.</p>
+          </div>
+          <span class="pill">overflow-y: scroll</span>
+        </div>
+        <pre id="terminal" class="terminal" aria-live="polite">Conectando ao ESP32...</pre>
+      </section>
 
-			<section class="terminal-panel" aria-label="Terminal do ESP32">
-				<div class="panel-topline">
-					<span>COMMS</span>
-					<span>WS /ws</span>
-					<span id="log-count">0000</span>
-				</div>
-				<pre id="terminal" class="terminal" aria-live="polite">Conectando ao ESP32...</pre>
-			</section>
+      <aside class="panel side-panel">
+        <div class="panel-head compact">
+          <div>
+            <h2>Comando</h2>
+            <p class="desc">Envie comandos diretos para o ESP32.</p>
+          </div>
+        </div>
+        <form id="command-form" class="command-form">
+          <label for="input-box">Entrada</label>
+          <input type="text" id="input-box" autocomplete="off" placeholder="Ex.: status, map, right, left...">
+          <button class="primary-action" type="submit">Enviar</button>
+        </form>
 
-			<form id="command-form" class="command-bar">
-				<label class="sr-only" for="input-box">Enviar comando</label>
-				<input type="text" id="input-box" autocomplete="off" placeholder="Enviar comando...">
-				<button type="submit">Enviar</button>
-			</form>
+        <div class="actions">
+          <button type="button" id="clear-terminal">Limpar console</button>
+          <button type="button" id="reload-page">Recarregar página</button>
+          <button type="button" id="download-logs">Baixar logs</button>
+        </div>
 
-			<nav class="action-strip" aria-label="Acoes do terminal">
-				<button type="button" id="clear-terminal">Limpar</button>
-				<button type="button" id="reload-page">Recarregar</button>
-				<button type="button" id="download-logs">Baixar Logs</button>
-			</nav>
-		</main>
-	</div>
+        <div class="info-box">
+          <strong>Nota</strong>
+          <p>Este monitor não altera a telemetria principal; ele apenas mostra logs e envia comandos pelo WebSocket antigo.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
 </body>
 </html>

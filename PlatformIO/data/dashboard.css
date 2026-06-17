@@ -111,7 +111,7 @@ h2 { margin-bottom: 4px; font-size: 1.1rem; letter-spacing: -.02em; }
 .data-list.two-cols { grid-template-columns: 1fr 1fr; }
 .data-list div { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--surface-soft); border: 1px solid var(--line); border-radius: 14px; padding: .75rem .85rem; }
 .data-list strong { text-align: right; overflow-wrap: anywhere; }
-.io-log { height: 210px; overflow: auto; border-radius: 16px; background: #0f172a; color: #dbeafe; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; }
+.io-log { height: 210px; max-height: 210px; overflow-y: scroll; overflow-x: hidden; overscroll-behavior: contain; border-radius: 16px; background: #0f172a; color: #dbeafe; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82rem; }
 .io-log p { margin: 0 0 6px; }
 .bottom-actions { margin-bottom: 0; }
 
