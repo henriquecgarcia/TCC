@@ -1,0 +1,147 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Automate.org 2023]{automate2023defense}
+\abntrefinfo{Automate.org}{AUTOMATE.ORG}{2023}
+{AUTOMATE.ORG. \emph{Service Robots: Defense}. 2023.
+Dispon{\'\i}vel em:
+  \url{https://www.automate.org/robotics/service-robots/service-robots-defense}.}
+
+\bibitem[Barry 2016]{barry2016freertos}
+\abntrefinfo{Barry}{BARRY}{2016}
+{BARRY, R. \emph{Mastering the FreeRTOS Real Time Kernel: A Hands-On Tutorial
+  Guide}. United Kingdom: Real Time Engineers Ltd., 2016. Acesso em: 19 jun.
+  2026. Dispon{\'\i}vel em:
+  \url{https://www.freertos.org/media/2018/161204\_Mastering\_the\_FreeRTOS\_Real\_Time\_Kernel-A\_Hands-On\_Tutorial\_Guide.pdf}.}
+
+\bibitem[Calisi et al. 2007]{calisi2007autonomous}
+\abntrefinfo{Calisi et al.}{CALISI et al.}{2007}
+{CALISI, D. et al. Autonomous exploration for search and rescue robots. In:
+  \emph{Safety and Security Engineering II}. [S.l.]: WIT Press, 2007. p.
+  305--314.}
+
+\bibitem[Cantucci, Marini e Falcone 2024]{cantucci2024museum}
+\abntrefinfo{Cantucci, Marini e Falcone}{CANTUCCI; MARINI; FALCONE}{2024}
+{CANTUCCI, F.; MARINI, M.; FALCONE, R. Effects of robot's adaptive autonomy on
+  users experience in a museum scenario. In:  \emph{CEUR Workshop Proceedings}.
+  [s.n.], 2024. v.~3735, p. 1--10. Dispon{\'\i}vel em:
+  \url{https://ceur-ws.org/Vol-3735/paper\_01.pdf}.}
+
+\bibitem[Carvalho e Neto 2024]{matiz2024sistemas}
+\abntrefinfo{Carvalho e Neto}{CARVALHO; NETO}{2024}
+{CARVALHO, F.; NETO, A. F. Sistemas embarcados: Fundamentos, aplicações e
+  desafios tecnológicos.
+\emph{Revista Matiz Online}, v.~14, p. 1--20, 2024.
+Instituto Matonense Municipal de Ensino Superior.
+Dispon{\'\i}vel em:
+  \url{https://immes.edu.br/wp-content/uploads/2025/05/Artigo\_MATIZ\_2024\_Sistemas\_Embarcados.pdf}.}
+
+\bibitem[Gonçalves e Silva 2017]{unicamp2017odometria}
+\abntrefinfo{Gonçalves e Silva}{GONçALVES; SILVA}{2017}
+{GONçALVES, J.; SILVA, M. \emph{Odometria visual para robôs}.
+[S.l.], 2017. Dispon{\'\i}vel em:
+  \url{https://www.ic.unicamp.br/~reltech/PFG/2017/PFG-17-19.pdf}.}
+
+\bibitem[Industries 2024]{adafruit2024vl53l0x}
+\abntrefinfo{Industries}{INDUSTRIES}{2024}
+{INDUSTRIES, A. \emph{Adafruit VL53L0X Time of Flight Micro-LIDAR Distance
+  Sensor Breakout}.
+[S.l.], 2024. Dispon{\'\i}vel em:
+  \url{https://cdn-learn.adafruit.com/downloads/pdf/adafruit-vl53l0x-micro-lidar-distance-sensor-breakout.pdf}.}
+
+\bibitem[Kurose e Ross 2009]{kurose2009computer}
+\abntrefinfo{Kurose e Ross}{KUROSE; ROSS}{2009}
+{KUROSE, J.~F.; ROSS, K.~W. \emph{Computer Networking: A Top-Down Approach}. 5.
+  ed. USA: Addison-Wesley, 2009.}
+
+\bibitem[Lemos 2021]{lemos2021auv}
+\abntrefinfo{Lemos}{LEMOS}{2021}
+{LEMOS, J. V.~A.
+\emph{Veículos Submersos Autônomos (AUV's): inspeção e manutenção de
+  estruturas submarinas}.
+Tese (Doutorado) --- Universidade Federal de Pernambuco, 2021.
+Dispon{\'\i}vel em:
+  \url{https://repositorio.ufpe.br/bitstream/123456789/48987/1/JO\%C3\%83O\%20VICTOR\%20ALMEIDA\%20LEMOS.pdf}.}
+
+\bibitem[Moubarak e Ben-Tzvi 2012]{MOUBARAK20121648}
+\abntrefinfo{Moubarak e Ben-Tzvi}{MOUBARAK; BEN-TZVI}{2012}
+{MOUBARAK, P.; BEN-TZVI, P. Modular and reconfigurable mobile robotics.
+\emph{Robotics and Autonomous Systems}, v.~60, n.~12, p. 1648--1663, 2012.
+ISSN 0921-8890.
+Dispon{\'\i}vel em:
+  \url{https://www.sciencedirect.com/science/article/pii/S0921889012001480}.}
+
+\bibitem[Nauert e Kampmann 2023]{frontiers2023underwater}
+\abntrefinfo{Nauert e Kampmann}{NAUERT; KAMPMANN}{2023}
+{NAUERT, S.; KAMPMANN, P. Inspection and maintenance of industrial
+  infrastructure: challenges and perspectives for autonomous underwater
+  intervention.
+\emph{Frontiers in Robotics and AI}, v.~10, p. 1240276, 2023.}
+
+\bibitem[Nehmzow 2012]{nehmzow2012mobile}
+\abntrefinfo{Nehmzow}{NEHMZOW}{2012}
+{NEHMZOW, U. \emph{Mobile robotics: a practical introduction}. [S.l.]: Springer
+  Science \& Business Media, 2012.}
+
+\bibitem[Oliveira 2020]{ufla2020mapa}
+\abntrefinfo{Oliveira}{OLIVEIRA}{2020}
+{OLIVEIRA, A.
+\emph{O uso do algoritmo Mapa de Rotas Probabilístico na robótica móvel}.
+Disserta\c{c}\~{a}o (Mestrado) --- Universidade Federal de Lavras, 2020.
+Dispon{\'\i}vel em:
+  \url{http://repositorio.ufla.br/bitstream/1/45521/1/MONOGRAFIA\_O\%20uso\%20do\%20algoritmo\%20Mapa\%20de\%20Rotas\%20Probabil\%C3\%ADstico\%20na\%20rob\%C3\%B3tica\%20m\%C3\%B3vel.pdf}.}
+
+\bibitem[Parween et al. 2020]{selfreconfigurable_cleaning_robot2020}
+\abntrefinfo{Parween et al.}{PARWEEN et al.}{2020}
+{PARWEEN, R. et al. Autonomous self-reconfigurable floor cleaning robot.
+\emph{IEEE Access}, v.~8, p. 114433--114442, 2020.
+ISSN 2169-3536.}
+
+\bibitem[Patel 2021]{patel2021ultrasonic}
+\abntrefinfo{Patel}{PATEL}{2021}
+{PATEL, V.~B. \emph{Ultrasonic-SLAM}. 2021.
+  \url{https://github.com/PatelVatsalB21/Ultrasonic-SLAM}.
+Acesso em: 27 jun. 2025.}
+
+\bibitem[Samir et al. 2024]{antonios2024review}
+\abntrefinfo{Samir et al.}{SAMIR et al.}{2024}
+{SAMIR, A. et al. A review of features and characteristics of rescue robot with
+  ai.
+\emph{International Journal of Robotics}, v.~12, n.~4, p. 123--145, 2024.}
+
+\bibitem[Schilling et al. 1997]{SCHILLINGK_FLEXIBLE_AUTONOMOUS_TRANSPORT}
+\abntrefinfo{Schilling et al.}{SCHILLING et al.}{1997}
+{SCHILLING, K. et al. Design of flexible autonomous transport robots for
+  industrial production. In:  \emph{Proceedings of the IEEE International
+  Symposium on Industrial Electronics (ISIE '97)}. [S.l.: s.n.], 1997. p.
+  791--796.}
+
+\bibitem[Siegwart, Nourbakhsh e Scaramuzza 2011]{siegwart2011introduction}
+\abntrefinfo{Siegwart, Nourbakhsh e Scaramuzza}{SIEGWART; NOURBAKHSH;
+  SCARAMUZZA}{2011}
+{SIEGWART, R.; NOURBAKHSH, I.~R.; SCARAMUZZA, D. \emph{Introduction to
+  Autonomous Mobile Robots}. 2. ed. Cambridge, MA: MIT press, 2011.}
+
+\bibitem[Silva e Souza 2024]{extrica2024museum}
+\abntrefinfo{Silva e Souza}{SILVA; SOUZA}{2024}
+{SILVA, L.; SOUZA, A. Robotics and ai in museums – the future of the present.
+\emph{Extrica}, v.~12, n.~4, p. 45--56, 2024.
+Dispon{\'\i}vel em: \url{https://www.extrica.com/article/24355}.}
+
+\bibitem[Studies 2021]{hcss2021military}
+\abntrefinfo{Studies}{STUDIES}{2021}
+{STUDIES, T. H.~C. for S. \emph{The Military Applicability of Robotic and
+  Autonomous Systems}.
+[S.l.], 2021. Dispon{\'\i}vel em:
+  \url{https://hcss.nl/wp-content/uploads/2021/01/RAS\_Military\_Applicability\_Final\_.pdf}.}
+
+\bibitem[Åström e Hägglund 2006]{astrom2006advancedpid}
+\abntrefinfo{Åström e Hägglund}{ÅSTRöM; HäGGLUND}{2006}
+{ÅSTRöM, K.~J.; HäGGLUND, T. \emph{Advanced PID Control}. Research Triangle
+  Park, NC: ISA—The Instrumentation, Systems, and Automation Society, 2006.}
+
+\end{thebibliography}

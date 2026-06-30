@@ -1,0 +1,55 @@
+\changetocdepth {4}
+\babel@toc {brazil}{}\relax 
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {1}\MakeTextUppercase []{Introdução}}{19}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Objetivos}{20}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Objetivo Geral}{20}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Objetivos Específicos}{20}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Organização do Texto}{21}{section.1.2}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {2}\MakeTextUppercase []{Revisão Bibliográfica}}{23}{chapter.2}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase []{Fundamentação Teórica}}{25}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Sistemas Embarcados e IoT}{25}{section.3.1}%
+\contentsline {section}{\numberline {3.2}FreeRTOS em Sistemas Embarcados}{27}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Controle de Motores DC e Ponte H}{28}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Orientação Magnética com QMC5883L}{29}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Sensores Time-of-Flight: VL53L0X}{31}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Algoritmos PID e Odometria}{32}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Mapeamento em Grid e Planejamento de Rotas}{33}{section.3.7}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {4}\MakeTextUppercase []{Materiais e Métodos}}{35}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Arquitetura do Sistema e Prototipagem de Hardware}{35}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Prototipagem e Ajustes de Hardware}{37}{subsection.4.1.1}%
+\contentsline {section}{\numberline {4.2}Integração e Montagem Mecânica do Robô}{39}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Ambiente de Desenvolvimento}{40}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Execução concorrente com FreeRTOS}{40}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Bibliotecas Utilizadas}{41}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Bibliotecas Customizadas}{41}{subsection.4.3.3}%
+\contentsline {section}{\numberline {4.4}Estratégias de Controle e Navegação}{42}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Odometria e Estimativa de Posição}{43}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Controle de Movimento via PID}{45}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Sensoriamento e Mapeamento do Ambiente}{48}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Planejamento de Rota com Algoritmo A*}{49}{subsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.4.5}Execução da Navegação}{50}{subsection.4.4.5}%
+\contentsline {subsection}{\numberline {4.4.6}Calibração de Giro e Rejeição de Leituras Instáveis}{51}{subsection.4.4.6}%
+\contentsline {section}{\numberline {4.5}Interface Web e Sistema de Arquivos Flash}{52}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Descrição dos Testes}{52}{section.4.6}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {5}\MakeTextUppercase []{Resultados}}{59}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Montagem Final do Protótipo}{59}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Mapa de Teste e Planejamento de Rotas}{61}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Resultados do Deslocamento Linear}{62}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Resultados do Controle de Rotação}{63}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Resultado da Detecção de Obstáculos}{65}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Interface Web Final e Monitoramento}{65}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Síntese dos Resultados Obtidos}{67}{section.5.7}%
+\setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
+\contentsline {chapter}{\chapternumberline {6}\MakeTextUppercase []{Conclusão}}{71}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Próximos Passos}{73}{section.6.1}%
+\setlength {\cftchapterindent }{\cftlastnumwidth } \setlength {\cftchapternumwidth }{2em}
+\contentsline {chapter}{\MakeTextUppercase []{Refer\^encias}}{75}{section*.46}%

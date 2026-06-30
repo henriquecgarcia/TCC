@@ -1,0 +1,18 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces Diagrama de pinagem do ESP32.}}{26}{figure.caption.15}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Funcionamento da ponte H para diferentes sentidos de rotação.}}{29}{figure.caption.16}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Módulo magnetômetro QMC5883L.}}{30}{figure.caption.17}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Sensor VL53L0X}}{31}{figure.caption.18}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Exemplo simplificado de mapeamento em grid \cite {patel2021ultrasonic}.}}{34}{figure.caption.19}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Arquitetura geral do sistema robótico embarcado.}}{36}{figure.caption.20}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Organização revisada dos componentes utilizados no protótipo do robô móvel.}}{38}{figure.caption.21}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Conjunto original do carrinho, com chassi de acrílico, motores DC e Porta 4 pilhas.}}{39}{figure.caption.22}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Diagrama simplificado da malha de controle de velocidade dos motores.}}{46}{figure.caption.24}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Diagrama simplificado da malha de controle de direção do robô.}}{46}{figure.caption.25}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Exemplo de caminho traçado pelo algoritmo A* sobre um mapa de ocupação.}}{50}{figure.caption.26}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Configuração do ambiente de teste, com demarcação das células do grid utilizando fitas adesivas.}}{53}{figure.caption.27}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Vista superior do protótipo final montado.}}{60}{figure.caption.34}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Detalhes da montagem final do protótipo.}}{60}{figure.caption.35}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Mapa 7x7 utilizado nos testes de navegação por células.}}{61}{figure.caption.36}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Interface principal de controle do robô durante os testes.}}{66}{figure.caption.40}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Interface de monitoramento e logs em tempo real.}}{67}{figure.caption.41}%
