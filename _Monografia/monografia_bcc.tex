@@ -431,11 +431,11 @@ Esses tópicos compõem o corpo teórico necessário para a implementação do s
 
 \section{Sistemas Embarcados e IoT} \label{sec:sistemas_emb}
 
-Sistemas embarcados consistem em plataformas computacionais especializadas, compostas por microcontroladores, firmware e, em alguns casos, sistemas operacionais de tempo real (RTOS), cujo propósito é executar tarefas específicas sob restrições rígidas de desempenho, consumo energético e confiabilidade. Essas plataformas integram, de forma sinérgica, componentes de hardware e software, promovendo soluções otimizadas para diferentes finalidades. Por serem projetados para operar de maneira contínua, eficiente e, frequentemente, em tempo real, os sistemas embarcados desempenham papel central em diversos setores da tecnologia, como automação industrial, controle de processos, equipamentos médicos, monitoramento ambiental e dispositivos de Internet das Coisas (IoT), \citeonline{matiz2024sistemas}.
+Sistemas embarcados consistem em plataformas computacionais especializadas, compostas por microcontroladores, firmware e, em alguns casos, sistemas operacionais de tempo real (RTOS), cujo propósito é executar tarefas específicas sob restrições rígidas de desempenho, consumo energético e confiabilidade. Essas plataformas integram, de forma sinérgica, componentes de hardware e software, promovendo soluções otimizadas para diferentes finalidades. Por serem projetados para operar de maneira contínua, eficiente e, frequentemente, em tempo real, os sistemas embarcados desempenham papel central em diversos setores da tecnologia, como automação industrial, controle de processos, equipamentos médicos, monitoramento ambiental e dispositivos de Internet das Coisas (IoT) \cite{matiz2024sistemas}.
 
 No contexto da IoT, a integração de sistemas embarcados com redes de comunicação sem fio, como Wi-Fi, Bluetooth e LoRa, potencializa a conectividade e a interoperabilidade entre dispositivos distribuídos. Essa conectividade torna possível a criação de ambientes inteligentes, capazes de reagir dinamicamente a estímulos do ambiente, compartilhar dados em tempo real e executar comandos remotos. Entretanto, tais sistemas exigem soluções que conciliem eficiência energética, segurança de dados e escalabilidade, aspectos críticos para aplicações em larga escala, como cidades inteligentes, agricultura de precisão e automação residencial.
 
-Para o desenvolvimento deste projeto, foi selecionado o microcontrolador ESP32, do kit de desenvolvimento DOIT ESP32 Devkit V1, devido à sua ampla versatilidade, baixo custo e rica gama de funcionalidades embarcadas. O ESP32 possui conectividade Wi-Fi e Bluetooth integradas, múltiplos núcleos de processamento, suporte a múltiplos pinos GPIO, conversores analógico-digitais (ADCs), interfaces I2C, SPI e UART, além de timers e recursos de controle PWM, características que o tornam ideal para aplicações embarcadas modernas. A \textit{Figura~\ref{fig:esp32_pinout}} apresenta o diagrama de pinagem da placa, destacando a disposição dos pinos e suas respectivas funcionalidades, informação essencial para a correta conexão dos periféricos utilizados no protótipo.
+Para o desenvolvimento deste projeto, foi selecionado o microcontrolador ESP32, do kit de desenvolvimento DOIT ESP32 Devkit V1, devido à sua ampla versatilidade, baixo custo e rica gama de funcionalidades embarcadas. O ESP32 possui conectividade Wi-Fi e Bluetooth integradas, dois núcleos de processamento, suporte a múltiplos pinos GPIO, conversores analógico-digitais (ADCs), interfaces I2C, SPI e UART, além de timers e recursos de controle PWM, características que o tornam ideal para aplicações embarcadas modernas. A \textit{Figura~\ref{fig:esp32_pinout}} apresenta o diagrama de pinagem da placa, destacando a disposição dos pinos e suas respectivas funcionalidades, informação essencial para a correta conexão dos periféricos utilizados no protótipo.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{imagens/esp32_pinout.png}
@@ -458,15 +458,15 @@ No contexto do ESP32, o FreeRTOS é particularmente relevante, pois a própria p
 
 Entre os principais recursos fornecidos pelo FreeRTOS estão a criação de tarefas, o escalonamento por prioridade, os atrasos temporizados, as filas de comunicação, os semáforos e os mecanismos de sincronização entre tarefas. Esses recursos permitem estruturar o software de forma modular, evitando que uma rotina bloqueante impeça a execução de outras partes importantes do sistema. Por exemplo, em um robô móvel, a leitura periódica de sensores deve ocorrer mesmo enquanto o sistema processa comandos recebidos pela interface web ou atualiza informações de monitoramento.
 
-Neste trabalho, o uso do FreeRTOS está associado à organização das rotinas embarcadas do robô em tarefas de execução concorrente. Essa abordagem permite separar funções como aquisição de dados sensoriais, atualização da telemetria, controle de movimentação e comunicação com a interface web. Com isso, o sistema passa a responder de forma mais adequada a eventos simultâneos, como a detecção de obstáculos, a recepção de comandos externos e a necessidade de atualização contínua da posição estimada do robô.
+O uso do FreeRTOS pode ser associado à organização de rotinas embarcadas do robô em tarefas de execução concorrente. Essa abordagem permite separar funções como aquisição de dados sensoriais, atualização da telemetria, controle de movimentação e comunicação com a interface web. Com isso, o sistema passa a responder de forma mais adequada a eventos simultâneos, como a detecção de obstáculos, a recepção de comandos externos e a necessidade de atualização contínua da posição estimada do robô.
 
-Apesar dessas vantagens, o uso de tarefas concorrentes também exige cuidados adicionais. A troca de informações entre diferentes tarefas deve ser realizada de forma controlada, evitando condições de corrida, leituras inconsistentes ou disputas por recursos compartilhados. Por esse motivo, variáveis relacionadas ao estado do robô, leituras de sensores e comandos de movimentação devem ser tratadas com atenção, especialmente quando acessadas por múltiplas rotinas.
+Apesar dessas vantagens, o uso de tarefas concorrentes também exige cuidados adicionais. A troca de informações entre diferentes tarefas deve ser realizada de forma controlada, evitando condições de corrida, leituras inconsistentes ou disputas por recursos compartilhados. Por esse motivo, variáveis relacionadas ao estado de um robô, leituras de sensores e comandos de movimentação devem ser tratadas com atenção, especialmente quando acessadas por múltiplas rotinas.
 
-Assim, o FreeRTOS contribui para a organização do software embarcado ao permitir uma arquitetura baseada em tarefas, mais adequada à natureza concorrente do sistema robótico desenvolvido. Sua utilização favorece a separação entre sensoriamento, controle, navegação e comunicação, permitindo maior robustez e responsividade durante a execução dos testes experimentais.
+Assim, o FreeRTOS contribui para a organização do software embarcado ao permitir uma arquitetura baseada em tarefas, mais adequada à natureza concorrente de um sistema robótico. Sua utilização favorece a separação entre sensoriamento, controle, navegação e comunicação, permitindo maior robustez e responsividade durante a execução dos testes experimentais.
 
-\section{Controle de Motores DC e Ponte H} \label{sec:controle_motores}
+\section{Controle de Motores CC e Ponte H} \label{sec:controle_motores}
 
-Motores de corrente contínua (DC) são componentes amplamente utilizados em plataformas robóticas móveis, especialmente em projetos com sistemas embarcados. Isso se deve à sua construção relativamente simples, ao custo acessível e à capacidade de resposta rápida a comandos de controle. No entanto, para que seja possível controlar de forma eficaz tanto a direção quanto a velocidade desses motores, é necessário empregar circuitos de acionamento apropriados, sendo a ponte H uma das soluções mais utilizadas para esse fim.
+Motores de corrente contínua (CC) são componentes amplamente utilizados em plataformas robóticas móveis, especialmente em projetos com sistemas embarcados. Isso se deve à sua construção relativamente simples, ao custo acessível e à capacidade de resposta rápida a comandos de controle. No entanto, para que seja possível controlar de forma eficaz tanto a direção quanto a velocidade desses motores, é necessário empregar circuitos de acionamento apropriados, sendo a ponte H uma das soluções mais utilizadas para esse fim.
 
 A ponte H consiste em um arranjo eletrônico formado geralmente por quatro dispositivos semicondutores de chaveamento (transistores bipolares) dispostos de modo a formar uma topologia semelhante à letra “H”. Esse circuito permite o controle da polaridade da tensão aplicada aos terminais do motor, viabilizando, assim, o acionamento em ambos os sentidos de rotação. Tal característica é fundamental para o deslocamento de robôs autônomos, que requerem comandos precisos de avanço, recuo e curvas, os quais são obtidos por meio do controle individual de cada motor responsável pela movimentação.
 
@@ -479,14 +479,14 @@ A ponte H, portanto, representa uma alternativa consolidada tanto em ambientes e
 	\begin{subfigure}[b]{0.48\linewidth}
 		\centering
 		\includegraphics[width=0.7\linewidth]{imagens/ponteH_rotacao_horaria.png}
-		\caption{Rotação horária do motor.}
+		\caption{Rotação horária de um motor.}
 		\label{fig:ponte_h_horario}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}[b]{0.48\linewidth}
 		\centering
 		\includegraphics[width=0.7\linewidth]{imagens/ponteH_rotacao_anti_horaria.png}
-		\caption{Rotação anti-horária do motor.}
+		\caption{Rotação anti-horária de um motor.}
 		\label{fig:ponte_h_anti_horario}
 	\end{subfigure}
 	\caption{Funcionamento da ponte H para diferentes sentidos de rotação.}
@@ -523,7 +523,7 @@ Após a leitura bruta, a orientação final utilizada pelo sistema é obtida pel
 \theta_{heading} = \operatorname{mod}(\theta_{bruto} + \delta - \theta_{0},\, 360^\circ)
 \end{equation}
 
-em que \(\delta\) representa a declinação magnética local e \(\theta_{0}\) é o zero angular configurado na calibração.
+\noindent em que \(\delta\) representa a declinação magnética local e \(\theta_{0}\) é o zero angular configurado na calibração.
 
 Magnetômetros estão sujeitos a perturbações provocadas por materiais ferromagnéticos e por campos magnéticos gerados por correntes elétricas próximas. Por essa razão, sua aplicação em plataformas móveis exige calibração e cuidado com o posicionamento físico do sensor. As decisões específicas de integração, filtragem e uso do QMC5883L neste protótipo são apresentadas no Capítulo~\ref{cap:materiais_metodos}.
 
@@ -532,13 +532,13 @@ Magnetômetros estão sujeitos a perturbações provocadas por materiais ferroma
 	\includegraphics[width=0.55\linewidth]{imagens/qmc5883l_modulo.jpg}
 	\caption{Módulo magnetômetro QMC5883L.}
 	\label{fig:qmc5883l_modulo}
-	\small\textit{Fonte: \href{https://www.casadarobotica.com/sensores-modulos/sensores/outros/modulo-bussola-eletronica-magnetometro-hmc5883l}{CASA DA ROBOTICA, 2026}.}
+	\small\textit{Fonte: \href{https://www.casadarobotica.com/sensores-modulos/sensores/outros/modulo-bussola-eletronica-magnetometro-hmc5883l}{CASA DA ROBOTICA, (2026)}.}
 \end{figure}
 
 \section{Sensores Time-of-Flight: VL53L0X} \label{sec:vl53l0x}
-Sensores do tipo \textit{Time-of-Flight} (ToF), como o modelo VL53L0X, realizam medições de distância com base no tempo que um feixe de luz, geralmente laser infravermelho, leva para atingir um objeto e retornar ao sensor após a reflexão. Esse princípio de funcionamento permite a obtenção de leituras rápidas e com elevada precisão, alcançando uma resolução na ordem de milímetros e alcance típico de até 1,2 metros em ambientes controlados \citeonline{adafruit2024vl53l0x}. Tais características tornam os sensores ToF especialmente adequados para aplicações que requerem resposta em tempo real, como navegação autônoma, detecção e evasão de obstáculos e mapeamento de ambientes tridimensionais.
+Sensores do tipo \textit{Time-of-Flight} (ToF), como o modelo VL53L0X, realizam medições de distância com base no tempo que um feixe de luz, geralmente laser infravermelho, leva para atingir um objeto e retornar ao sensor após a reflexão. Esse princípio de funcionamento permite a obtenção de leituras rápidas e com elevada precisão, alcançando uma resolução na ordem de milímetros e alcance típico de até 1,2 metros em ambientes controlados \cite{adafruit2024vl53l0x}. Tais características tornam os sensores ToF especialmente adequados para aplicações que requerem resposta em tempo real, como navegação autônoma, detecção e evasão de obstáculos e mapeamento de ambientes tridimensionais.
 
-A escolha do sensor VL53L0X neste projeto se deu, principalmente, por sua superioridade em relação a outros sensores amplamente utilizados no ensino e em projetos de prototipagem, como o HC-SR04. Enquanto o HC-SR04 utiliza ondas ultrassônicas, que estão sujeitas a variações ambientais (como temperatura e tipo de superfície do objeto), o VL53L0X opera com luz, o que lhe confere maior estabilidade, tempo de resposta mais curto e maior precisão nas medições. Dessa forma, o VL53L0X apresenta-se como uma solução mais robusta e confiável para os requisitos do sistema robótico proposto, especialmente no que se refere à detecção eficiente de obstáculos em tempo real e à construção de um mapeamento preciso do ambiente. A representação de um sensor equivalente ao utilizado no projeto está representado na Figura~\ref{fig:vl53l0x-sensor}.
+Este sensor possui uma superioridade em relação a outros sensores amplamente utilizados no ensino e em projetos de prototipagem, como o HC-SR04. Enquanto o HC-SR04 utiliza ondas ultrassônicas, que estão sujeitas a variações ambientais (como temperatura e tipo de superfície do objeto), o VL53L0X opera com luz, o que lhe confere maior estabilidade, tempo de resposta mais curto e maior precisão nas medições. Dessa forma, o VL53L0X apresenta-se como uma solução mais robusta e confiável para os requisitos de projeto de sistema robótico, especialmente no que se refere à detecção eficiente de obstáculos em tempo real e à construção de um mapeamento preciso do ambiente. A representação dete sensor está representado na Figura~\ref{fig:vl53l0x-sensor}.
 
 \begin{figure}[ht]
 	\centering
@@ -570,7 +570,7 @@ A sintonização adequada desses parâmetros (\( K_p \), \( K_i \) e \( K_d \)) 
 
 Complementarmente ao controle, a navegação precisa em ambientes internos exige a estimativa contínua da posição e da orientação do robô, processo conhecido como odometria. A odometria clássica baseia-se na leitura incremental dos encoders ópticos acoplados às rodas motrizes, que fornecem a quantidade de pulsos gerados conforme as rodas giram. Com base nesses dados, é possível calcular o deslocamento linear e angular do robô por integração das variações de posição ao longo do tempo.
 
-Considerando um robô diferencial com duas rodas, os deslocamentos linear \( \Delta s \) e angular \( \Delta \theta \) são dados por: \citeonline{siegwart2011introduction}
+Considerando um robô diferencial com duas rodas, os deslocamentos linear \( \Delta s \) e angular \( \Delta \theta \) são dados por: \cite{siegwart2011introduction}
 
 \begin{align}
 	\Delta s &= \frac{r}{2} (\Delta \phi_R + \Delta \phi_L) \\
@@ -588,12 +588,12 @@ Essas equações permitem atualizar a posição do robô em coordenadas cartesia
 
 Apesar da sua simplicidade, a odometria baseada exclusivamente em encoders está sujeita a erros cumulativos, como deslizamentos de roda e imprecisões de leitura. Para mitigar esses erros, é comum a fusão de sensores, combinando odometria com referências externas de orientação, como o \textit{magnetômetro QMC5883L} \cite{unicamp2017odometria}.
 
-Portanto, a utilização combinada do controle PID e da odometria fornece uma base robusta para a movimentação precisa e a navegação confiável do robô em ambientes internos, atendendo aos requisitos de autonomia e estabilidade do sistema proposto.
+Portanto, a utilização combinada do controle PID e da odometria fornece uma base robusta para a movimentação precisa e a navegação confiável do robô em ambientes internos, atendendo a requisitos de autonomia e estabilidade do sistema.
 
 \section{Mapeamento em Grid e Planejamento de Rotas}
 \label{sec:mapeamento_grid}
 
-O mapeamento em grid é uma técnica amplamente adotada na robótica móvel para representar ambientes de maneira discreta. Nessa abordagem, o espaço contínuo é dividido em uma matriz bidimensional de células uniformes, também denominada grade de ocupação. Cada célula representa uma região do ambiente e pode ser classificada, por exemplo, como livre, ocupada ou desconhecida, de acordo com as informações disponíveis sobre o espaço \cite{ufla2020mapa}.
+O mapeamento em \textit{grid} é uma técnica amplamente adotada na robótica móvel para representar ambientes de maneira discreta. Nessa abordagem, o espaço contínuo é dividido em uma matriz bidimensional de células uniformes, também denominada grade de ocupação. Cada célula representa uma região do ambiente e pode ser classificada, por exemplo, como livre, ocupada ou desconhecida, de acordo com as informações disponíveis sobre o espaço \cite{ufla2020mapa}.
 
 A representação matricial facilita o tratamento computacional do ambiente e permite formular o problema de navegação como uma busca em grafo. As células livres correspondem aos estados que podem ser visitados pelo robô, enquanto as células ocupadas restringem o conjunto de movimentos admissíveis. A Figura~\ref{fig:grid-mapping-basics} apresenta um exemplo de discretização de um ambiente em células.
 
@@ -604,7 +604,7 @@ A representação matricial facilita o tratamento computacional do ambiente e pe
 		\label{fig:grid-mapping-basics}
 \end{figure}
 
-Após a definição da grade, algoritmos de busca podem ser empregados para calcular uma trajetória entre uma célula inicial e uma célula de destino. Entre os algoritmos utilizados para esse propósito estão Dijkstra e A*. O algoritmo A* combina o custo acumulado desde a origem com uma função heurística que estima o custo restante até o destino.
+Após a definição da grade, algoritmos de busca podem ser empregados para calcular uma trajetória entre uma célula inicial e uma célula de destino. Entre os algoritmos utilizados para esse propósito estão \textit{Dijkstra} e A*. O algoritmo A* combina o custo acumulado desde a origem com uma função heurística que estima o custo restante até o destino.
 
 De forma geral, a função de avaliação do A* é expressa por:
 
@@ -612,9 +612,9 @@ De forma geral, a função de avaliação do A* é expressa por:
 		f(n) = g(n) + h(n),
 \end{equation}
 
-em que \(g(n)\) representa o custo acumulado da origem até o nó \(n\), e \(h(n)\) representa uma estimativa do custo entre \(n\) e o destino. Em grades com movimentação ortogonal, uma heurística comum é a distância de Manhattan.
+\noindent em que \(g(n)\) representa o custo acumulado da origem até o nó \(n\) e \(h(n)\) representa uma estimativa do custo entre \(n\) e o destino. Em grades com movimentação ortogonal, uma heurística comum é a distância de Manhattan.
 
-A rota gerada pelo planejador é formada por uma sequência ordenada de células adjacentes. Para que essa rota seja executada por um robô móvel, ela deve ser convertida em comandos de movimento compatíveis com sua cinemática. A definição do mapa utilizado, da posição inicial, da forma de informar o destino e das modificações realizadas no algoritmo A* pertence à implementação deste trabalho e, por isso, é apresentada no Capítulo~\ref{cap:materiais_metodos}.
+A rota gerada pelo planejador é formada por uma sequência ordenada de células adjacentes. Para que essa rota seja executada por um robô móvel, ela deve ser convertida em comandos de movimento compatíveis com sua cinemática. A definição do mapa utilizado, da posição inicial e da forma de informar o destino faz parte das escolhas do projetista.
 
 \chapter{Materiais e Métodos}
 \label{cap:materiais_metodos}
@@ -641,7 +641,7 @@ Conforme ilustrado na Figura~\ref{fig:arquitetura_sistema}, o ESP32 atua como un
 
 O módulo de sensoriamento é composto principalmente pelos encoders ópticos, pelo sensor de distância VL53L0X e pelo magnetômetro QMC5883L. Os encoders fornecem pulsos associados à rotação das rodas, permitindo estimar o deslocamento do robô, calcular a odometria e controlar os movimentos lineares e angulares. O sensor VL53L0X, baseado em tecnologia \textit{Time-of-Flight}, é utilizado para medir a distância frontal e identificar obstáculos durante a navegação. Já o QMC5883L fornece uma referência auxiliar de orientação magnética no plano horizontal, sendo empregado para estimativa do \textit{heading} quando suas leituras apresentam estabilidade suficiente.
 
-A partir das informações sensoriais, o ESP32 executa rotinas de controle e decisão, incluindo controladores PID, lógica de navegação em grid, planejamento de movimento entre células, monitoramento de obstáculos e atualização da posição estimada do robô. Essas informações são utilizadas para gerar sinais de controle enviados ao módulo Ponte H L298N. A Ponte H recebe sinais digitais e PWM do ESP32 e realiza o acionamento elétrico dos motores de corrente contínua, permitindo o controle independente dos lados esquerdo e direito do robô.
+A partir das informações sensoriais, o ESP32 executa rotinas de controle e decisão, incluindo controladores PID, lógica de navegação em grid, planejamento de movimento entre células, monitoramento de obstáculos e atualização da posição estimada do robô. Essas informações são utilizadas para gerar sinais de controle enviados ao módulo Ponte H L298N. A Ponte H recebe sinais PWM do ESP32 e realiza o acionamento elétrico dos motores de corrente contínua, permitindo o controle independente dos lados esquerdo e direito do robô.
 
 A estrutura física do robô é baseada em uma plataforma de quatro rodas acionadas por motores de corrente contínua. Cada lado possui dois motores conectados em paralelo, formando dois conjuntos de tração: um conjunto esquerdo e um conjunto direito. Essa configuração permite a locomoção diferencial do robô, possibilitando movimentos de avanço, ré e rotação sobre o próprio eixo. Os motores frontais são equipados com encoders, utilizados como principal fonte de realimentação para o controle de deslocamento e rotação.
 
@@ -654,7 +654,7 @@ Dessa forma, a arquitetura adotada estabelece um ciclo de realimentação entre 
 \subsection{Prototipagem e Ajustes de Hardware}
 \label{sec:prototipagem_ajustes}
 
-Após a definição da arquitetura geral, os componentes foram organizados em uma montagem de prototipagem para validar, de forma prática, a integração entre os módulos apresentados na fundamentação teórica. Essa etapa permitiu verificar a compatibilidade entre o ESP32, a Ponte H L298N, os motores DC, os encoders, o sensor VL53L0X, o magnetômetro QMC5883L, o conversor LM2596 e o sistema de alimentação por bateria.
+Após a definição da arquitetura geral, os componentes foram organizados em uma montagem de prototipagem para validar, de forma prática, a integração entre os módulos apresentados no Capítulo~\ref{chap:fundamentacao_teorica}. Essa etapa permitiu verificar a compatibilidade entre o ESP32, a Ponte H L298N, os motores DC, os encoders, o sensor VL53L0X, o magnetômetro QMC5883L, o conversor LM2596 e o sistema de alimentação por bateria.
 
 A Figura~\ref{fig:protoboard_model_v2} apresenta a organização física revisada dos componentes em ambiente de prototipação. Essa representação foi utilizada como referência para a montagem do protótipo, evidenciando a disposição dos módulos principais, das conexões de alimentação e dos sinais de controle.
 
@@ -700,7 +700,7 @@ A alimentação do sistema é fornecida por uma bateria de íon-lítio (Li-ion) 
 
 O desenvolvimento do \textit{firmware} embarcado do robô autônomo foi realizado no \textit{Visual Studio Code}, utilizando a extensão PlatformIO e o \textit{framework} Arduino para ESP32. Essa escolha permitiu organizar o projeto em uma estrutura modular, com separação entre código-fonte, bibliotecas customizadas, arquivos de interface web e configurações de compilação.
 
-O uso do PlatformIO facilitou o gerenciamento das dependências, a configuração da placa ESP32, a compilação do projeto e o envio dos arquivos estáticos da interface para a memória flash do microcontrolador. Como a interface web é composta por arquivos HTML, CSS e JavaScript, o suporte a sistemas de arquivos embarcados, como SPIFFS, tornou-se parte importante do fluxo de desenvolvimento.
+O uso do PlatformIO facilitou o gerenciamento das dependências, a configuração da placa ESP32, a compilação do projeto e o envio dos arquivos estáticos da interface para a memória Flash do microcontrolador. Como a interface web é composta por arquivos HTML, CSS e JavaScript, o suporte a sistemas de arquivos embarcados, como SPIFFS, tornou-se parte importante do fluxo de desenvolvimento.
 
 Além da organização do código, o ambiente também favoreceu a depuração incremental. Durante o desenvolvimento, logs via serial e via interface web foram utilizados para acompanhar leituras dos encoders, estado do magnetômetro, detecção de obstáculos, planejamento de rota, execução de células e calibração de curvas.
 
@@ -774,7 +774,7 @@ A navegação autônoma do robô é composta por um conjunto de estratégias int
 
 A estimativa de deslocamento do robô é realizada por meio da odometria diferencial, utilizando a contagem de pulsos dos encoders ópticos instalados nas rodas frontais. Esses dados são processados para determinar a distância percorrida por cada lado do robô e a variação angular ao longo do tempo. Como o robô utiliza uma configuração de tração diferencial, na qual os lados esquerdo e direito podem ser acionados de forma independente, a pose do robô pode ser estimada a partir da diferença entre os deslocamentos das rodas.
 
-Inicialmente, os pulsos acumulados pelos encoders são convertidos em deslocamento linear. Considerando uma roda de raio $r$, uma resolução de encoder de $N$ pulsos por volta e variações de contagem $\Delta p_L$ e $\Delta p_R$ para as rodas esquerda e direita, respectivamente, os deslocamentos lineares de cada lado são calculados pelas Equações~\ref{eq:deslocamento_roda_esquerda} e~\ref{eq:deslocamento_roda_direita}:
+Inicialmente, os pulsos acumulados pelos encoders são convertidos em deslocamento linear. Considerando uma roda de raio $r$, uma resolução de encoder de $N$ pulsos por volta e variações de contagem $\Delta p_L$ e $\Delta p_R$ para as rodas esquerda e direita, respectivamente, os deslocamentos lineares de cada lado são calculados por:
 \begin{equation}
 	\Delta s_L = \frac{2\pi r}{N}\Delta p_L
 	\label{eq:deslocamento_roda_esquerda}
@@ -783,7 +783,9 @@ Inicialmente, os pulsos acumulados pelos encoders são convertidos em deslocamen
 	\Delta s_R = \frac{2\pi r}{N}\Delta p_R
 	\label{eq:deslocamento_roda_direita}
 \end{equation}
-Em seguida, o deslocamento médio do robô e sua variação angular são obtidos, respectivamente, pelas Equações~\ref{eq:deslocamento_medio} e~\ref{eq:variacao_angular_odometria}, de acordo com o modelo cinemático diferencial:
+\noindent sendo $\Delta s_L$ e $\Delta s_R$ os deslocamentos lineares das rodas esquerda e direita, respectivamente. Esses valores representam a distância percorrida por cada roda em um intervalo de tempo específico, permitindo calcular o deslocamento médio do robô e sua variação angular.
+
+Em seguida, o deslocamento médio do robô ($\Delta s$) e sua variação angular ($\Delta \theta$) são obtidos, respectivamente, pelas Equações~\ref{eq:deslocamento_medio} e~\ref{eq:variacao_angular_odometria}, de acordo com o modelo cinemático diferencial:
 \begin{equation}
 	\Delta s = \frac{\Delta s_R + \Delta s_L}{2}
 	\label{eq:deslocamento_medio}
@@ -793,7 +795,7 @@ Em seguida, o deslocamento médio do robô e sua variação angular são obtidos
 	\label{eq:variacao_angular_odometria}
 \end{equation}
 
-em que $b$ representa a distância entre as rodas ou, de forma equivalente, a largura efetiva entre os pontos de contato dos lados esquerdo e direito do robô. Com esses valores, a pose do robô no instante $k$ pode ser atualizada a partir da pose anterior $(x_{k-1}, y_{k-1}, \theta_{k-1})$, conforme, novamente seguindo a cinemática de um robô diferencial,
+\noindent em que $b$ representa a distância entre as rodas ou, de forma equivalente, a largura efetiva entre os pontos de contato dos lados esquerdo e direito do robô. Com esses valores, a pose do robô no instante $k$ pode ser atualizada a partir da pose anterior $(x_{k-1}, y_{k-1}, \theta_{k-1})$, conforme, novamente seguindo a cinemática de um robô diferencial:
 
 \begin{equation}
 	x_k = x_{k-1} + \Delta s \cos\left(\theta_{k-1} + \frac{\Delta \theta}{2}\right)
@@ -810,7 +812,7 @@ em que $b$ representa a distância entre as rodas ou, de forma equivalente, a la
 	\label{eq:pose_theta_odometria}
 \end{equation}
 
-Essa formulação permite atualizar incrementalmente a posição e a orientação do robô a cada nova leitura dos encoders. O termo $\theta$ representa a orientação do robô no plano, enquanto $x$ e $y$ indicam sua posição estimada em relação ao referencial adotado no mapa. No contexto deste trabalho, essa estimativa é utilizada tanto para acompanhar o deslocamento físico do robô quanto para relacionar sua posição contínua com as células discretas do mapa em gridPor fim, a velocidade angular e linear do robô podem ser calculados a partir de \ref{eq:pose_x_odometria} e \ref{eq:pose_y_odometria}, sendo dadas por % ! COLOCAR EQUAÇÃO AQUI ! %.
+Essa formulação permite atualizar incrementalmente a posição e a orientação do robô a cada nova leitura dos encoders. O termo $\theta$ representa a orientação do robô no plano, enquanto $x$ e $y$ indicam sua posição estimada em relação ao referencial adotado no mapa. No contexto deste trabalho, essa estimativa é utilizada tanto para acompanhar o deslocamento físico do robô quanto para relacionar sua posição contínua com as células discretas do mapa em grid.
 
 Para a aplicação prática dessas equações, é necessário definir alguns parâmetros físicos do protótipo. Esses parâmetros relacionam a movimentação real do robô com os valores obtidos pelos encoders e, portanto, influenciam diretamente a estimativa de pose. No presente trabalho, foram considerados os seguintes pontos de medição:
 

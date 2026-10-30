@@ -1,0 +1,55 @@
+=== By Sérgio ====
+1) O A-estrela é executado de forma embarcada no esp32?
+2)  O planejamento é feito de forma deliberativa ou reativa?
+3) Como as referências de heading e velocidade são aplicadas nas malhas de controle para o robô atingir a posição final desejada?
+4) Um obstáculo foi inserido no ambiente de teste? Como o A-estrela lida com um obstáculo?
+5) Trabalhos futuros. Sobre o controlador PID, você pode analisar:
+     A sensibilidade a oscilações
+     Pico derivativo
+     Saturação dos atuadores
+     Wind up
+6) Sugestão, apresentar nos resultados as respostas das variáveis controladas (heading e velocidade) e os erros para um dos testes realizados. 
+
+-----------
+No texto:
+- Resumo:
+  - Time-of-Flight (ToF) --> Adicionar que é via Laser IR
+  - e encoders ópticos para odometria. --> esses encoders estão nos motores? Corrija o texto.
+Capítulo "Objetivos":
+  - Seção "Objetivo Geral:
+    - "tempo de voo (VL53L0X)" --> feixe de laser infravermelho
+    - monitoramento --> medição
+  - Seção "Objetivos Específicos":
+    - "encoders ópticos ao sistema de controle" --> isso já não é feito no item acima?
+Capítulo "Fundamentação Teórica":
+- Em: "Orientação Magnética com QMC5883L":
+  - "declinação magnética" --> refere-se ao ângulo entre o norte geográfico e o norte magnético.
+  - "que 𝛿 representa a declinação magnética local" --> Como foi feito esse ajuste?  Usando uma bússola?  Qual foi o valor ajustado?
+- Em: "Algoritmos PID e Odometria":
+  - Formula do PID --> de tempo continuo
+  - Na formula de Delta s --> descolameto em x? Não é velocidade na direção x.
+     - Na formula de Delta s --> falta o cos(theta) pois essa é a componente de velocidade em x.
+     - Na formula de Delta s --> faltou a equação para a velocidade na direção y. Depois justifique porque ela não é utilizada.
+Capítulo "Materiais e Métodos":
+- Em: "Ambiente de Desenvolvimento" > "Execução concorrente com FreeRTOS":
+  - No título: Definir como é feito a criação das tasks, gerenciamento de execução e a comunicação entre as tasks?
+  - No Título: O uso do FreeRTOS precisa ser citado no resumo e nos objetivos.
+- Em: "Controle de Movimento via PID"
+  - Na Formula de e_w(t) --> tempo contínuo?
+  - Formula de PID --> tempo continuo? Apresentação a equação a diferença do controlador PID de tempo discreto.
+  - Formula de PID --> Qual foi a taxa de amostragem usada?
+  - Formula de PID --> de velocidade ângular.
+  - Formula de PID seguinte --> Passar para tempo discreto
+
+
+=== By Fernanda ===
+
+
+No texto:
+- Forma de citação de referência:
+  - Só (Nome, ano)
+- Siglas só em ingles 
+- Palavras em ingles --> Deixar em itálico
+- "or sua capacidade de processamento superior" --> "Superior em relação a que?"
+- em "própria plataforma de desenvolvimento utilizada pelo microcontrolador é baseada nesse sistema operacional." --> "Qual?"
+- No Capítulo "Fundamentação Teórica" --> Deixar mais generalizado, não só do projeto.
